@@ -1,0 +1,52 @@
+<div ng-show="state.current.name==='routeSummary'">
+    <ol class="breadcrumb">
+        <li class="active">Sistema</li>
+        <li class="active actualpg">Rutas</li>
+    </ol>
+    <div class="pull-right">
+        <div class="btn-group  btn-group-lg">
+            <button class="btn btn-default sin-padding" tooltip="Iniciar ruta" ng-click="go(selScheduledDate)"><span class="pers-btn icono-iniciar-ruta tam-normal"></span></button>
+            <button class="btn btn-default sin-padding" ng-click="tableParams.reload()" ><span class="pers-btn icono-refrescar tam-normal"></span></button>
+            <button zd-filter custom-filter="customFilter" ng-click="openFilter()" is-open="filterOpen" apply-filter="appFilter(filter)" class="btn btn-default filtrar"><span class="pers-btn icono-filtrar tam-normal"></span></button>
+        </div>       
+    </div>
+<h1 align="center" id="clock"></h1>
+<div class="panel panel-default">
+    <div class="panel-heading ui-ngtwidget-header">Rutas</div>
+    <div loading-container="tableParams.settings().$loading">
+        <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable">
+            <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover">
+                <tbody>
+                    <tr ng-repeat="schedule in $data" ng-click="schedule.$selected = !schedule.$selected; changeSelection(schedule)"
+                        ng-class="{'ngactive': schedule.$selected}" ng-mouseover="hoverTrIn()" ng-mouseleave="hoverTrOut()">
+                        <td data-title="'Fecha'" class="text-center" sortable="'scheduled_date'">
+                            {{((schedule.Fecha).substring(0,19)).replace(' ','')|date:'dd-MM-yyyy hh:mm a'}}
+                        </td>
+                        <td data-title="'Hora'"  class="text-center col-md-3" sortable="'Hora'">
+                            {{schedule.Hora}}
+                        </td>
+                        <td data-title="'Nombre de la ruta'" class="text-center" sortable="'Nombre'">
+                            {{schedule.Nombre}}
+                        </td>
+                        <td data-title="'Vehículo'" class="text-center" sortable="'Vehiculo'">
+                            {{schedule.Vehiculo}}
+                        </td>
+                        <!--<td data-title="'Iniciar ruta'" class="text-center col-md-1">
+                            <span ng-show="hoverGoSchedule" class="glyphicon glyphicon-circle-arrow-right" ng-click="go(schedule)" title="Iniciar ruta"></span>
+                            <span ng-show="!hoverGoSchedule" class="glyphicon glyphicon-circle-arrow-right" title="Iniciar ruta" style="color:#ccc"></span>
+                        </td>-->
+                        <td data-title="'Estado de la ruta'" class="text-left col-md-1 sin-padding" sortable="'Estado'">
+                            <span  ng-if="(schedule.Estado==null || schedule.Estado==0)" class="pers-btn icono-sin-iniciar" style="color:#D3D3D3" ng-click="goPacks(schedule)"></span> 
+                            <span  ng-if="(schedule.Estado==1)" class="pers-btn icono-en-proceso" style="color:#5BA1F0;font-size:1.1em" ng-click="goPacks(schedule)"></span>
+                            <span  ng-if="(schedule.Estado==2)" class="pers-btn icono-ruta-finalizada" style="color:#52CA22;font-size:1.1em" ng-click="goPacks(schedule)"></span>                         
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</div>
+<div ui-view="edit"></div>
+<!--img  src="../images/Logo_1.png" alt="logo" class="pie"--> 

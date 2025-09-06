@@ -1,0 +1,70 @@
+<div ng-show="state.current.name==='schedule.detail'">    
+   
+    <div class="container-fluid">
+        <div class="row">
+            
+                <div class="pull-right">                         
+                    <div class="btn-group  btn-group-sm">                        
+                        <button class="btn btn-default nuevo" ng-click="grid.add()"><span class="pers-btn icono-nuevo tam-normal"></span></button>
+                        <!--<button tooltip="Editar" class="btn btn-default" ng-click="grid.edit()"><span class="glyphicon glyphicon-edit"></span></button>-->
+                        <!--<button tooltip="Eliminar" class="btn btn-default" ng-click="grid.delete()"><span class="glyphicon glyphicon-trash"></span></button>-->
+                        <!--<button zd-filter custom-filter="customFilter" ng-click="openFilter()" is-open="filterOpen" apply-filter="appFilter(filter)" class="btn btn-default"><span class="glyphicon glyphicon-filter"></span></button>-->
+                        <button class="btn btn-default refrescar" ng-click="tableParams.reload()" ><span class="pers-btn icono-refrescar tam-normal"></span></button>
+                    </div>       
+                </div>
+                <p>&nbsp;</p>
+                <div loading-container="tableParams.settings().$loading">
+                    <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable table-responsive">
+                    <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top"><span class="ui-ngt-title">Programaciones - {{tableParams.data[0]["route"]}}</span></div>
+                        <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover table-striped  table-condensed">
+                            <tbody>
+                                <tr ng-repeat="schedule in $data" ng-click="schedule.$selected = !schedule.$selected; changeSelection(schedule)"
+                                    ng-class="{'ngactive': schedule.$selected}" ng-mouseover="hoverTrIn()" ng-mouseleave="hoverTrOut()">                        
+                                    <td data-title="'Desde el'" sortable="'start_date'" class="col-md-3">
+                                        {{schedule.start_date|stringToDate|date:"dd-MM-yyyy hh:mm a"}}
+                                    </td>
+                                    <td data-title="'Hasta el'" sortable="'end_date'" class="col-md-3">
+                                        {{schedule.end_date|stringToDate|date:"dd-MM-yyyy hh:mm a"}}
+                                    </td>
+                                    <td data-title="'Día'" class="text-center">
+                                        {{  schedule.sunday==1? "Do": "" + 
+                                            schedule.monday==1? "Lu": "" +
+                                            schedule.tuesday==1? "Ma": "" +
+                                            schedule.wednesday==1? "Mi": "" +
+                                            schedule.thursday==1? "Ju": "" +
+                                            schedule.friday==1? "Vi": "" +
+                                            schedule.saturday==1? "Sa": ""
+                                        }}                                        
+                                    </td>
+                                    <td data-title="'Chofer'" class=" ">
+                                        {{schedule.driver}}
+                                    </td>
+                                    <td data-title="'Vehículo'" class="">
+                                        {{schedule.vehicle}}
+                                    </td>                                    
+                                    <td data-title="''" sortable="'recurrent'" class="text-center">
+                                        <span  ng-show="schedule.recurrent==1" class="pers-btn icono-repetir icono-tam-tabla" title="Programación periódica" ></span>
+                                        <span  ng-show="schedule.recurrent==0" class="pers-btn icono-sin-accion icono-tam-tabla" title="Programación normal" ></span>
+                                    </td>
+                                    <td class="text-center1">
+                                        <span  ng-show="hoverGoSchedule" class="pers-btn icono-calendario icono-tam-tabla" ng-click="goScheduledDates(schedule.id)" title="Ver fechas programadas"></span>
+                                        <span ng-show="!hoverGoSchedule" class="pers-btn icono-calendario icono-tam-tabla" title="Ver fechas programadas" style="color:#ccc"></span>
+                                    </td>                                                     
+                                    <td class="text-center">
+                                        <span  ng-show="hoverGoSchedule" class="pers-btn icono-editar-fila icono-tam-tabla" ng-click="grdEdit(schedule.id)" title="Editar"></span>
+                                        <span  ng-show="!hoverGoSchedule" class="pers-btn icono-editar-fila icono-tam-tabla" title="Editar" style="color:#ccc"></span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span  ng-show="hoverGoSchedule" class="pers-btn icono-eliminar-fila icono-tam-tabla" ng-click="grdDelete(schedule.id)" title="Eliminar"></span>
+                                        <span ng-show="!hoverGoSchedule" class="pers-btn icono-eliminar-fila icono-tam-tabla" title="Eliminar" style="color:#ccc"></span>
+                                    </td>                                                     
+                                </tr>
+                            </tbody>
+                        </table>            
+                    </div>        
+                </div>
+           
+            
+        </div>
+    </div>
+</div>

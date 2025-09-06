@@ -1,0 +1,93 @@
+<div ng-show="state.current.name==='conversion.edit'||state.current.name==='conversion.add'">
+    <ol class="breadcrumb">
+        <li class="active">Catálogos</li>
+        <li class="active"><a ui-sref="conversion">Conversión</a></li>
+        <li class="active actualpg" ng-show="state.current.name === 'conversion.add'">Agregar Conversión</li>
+        <li class="active actualpg" ng-show="state.current.name === 'conversion.edit'">Editar Conversión</li>
+    </ol>
+    <progressbar class="progress-striped active" value="100" type="info" ng-show="loading"></progressbar>
+    <div class="toolbar">
+        <div class="pull-right">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group  btn-group-sm">
+                    <!--<button class="btn btn-default" tooltip="Regresar" ng-click="back()"><span class="glyphicon glyphicon-chevron-left"></span></button>-->
+                    <button class="btn btn-default sin-padding" ng-click="save()" ng-disabled="frmConversion.$invalid"><span class="pers-btn icono-guardar tam-normal"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">Conversiones</div>
+
+        <div class="panel-body">
+            <form  role="form" novalidate name="frmConversion">
+                
+                <div class="row">
+                    
+                    <div class="col-md-3">
+                        <input type="hidden" class="form-control" ng-model="conversion.id">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmConversion.idMoneda)">
+                            <label for="idMoneda">Moneda</label>
+                            <select class="form-control"  
+                                    id="idMoneda"  
+                                    name="idMoneda" 
+                                    required 
+                                    ng-model="conver.moneda" 
+                                    ng-options="option.moneda for option in monedas track by option.id">
+                                <option value="" >Seleccione...</option>
+                            </select> 
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <input type="hidden" class="form-control" ng-model="conversion.id">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmConversion.creditos)">
+                            <label for="creditos">Créditos</label>
+                            <input type="number" class="form-control" id="creditos" name="creditos" placeholder="Créditos" required ng-model="conver.creditos">
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <div class="row">
+                    
+                    <div class="col-md-3">
+                        <input type="hidden" class="form-control" ng-model="conversion.id">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmConversion.compra)">
+                            <label for="compra">Compra</label>
+                            <input type="number" class="form-control" id="compra" name="compra" placeholder="Valor de Compra" required ng-model="conver.compra">
+                        </div>
+                    </div>
+                    <div class="col-md-2" >
+                        <div class="form-group">
+                            <label for="fecha">Fecha </label>
+                            <div class="input-group cust-datepicker">
+                                    <input type="text" class="form-control" id="fecha" name="fecha" placeholder="D-M-Y" required ng-model="conver.fecha" datepicker-popup="{{datePicker.format}}" 
+                                           is-open="datePicker.opened" min-date="datePicker.minDate" datepicker-options="datePicker.dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Borrar"  show-button-bar="false"/>
+                                    <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="datePicker.open($event)">&nbsp;<i class="glyphicon glyphicon-calendar"></i>&nbsp;</button>
+                                    </span>                                        
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+                <div class="row">
+                    
+                    <div class="col-md-3">
+                        <input type="hidden" class="form-control" ng-model="conversion.id">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmConversion.venta)">
+                            <label for="venta">Venta</label>
+                            <input type="number" class="form-control" id="venta" name="venta" placeholder="Valor de Venta" required ng-model="conver.venta">
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                
+            </form>        
+        </div>
+    </div>
+</div>

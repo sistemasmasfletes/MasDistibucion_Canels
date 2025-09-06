@@ -1,0 +1,50 @@
+<div ng-show="state.current.name==='warehouseman.pack'">
+<div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="pull-right">
+                    <div class="btn-group">
+                        <button tooltip="Regresar" class="btn btn-default" ng-click="back()"><span class="glyphicon glyphicon-chevron-left"></span></button>
+                        <!--<button tooltip="Editar" class="btn btn-default" ng-click="grid.transfer()"><span class="glyphicon glyphicon-edit"></span></button>-->
+                        <button class="btn btn-default" ng-click="tableParams.reload()" tooltip="Recargar"><span class="glyphicon glyphicon-refresh"></span></button>
+                    </div>
+                </div>
+                <p id="topTitle"> 
+                    &nbsp;&nbsp;
+                </p>
+            
+                <div loading-container="tableParams.settings().$loading">
+                    <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable">
+                        <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">
+                            <span class="ui-ngt-title">Programaciones de almacén: {{currentData.data[0][0]['pointName']}}</span>
+                        </div>
+                        <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover table-condensed">
+                            <tbody>
+                                <tr ng-repeat="schedule in $data" ng-click="schedule.$selected = !schedule.$selected; changeSelection(schedule)"
+                                    ng-class="{'ngactive': schedule.$selected}">
+                                    <td data-title="'Hora'" class="text-center col-md-4">
+                                        {{schedule.scheduleDate}}
+                                    </td>
+                                    <td data-title="'Actividad'" class="col-md-1 text-center">
+                                        <span tooltip="Sin Actividad" ng-if="(schedule.hasActivity==0)" class="glyphicon glyphicon-minus" style="color:#D3D3D3"></span>
+                                        <span tooltip="Actividad" ng-if="(schedule.hasActivity>0)" class="glyphicon glyphicon-transfer" style="color:#52CA22;font-size:1.1em"></span>                            
+                                    </td>
+                                    <td data-title="'Iniciar'" class="text-center col-md-1">
+                                        <span tooltip="Ver programaciones" class="glyphicon glyphicon-hand-right" style="color:#21CC2D" ng-click="go(schedule)"></span>
+                                    </td>
+                                    <!--<td data-title="'Estado'" class="text-center">
+                                        <span tooltip="Sin acción" ng-if="(schedule.status==null)" class="glyphicon glyphicon-minus-sign" style="color:#D3D3D3"></span>
+                                        <span tooltip="Recibido" ng-if="(schedule.status==1)" class="glyphicon glyphicon-circle-arrow-up" style="color:#52CA22;font-size:1.1em"></span>
+                                        <span tooltip="Entregado" ng-if="(schedule.status==3)" class="glyphicon glyphicon-circle-arrow-down" style="color:#52CA22;font-size:1.1em"></span>
+                                        <span tooltip="Rechazado" ng-if="(schedule.status==6)" class="glyphicon glyphicon-remove-sign" style="color:#F52A2A;font-size:1.1em"></span>
+                                    </td>-->
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                    </div>        
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

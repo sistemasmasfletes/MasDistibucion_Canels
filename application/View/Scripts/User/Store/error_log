@@ -1,0 +1,4 @@
+[26-Apr-2025 08:34:46 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/User/Store/index.php on line 19
+[26-Apr-2025 08:34:46 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/User/Store/index.php on line 95
+[29-Apr-2025 15:22:49 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/User/Store/index.php on line 19
+[29-Apr-2025 15:22:49 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/User/Store/index.php on line 95

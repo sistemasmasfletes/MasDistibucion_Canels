@@ -1,0 +1,44 @@
+/* 
+    Document   : user
+    Created on : 31/07/2012, 06:13:14 PM
+    Author     : drackor
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.blockInner
+{
+    position:relative;
+}
+
+#addFavoriteBuyer, #removeFavoriteBuyer
+{
+    position: absolute;
+    right: 0px;
+    top:20px;
+    margin-top: 15px;
+    margin-right: 5px;
+}
+
+#addFavoriteBuyer a img, #removeFavoriteBuyer a img, #addFavoriteBuyer a.btn, #removeFavoriteBuyer a.btn,
+#addFavoriteSeller a img, #removeFavoriteSeller a img, #addFavoriteSeller a.btn, #removeFavoriteSeller a.btn
+{
+    padding-left: 5px;
+    text-align: center;
+    vertical-align: middle;    
+}
+
+#addFavoriteBuyer .btn, #removeFavoriteBuyer .btn, #addFavoriteSeller .btn, #removeFavoriteSeller .btn
+{
+    padding: 0px;
+}
+
+#addFavoriteSeller, #removeFavoriteSeller
+{
+    position: absolute;
+    right: 245px;
+    top: 20px;
+    margin-top: 15px;
+    margin-right: 5px;
+}
+

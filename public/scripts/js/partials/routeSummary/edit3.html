@@ -1,0 +1,442 @@
+	<style>
+		@media only screen and (max-width: 700px) {
+			video {
+				max-width: 100%;
+			}
+		}
+	</style>
+
+
+<div ng-show="state.current.name==='routeSummary.view'">
+    <ol class="breadcrumb">
+        <li class="active">Sistema</li>
+        <li class="active"><a ui-sref="routeSummary">Rutas</a></li>
+        <li class="active">Iniciar Ruta</li>
+        <li class="active"><a ng-click="regresar()">Punto de venta</a></li>
+        <li class="active actualpg">Capturar evidencia</li>
+    </ol>
+<progressbar class="progress-striped active" value="100" type="info" ng-show="loading"></progressbar>
+    <div class="toolbar">
+        <div class="pull-right">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group btn-group-lg" style="width: 300px;">
+                    <!--<button class="btn btn-default" tooltip="Regresar" ng-click="regresar()"><span class="glyphicon glyphicon-chevron-left"></span></button>-->
+                    <button class="btn btn-default" style="border:none;" tooltip="Información del paquete" ng-click="info()" ><span class="pers-btn icono-ver-actividad icono-tam-tabla" style="width: 100px; height: 100px;"></span></button>
+                    <button class="btn btn-default" style="border:none;" tooltip="Guardar" ng-click="save()" ng-disabled="frmRouteSummary.$invalid"><span class="pers-btn icono-guardar-fila icono-tam-tabla " style="width: 100px; height: 100px;"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="panel panel-default" style="margin-top: 5.2em;" >
+        <div class="panel-heading">Capturar evidencia</div>
+            <div class="panel-body">
+                <form  role="form" novalidate name="frmRouteSummary" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <input type="hidden" class="form-control" ng-model="routeSummaries.id">
+                            
+                            <div class="form-group" ng-class="getFormFieldCssClass(routeSummaries.routePointActivityId)">
+                                <label class="label1" id=routePointActivityId">Orden de compra #{{oc}}</label>
+                                <input value="" disabled type="text" class="form-control" id="routePointActivityId" name="routePointActivityId" ng-model="routeSummaries.routePointActivityId">
+                            </div>
+                            
+                            <div class="form-group" ng-class="getFormFieldCssClass(routeSummaries.receptor)">
+                                <label for="receptor">Nombre del receptor</label>
+                                <input type="text" class="form-control" id="receptor" name="receptor" placeholder="Nombre del receptor" required ng-model="routeSummaries.receptor">
+                            </div>
+                                                  
+                            <div class="form-group" ng-class="getFormFieldCssClass(frmRouteSummary.comentarios)">
+                                <label for="comentarios">Comentarios</label>
+                                <textarea class="form-control" id="comentarios" name="comentarios" placeholder="Agrega aquí tus comentarios" required ng-model="routeSummaries.comentarios" rows="5" cols="33"></textarea> 
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group" ng-class="getFormFieldCssClass(frmRouteSummary.status)">
+                                <label  class="label2" for="status">Estado del paquete</label>
+                                <select id="status" name="status" class="form-control" required ng-model="routeSummaries.status"
+                                        ng-options="opt.id as opt.status for opt in routeSummariesStatus">
+                                </select>
+                            </div>
+                            <div class="form-group" ng-show="routeSummaries.acname == 'Entrega'" ng-class="getFormFieldCssClass(frmRouteSummary.causes)">
+                                  <label for="causes">Catálogo de causas</label>
+                                  <select id="causes" name="causes" class="form-control" ng-disabled="routeSummaries.status!=6" ng-model="routeSummaries.causeId"
+                                          ng-options="opt.id as opt.name for opt in getCausesEvidence">
+                                  </select>
+                            </div>
+                           
+                            <div class="form-group" ng-class="getFormFieldCssClass(frmRouteSummary.imagen)">
+                            
+	<div>
+		<select style="display:none;" name="listaDeDispositivos" id="listaDeDispositivos"></select>
+		<button id="boton" style="background-color:green; color:white; border-radius:5px; width:8em; height:2.5em;font-size:2em;">Tomar foto</button>
+		<p id="estado"></p>
+	</div>
+	<br>
+	<video muted="muted" id="video"></video>
+	<canvas id="canvas" style="display: none;"></canvas>
+	                            
+                                <!-- div id="my_camera"></div-->
+                                        <input class="file" type="hidden" id="imagen" name="imagen" class="form-control" ng-model="routeSummaries.imagen"/>                                                                
+                                        <!--button class="btn btn-default btn-lg" aria-hidden="true" tooltip="Tomar Foto" onClick="take_snapshot()"><span class="glyphicon glyphicon-camera"></span> Tomar foto</button-->
+                                        
+                                    <script language="JavaScript">
+                                            var raw_image_data;
+                                            /*function take_snapshot() {
+                                                Webcam.snap(function (data_uri) {
+                                                    document.getElementById('resultado').innerHTML = '<img src="' + data_uri + '"/>';
+                                                    var raw_image_data = data_uri.replace(/^data\:image\/\w+\;base64\,/, '');
+                                                    var img = document.getElementById('imagen').value = raw_image_data;
+                                                });
+                                            }*/
+                                    </script>
+                                    
+
+                                   
+                           </div>
+                            
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-3">
+                            <div id="resultado">Tu evidencia aparecera aquí...</div>
+                        </div>
+                        
+                        
+                        <div>    
+                        </div>
+                    </div>
+                </form>        
+            </div>
+    </div>
+</div>
+
+<script language="JavaScript">
+
+/*Tomar una fotograf�a y guardarla en un archivo v3
+@date 2018-10-22
+@author parzibyte
+@web parzibyte.me/blog
+*/
+function tieneSoporteUserMedia() {
+return !!(navigator.getUserMedia || (navigator.mozGetUserMedia || navigator.mediaDevices.getUserMedia) || navigator.webkitGetUserMedia || navigator.msGetUserMedia)
+}
+function _getUserMedia() {
+return (navigator.getUserMedia || (navigator.mozGetUserMedia || navigator.mediaDevices.getUserMedia) || navigator.webkitGetUserMedia || navigator.msGetUserMedia).apply(navigator, arguments);
+}
+
+//Declaramos elementos del DOM
+const $video = document.querySelector("#video"),
+$canvas = document.querySelector("#canvas"),
+$boton = document.querySelector("#boton"),
+$estado = document.querySelector("#estado"),
+$listaDeDispositivos = document.querySelector("#listaDeDispositivos");
+
+//La funci�n que es llamada despu�s de que ya se dieron los permisos
+//Lo que hace es llenar el select con los dispositivos obtenidos
+const llenarSelectConDispositivosDisponibles = () => {
+
+navigator
+	.mediaDevices
+	.enumerateDevices()
+	.then(function (dispositivos) {
+		const dispositivosDeVideo = [];
+		dispositivos.forEach(function (dispositivo) {
+			const tipo = dispositivo.kind;
+			if (tipo === "videoinput") {
+				dispositivosDeVideo.push(dispositivo);
+			}
+		});
+
+		// Vemos si encontramos alg�n dispositivo, y en caso de que si, entonces llamamos a la funci�n
+		if (dispositivosDeVideo.length > 0) {
+			// Llenar el select
+			dispositivosDeVideo.forEach(dispositivo => {
+				const option = document.createElement('option');
+				option.value = dispositivo.deviceId;
+				option.text = dispositivo.label;
+				$listaDeDispositivos.appendChild(option);
+				console.log("$listaDeDispositivos => ", $listaDeDispositivos)
+			});
+		}
+	});
+}
+
+(function () {
+// Comenzamos viendo si tiene soporte, si no, nos detenemos
+if (!tieneSoporteUserMedia()) {
+	alert("Lo siento. Tu navegador no soporta esta característica");
+	$estado.innerHTML = "Parece que tu navegador no soporta esta característica. Intenta actualizarlo.";
+	return;
+}
+//Aqu� guardaremos el stream globalmente
+let stream;
+
+
+// Comenzamos pidiendo los dispositivos
+navigator
+	.mediaDevices
+	.enumerateDevices()
+	.then(function (dispositivos) {
+		// Vamos a filtrarlos y guardar aqu� los de v�deo
+		const dispositivosDeVideo = [];
+
+		// Recorrer y filtrar
+		dispositivos.forEach(function (dispositivo) {
+			const tipo = dispositivo.kind;
+			if (tipo === "videoinput") {
+				dispositivosDeVideo.push(dispositivo);
+			}
+		});
+
+		// Vemos si encontramos alg�n dispositivo, y en caso de que si, entonces llamamos a la funci�n
+		// y le pasamos el id de dispositivo
+		if (dispositivosDeVideo.length > 0) {
+			// Mostrar stream con el ID del primer dispositivo, luego el usuario puede cambiar
+			mostrarStream(dispositivosDeVideo[0].deviceId);
+		}
+	});
+
+
+
+const mostrarStream = idDeDispositivo => {
+	_getUserMedia(
+		{
+			video: {
+				// Justo aqu� indicamos cu�l dispositivo usar
+				deviceId: idDeDispositivo,
+			}
+		},
+		function (streamObtenido) {
+			// Aqu� ya tenemos permisos, ahora s� llenamos el select,
+			// pues si no, no nos dar�a el nombre de los dispositivos
+			llenarSelectConDispositivosDisponibles();
+
+			// Escuchar cuando seleccionen otra opci�n y entonces llamar a esta funci�n
+			$listaDeDispositivos.onchange = () => {
+				// Detener el stream
+				if (stream) {
+					stream.getTracks().forEach(function (track) {
+						track.stop();
+					});
+				}
+				// Mostrar el nuevo stream con el dispositivo seleccionado
+				mostrarStream($listaDeDispositivos.value);
+			}
+
+			// Simple asignaci�n
+			stream = streamObtenido;
+
+			// Mandamos el stream de la c�mara al elemento de v�deo
+			$video.srcObject = stream;
+			$video.play();
+
+			//Escuchar el click del bot�n para tomar la foto
+			$boton.addEventListener("click", function (e) {
+				e.preventDefault();
+				//Pausar reproducci�n
+				$video.pause();
+
+				//Obtener contexto del canvas y dibujar sobre �l
+				let contexto = $canvas.getContext("2d");
+				$canvas.width = $video.videoWidth;
+				$canvas.height = $video.videoHeight;
+				contexto.drawImage($video, 0, 0, $canvas.width, $canvas.height);
+
+				let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
+				$estado.innerHTML = "";
+				
+                document.getElementById('resultado').innerHTML = '<img style="max-width:95%; max-height:100%;" src="' + foto + '"/>';
+                var raw_image_data = foto.replace(/^data\:image\/\w+\;base64\,/, '');
+                var img = document.getElementById('imagen').value = raw_image_data;
+
+				/*fetch("./guardar_foto.php", {
+					method: "POST",
+					body: encodeURIComponent(foto),
+					headers: {
+						"Content-type": "application/x-www-form-urlencoded",
+					}
+				})
+					.then(resultado => {
+						// A los datos los decodificamos como texto plano
+						return resultado.text()
+					})
+					.then(nombreDeLaFoto => {
+						// nombreDeLaFoto trae el nombre de la imagen que le dio PHP
+						console.log("La foto fue enviada correctamente");
+						$estado.innerHTML = `Foto guardada con �xito. Puedes verla <a target='_blank' href='./${nombreDeLaFoto}'> aqu�</a>`;
+					})*/
+
+				//Reanudar reproducci�n
+				$video.play();
+			});
+		}, function (error) {
+			console.log("Permiso denegado o error: ", error);
+			$estado.innerHTML = "No se puede acceder a la cámara, o no diste permiso.";
+		});
+}
+})();
+</script>
+
+<!-- Plantillas para las ventanas modales-->
+<script type="text/ng-template" id="templateShowResource.html">
+    <div class=""><h4 style="border-bottom:1px solid #e5e5e5;padding-bottom:3px ">{{resource.userSending}} - {{resource.packagePromotion ? resource.packagePromotion : resource.Paquete}}</h4></div>
+    <div class="modal-body">
+        <iframe src="{{resource.promotionpath}}" style="width: 100%; height: 500px;" id="viewer"
+            scrolling="no" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0">
+        </iframe>
+    </div>
+    <div class="modal-footer">
+        <button ng-if="!resource.isLoadedFromPromoList" type="button" class="btn btn-info" data-ng-click="rejectPromotion(resource);">Rechazar</button>
+        <button ng-if="!resource.isLoadedFromPromoList" type="button" class="btn btn-info" data-ng-click="notDeliver(resource);">No entregar</button>
+        <button type="button" class="btn btn-info" data-ng-click="ok(resource);">Aceptar y Cerrar</button>
+    </div>    
+</script>
+
+<script type="text/ng-template" id="templateShowPromotion.html">
+    <div class="modal-body">
+        <div class=""><h4 style="border-bottom:1px solid #e5e5e5;padding-bottom:3px ">{{promotion.userSending}} - {{promotion.packagePromotion ? promotion.packagePromotion : promotion.Paquete}}</h4></div>
+        <div class="col-md-12">
+            <!-- Tabla de partidas -->
+            <div loading-container="loadingDetail">
+                <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable table-responsive">
+                    <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">
+                        <span class="ui-ngt-title">Detalle</span><span class="pull-right"><button class="btn btn-default btn-sm" style="background-color: transparent !important; border-color: transparent !important; outline: 0px !important" ng-click="loaData(promotion.promotionid)" tooltip="Recargar"><span class="pers-btn icono-refrescar-fila icono-tam-tabla"></span></button></span>
+                    </div>
+                    <table class="table ng-table-rowselected table-hover table-striped table-condensed">
+                        <thead>
+                            <th>N&deg;</th><th>Nombre</th><th>Recurso</th><th>Visto</th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="r in resource" ng-click=""
+                                ng-class="{'ngactive': r.$selected}">
+                                <td class="col-md-1">
+                                    {{r.num}}
+                                </td>
+                                <td class="col-md-3">
+                                    {{r.name}}
+                                </td>
+                                <td class="col-md-4">
+                                    <span ng-show="r.resourceType==1 && r.id<0" class="glyphicon glyphicon-file" style="font-size:10pt"></span>
+                                    <span ng-show="r.resourceType==2 && r.id<0" class="glyphicon glyphicon-link" style="font-size:10pt"></span>
+                                    <a ng-show="r.id>0" ng-click="showResource({id:r.id,promotionpath:r.path,userSending:promotion.userSending, packagePromotion:r.name})" >
+                                        <span ng-show="r.resourceType==1" class="glyphicon glyphicon-file" style="font-size:10pt"></span>
+                                        <span ng-show="r.resourceType==2" class="glyphicon glyphicon-link" style="font-size:10pt"></span> {{r.filename}}
+                                    </a>
+                                    {{(r.resourceType==1 && r.id<0) ? r.file.name : (r.resourceType==2 && r.id<0) ? r.path : ""}}
+                                </td>
+                                <td class="col-md-1"><span tooltip="Visto" ng-if="(r.checked)" class="pers-btn icono-palomita icono-tam-tabla"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div><p style="clear:both"></p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-ng-click="rejectPromotion(promotion);">Rechazar</button>
+        <button type="button" class="btn btn-info" data-ng-click="notDeliver(promotion);">No entregar</button>
+        <button type="button" class="btn btn-info" data-ng-click="ok(promotion);">Aceptar y Cerrar</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="templateShowNotDeliveryReason.html">
+    <!-- <div class=""><h4 style="border-bottom:1px solid #e5e5e5;padding-bottom:3px "></h4></div> -->
+    <div class="modal-body">
+         <form role="form" novalidate name="sc.frmReason">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" ng-class="getFormFieldCssClass(sc.frmReason.comments)">
+                        <label for="comments">Razón del rechazo/No entrega</label>
+                        <textarea class="form-control"  id="comments" name="comments" placeholder=""  ng-model="reason.comments"/>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">        
+        <button type="button" class="btn btn-info" data-ng-click="ok();">Aceptar</button>
+    </div>    
+</script>
+
+<script type="text/ng-template" id="templateShowSurvey.html">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">Encuesta</h4>
+    </div>
+    <div class="modal-body">
+        <form role="form" novalidate name="sc.frmSurvey">
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="hidden" class="form-control" ng-model="promotionSchedule.id">
+                    <div class="form-group" ng-class="getFormFieldCssClass(sc.frmSurvey.consumerType)">
+                        <label for="consumerType">Tipo de Consumidor</label>
+                        <select ng-model="select.consumerType"
+                                ng-options="option.name for option in getConsumerType track by option.id"
+                                class="form-control"
+                                ng-required="true"
+                                id="consumerType"
+                                name="consumerType">
+                            <option value="">Seleccionar tipo de consumidor</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" ng-class="getFormFieldCssClass(sc.frmSurvey.interestLevel)">
+                        <label for="interestLevel">Nivel de Interés</label>
+                        <select ng-model="select.interestLevel"
+                                ng-options="option.name for option in getInterestLevel track by option.id"
+                                class="form-control"
+                                ng-required="true"
+                                id="interestLevel"
+                                name="interestLevel">
+                            <option value="">Seleccionar nivel de interés</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" ng-class="getFormFieldCssClass(sc.frmSurvey.request)">
+                        <label for="request">Solicita</label>
+                        <select ng-model="select.request"
+                                ng-options="option.name for option in getRequest track by option.id"
+                                class="form-control"
+                                ng-required="true"
+                                id="request"
+                                name="request">
+                            <option value="">Seleccionar si solicita </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group" ng-class="getFormFieldCssClass(sc.frmSurvey.receivingUser)">
+                        <label for="receivingUser">Usuario que recibe</label>
+                        <input type="text" class="form-control input-sm" id="receivingUser" name="receivingUser" placeholder="" ng-required="true" ng-model="promotionSchedule.receivingUser"/>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group" ng-class="getFormFieldCssClass(sc.frmSurvey.telephone)">
+                        <label for="comments">Teléfono/Celular</label>
+                        <input type="text" class="form-control input-sm" id="telephone" name="telephone" placeholder=""  ng-model="promotionSchedule.telephone"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group" ng-class="getFormFieldCssClass(sc.frmSurvey.comments)">
+                        <label for="comments">Observaciones</label>
+                        <textarea class="form-control" id="comments" name="comments" placeholder=""  ng-model="promotionSchedule.comments"/>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-info" ng-disabled="sc.frmSurvey.$invalid" data-ng-click="ok();">Guardar y Cerrar</button>
+    </div>
+</script>
+

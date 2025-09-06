@@ -1,0 +1,39 @@
+<div ng-show="state.current.name==='estatus.edit'||state.current.name==='estatus.add'">
+    <ol class="breadcrumb">
+        <li class="active">Catálogos</li>
+        <li class="active"><a ui-sref="estatus">Estatus</a></li>
+        <li class="active actualpg" ng-show="state.current.name === 'estatus.add'">Agregar Estatus</li>
+        <li class="active actualpg" ng-show="state.current.name === 'estatus.edit'">Editar Estatus</li>
+    </ol>
+    <progressbar class="progress-striped active" value="100" type="info" ng-show="loading"></progressbar>
+    <div class="toolbar">
+        <div class="pull-right">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group  btn-group-sm">
+                    <!--<button class="btn btn-default" tooltip="Regresar" ng-click="back()"><span class="glyphicon glyphicon-chevron-left"></span></button>-->
+                    <button class="btn btn-default sin-padding"  ng-click="save()" ng-disabled="frmEstatus.$invalid"><span class="pers-btn icono-guardar tam-normal"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">Estatus de los Movimientos</div>
+
+        <div class="panel-body">
+            <form  role="form" novalidate name="frmEstatus">
+                <div class="row">
+                    <div class="col-md-3">
+                        <input type="hidden" class="form-control" ng-model="estatus.id">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmEstatus.estatu)">
+                            <label for="name">Estatus</label>
+                            <input type="text" class="form-control" id="name" name="estatu" placeholder="Estatus" required ng-model="estado.estatu">
+                        </div>
+                    </div>
+                    
+                </div>
+            </form>        
+        </div>
+    </div>
+</div>

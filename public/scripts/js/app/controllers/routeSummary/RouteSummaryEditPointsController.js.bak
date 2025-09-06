@@ -1,0 +1,97 @@
+//Pantalla salvar evidencia
+function RouteSummaryEditPointsController($scope,$timeout,$state,$stateParams,ngTableParams,PARTIALPATH,ModalService,CatalogService,RouteSummaryDataService,routeSummary,CONFIG){
+    
+    $scope.routeSummaries=routeSummary;
+    $scope.routeSummariesStatus=CatalogService.getRouteSummaryStatus();
+    $scope.routeSummaries.Image=raw_image_data;
+    CatalogService.getCatalogCauses()
+        .then(function(response){
+            $scope.getCausesEvidence = response.data;
+         });
+    
+    $scope.save=save;
+    $scope.back=function(){$state.go('^',$stateParams)};
+    var $OC = $stateParams.id;
+    
+    var $scheduleId = $stateParams.scheId;
+    var $pointId = $stateParams.point;
+    var $rpa_Id = $stateParams.rpaId;
+    var $ocId = $stateParams.id;
+    $scope.isLoading=false;
+    $scope.partials = CONFIG.PARTIALS;
+
+    $(".label1").html("Orden de compra #"+$OC);
+    RouteSummaryDataService.getActivityName($rpa_Id)
+        .success(function(data2, status, headers, config){
+        $(".label2").html(data2);
+    });
+    
+    $scope.info=function(){
+        $state.go('routeSummary.info',{scheId:$scheduleId,point:$pointId,id:$ocId,rpaId:$rpa_Id}) //NAVEGAR A INFORMACIÓN DEL PAQUETE
+    }
+    
+    function save(){
+        var $fileName="";
+        if($scope.routeSummaries){
+            $scope.routeSummaries.routePointActivityId=$rpa_Id;
+            $scope.loading=true;
+            if($scope.routeSummaries.causeId==='') $scope.routeSummaries.causeId=null;
+            RouteSummaryDataService.save($scope.routeSummaries, {})
+                .success(function(data, status, headers, config){
+                    $scope.loading=false;
+                    if (data.error) {
+                        alert(data.error);
+                         var modalOptions = {
+                            actionButtonText: 'Aceptar',
+                            bodyText: data.error
+                        };
+                        ModalService.showModal({templateUrl: PARTIALPATH.modalInfo}, modalOptions);
+                    
+                    } else {
+                        
+                        
+                        $fileName = data;
+                        var res = $fileName.replace($rpa_Id);
+                        
+                        var raw_image_data;
+                        var imagen = document.getElementById('imagen').value;
+                        var ajaxurl = 'test.php';
+                        
+                        data =  {'action': imagen,'nombre':res};
+                        $.post(ajaxurl, data, function (response) {
+                    // Response div goes here.
+                            //alert("action performed successfully");
+                        });
+                        console.log(res);
+                        console.log($rpa_Id);
+                        var modalOptions = {
+                            actionButtonText: 'Aceptar',
+                            bodyText: '¡Evidencia almacenada con exito!'
+                        };
+                        ModalService.showModal({templateUrl: PARTIALPATH.modalInfo}, modalOptions).then(function (result) {
+                                $state.go('routeSummary.add',{id2:$scheduleId,id:$pointId}); //NAVEGA A PANTALLA DE PAQUETES
+                            });
+                        }
+                })
+                .error(function(data, status, headers, config){
+                    $scope.loading = false;                    
+                });
+        }
+        RouteSummaryDataService.saveStatus($scope.routeSummaries);
+    }
+    
+    $scope.regresar=function(){
+        $state.go('routeSummary.add',{id2:$scheduleId,id:$pointId});
+    }
+    
+    
+    Webcam.set({
+        type : "LiveStream",
+        width: 260,
+        height: 240,
+        image_format: 'png',
+        flip_horiz: true,
+        facing: "environment" //environment or user
+    });
+    Webcam.attach('my_camera');
+}

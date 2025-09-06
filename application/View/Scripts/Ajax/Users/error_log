@@ -1,0 +1,8 @@
+[26-Apr-2025 08:34:45 UTC] PHP Fatal error:  Uncaught Error: Call to a member function TrHelper() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Ajax/Users/list.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Ajax/Users/list.php on line 4
+[29-Apr-2025 15:22:48 UTC] PHP Fatal error:  Uncaught Error: Call to a member function TrHelper() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Ajax/Users/list.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Ajax/Users/list.php on line 4

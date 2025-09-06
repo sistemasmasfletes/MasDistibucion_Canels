@@ -1,0 +1,90 @@
+    <div class="container-fluid">
+        <ol class="breadcrumb">
+            <li class="active">Catálogos</li>
+            <li class="active actualpg">Tablas de Tarifa</li>
+        </ol>
+        <div class="row">
+            <div class="col-md-6">
+                <div ng-show="state.current.name==='packageRate' || state.current.name==='packageRate.points' || state.current.name==='packageRate.points.add' || state.current.name==='packageRate.points.edit' || state.current.name==='packageRate.points.listRates' ">
+                    
+                    <div class="pull-right">                         
+                        <div class="btn-group  btn-group-sm">                      
+                            <button tooltip="Ver hist&oacute;rico de tarifas" class="btn btn-default sin-padding" ng-click="goRateList()"><span class="pers-btn icono-historico icono-tam-tabla"></span></button>
+                            <button tooltip="Agregar tarifa" class="btn btn-default sin-padding" ng-click="goAdd()"><span class="pers-btn icono-agregar-fila icono-tam-tabla"></span></button>
+                            <button tooltip="Editar tarifa" class="btn btn-default sin-padding" ng-click="goEdit()"><span class="pers-btn icono-editar-fila icono-tam-tabla"></span></button>
+                            <button class="btn btn-default sin-padding" ng-click="tableParams.reload()" tooltip="Recargar"><span class="pers-btn icono-refrescar-fila icono-tam-tabla"></span></button>
+                        </div>       
+                    </div>
+                    <p>&nbsp;&nbsp;</p>
+                    <div loading-container="tableParams.settings().$loading">                
+                        <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable table-responsive">
+                        <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">
+                            <span class="ui-ngt-title">Rutas - Tarifas</span>
+                        </div>
+                            <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover table-striped ">
+                                <tbody>
+                                    <tr ng-repeat="route in $data" ng-click="route.$selected = true; changeSelection(route)" ng-class="{'ngactive': route.$selected}" ng-mouseover="hoverGoPoints=true" ng-mouseleave="hoverGoPoints=false" >
+                                        <td data-title="'Id'" class="col-md-1">
+                                            {{route.id}}
+                                        </td>                                    
+                                        <td data-title="'Ruta'" title="{{route.name}}" filter="{name: 'text'}">
+                                            {{route.name.length>28 ? route.name.substring(0,28)+'...' : route.name}}
+                                        </td>
+                                        <td data-title="'Fecha'" class="text-center">
+                                            <span ng-show="(route.hasRate==0)" style="color:#ccc; font-size:11px" class="glyphicon glyphicon-minus"></span>
+                                            {{route.date|stringToDate|date :"dd-MM-yyyy"}}
+                                        </td>
+                                        <td data-title="'T. Cliente'" class="text-center">
+                                            <span ng-show="(route.hasRate==0)" style="color:#ccc; font-size:11px" class="glyphicon glyphicon-minus"></span>
+                                            {{route.client_rate | currency : '$' : 2}}
+                                        </td>
+                                        <td class="col-md-1 text-center" style="width: 18px">
+                                            <span  class="pers-btn icono-ir-punto-venta icono-tam-tabla" ng-click="goPoints(route)" title="Cargar puntos de venta"></span>
+                                        </td>                        
+                                    </tr>
+                                </tbody>
+                            </table>            
+                        </div>        
+                    </div>
+                </div>
+                <div ng-show="state.current.name==='packageRate.add' || state.current.name==='packageRate.edit'"><div ui-view="edit"></div></div>
+                <div ng-show="state.current.name==='packageRate.listRates'"><div ui-view="rateList"></div></div>
+
+            </div>
+            <div class="col-md-6">
+                <div ui-view="points">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">            
+                                <div class="pull-right">                         
+                                    <div class="btn-group  btn-group-sm">                      
+                                        <button tooltip="Agregar tarifa" class="btn btn-default sin-padding" ng-disabled="true"><span class="pers-btn icono-agregar-fila icono-tam-tabla"></span></button>
+                                        <button tooltip="Editar" class="btn btn-default sin-padding" ng-disabled="true"><span class="pers-btn icono-editar-fila icono-tam-tabla"></span></button>
+                                        
+                                        <button class="btn btn-default sin-padding" ng-disabled="true" tooltip="Recargar"><span class="pers-btn icono-refrescar-fila icono-tam-tabla"></span></button>
+                                    </div>       
+                                </div>
+                                <p>&nbsp;&nbsp;</p>
+
+                                <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable table-responsive">
+                                    <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">
+                                        <span class="ui-ngt-title text-center"></span>
+                                    </div>
+                                    <table class="table ng-table-rowselected table-hover table-striped table-condensed">
+                                        <thead>
+                                            <tr><th>N°</th><th>Punto de venta</th><th>Fecha</th><th>T. Cliente</th></tr>
+                                            <tr><td colspan="4">No hay elementos a mostrar</td></tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+<!--img  src="../images/Logo_1.png" alt="logo" class="pie"--> 

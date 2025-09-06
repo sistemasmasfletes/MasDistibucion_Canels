@@ -1,0 +1,6 @@
+[24-Apr-2025 00:34:02 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getId() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/User/Dompdf/_default.php:155
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/User/Dompdf/_default.php on line 155
+[26-Apr-2025 05:34:18 UTC] PHP Fatal error:  Class 'DOMPDF' not found in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/User/Dompdf/_default.php.bak on line 136
+[29-Apr-2025 12:06:37 UTC] PHP Fatal error:  Class 'DOMPDF' not found in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/User/Dompdf/_default.php.bak on line 136

@@ -1,0 +1,47 @@
+[06-Mar-2024 11:25:50 UTC] PHP Warning:  include(PHPMailer/phpmailer.php): failed to open stream: No such file or directory in /home/masdistr/public_html/masdistribucion.com/library/Model3/Controller.php on line 2
+[06-Mar-2024 11:25:50 UTC] PHP Warning:  include(): Failed opening 'PHPMailer/phpmailer.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home/masdistr/public_html/masdistribucion.com/library/Model3/Controller.php on line 2
+[06-Mar-2024 11:25:50 UTC] PHP Warning:  include(PHPMailer/smtp.php): failed to open stream: No such file or directory in /home/masdistr/public_html/masdistribucion.com/library/Model3/Controller.php on line 2
+[06-Mar-2024 11:25:50 UTC] PHP Warning:  include(): Failed opening 'PHPMailer/smtp.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home/masdistr/public_html/masdistribucion.com/library/Model3/Controller.php on line 2
+[02-May-2024 19:13:55 UTC] PHP Warning:  include(PHPMailer/phpmailer.php): failed to open stream: No such file or directory in /home/masdistr/public_html/masdistribucion.com/library/Model3/Controller.php on line 2
+[02-May-2024 19:13:55 UTC] PHP Warning:  include(): Failed opening 'PHPMailer/phpmailer.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home/masdistr/public_html/masdistribucion.com/library/Model3/Controller.php on line 2
+[02-May-2024 19:13:55 UTC] PHP Warning:  include(PHPMailer/smtp.php): failed to open stream: No such file or directory in /home/masdistr/public_html/masdistribucion.com/library/Model3/Controller.php on line 2
+[02-May-2024 19:13:55 UTC] PHP Warning:  include(): Failed opening 'PHPMailer/smtp.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home/masdistr/public_html/masdistribucion.com/library/Model3/Controller.php on line 2
+[15-May-2024 15:47:56 UTC] PHP Fatal error:  Uncaught Error: Class 'Model3_Controller' not found in /home/masdistr/public_html/masdistribucion.com/library/Model3/JController.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/library/Model3/JController.php on line 7
+[15-Aug-2024 00:55:14 UTC] PHP Fatal error:  Uncaught Error: Class 'Model3_Controller' not found in /home/masdistr/public_html/masdistribucion.com/library/Model3/JController.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/library/Model3/JController.php on line 7
+[24-Oct-2024 22:34:09 UTC] PHP Warning:  include(PHPMailer/phpmailer.php): failed to open stream: No such file or directory in /home/masdistr/public_html/masdistribucion.com/library/Model3/Controller.php on line 2
+[24-Oct-2024 22:34:09 UTC] PHP Warning:  include(): Failed opening 'PHPMailer/phpmailer.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home/masdistr/public_html/masdistribucion.com/library/Model3/Controller.php on line 2
+[24-Oct-2024 22:34:09 UTC] PHP Warning:  include(PHPMailer/smtp.php): failed to open stream: No such file or directory in /home/masdistr/public_html/masdistribucion.com/library/Model3/Controller.php on line 2
+[24-Oct-2024 22:34:09 UTC] PHP Warning:  include(): Failed opening 'PHPMailer/smtp.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home/masdistr/public_html/masdistribucion.com/library/Model3/Controller.php on line 2
+[26-Jan-2025 14:08:32 UTC] PHP Warning:  include(PHPMailer/phpmailer.php): failed to open stream: No such file or directory in /home/masdistr/public_html/masdistribucion.com/library/Model3/Controller.php on line 2
+[26-Jan-2025 14:08:32 UTC] PHP Warning:  include(): Failed opening 'PHPMailer/phpmailer.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home/masdistr/public_html/masdistribucion.com/library/Model3/Controller.php on line 2
+[26-Jan-2025 14:08:32 UTC] PHP Warning:  include(PHPMailer/smtp.php): failed to open stream: No such file or directory in /home/masdistr/public_html/masdistribucion.com/library/Model3/Controller.php on line 2
+[26-Jan-2025 14:08:32 UTC] PHP Warning:  include(): Failed opening 'PHPMailer/smtp.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home/masdistr/public_html/masdistribucion.com/library/Model3/Controller.php on line 2
+[08-Feb-2025 13:32:07 UTC] PHP Fatal error:  Uncaught Error: Class 'Model3_Controller' not found in /home/masdistr/public_html/masdistribucion.com/library/Model3/JController.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/library/Model3/JController.php on line 7
+[28-Mar-2025 02:18:37 UTC] PHP Warning:  include(PHPMailer/phpmailer.php): failed to open stream: No such file or directory in /home/masdistr/public_html/masdistribucion.com/library/Model3/Controller.php on line 2
+[28-Mar-2025 02:18:37 UTC] PHP Warning:  include(): Failed opening 'PHPMailer/phpmailer.php' for inclusion (include_path='.:/opt/cpanel/ea-php70/root/usr/share/pear') in /home/masdistr/public_html/masdistribucion.com/library/Model3/Controller.php on line 2
+[28-Mar-2025 02:18:37 UTC] PHP Warning:  include(PHPMailer/smtp.php): failed to open stream: No such file or directory in /home/masdistr/public_html/masdistribucion.com/library/Model3/Controller.php on line 2
+[28-Mar-2025 02:18:37 UTC] PHP Warning:  include(): Failed opening 'PHPMailer/smtp.php' for inclusion (include_path='.:/opt/cpanel/ea-php70/root/usr/share/pear') in /home/masdistr/public_html/masdistribucion.com/library/Model3/Controller.php on line 2
+[28-Mar-2025 04:31:50 UTC] PHP Warning:  include(PHPMailer/phpmailer.php): failed to open stream: No such file or directory in /home/masdistr/public_html/masdistribucion.com/library/Model3/Controller.php on line 2
+[28-Mar-2025 04:31:50 UTC] PHP Warning:  include(): Failed opening 'PHPMailer/phpmailer.php' for inclusion (include_path='.:/opt/cpanel/ea-php70/root/usr/share/pear') in /home/masdistr/public_html/masdistribucion.com/library/Model3/Controller.php on line 2
+[28-Mar-2025 04:31:50 UTC] PHP Warning:  include(PHPMailer/smtp.php): failed to open stream: No such file or directory in /home/masdistr/public_html/masdistribucion.com/library/Model3/Controller.php on line 2
+[28-Mar-2025 04:31:50 UTC] PHP Warning:  include(): Failed opening 'PHPMailer/smtp.php' for inclusion (include_path='.:/opt/cpanel/ea-php70/root/usr/share/pear') in /home/masdistr/public_html/masdistribucion.com/library/Model3/Controller.php on line 2
+[10-Apr-2025 17:11:29 UTC] PHP Fatal error:  Class 'Model3_Controller' not found in /home/masdistr/public_html/masdistribucion.com/library/Model3/JController.php on line 7
+[24-Apr-2025 15:56:26 UTC] PHP Fatal error:  Class 'Model3_Controller' not found in /home/masdistr/public_html/masdistribucion.com/library/Model3/JController.php on line 7
+[26-Apr-2025 10:52:30 UTC] PHP Warning:  include(PHPMailer/phpmailer.php): failed to open stream: No such file or directory in /home/masdistr/public_html/masdistribucion.com/library/Model3/Controller.php on line 2
+[26-Apr-2025 10:52:30 UTC] PHP Warning:  include(): Failed opening 'PHPMailer/phpmailer.php' for inclusion (include_path='.:/opt/cpanel/ea-php70/root/usr/share/pear') in /home/masdistr/public_html/masdistribucion.com/library/Model3/Controller.php on line 2
+[26-Apr-2025 10:52:30 UTC] PHP Warning:  include(PHPMailer/smtp.php): failed to open stream: No such file or directory in /home/masdistr/public_html/masdistribucion.com/library/Model3/Controller.php on line 2
+[26-Apr-2025 10:52:30 UTC] PHP Warning:  include(): Failed opening 'PHPMailer/smtp.php' for inclusion (include_path='.:/opt/cpanel/ea-php70/root/usr/share/pear') in /home/masdistr/public_html/masdistribucion.com/library/Model3/Controller.php on line 2
+[29-Apr-2025 17:37:15 UTC] PHP Warning:  include(PHPMailer/phpmailer.php): failed to open stream: No such file or directory in /home/masdistr/public_html/masdistribucion.com/library/Model3/Controller.php on line 2
+[29-Apr-2025 17:37:15 UTC] PHP Warning:  include(): Failed opening 'PHPMailer/phpmailer.php' for inclusion (include_path='.:/opt/cpanel/ea-php70/root/usr/share/pear') in /home/masdistr/public_html/masdistribucion.com/library/Model3/Controller.php on line 2
+[29-Apr-2025 17:37:15 UTC] PHP Warning:  include(PHPMailer/smtp.php): failed to open stream: No such file or directory in /home/masdistr/public_html/masdistribucion.com/library/Model3/Controller.php on line 2
+[29-Apr-2025 17:37:15 UTC] PHP Warning:  include(): Failed opening 'PHPMailer/smtp.php' for inclusion (include_path='.:/opt/cpanel/ea-php70/root/usr/share/pear') in /home/masdistr/public_html/masdistribucion.com/library/Model3/Controller.php on line 2
+[04-Jun-2025 06:42:05 UTC] PHP Fatal error:  Class 'Model3_Controller' not found in /home/masdistr/public_html/masdistribucion.com/library/Model3/JController.php on line 7

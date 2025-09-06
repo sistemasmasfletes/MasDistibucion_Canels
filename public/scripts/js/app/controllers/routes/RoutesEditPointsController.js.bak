@@ -1,0 +1,610 @@
+function RoutesEditPointsController($scope,$cookieStore,$timeout,$state,$stateParams,$compile,PATH,PARTIALPATH,ModalService, JQGridService,CatalogService,RoutesDataService,PointsDataService,points){
+    var modalPath = PARTIALPATH.modal
+    var modalInfoPath = PARTIALPATH.modalInfo
+    var modalMovePath = PARTIALPATH.modalMove
+    
+    $scope.pointStatus = CatalogService.getPointStatus();
+    $scope.pointAvailability = CatalogService.getPointAvailability();    
+    $scope.pointMin = CatalogService.getPointMin();
+    $scope.pointSeg = CatalogService.getPointMin();
+    $scope.grdPoints={edit:{}};
+    $scope.grdPoints.edit.lastSel = null;
+    $scope.grdPoints.edit.selRow = null;
+    $scope.routeAlerts = [];  
+    $scope.postD = "";
+    
+    $scope.getPoints=function(value){
+        return PointsDataService.getPointsByName({param1:value})
+        .then(function(response){
+            return response.data[0];
+        });
+    }
+    
+    $scope.grdPoints.config = JQGridService.config({
+    url: PATH.routes + 'getRoutePoints',
+    colNames: ["Orden","id","route_id","Punto de venta", "Tipo","pointType", "Minutos", "Segundos" ,"Estatus","Requerido","nombre"],
+    colModel: [
+        {name: "order_number", index:"order_number", width: 40, align: "center", editable: false, sortable:false},
+        {name: "id", index:"id", width: 0, align: "right", editable: false, hidden: true},
+        {name: "route_id", index:"route_id", width: 0, align: "right", editable: true, hidden: true},                
+        {name: "point_id", index: "point_id", width: 180, editable: true, sortable:false, edittype: "custom",
+            formatter: formatterPoint,
+            unformat: unformatPoint,
+            editoptions: {
+                custom_element: getPointSearcher,
+                custom_value: customCboValue
+            }
+        },
+        {name: "tipo", index: "tipo", width: 30, editable: false, sortable:false},
+        {name: "pointType", index: "pointType", width: 0, editable: true, sortable:false, hidden:true},
+        {name: "arrival_min", index: "arrival_min", width: 50, align: "center", editable: true, sortable:false, edittype: "custom", 
+            formatter: formatterPointMin,
+            unformat: unformatPointMin,
+        	editoptions: {
+                		custom_element: getPointMin,
+                        custom_value: customPointMinValue
+        	}
+        },
+        {name: "arrival_seg", index: "arrival_seg", width: 50, align: "center", editable: true, sortable:false, edittype: "custom", 
+            formatter: formatterPointSeg,
+            unformat: unformatPointSeg,
+        	editoptions: {
+                		custom_element: getPointSeg,
+                        custom_value: customPointSegValue
+        	}
+        },
+        {name: "status", index: "status", width: 80, editable: true, align: "center", sortable:false, edittype: "custom",
+            formatter: formatterPointStatus,
+            unformat: unformatPointStatus,
+            editoptions: {
+                custom_element: getPointStatus,
+                custom_value: customPointStatusValue
+            }
+        },
+        {name: "required", index: "required", width: 90, editable: true, align: "center", sortable:false, edittype: "custom",
+            formatter: formatterPointAvailability,
+            unformat: unformatPointAvailability,
+            editoptions: {
+                custom_element: getPointAvailability,
+                custom_value: customPointAvailabilityValue
+            }
+        },
+        {name: "nombre", index: "nombre", width: 50, editable: true, sortable:false,hidden:true},
+                
+    ],
+    width:'700',
+    height:'auto',
+    rowNum: 50,
+    rowList: [50, 100, 150],
+    sortname: "name",
+    sortorder: "asc",
+    caption: "Puntos de venta",
+    editurl: PATH.routes + 'routePointSave',
+    serializeRowData: function (postdata) {
+        var currentRow = $scope.grdPoints.apicall('getRowData', $scope.grdPoints.edit.selRow);           
+        if(currentRow){                
+            if(parseInt(currentRow.id)){ 
+                postdata.id = currentRow.id;
+            }else{
+                delete postdata.id
+            }
+            postdata.order_number = currentRow.order_number;
+            if($scope.grdPoints.edit.closeRoute) postdata.actionClose = "S"
+        }
+        postdata.route_id = $stateParams.routeId;
+        
+        return JSON.stringify(postdata);
+    },
+    onSelectRow: function(id){
+        if(id && id!==$scope.grdPoints.edit.lastSel){ 
+            $scope.grdPoints.edit.cancel();
+            $scope.grdPoints.edit.lastSel=id;
+        }
+        $timeout(function() {
+            $scope.grdPoints.edit.selRow = id;
+            $scope.grdPoints.edit.routePointId = $scope.grdPoints.apicall('getRowData', id).id
+            $scope.grdPoints.edit.rowData=$scope.grdPoints.apicall('getRowData', id);
+        },0);
+    },
+    beforeProcessing: function(data, status, xhr){
+        $scope.sc.loading = false;
+        if(data.error){                
+        }
+        PointsDataService.setData(data[0]);
+    },
+    beforeRequest: function(){
+        $scope.sc.loading = true;
+
+    },
+    loadComplete: function (data) {
+        $timeout(function(){
+            $scope.routeRecords = data[1][0];/////OBTENER METADATOS DE LA TABLA DE PUNTOS INCLUIDOS EN LA RUTA(12-01-17 EAAL)///////////////////// 
+            $scope.routeSummary = data[2][0];
+            var tolt = data[2][0].totalTime.toString();
+            tolt = tolt.split(".",1);
+            $scope.toltime = tolt[0];
+            $scope.grdPoints.edit.selRow =null;
+            $scope.grdPoints.edit.routePointId = null;
+        },0);
+        JQGridService.resize('grdRoutePoints',angular.element("#gbox_grdRoutePoints").parent().parent());
+    },
+    serializeGridData: function(postData) {
+        postData.route_id = $stateParams.routeId;
+    	postData.srch = $scope.postD;
+        return JSON.stringify(postData);
+    },
+    gridComplete:function(){}
+    },{});
+
+    // *** --------------------------- Grid button bar --------------------------- ***
+    $scope.grdPoints.edit.delRow = function(){
+        var currentRow = $scope.grdPoints.apicall('getRowData', $scope.grdPoints.edit.selRow);
+        if(currentRow){
+            if(parseInt(currentRow.id)){ 
+                $scope.delete(parseInt(currentRow.id));
+            }
+        } 
+    }
+    
+    $scope.search = function(data){
+    	$scope.postD = data
+        $scope.grdPoints.api.refresh();
+    }
+    
+    $scope.grdPoints.edit.refresh = function(){
+    }
+    
+    $scope.grdPoints.edit.addRow = function(){
+        $scope.grdPoints.apicall('addRow',0,{
+            afterrestorefunc: function () {
+                     $scope.selPoint='';
+                }
+        });
+        $scope.grdPoints.edit.isEditing = true;
+    }
+    
+    $scope.grdPoints.edit.cancel = function(){
+        $scope.grdPoints.apicall('restoreRow',$scope.grdPoints.edit.selRow);
+        $scope.grdPoints.edit.isEditing = false;
+        var selRow = $scope.grdPoints.edit.selRow;
+        if(selRow && selRow.indexOf("jqg")>=0)
+            $scope.grdPoints.edit.selRow = null;                
+        $scope.selPoint='';
+    }
+    
+    $scope.grdPoints.edit.editRow = function(){
+        $scope.grdPoints.edit.isEditing = true;
+        if($scope.grdPoints.edit.selRow){
+            $scope.grdPoints.apicall('editRow',$scope.grdPoints.edit.selRow,{
+                afterrestorefunc: function () {
+                     $scope.selPoint='';
+                }
+            });
+        }else{}
+    }
+    
+    $scope.grdPoints.edit.saveRow = function(){
+    	$timeout(function(){$scope.sc.loading = true},0);            
+        if($scope.grdPoints.edit.selRow){        
+            $scope.grdPoints.apicall('saveRow',$scope.grdPoints.edit.selRow,{
+                successfunc: function (response) {
+                        $timeout(function(){$scope.sc.loading = false},0); 
+                        var data = eval('(' + response.responseText + ')');
+                        if (data.error) {
+                            var modalOptions = {actionButtonText: 'Aceptar', bodyText: data.error};
+                            ModalService.showModal({templateUrl: modalInfoPath}, modalOptions);
+                        } else {
+                            var modalOptions = {actionButtonText: 'Aceptar', bodyText: '¡Registro guardado con éxito!'};
+                            ModalService.showModal({templateUrl: modalInfoPath}, modalOptions).then(function(result) {
+                                $scope.grdPoints.api.refresh();
+                                $scope.selPoint='';
+                            });
+                            
+                        }    
+                    },
+                restoreAfterError: true,
+                errorfunc: function (rowid, response) {
+                    $timeout(function(){$scope.sc.loading = false},0); 
+                    if(response.statusText!=="OK"){
+                        var modalOptions = {actionButtonText: 'Aceptar', bodyText: "Ocurrió un error al guardar el registro"};
+                        ModalService.showModal({templateUrl: modalInfoPath}, modalOptions);
+                    }
+                },
+                afterrestorefunc: function () {
+                     $timeout(function(){$scope.sc.loading = false},0); 
+                     $scope.selPoint='';
+                     $scope.grdPoints.edit.selRow = false;
+                }
+                }
+            );
+            
+            $scope.grdPoints.edit.isEditing = false;
+        }else{}
+    }
+    
+    $scope.grdPoints.edit.movRow = function(){////////////FUNCION PARA MOVER PUNTOS CON PARAMETRO DE NUEVA POSICION(12-01-17 EAAL)////////////////////////
+        var currentRow = $scope.grdPoints.apicall('getRowData', $scope.grdPoints.edit.selRow);
+        if (currentRow.id){            
+            var modalOptions = {closeButtonText: 'Cancelar', actionButtonText: 'Mover punto', 
+            					bodyText: 'PUNTO: '+ currentRow.nombre + ', POSICION ACTUAL: ' + currentRow.order_number};
+            ModalService.showModal({templateUrl: modalMovePath}, modalOptions).then(function (result) {
+            	var new_p = $("#new_position").val();
+                
+            	if(new_p == 0){
+            		alert("La nueva posicion no puede ser 0")
+                	return false;
+            	}
+                if(new_p > $scope.routeRecords.records){
+                	alert("La maxima posicion que se puede ingresar es: " + $scope.routeRecords.records)
+                	return false;
+                }else{
+                    $scope.sc.loading = true;
+                    $scope.routePointMoveOrder(currentRow.id,new_p);
+                }
+            });
+        }else {}
+    }
+
+    /*$scope.grdPoints.edit.upRow = function(){///////////////FUNCIONES PARA MOVER PUNTOS EN EL LISTADO SOLO UNA POSICIÓN//////////////////////////
+        var currentRow = $scope.grdPoints.apicall('getRowData', $scope.grdPoints.edit.selRow);
+        if (currentRow.id){            
+            var modalOptions = {closeButtonText: 'Cancelar', actionButtonText: 'Subir ruta', bodyText: '¿Estás seguro de subir la ruta actual?'};
+            ModalService.showModal({templateUrl: modalPath}, modalOptions).then(function (result) {
+                $scope.sc.loading = true;
+                $scope.routePointChangeOrder(currentRow.id,"UP");
+            });
+        }else {}
+    }
+    
+    $scope.grdPoints.edit.downRow = function(){
+        var currentRow = $scope.grdPoints.apicall('getRowData', $scope.grdPoints.edit.selRow);                
+        if (currentRow.id) {           
+            var modalOptions = {closeButtonText: 'Cancelar', actionButtonText: 'Bajar ruta', bodyText: '¿Estás seguro de bajar la ruta actual?'};
+            ModalService.showModal({templateUrl: modalPath}, modalOptions).then(function (result) {
+                $scope.sc.loading = true;
+                $scope.routePointChangeOrder(currentRow.id,"DOWN");
+            });
+        }else {}
+    }*/
+    
+    //*** --------------------------- Grid button bar --------------------------- ***
+    function createElement(markup){
+        var el = angular.element(markup);
+        var compiledElement = $compile(el)($scope);
+        return compiledElement;
+    }
+
+    /***********************************************MINUTOS Y SEGUNDOS PARA LOS PUNTOS*************************************************/
+    function getPointMin(value, options){
+        if(value>=0){
+            var row = $scope.grdPoints.edit.rowData;
+            $scope.grdPoints.edit.pointMin=row.arrival_min;
+        }
+        
+        var markup = '<select id="pointMin" name="pointMin" class="form-control" ng-model="grdPoints.edit.pointMin" \n\
+            ng-options="opt.id as opt.tipo for opt in pointMin"> \n\
+          </select>'; 
+        return createElement(markup);
+    }
+     
+     function formatterPointMin(cellvalue, options, rowObject, action) { 
+         if (cellvalue>=0)
+             for (var i = 0; i < $scope.pointMin.length; i++)
+                 if ($scope.pointMin[i].id == cellvalue) {
+                     return $scope.pointMin[i].tipo;
+                 }
+     }
+     
+     function unformatPointMin(cellvalue, options, cell) {
+         if (cellvalue)
+             for (var i = 0; i < $scope.pointMin.length; i++)
+                 if ($scope.pointMin[i].tipo === cellvalue){
+                     return $scope.pointMin[i].id;
+                 }
+     }
+    
+    function customPointMinValue(elem, operation, value) {       
+        if (operation === 'get') {
+            return $scope.grdPoints.edit.pointMin;
+        }
+    }
+
+    function getPointSeg(value, options){
+        if(value>=0){
+        var row = $scope.grdPoints.edit.rowData;
+        $scope.grdPoints.edit.pointSeg=row.arrival_seg;
+    }
+    
+        var markup = '<select id="pointSeg" name="pointSeg" class="form-control" ng-model="grdPoints.edit.pointSeg" \n\
+        	ng-options="opt.id as opt.tipo for opt in pointSeg"> \n\
+        	</select>'; 
+        return createElement(markup);
+    }
+
+    function formatterPointSeg(cellvalue, options, rowObject, action) { 
+   	 
+        if (cellvalue>=0)
+            for (var i = 0; i < $scope.pointSeg.length; i++)
+                if ($scope.pointSeg[i].id == cellvalue) {
+                    return $scope.pointSeg[i].tipo;
+                }
+    }
+    
+    function unformatPointSeg(cellvalue, options, cell) {
+        if (cellvalue)
+            for (var i = 0; i < $scope.pointSeg.length; i++)
+                if ($scope.pointSeg[i].tipo === cellvalue){
+                    return $scope.pointSeg[i].id;
+                }
+    }
+   
+   function customPointSegValue(elem, operation, value) {       
+       if (operation === 'get') {
+           return $scope.grdPoints.edit.pointSeg;
+       }
+   }
+   /***********************************************MINUTOS Y SEGUNDOS PARA LOS PUNTOS*************************************************/
+
+    
+    function getPointSearcher(value, options){
+        if(value>=0){
+            var row = $scope.grdPoints.edit.rowData;
+            $scope.selPoint={id:row.point_id,point:row.nombre,type:row.pointType};
+        }
+
+        var pointSearchMarkup = '<input type="text" \n\
+                                    ng-model="selPoint" \n\
+                                    placeholder="" \n\
+                                    typeahead-append-to-body="true" \n\
+                                    typeahead-editable="false" \n\
+                                    typeahead="point as point.point for point in getPoints($viewValue)" \n\
+                                    typeahead-loading="loadingLocations" \n\
+                                    typeahead-min-length="3" \n\
+                                    class="form-control"/>';
+        
+        return createElement(pointSearchMarkup);
+    }    
+     
+
+    function customCboValue(elem, operation, value) {
+        if (operation === 'get') {
+            if($scope.selPoint)
+                return $scope.selPoint.id;
+            else
+                return null;           
+        }
+    }
+    
+    function formatterPoint(cellvalue, options, rowObject, action) {
+        if(!angular.isUndefined(cellvalue) && parseInt(cellvalue)>0){
+            var pid=parseInt(cellvalue);
+            var gridData=PointsDataService.getData();
+            for(var i=0;i<gridData.length;i++){
+                if(gridData[i].point_id==pid) return gridData[i].nombre;
+            }
+        }
+            
+    }
+    
+    function unformatPoint(cellvalue, options, cell) {
+        if(cellvalue && cellvalue !='undefined'){            
+            var gridData=PointsDataService.getData();
+            for(var i=0;i<gridData.length;i++){
+                if(gridData[i].nombre==cellvalue) return gridData[i].point_id;
+            }
+        }
+        
+    }    
+    
+     // *** ----------------- Combo Punto de venta ----------------- ***
+     
+     // *** ----------------- Combo Status ----------------- ***    
+    function getPointStatus(value, options){
+        if(value>=0){
+            var row = $scope.grdPoints.edit.rowData;
+            $scope.grdPoints.edit.pointStatus=row.status;
+        }
+
+        var markup = '<select id="pointStatus" name="pointStatus" class="form-control" ng-model="grdPoints.edit.pointStatus" \n\
+                        ng-options="opt.id as opt.status for opt in pointStatus"> \n\
+                      </select>'; 
+        return createElement(markup);
+    }
+    
+    function formatterPointStatus(cellvalue, options, rowObject, action) {        
+        if (cellvalue>=0)
+            for (var i = 0; i < $scope.pointStatus.length; i++)
+                if ($scope.pointStatus[i].id == cellvalue) {
+                    return $scope.pointStatus[i].status;
+                }
+    }
+    
+    function unformatPointStatus(cellvalue, options, cell) {
+        if (cellvalue)
+            for (var i = 0; i < $scope.pointStatus.length; i++)
+                if ($scope.pointStatus[i].status === cellvalue){
+                    return $scope.pointStatus[i].id;
+                }
+    }
+    
+    function customPointStatusValue(elem, operation, value) {       
+        if (operation === 'get') {
+            return $scope.grdPoints.edit.pointStatus;
+        }
+    }
+    // *** ----------------- Combo status ----------------- ***
+    
+    // *** ----------------- Combo requerido ----------------- ***
+    function getPointAvailability(value, options){
+        if(value>=0){
+            var row = $scope.grdPoints.edit.rowData;
+            $scope.grdPoints.edit.pointAvailability=row.required;
+        }
+        var markup = '<select id="pointAvailability" name="pointAvailability" class="form-control" ng-model="grdPoints.edit.pointAvailability" \n\
+                        ng-options="opt.id as opt.tipo for opt in pointAvailability"> \n\
+                      </select>';
+        return createElement(markup);
+    }
+    
+    function formatterPointAvailability(cellvalue, options, rowObject, action) {        
+        if (cellvalue>=0)
+            for (var i = 0; i < $scope.pointAvailability.length; i++)
+                if ($scope.pointAvailability[i].id == cellvalue) {
+                    return $scope.pointAvailability[i].tipo;
+                }
+    }
+    
+    function unformatPointAvailability(cellvalue, options, cell) {
+        if (cellvalue)
+            for (var i = 0; i < $scope.pointAvailability.length; i++)
+                if ($scope.pointAvailability[i].tipo === cellvalue){
+                    return $scope.pointAvailability[i].id;
+                }
+    }
+    
+    function customPointAvailabilityValue(elem, operation, value) {       
+        if (operation === 'get') {
+            return $scope.grdPoints.edit.pointAvailability;
+        } 
+    }
+
+    $scope.openRoute = function(){
+    $scope.sc.loading = true;
+    RoutesDataService.toggleOpenClose({id: $scope.route.id, close:0})
+            .success(function(data, status, headers, config) {
+                $scope.sc.loading = false;
+                if(data.error){
+                    var modalOptions = {actionButtonText: 'Aceptar', bodyText: data.error, };
+                    ModalService.showModal({templateUrl: modalInfoPath}, modalOptions);
+                }else{
+                    var modalOptions = {actionButtonText: 'Aceptar', bodyText: 'La ruta se abrió correctamente.'};
+                    ModalService.showModal({templateUrl: modalInfoPath}, modalOptions).then(function (result) {
+                        $scope.route=data[0][0];
+                        $scope.grid.api.refresh();
+                        $scope.grdPoints.api.refresh();
+                        $scope.refreshAlert();
+                    });
+                    
+                }
+                })
+            .error(function(data, status, headers, config) {
+                $scope.sc.loading = false;
+                var modalOptions = {actionButtonText: 'Aceptar', bodyText: 'Ocurrió un error al abrir la ruta.'};
+                ModalService.showModal({templateUrl: modalInfoPath}, modalOptions);
+            });
+    }
+    
+    $scope.closeRoute = function(){
+        $scope.sc.loading = true;        
+        RoutesDataService.toggleOpenClose({id: $scope.route.id, close:1})
+                .success(function(data, status, headers, config) {
+                    $scope.sc.loading = false;
+                    if(data.error){
+                        var modalOptions = {actionButtonText: 'Aceptar', bodyText: data.error, };
+                        ModalService.showModal({templateUrl: modalInfoPath}, modalOptions);
+                    }else{
+                        var modalOptions = {actionButtonText: 'Aceptar', bodyText: 'La ruta se cerró correctamente.'};
+                        ModalService.showModal({templateUrl: modalInfoPath}, modalOptions).then(function (result) {
+                            $scope.route=data[0][0];
+                            $scope.grid.api.refresh();
+                            $scope.grdPoints.api.refresh();
+                            $scope.refreshAlert();
+                        });
+                        
+                    }
+                    })
+                .error(function(data, status, headers, config) {
+                    $scope.sc.loading = false;
+                    var modalOptions = {actionButtonText: 'Aceptar', bodyText: 'Ocurrió un error al cerrar la ruta.'};
+                    ModalService.showModal({templateUrl: modalInfoPath}, modalOptions);
+                });
+    }
+    
+    $scope.routePointMoveOrder = function(pointId, new_p){//////////MOVER PUNTO CON PARAMETRO DE NUEVA POSICIÓN(12-01-17 EAAL)/////////////////////////////
+        $scope.sc.loading = true;
+        RoutesDataService.routePointChangeOrder({id: pointId, dir:new_p})
+                .success(function(data, status, headers, config) {
+                    $scope.sc.loading = false;
+                    if(data.error){
+                        var modalOptions = {actionButtonText: 'Aceptar', bodyText: data.error, };
+                        ModalService.showModal({templateUrl: modalInfoPath}, modalOptions);
+                    }else{
+                        $scope.grdPoints.api.refresh();
+                    }
+                    })
+                .error(function(data, status, headers, config) {
+                    $scope.sc.loading = false;
+                    var modalOptions = {actionButtonText: 'Aceptar', bodyText: 'Ocurrió un error al actualizar el registro.'};
+                    ModalService.showModal({templateUrl: modalInfoPath}, modalOptions);
+                });
+    }
+    
+    $scope.routePointChangeOrder = function(pointId, dir){
+        $scope.sc.loading = true;
+        RoutesDataService.routePointChangeOrder({id: pointId, dir:dir})
+                .success(function(data, status, headers, config) {
+                    $scope.sc.loading = false;
+                    if(data.error){
+                        var modalOptions = {actionButtonText: 'Aceptar', bodyText: data.error, };
+                        ModalService.showModal({templateUrl: modalInfoPath}, modalOptions);
+                    }else{
+                        $scope.grdPoints.api.refresh();
+                    }
+                    })
+                .error(function(data, status, headers, config) {
+                    $scope.sc.loading = false;
+                    var modalOptions = {actionButtonText: 'Aceptar', bodyText: 'Ocurrió un error al actualizar el registro.'};
+                    ModalService.showModal({templateUrl: modalInfoPath}, modalOptions);
+                });
+    }
+    
+    $scope.delete = function(id){
+        if (id) {
+            var modalOptions = {closeButtonText: 'Cancelar', actionButtonText: 'Eliminar', bodyText: '¿Estás seguro de eliminar este punto de venta?'};
+            ModalService.showModal({templateUrl: modalPath}, modalOptions).then(function (result) {
+                $scope.sc.loading = true;
+                RoutesDataService.routePointDelete({id: id})
+                .success(function(data, status, headers, config) {
+                    $scope.sc.loading = false;
+                    if(data.error){
+                        var modalOptions = {actionButtonText: 'Aceptar', bodyText: data.error, };
+                        ModalService.showModal({templateUrl: modalInfoPath}, modalOptions);
+                    }else{
+                        var modalOptions = {actionButtonText: 'Aceptar', bodyText: '¡Registro eliminado con éxito!'};
+                        ModalService.showModal({templateUrl: modalInfoPath}, modalOptions).then(function (result){
+                        $scope.grdPoints.api.refresh();
+                        });
+                    }
+                    })
+                .error(function(data, status, headers, config) {
+                    $scope.sc.loading = false;
+                    var modalOptions = {actionButtonText: 'Aceptar', bodyText: 'Ocurrió un error al eliminar el registro.'};
+                    ModalService.showModal({templateUrl: modalInfoPath}, modalOptions);
+                });
+            });
+        }else{
+            var modalOptions = {actionButtonText: 'Aceptar', bodyText: 'Para poder eliminar, es necesario seleccionar primero un registro.'};
+            ModalService.showModal({templateUrl: modalInfoPath}, modalOptions);
+        }
+    }
+    
+    $scope.refreshAlert=function(){        
+        if($scope.route.close==0){
+            $scope.routeAlerts = [];    
+            $scope.routeAlerts.push({msg: 'La ruta se encuentra abierta, para poder programar una ruta es necesario que la ruta se encuentre cerrada. \n\ Una ruta solo puede ser cerrada agregando un centro de intercambio como punto final de la ruta.', type:'info'});
+        }else{
+            $scope.routeAlerts = [];    
+            $scope.routeAlerts.push({msg: 'La ruta se encuentra cerrada, para poder agregar nuevos puntos, editar o eliminar los puntos existentes o cambiar el orden de estos, es necesario abrir la ruta.', type:'info'});    
+    	}
+    }
+    $scope.refreshAlert();
+    $scope.closeAlert = function(index) {
+        $scope.routeAlerts.splice(index, 1);
+    };
+
+    $scope.regresar=function(){
+        $state.go('^', $stateParams);
+    }
+
+    $scope.accordion = {status:{open: true}};
+}

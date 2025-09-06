@@ -1,0 +1,278 @@
+<div ng-show="state.current.name==='promotionReceived'">  
+    <ol class="breadcrumb">
+        <li class="active">Panel</li>
+        <li class="active actualpg">Programaciones</li>
+    </ol>
+    <div class="container-fluid">
+        <div class="row">
+            
+            <div class="col-md-12">
+                <div class="pull-right">                         
+                    <div class="btn-group  btn-group-sm">
+                        <button class="btn btn-default sin-padding" ng-click="tableParams.reload()" ><span class="pers-btn icono-refrescar tam-normal"></span></button>
+                    </div>       
+                </div>
+                <p>&nbsp;&nbsp;</p>
+                <div loading-container="tableParams.settings().$loading">                
+                    <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable table-responsive">
+                    <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">
+                        <span class="ui-ngt-title">Promociones de mis proveedores</span>
+                    </div>
+                        <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover table-striped ">
+                            <tbody>
+                                <tr ng-repeat="promotions in $data" ng-click="promotions.$selected = !promotions.$selected; changeSelection(promotions)"
+                                    ng-class="{'ngactive': promotions.$selected}">
+                                    <td data-title="'N°'" sortable="'id'"  class="col-md-1">
+                                        {{promotions.id}}
+                                    </td>
+                                    <td data-title="'Proveedor'">
+                                        {{promotions.buyer}}
+                                    </td>                     
+                                    <td data-title="'Promoci&oacute;n'" sortable="'promotionName'">
+                                        {{promotions.promotionName}}
+                                    </td>                                    
+                                    <!-- td data-title="'Paquete'">
+                                        {{promotions.package}}
+                                    </td
+                                    <td data-title="'Fecha programada'">
+                                        {{promotions.dateshipping|stringToDate|date :"dd MM yyyy H:mm"}}
+                                    </td>                                    
+                                    <td data-title="'Estatus'">
+                                        <span ng-if="promotions.paymentStatus==1">Pagada</span>
+                                        <span ng-if="promotions.paymentStatus!=1">Pendiente</span>
+                                    </td-->
+                                    <td data-title="''">
+                                        <span tooltip="Rechazado" ng-if="(promotions.shippingStatus == 6)" class="pers-btn icono-tacha icono-tam-tabla"  ></span>
+                                        <span tooltip="Promocionada" ng-if="(promotions.shippingStatus == 3)" class="pers-btn icono-palomita icono-tam-tabla"  ></span>
+                                        <span tooltip="No promocionada" ng-if="(promotions.shippingStatus == 0)" class="pers-btn icono-sin-accion icono-tam-tabla"  ></span>
+                                    </td>
+                                    <td data-title="'Ver'">
+                                        <!-- span title="{{UtilsService.findById(getInterestLevel,promotions.interestLevel)['name']}}" zd-rating rating-value="promotions.interestLevel" max="getInterestLevel.length" readonly="true" ng-click="openSurveyDesc(promotions)"></span-->
+                                        <span ng-if="(promotions.shippingStatus == 0)" tooltip="Ver" class="glyphicon glyphicon-play-circle" style="font-size:1.3em" ng-click="getPromotionResult(promotions)"></span>
+                                        <!-- span tooltip="" class="glyphicon glyphicon-remove-circle" style="font-size:1.3em" ng-click="rejectPromotion(promotions)"></span-->                                        
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>            
+                    </div>        
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="templateShowSurvey.html">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">{{promotion.id}} - {{promotion.promotionName}}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">                
+                <div style="border-bottom:1px dotted #ccc; margin-bottom:5px;margin-top:5px">
+                    <h5 style="font-weight:bold; font-size:300">Tipo de consumidor</h5>
+                    <span zd-rating rating-value="promotion.consumerType" max="getConsumerType.length" readonly="true" ></span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{UtilsService.findById(getConsumerType,promotion.consumerType)['name']}}
+                </div>                    
+                
+                <div style="border-bottom:1px dotted #ccc; padding-top:5px; margin-bottom:5px;margin-top:5px">
+                    <h5 style="font-weight:bold; font-size:300">Interés Mostrado</h5>
+                    <span zd-rating rating-value="promotion.interestLevel" max="getInterestLevel.length" readonly="true" ></span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{UtilsService.findById(getInterestLevel,promotion.interestLevel)['name']}}
+                </div>
+                
+                <div style="border-bottom:1px dotted #ccc; padding-top:5px; margin-bottom:5px;margin-top:5px">
+                    <h5 style="font-weight:bold; font-size:300">¿Solicitó algo?</h5>
+                    <span zd-rating rating-value="promotion.request" max="getRequest.length" readonly="true" ></span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{UtilsService.findById(getRequest,promotion.request)['name']}}
+                </div>
+                <br/>
+                <div style="border-bottom:1px dotted #ccc; padding-top:5px; margin-bottom:5px;margin-top:5px">
+                    <h5 style="font-weight:bold; font-size:300">Usuario que recibió</h5>
+                    {{promotion.receivingUser}}
+                </div>
+                
+                <div style="border-bottom:1px dotted #ccc; padding-top:5px; margin-bottom:5px;margin-top:5px">
+                    <h5 style="font-weight:bold; font-size:300">Teléfono proporcionado</h5>
+                    {{promotion.telephone}}
+                </div>
+                
+                
+                <div style="border-bottom:1px dotted #ccc; padding-top:5px; margin-bottom:5px;margin-top:5px">
+                    <h5 style="font-weight:bold; font-size:300">Comentarios adicionales</h5>
+                    {{promotion.comments}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-ng-click="ok();">Cerrar</button>
+    </div>    
+</script>
+
+<script type="text/ng-template" id="templateShowPromotion.html">
+    <div class="modal-body">
+        <div class=""><h4 style="border-bottom:1px solid #e5e5e5;padding-bottom:3px ">{{promotion.buyer}} - {{promotion.promotionName}}</h4></div>
+        <div class="col-md-12">
+            <!-- Tabla de partidas -->
+            <div loading-container="loadingDetail">
+                <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable table-responsive">
+                    <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">
+                        <span class="ui-ngt-title">Detalle</span><span class="pull-right"><button class="btn btn-default btn-sm" style="background-color: transparent !important; border-color: transparent !important; outline: 0px !important" ng-click="loaData(promotion.promotionId)" tooltip="Recargar"><span class="pers-btn icono-refrescar-fila icono-tam-tabla"></span></button></span>
+                    </div>
+                    <table class="table ng-table-rowselected table-hover table-striped table-condensed">
+                        <thead>
+                            <th>N&deg;</th><th>Nombre</th><!--th>Recurso</th--><th>Visto</th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="r in resource" ng-click=""
+                                ng-class="{'ngactive': r.$selected}">
+                                <td class="col-md-1">
+                                    {{r.num}}
+                                </td>
+                                <!--td class="col-md-3">
+                                    {{r.name}}
+                                </td-->
+                                <td class="col-md-4">
+                                    <span ng-show="r.resourceType==1 && r.id<0" class="glyphicon glyphicon-file" style="font-size:10pt"></span>
+                                    <span ng-show="r.resourceType==2 && r.id<0" class="glyphicon glyphicon-link" style="font-size:10pt"></span>
+                                    <a ng-if="r.resourceType==1" ng-show="r.id>0" ng-click="showResource({id:r.id,promotionpath:r.path,userSending:promotion.userSending, packagePromotion:r.name})" >
+                                        <span ng-show="r.resourceType==1" class="glyphicon glyphicon-file" style="font-size:10pt"></span>
+                                        {{r.name}}
+                                    </a>
+									<a ng-if="r.resourceType==2" ng-show="r.id>0" ng-click="checkedLink(r.id,resource)" ng-href="{{r.path}}" target="_blank">
+                                        <span ng-show="r.resourceType==2" class="glyphicon glyphicon-link" style="font-size:10pt"></span>
+										{{r.name}}
+                                    </a>
+                                   	{{(r.resourceType==1 && r.id<0) ? r.file.name : (r.resourceType==2 && r.id<0) ? r.path : ""}}
+                                </td>
+                                <td class="col-md-1"><span tooltip="Visto" ng-if="(r.checked)" class="pers-btn icono-palomita icono-tam-tabla"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div><p style="clear:both"></p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-ng-click="rejectPromotion(promotion);">Rechazar</button>
+        <!--button type="button" class="btn btn-info" data-ng-click="notDeliver(promotion);">No entregar</button-->
+        <button type="button" class="btn btn-info" data-ng-click="ok(promotion);">Aceptar y Cerrar</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="templateShowNotDeliveryReason.html">
+    <!-- <div class=""><h4 style="border-bottom:1px solid #e5e5e5;padding-bottom:3px "></h4></div> -->
+    <div class="modal-body">
+         <form role="form" novalidate name="sc.frmReason">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" ng-class="getFormFieldCssClass(sc.frmReason.comments)">
+                        <label for="comments">Comentario de rechazo</label>
+                        <textarea class="form-control"  id="comments" name="comments" placeholder=""  ng-model="reason.comments"/>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">        
+        <button type="button" class="btn btn-info" data-ng-click="ok();">Aceptar</button>
+    </div>    
+</script>
+
+<script type="text/ng-template" id="templateShowResource.html">
+    <div class=""><h4 style="border-bottom:1px solid #e5e5e5;padding-bottom:3px ">{{resource.promotionpath}} - {{resource.packagePromotion ? resource.packagePromotion : resource.Paquete}}</h4></div>
+    <div class="modal-body">
+        <iframe src="{{resource.promotionpath}}" style="width: 80%; height: 300px;" id="viewer"
+            scrolling="no" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0">
+        </iframe>
+    </div>
+    <div class="modal-footer">
+        <button ng-if="!resource.isLoadedFromPromoList" type="button" class="btn btn-info" data-ng-click="rejectPromotion(resource);">Rechazar</button>
+        <button ng-if="!resource.isLoadedFromPromoList" type="button" class="btn btn-info" data-ng-click="notDeliver(resource);">No entregar</button>
+        <button type="button" class="btn btn-info" data-ng-click="ok(resource);">Aceptar y Cerrar</button>
+    </div>    
+</script>
+
+<script type="text/ng-template" id="templateShowSurvey1.html">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">Encuesta</h4>
+    </div>
+    <div class="modal-body">
+        <form role="form" novalidate name="sc.frmSurvey">
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="hidden" class="form-control" ng-model="promotionSchedule.id">
+                    <div class="form-group" ng-class="getFormFieldCssClass(sc.frmSurvey.consumerType)">
+                        <label for="consumerType">Tipo de Consumidor</label>
+                        <select ng-model="select.consumerType"
+                                ng-options="option.name for option in getConsumerType track by option.id"
+                                class="form-control"
+                                ng-required="true"
+                                id="consumerType"
+                                name="consumerType">
+                            <option value="">Seleccionar tipo de consumidor</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" ng-class="getFormFieldCssClass(sc.frmSurvey.interestLevel)">
+                        <label for="interestLevel">Nivel de Interés</label>
+                        <select ng-model="select.interestLevel"
+                                ng-options="option.name for option in getInterestLevel track by option.id"
+                                class="form-control"
+                                ng-required="true"
+                                id="interestLevel"
+                                name="interestLevel">
+                            <option value="">Seleccionar nivel de interés</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" ng-class="getFormFieldCssClass(sc.frmSurvey.request)">
+                        <label for="request">Solicita</label>
+                        <select ng-model="select.request"
+                                ng-options="option.name for option in getRequest track by option.id"
+                                class="form-control"
+                                ng-required="true"
+                                id="request"
+                                name="request">
+                            <option value="">Seleccionar si solicita </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--div class="col-md-5">
+                    <div class="form-group" ng-class="getFormFieldCssClass(sc.frmSurvey.receivingUser)">
+                        <label for="receivingUser">Usuario que recibe</label>
+                        <input type="text" class="form-control input-sm" id="receivingUser" name="receivingUser" placeholder="" ng-required="true" ng-model="promotionSchedule.receivingUser"/>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group" ng-class="getFormFieldCssClass(sc.frmSurvey.telephone)">
+                        <label for="comments">Teléfono/Celular</label>
+                        <input type="text" class="form-control input-sm" id="telephone" name="telephone" placeholder=""  ng-model="promotionSchedule.telephone"/>
+                    </div>
+                </div-->
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group" ng-class="getFormFieldCssClass(sc.frmSurvey.comments)">
+                        <label for="comments">Observaciones</label>
+                        <textarea class="form-control"  id="comments" name="comments" placeholder=""  ng-model="promotionSchedule.comments"/>
+                    </div>
+                </div>                
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-info" ng-disabled="sc.frmSurvey.$invalid" data-ng-click="ok();">Guardar y Cerrar</button>
+    </div>
+</script>
+
+<div ui-view="edit"></div>
+    <!--img  src="../../public/images/Logo_1.png" alt="logo" class="pie"--> 

@@ -1,0 +1,32 @@
+[24-Apr-2025 02:19:11 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getBaseUrlPublic() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Layout/Application.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Layout/Application.php on line 8
+[26-Apr-2025 04:01:27 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getBaseUrlPublic() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Layout/Admin.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Layout/Admin.php on line 4
+[26-Apr-2025 04:46:44 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getCssManager() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Layout/Base.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Layout/Base.php on line 8
+[26-Apr-2025 17:59:27 UTC] PHP Fatal error:  Uncaught Error: Call to a member function TrHelper() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Layout/Sidebar.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Layout/Sidebar.php on line 2
+[26-Apr-2025 23:51:23 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getBaseUrlPublic() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Layout/Smart.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Layout/Smart.php on line 4
+[27-Apr-2025 03:54:36 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getBaseUrlPublic() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Layout/GeneralContentLayout.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Layout/GeneralContentLayout.php on line 7
+[29-Apr-2025 10:31:24 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getBaseUrlPublic() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Layout/Admin.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Layout/Admin.php on line 4
+[29-Apr-2025 11:18:38 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getCssManager() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Layout/Base.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Layout/Base.php on line 8

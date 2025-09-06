@@ -1,0 +1,84 @@
+<?php
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
+
+class DefaultDb_Repositories_M3CommerceOrderRepository extends EntityRepository
+{
+    /**
+     * Metodo que busca entre las ordenes las que se encuentren entre fechas indicadas
+     * ademas verifica que el shipping_status sea "Por recoleccion"
+     * @param string $starDate
+     * @param string $endDate
+     */
+
+    public function getSecuencialActivity($starDate, $endDate)
+    {
+        $validStatus = array(
+            DefaultDb_Entities_M3CommerceOrder::SHIPPING_STATUS_TO_SHIPPED,
+            DefaultDb_Entities_M3CommerceOrder::SHIPPING_STATUS_SHIPPED,
+        );
+        $statusStr = implode(',', $validStatus);
+
+        $em = $this->getEntityManager();
+        $dql = '
+                SELECT o
+                FROM DefaultDb_Entities_M3CommerceOrder o
+                JOIN o.schedule s
+                WHERE o.shippingDate >= \''.$starDate->format("Y-m-d 00:00:00").'\'
+                    AND o.shippingDate <= \''.$endDate->format("Y-m-d 11:59:59").'\'
+                    AND o.shippingStatus IN ('.$statusStr.')
+                ORDER BY s.id , o.shippingDate ASC
+                ';
+        $query = $em->createQuery($dql);
+        $routePoints = $query->getResult();
+        return $routePoints;
+    }
+    
+    public function getOrdersByStatusShipping($userId, $status)
+    {
+        $em = $this->getEntityManager();
+        $dql = '
+            SELECT o
+            FROM DefaultDb_Entities_M3CommerceOrder o
+                JOIN o.buyer b
+            WHERE b.id = '.$userId.' AND o.shippingStatus = '.$status;
+
+        $query = $em->createQuery($dql);
+        $orders = $query->getResult();
+        
+        return $orders;
+    }
+    
+    public function getSecuencialActivityByDateByRoute($starDate,$route=null,$dateStartRoute=null)
+    {
+        $validStatus = array(
+            DefaultDb_Entities_M3CommerceOrder::SHIPPING_STATUS_TO_SHIPPED,
+            DefaultDb_Entities_M3CommerceOrder::SHIPPING_STATUS_SHIPPED,
+        );
+        $statusStr = implode(',', $validStatus);
+        $date = new DateTime($starDate->format('Y-m-d 00:00:00'));
+        $date->modify('+1 day');
+        $em = $this->getEntityManager();
+        $where =
+        'WHERE '. ($route === null ? '' : 'r.id ='.$route->getId().' AND ') .
+         ( $dateStartRoute===null ?
+            ' s.shippingDate >= \''.$starDate->format("Y-m-d").'\'
+            AND s.shippingDate <= \''.$date->format("Y-m-d").'\' AND'
+                    :
+                ' s.routeDate=\''.$dateStartRoute.'\' AND'
+            ).
+        ' o.shippingStatus IN ('.$statusStr.')';
+        $dql = 'SELECT s
+        FROM DefaultDb_Entities_SequentialActivities s
+        JOIN s.order o
+        JOIN s.routePoint rp
+        JOIN rp.route r
+        JOIN rp.point p
+        '.$where .'
+        ORDER BY s.shippingDate ASC
+        ';
+        $query = $em->createQuery($dql);
+        $routePoints = $query->getResult();
+        return $routePoints;
+    }
+}

@@ -1,0 +1,3 @@
+[26-Apr-2025 10:53:03 UTC] PHP Fatal error:  Class 'Doctrine\DBAL\Driver\PDOConnection' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Driver/PDOSqlsrv/Connection.php on line 29
+[27-Apr-2025 21:25:51 UTC] PHP Fatal error:  Interface 'Doctrine\DBAL\Driver' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Driver/PDOSqlsrv/Driver.php on line 27
+[29-Apr-2025 17:37:40 UTC] PHP Fatal error:  Class 'Doctrine\DBAL\Driver\PDOConnection' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Driver/PDOSqlsrv/Connection.php on line 29

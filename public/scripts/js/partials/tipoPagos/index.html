@@ -1,0 +1,24 @@
+<div ng-show="state.current.name==='tipoPagos'">
+    <ol class="breadcrumb">
+        <li class="active">Catálogos</li>
+        <li class="active actualpg">Tipos de Pagos</li>
+    </ol>
+    <progressbar class="progress-striped active" value="100" type="info" ng-show="loading"></progressbar>
+        <div class="toolbar">            
+            <div class="pull-right">
+                <div class="btn-toolbar" role="toolbar">
+                    <div class="btn-group  btn-group-sm">                            
+                        <button class="btn btn-default nuevo"  ng-click="grid.add()"><span class="pers-btn icono-nuevo tam-normal"></span></button>
+                        <button class="btn btn-default eliminar"  ng-click="grid.delete()"><span class="pers-btn icono-eliminar tam-normal"></span></button>
+                        <button class="btn btn-default editar"  ng-click="grid.edit()"><span class="pers-btn icono-editar tam-normal"></span></button>
+                        <button zd-filter custom-filter="customFilter" ng-click="openFilter()" is-open="filterOpen"  apply-filter="appFilter(filter)" class="btn btn-default filtrar"><span class="pers-btn icono-filtrar tam-normal"></span></button>
+                        <button class="btn btn-default refrescar" ng-click="grid.refresh()"><span class="pers-btn icono-refrescar tam-normal"></span></button>
+                        <button class="btn btn-default exportar" ng-csv="fncExportar()" charset="utf-8" csv-header="['Tipo de Pago']" filename="{{nombreArchivo}}.csv" ><span class="pers-btn icono-exportar tam-normal"></span></button>
+                    </div>
+                </div>
+            </div>            
+        </div>
+    <ng-jqgrid vapi="grid.apicall" config="grid.config" api="grid.api" gridid="grdTipoPagos" pagerid="pager"></ng-jqgrid>
+</div>
+<div ui-view="edit"></div>
+<!--img  src="../../public/images/Logo_1.png" alt="logo" class="pie"--> 

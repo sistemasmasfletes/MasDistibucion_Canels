@@ -1,0 +1,39 @@
+<div ng-show="state.current.name==='tipoMovimientos.edit'||state.current.name==='tipoMovimientos.add'">
+    <ol class="breadcrumb">
+        <li class="active">Catálogos</li>
+        <li class="active"><a ui-sref="tipoMovimientos">Tipos de Movimientos</a></li>
+        <li class="active actualpg" ng-show="state.current.name === 'tipoMovimientos.add'">Agregar Tipo de Movimiento</li>
+        <li class="active actualpg" ng-show="state.current.name === 'tipoMovimientos.edit'">Editar Tipo de Movimiento</li>
+    </ol>
+    <progressbar class="progress-striped active" value="100" type="info" ng-show="loading"></progressbar>
+    <div class="toolbar">
+        <div class="pull-right">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group  btn-group-sm">
+                    <!--<button class="btn btn-default" tooltip="Regresar" ng-click="back()"><span class="glyphicon glyphicon-chevron-left"></span></button>-->
+                    <button class="btn btn-default sin-padding" ng-click="save()" ng-disabled="frmTipoMovimientos.$invalid"><span class="pers-btn icono-guardar tam-normal"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">Tipo de Movimiento</div>
+
+        <div class="panel-body">
+            <form  role="form" novalidate name="frmTipoMovimientos">
+                <div class="row">
+                    <div class="col-md-3">
+                        <input type="hidden" class="form-control" ng-model="tipoMovimientos.id">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmTipoMovimientos.tipoMovimiento)">
+                            <label for="name">Movimiento</label>
+                            <input type="text" class="form-control" id="name" name="tipoMovimiento" placeholder="Movimiento" required ng-model="movimiento.tipoMovimiento">
+                        </div>
+                    </div>
+                    
+                </div>
+            </form>        
+        </div>
+    </div>
+</div>

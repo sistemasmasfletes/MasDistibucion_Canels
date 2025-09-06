@@ -1,0 +1,4 @@
+[25-Apr-2025 21:31:30 UTC] PHP Fatal error:  Interface 'Symfony\Component\Console\Output\OutputInterface' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Symfony/Component/Console/Output/Output.php on line 30
+[26-Apr-2025 17:13:55 UTC] PHP Fatal error:  Class 'Symfony\Component\Console\Output\StreamOutput' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Symfony/Component/Console/Output/ConsoleOutput.php on line 31
+[26-Apr-2025 17:59:49 UTC] PHP Fatal error:  Class 'Symfony\Component\Console\Output\Output' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Symfony/Component/Console/Output/StreamOutput.php on line 31
+[27-Apr-2025 05:39:15 UTC] PHP Fatal error:  Class 'Symfony\Component\Console\Output\Output' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Symfony/Component/Console/Output/NullOutput.php on line 23

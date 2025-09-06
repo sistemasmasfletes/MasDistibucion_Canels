@@ -1,0 +1,139 @@
+<?php
+/* @var $view Model3_View*/
+//require_once 'dompdf/dompdf_config.inc.php';<link rel="stylesheet" href="'.$prueba.'" type="text/css" />
+//ini_set("memory_limit", "32M");
+//ob_start();
+if ($view->packs)
+{
+    $cont = 0;
+    foreach ($view->packs as $p)
+    {
+       $cont += $p->getNumPackage();
+    }
+}
+$content = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <style> 
+    body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 13px;
+        line-height: 18px;
+        color: #333333;
+        background-color: #ffffff;
+      }
+    table {
+        max-width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0;
+        }
+     .table {
+        width: 100%;
+        margin-bottom: 18px;
+      }
+      .table th,.table td {
+        padding: 4px;
+        line-height: 18px;
+        text-align: left;
+        vertical-align: top;
+        
+      }   
+        .table th {
+          font-weight: bold;
+          border-bottom: 1px solid #ddd;
+        }
+        .table thead th {
+          vertical-align: bottom;
+        }
+        .table thead:first-child tr th, .table thead:first-child tr td {
+          border-top: 0;
+        }
+        .table tbody + tbody {
+          border-top: 2px solid #ddd;
+        }
+        .table-condensed th, .table-condensed td {
+          padding: 4px 5px;
+        }
+        .span6 {
+            width: 460px;
+          }
+          .span7 {
+            width: 540px;
+          }
+        .span8 {
+        width: 620px;
+        }
+        .span9 {
+          width: 700px;
+        }
+        .span10 {
+          width: 780px;
+        }
+    </style>
+    </head><body>
+     <div style="border-bottom:1px solid #B00700;padding-bottom:5px;">
+     
+     <img src="http://logistic-apps.com/masfletes/images/logo-masfletes.gif" />
+     </div>';
+    //<img src="http://localhost'.$view->getBaseUrl('/images/logo-masfletes.gif') . '" />
+    //@todo: remover estilos que no se utilizan
+if ($view->order)
+{
+    $indice = 0;
+    for ($i = 1; $i <= $cont; $i++)
+    {
+        $seqHtml = $seqShippedHtml = '<table>';
+        foreach($view->sequentials as $seq){
+            if($seq->getType()==1){
+                $seqHtml .='<tr>';
+                $seqHtml .='<td>'.$seq->getRoutePoint()->getPoint()->getFullAddress().'</td><td style="color:#B00700;font-size: 10px;">'.$seq->getShippingDate()->format('Y-m-d H:i').'</td>';
+                $seqHtml .='</tr>';
+            }
+            else
+            {
+                $seqShippedHtml .='<tr>';
+                $seqShippedHtml .='<td>'.$seq->getRoutePoint()->getPoint()->getFullAddress().'</td><td style="color:#B00700;font-size: 10px;">'.$seq->getShippingDate()->format('Y-m-d H:i').'</td>';
+                $seqShippedHtml .='</tr>';
+                
+            }
+        }
+        $seqHtml .='</table>';
+        $seqShippedHtml .='</table>';
+        $content .='
+            <div class="">
+                <table class="table tab-content">
+                <thead>
+                <tr>
+                    <th>Folio</th>
+                    <th>Envio de</th>
+                    <th>Origen</th>
+                    <th>Destino</th>
+                    <th>Ruta</th>
+                    <th>Unidades</th>
+                    <th>Precio unidad</th>
+                </tr>
+                </thead>
+                
+                <tr>
+                    <td>' . $view->order->getId() . '</td>
+                    <td>' . $view->order->getSeller()->getCommercialName() . '</td>
+                    <td>' . $seqHtml /*$view->order[0]->getSeller()->getPoint()->getAddress()*/ . '</td>
+                    <td>' . $seqShippedHtml/*$view->order[0]->getBuyer()->getPoint()->getAddress()*/ . '</td>
+                    <td>' . $view->rout[0]->getRoute()->getName() . '</td>
+                    <td>' . $i . ' de ' . $cont . '</td>                    
+                    <td>$ ' . number_format($view->packs[$indice]->getPrice(),2) . '</td>';
+                    if($i == $view->packs[$indice]->getNumPackage())
+                        $indice++;
+     $content.='</tr>';
+     $content .='
+        </table>
+        </div>
+       <div class="clear" style="height:135px;"></div>';
+    }
+}
+$content .= '</body></html>';
+//echo $content;
+$dompdf = new DOMPDF();
+$dompdf->load_html($content);
+$dompdf->render();
+$dompdf->stream("etiquetas.pdf");

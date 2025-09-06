@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Usuario razonsocial="CORAL DISTRIBUIDORA" usuario="coraldistr" rfc="DIDG730222874" id="88" idxml="20">
+  <Clientes>
+    <Cliente idMD="24" rfc="ANEUA0500A24" nombre="ANNA SEGOVIA" razonsocial=""/>
+    <Cliente idMD="90" rfc="" nombre="EL MEJICANTO" razonsocial=""/>
+    <Cliente idMD="93" rfc="" nombre="LA CABAÑA DE LOS COMPADRES " razonsocial="LCLC020306DST"/>
+    <Cliente idMD="94" rfc="" nombre="LA FUNDIDORA" razonsocial="LAFU730425MBK"/>
+    <Cliente idMD="132" rfc="11111111111A" nombre="SIX ACERINA" razonsocial="GABRIELA HERRERA SANCHEZ"/>
+    <Cliente idMD="144" rfc="AOCA561226LLO" nombre="EL CAFE CORTAO" razonsocial="ALFREDO ARROYO CARRANZA"/>
+    <Cliente idMD="154" rfc="AYVL090909or4" nombre="PIRATAS BURGUER" razonsocial="ALICIA YOLANDA VERA"/>
+    <Cliente idMD="123" rfc="BABR161104LSJ" nombre="BAR LAS BRUJITAS" razonsocial="BAR LAS BRUJITAS"/>
+    <Cliente idMD="149" rfc="BLS568923JUK" nombre="BAR LA SANTITA" razonsocial="BAR LA SANTITA "/>
+    <Cliente idMD="101" rfc="BOCH111111XXX" nombre="BOCA CHICA" razonsocial=""/>
+    <Cliente idMD="24" rfc="BAPFO0390A24" nombre="BAR LAS BRUJITAS" razonsocial=""/>
+    <Cliente idMD="135" rfc="BRLMPT2019" nombre="BAR LA MALA PATA" razonsocial="BAR LA MALA PATA"/>
+    <Cliente idMD="128" rfc="CALO160428RLZ" nombre="CARLOS LOPEZ" razonsocial="CARLOS LOPEZ"/>
+    <Cliente idMD="24" rfc="CAVC3045A24" nombre="CAFETERIA COLIBRI SLP" razonsocial=""/>
+    <Cliente idMD="67" rfc="CONA720802XDF" nombre="COLEGIO NACIONAL DE EDUCACIÓN PROFESIONAL TÉCNICA" razonsocial="CONALEP"/>
+    <Cliente idMD="24" rfc="COMLR0500A24" nombre="CONSUELO PEREZ" razonsocial=""/>
+    <Cliente idMD="131" rfc="CPE180101U32" nombre="CONSUELO PEREZ" razonsocial="CONSUELO PEREZ"/>
+    <Cliente idMD="156" rfc="CVE170114RZ1" nombre="CAFETERIA COLIBRI SLP" razonsocial="CAFETERIA VEAL SA DE CV"/>
+    <Cliente idMD="130" rfc="EOCM750801UBA" nombre="EDGAR OMAR CASTRO MARTÍNEZ" razonsocial="EDGAR OMAR CASTRO MARTÍNEZ"/>
+    <Cliente idMD="92" rfc="FEND111122MSJ" nombre="FRUTERÍA EL NUEVO DÍA" razonsocial=""/>
+    <Cliente idMD="117" rfc="GAR150107TR6" nombre="COMEDOR EATON" razonsocial="GASTRONOMIA ARTISTICA S. DE R.L. DE C.V."/>
+    <Cliente idMD="24" rfc="ELC572161A24" nombre="EL 124 COCINA MEXICANA Y CORTES FINOS" razonsocial=""/>
+    <Cliente idMD="129" rfc="GERI170802DLR" nombre="GUADALUPE DE LA ROSA IBARRA" razonsocial="GUADALUPE DE LA ROSA IBARRA"/>
+    <Cliente idMD="120" rfc="GOAV170518RDN" nombre="GORDITAS AVENIDA" razonsocial="GORDITAS AVENIDA"/>
+    <Cliente idMD="24" rfc="GOAVCT0500A24" nombre="GORDITAS SUZY" razonsocial=""/>
+    <Cliente idMD="114" rfc="GCA1302223F5" nombre="GRUPO CONTROLADORA DE ALIMENTOS GCA" razonsocial="GRUPO CONTROLADORA DE ALIMENTOS GCA"/>
+    <Cliente idMD="146" rfc="GHC0000000000001" nombre="GRAN HOTEL CONCORDIA" razonsocial="OPERADORA MEXPLA SA DE CV"/>
+    <Cliente idMD="122" rfc="GOSU170823RDZ" nombre="GORDITAS SUZY" razonsocial="GORDITAS SUZY"/>
+    <Cliente idMD="24" rfc="GOAVS0500A24" nombre="GORDITAS YAZ" razonsocial=""/>
+    <Cliente idMD="24" rfc="GRRDCT0500A24" nombre="GRUPO CONTROLADORA DE ALIMENTOS GCA" razonsocial=""/>
+    <Cliente idMD="133" rfc="GPALCRFC2019" nombre="GUADALUPE ALCALA" razonsocial="GUADALUPE ALCALA"/>
+    <Cliente idMD="24" rfc="GURNT0500A24" nombre="GUADALUPE ALCALA" razonsocial=""/>
+    <Cliente idMD="152" rfc="HRPL56892OPI8" nombre="HOTEL REAL PLAZA" razonsocial="HOTELES REAL PLAZA SA DE CV"/>
+    <Cliente idMD="150" rfc="IPO640805KU9" nombre="HOTEL PANORAMA" razonsocial="INVERSIONES POTOSINAS SA DE CV"/>
+    <Cliente idMD="145" rfc="IPO640805KU9" nombre="HOTEL SAN FRANCISCO" razonsocial="INVERSIONES POTOSINAS SA DE CV"/>
+    <Cliente idMD="153" rfc="JMUE090909UT3" nombre="JUAN MENDOZA" razonsocial="JUAN MENDOZA"/>
+    <Cliente idMD="24" rfc="JUBLP0500A24" nombre="JUAN MENDOZA" razonsocial=""/>
+    <Cliente idMD="91" rfc="LALR510625LE8" nombre="LOS ARCOS" razonsocial="MA. DEL ROSARIO LARA LOPEZ"/>
+    <Cliente idMD="24" rfc="MAGJD0500A24" nombre="MARISCOS PEPE" razonsocial=""/>
+    <Cliente idMD="24" rfc="MACRZ0500A24" nombre="MARÍA R. ARELLANO LUNA" razonsocial=""/>
+    <Cliente idMD="126" rfc="MAPE150201RSE" nombre="MARISCOS PEPE" razonsocial="MARISCOS PEPE"/>
+    <Cliente idMD="24" rfc="MIAMJ0400A24" nombre="MIKOCINA" razonsocial=""/>
+    <Cliente idMD="108" rfc="MOEV010211LRT" nombre="MOVILIARIO EVENTUM" razonsocial=""/>
+    <Cliente idMD="98" rfc="OIHE710405M66" nombre="MARISCOS JORGE" razonsocial="EMILIA ORTIZ HERNANDEZ"/>
+    <Cliente idMD="24" rfc="MADTL0500A24" nombre="MARÍA DE JESUS SILVA CAPETILLO" razonsocial=""/>
+    <Cliente idMD="89" rfc="CIMO710808ARA" nombre="RESTAURAN LA GOZOSA" razonsocial="OSWALDO CHIMAL MORALES"/>
+    <Cliente idMD="151" rfc="HTN00000000598" nombre="HOTEL NAPOLES" razonsocial="HOTEL NAPOLES"/>
+    <Cliente idMD="157" rfc="LAB180223PD2" nombre="PURA BARRA" razonsocial="LB ALIMENTOS Y BEBIDAS"/>
+    <Cliente idMD="83" rfc="MAS0906308L8" nombre="MAS FLETES SA DE CV" razonsocial=""/>
+    <Cliente idMD="116" rfc="ORM150304ML7" nombre="OPERADORA DE RESTAURANTES MID S.A. DE C.V." razonsocial="OPERADORA DE RESTAURANTES MID S.A. DE C.V."/>
+    <Cliente idMD="147" rfc="PZC0000000002" nombre="PIZZAS CIAO" razonsocial="PIZZAS CIAO SA DE CV"/>
+    <Cliente idMD="99" rfc="RBGP030716BNM" nombre="RESTAURANT GRILL PROVECHITO" razonsocial=""/>
+    <Cliente idMD="121" rfc="RIME160428NCX" nombre="RINCON MEXICANO" razonsocial="RINCON MEXICANO"/>
+    <Cliente idMD="24" rfc="RIMEC0500A24" nombre="RINCON MEXICANO" razonsocial=""/>
+    <Cliente idMD="140" rfc="ROCE830103QK6" nombre="EL PARAISO CARNIVORO" razonsocial="ERIKA RODRIGUEZ CORTES"/>
+    <Cliente idMD="100" rfc="ROML661119SW5" nombre="SPORT BAR LA NAVE" razonsocial="LAURA ALICIA RODRÍGUEZ MALTOS"/>
+    <Cliente idMD="106" rfc="RPP760101966" nombre="RESTAURANTE LA PARROQUIA POTOSINA" razonsocial="RESTAURANTE LA PARROQUIA POTOSINA"/>
+    <Cliente idMD="24" rfc="SOVC4500A24" nombre="SOCIEDAD DE BENEFICENCIA ESPAÑOLA A.C." razonsocial=""/>
+    <Cliente idMD="136" rfc="SCLRFC2019" nombre="SUSANA CORTÉZ LIÑAN" razonsocial="SUSANA CORTÉZ LIÑAN"/>
+    <Cliente idMD="24" rfc="STJR02601A24" nombre="STOP TORTAS" razonsocial=""/>
+    <Cliente idMD="24" rfc="STMA0450A24" nombre="STAR MÉDICA SAN LUIS POTOSÍ" razonsocial=""/>
+    <Cliente idMD="24" rfc="SUVJLV0500A24" nombre="SUSANA CORTÉZ LIÑAN" razonsocial=""/>
+    <Cliente idMD="24" rfc="TAEZPT0500A24" nombre="TABERNA EL KIKIN" razonsocial=""/>
+    <Cliente idMD="24" rfc="TACCG0500A24" nombre="TACOS ESTADIO" razonsocial=""/>
+    <Cliente idMD="127" rfc="TAES170707CTD" nombre="TACOS ESTADIO" razonsocial="TACOS ESTADIO"/>
+    <Cliente idMD="125" rfc="TAKI180327BRK" nombre="TABERNA EL KIKIN" razonsocial="TABERNA EL KIKIN"/>
+    <Cliente idMD="24" rfc="TAJR02503A24" nombre="TAQUERIA LOS CHARCOS" razonsocial=""/>
+    <Cliente idMD="124" rfc="TALG150430QSR" nombre="TAQUERIA LOS GUEROS" razonsocial="TAQUERIA LOS GUEROS"/>
+    <Cliente idMD="148" rfc="TNS269874UO9" nombre="NICOLLS PIZZA" razonsocial="TRANSNISED SA DE CV"/>
+    <Cliente idMD="24" rfc="TAJR03301A24" nombre="TAQUERIA LAS GUERAS" razonsocial=""/>
+    <Cliente idMD="134" rfc="TQLCHRFC2019" nombre="TAQUERIA LOS CHARCOS" razonsocial="TAQUERIA LOS CHARCOS"/>
+    <Cliente idMD="24" rfc="TAJR02602A24" nombre="TAQUERIA LOS GUEROS" razonsocial=""/>
+    <Cliente idMD="24" rfc="TOVC3211A24" nombre="TORTAS HIPOCAMPO" razonsocial=""/>
+    <Cliente idMD="137" rfc="TTI150826G50" nombre="HANKS RESTAURANTE" razonsocial="THI TRAVIS INTERNACIONAL S.A. DE C.V."/>
+    <Cliente idMD="24" rfc="TIANTN0500A24" nombre="TIENDA LA LIEBERTAD" razonsocial=""/>
+    <Cliente idMD="102" rfc="VAVA570609U43" nombre="MIKOCINA" razonsocial="ALMA ANGELICA VIGIANO VAZQUEZ"/>
+    <Cliente idMD="119" rfc="VIH170814520" nombre="VIANDAS INDUSTRIALES HERNANDEZ Y SUCESORES" razonsocial="VIANDAS INDUSTRIALES HERNANDEZ Y SUCESORES"/>
+  </Clientes>
+  <Articulos>
+    <Articulo rfc="MAPE150201RSE" producto="22 Litros de Cloro" metaclave="PK12632" precio="0.00"/>
+    <Articulo rfc="GERI170802DLR" producto="Colchon de papel higienico" metaclave="PK12925" precio="0.00"/>
+    <Articulo rfc="GERI170802DLR" producto="22 Litros de Cloro" metaclave="PK12932" precio="0.00"/>
+    <Articulo rfc="ORM150304ML7" producto="PAQUETE DE 10 BIDONES DE ACEITE COMESTIBLE PRIMOR" metaclave="PK11644" precio="0.00"/>
+    <Articulo rfc="BABR161104LSJ" producto="1 caa con 12 lts de aceite primor" metaclave="PK12317" precio="0.00"/>
+    <Articulo rfc="11111111111A" producto="1 caa con 12 lts de aceite primor" metaclave="PK13217" precio="0.00"/>
+    <Articulo rfc="11111111111A" producto="Colchon de papel higienico" metaclave="PK13225" precio="0.00"/>
+    <Articulo rfc="11111111111A" producto="Caja con 12 paquetes de servilletas de papel" metaclave="PK13226" precio="0.00"/>
+    <Articulo rfc="ROCE830103QK6" producto="Caja 12 bolletas de litro" metaclave="PR1404" precio="0.00"/>
+    <Articulo rfc="AOCA561226LLO" producto="VARIOS PRODUCTOS PARA ENTREGA" metaclave="PK14456" precio="0.00"/>
+    <Articulo rfc="GHC0000000000001" producto="VARIOS PRODUCTOS PARA ENTREGA" metaclave="PK14656" precio="0.00"/>
+    <Articulo rfc="PZC0000000002" producto="VARIOS PRODUCTOS PARA ENTREGA" metaclave="PK14756" precio="0.00"/>
+    <Articulo rfc="BLS568923JUK" producto="VARIOS PRODUCTOS PARA ENTREGA" metaclave="PK14956" precio="0.00"/>
+    <Articulo rfc="HTN00000000598" producto="VARIOS PRODUCTOS PARA ENTREGA" metaclave="PK15156" precio="0.00"/>
+    <Articulo rfc="GOSU170823RDZ" producto="1 caa con 12 lts de aceite primor" metaclave="PK12217" precio="0.00"/>
+    <Articulo rfc="JMUE090909UT3" producto="2 bidones de 20 Lts de aceite comestible de Soya marca Primor" metaclave="PK1538" precio="0.00"/>
+    <Articulo rfc="TALG150430QSR" producto="2 cajas de 12/1 lts de aceite de soya Primor" metaclave="PK12418" precio="0.00"/>
+    <Articulo rfc="RIME160428NCX" producto="2 bidones de 20 Lts de aceite comestible de Soya marca Primor" metaclave="PK1218" precio="0.00"/>
+    <Articulo rfc="AYVL090909or4" producto="VARIOS PRODUCTOS PARA ENTREGA" metaclave="PK15456" precio="0.00"/>
+    <Articulo rfc="TOVC3211A24" producto="VARIOS PRODUCTOS PARA ENTREGA" metaclave="PK2456" precio="0.00"/>
+    <Articulo rfc="STMA0450A24" producto="VARIOS PRODUCTOS PARA ENTREGA" metaclave="PK2456" precio="0.00"/>
+    <Articulo rfc="CVE170114RZ1" producto="VARIOS PRODUCTOS PARA ENTREGA" metaclave="PK2456" precio="0.00"/>
+    <Articulo rfc="HRPL56892OPI8" producto="VARIOS PRODUCTOS PARA ENTREGA" metaclave="PK15256" precio="0.00"/>
+    <Articulo rfc="SOVC4500A24" producto="VARIOS PRODUCTOS PARA ENTREGA" metaclave="PK2456" precio="0.00"/>
+    <Articulo rfc="JMUE090909UT3" producto="2 bidones de 20 Lts de aceite comestible de Soya marca Primor" metaclave="PK1538" precio="0.00"/>
+    <Articulo rfc="GOSU170823RDZ" producto="1 caa con 12 lts de aceite primor" metaclave="PK12217" precio="0.00"/>
+    <Articulo rfc="VAVA570609U43" producto="2 cajas de 12/1 lts de aceite de soya Primor" metaclave="PK10218" precio="0.00"/>
+    <Articulo rfc="OIHE710405M66" producto="Paquete de 3 Cajas de aceite primor en presentacion de 1 Litro" metaclave="PK9846" precio="0.00"/>
+    <Articulo rfc="LALR510625LE8" producto="2 bidones de 20 Lts de aceite comestible de Soya marca Primor" metaclave="PK918" precio="0.00"/>
+    <Articulo rfc="CIMO710808ARA" producto="Paquete de 5 bidones de aceite primor" metaclave="PK8937" precio="0.00"/>
+    <Articulo rfc="RIME160428NCX" producto="1 bidon de 20 Lts de aceite comestible de Soya marca Primor" metaclave="PK1217" precio="0.00"/>
+    <Articulo rfc="GOAV170518RDN" producto="1 caa con 12 lts de aceite primor" metaclave="PK12017" precio="0.00"/>
+    <Articulo rfc="JMUE090909UT3" producto="2 bidones de 20 Lts de aceite comestible de Soya marca Primor" metaclave="PK1538" precio="0.00"/>
+    <Articulo rfc="CVE170114RZ1" producto="1 caa con 12 lts de aceite primor" metaclave="PK15617" precio="0.00"/>
+    <Articulo rfc="VAVA570609U43" producto="2 cajas de 12/1 lts de aceite de soya Primor" metaclave="PK10218" precio="0.00"/>
+    <Articulo rfc="OIHE710405M66" producto="PAQUETE DE ACEITE PRIMOR" metaclave="PK9839" precio="0.00"/>
+    <Articulo rfc="GOSU170823RDZ" producto="2 cajas de 12/1 lts de aceite de soya Primor" metaclave="PK12218" precio="0.00"/>
+    <Articulo rfc="TAKI180327BRK" producto="1 bidon de 20 Lts de aceite comestible de Soya marca Primor" metaclave="PK1257" precio="0.00"/>
+    <Articulo rfc="TAKI180327BRK" producto="Caja con 12 paquetes de servilletas de papel" metaclave="PK12526" precio="0.00"/>
+    <Articulo rfc="LAB180223PD2" producto="2 bidones de 20 Lts de aceite comestible de Soya marca Primor" metaclave="PK1578" precio="0.00"/>
+    <Articulo rfc="LAB180223PD2" producto="22 Litros de Cloro" metaclave="PK15732" precio="0.00"/>
+    <Articulo rfc="LAB180223PD2" producto="SUAVIZANTE DE TELAS LIQUIDO" metaclave="PK15735" precio="0.00"/>
+  </Articulos>
+  <Ordenes>
+    <Orden idop="457" rfc="MAPE150201RSE" producto="22 Litros de Cloro" meta="PK12632" idusrMD="126" quantity="0" precio="0.00" total="0" razonsoc="MARISCOS PEPE"/>
+    <Orden idop="458" rfc="GERI170802DLR" producto="Colchon de papel higienico" meta="PK12925" idusrMD="129" quantity="0" precio="0.00" total="0" razonsoc="GUADALUPE DE LA ROSA IBARRA"/>
+    <Orden idop="460" rfc="GERI170802DLR" producto="22 Litros de Cloro" meta="PK12932" idusrMD="129" quantity="0" precio="0.00" total="0" razonsoc="GUADALUPE DE LA ROSA IBARRA"/>
+    <Orden idop="485" rfc="ORM150304ML7" producto="PAQUETE DE 10 BIDONES DE ACEITE COMESTIBLE PRIMOR" meta="PK11644" idusrMD="116" quantity="0" precio="0.00" total="0" razonsoc="OPERADORA DE RESTAURANTES MID S.A. DE C.V."/>
+    <Orden idop="497" rfc="BABR161104LSJ" producto="1 caa con 12 lts de aceite primor" meta="PK12317" idusrMD="123" quantity="0" precio="0.00" total="0" razonsoc="BAR LAS BRUJITAS"/>
+    <Orden idop="527" rfc="11111111111A" producto="1 caa con 12 lts de aceite primor" meta="PK13217" idusrMD="132" quantity="0" precio="0.00" total="0" razonsoc="GABRIELA HERRERA SANCHEZ"/>
+    <Orden idop="528" rfc="11111111111A" producto="Colchon de papel higienico" meta="PK13225" idusrMD="132" quantity="0" precio="0.00" total="0" razonsoc="GABRIELA HERRERA SANCHEZ"/>
+    <Orden idop="540" rfc="11111111111A" producto="Caja con 12 paquetes de servilletas de papel" meta="PK13226" idusrMD="132" quantity="0" precio="0.00" total="0" razonsoc="GABRIELA HERRERA SANCHEZ"/>
+    <Orden idop="552" rfc="ROCE830103QK6" producto="Caja 12 bolletas de litro" meta="PR1404" idusrMD="140" quantity="1" precio="0.00" total="0" razonsoc="ERIKA RODRIGUEZ CORTES"/>
+    <Orden idop="590" rfc="AOCA561226LLO" producto="VARIOS PRODUCTOS PARA ENTREGA" meta="PK14456" idusrMD="144" quantity="0" precio="0.00" total="0" razonsoc="ALFREDO ARROYO CARRANZA"/>
+    <Orden idop="592" rfc="GHC0000000000001" producto="VARIOS PRODUCTOS PARA ENTREGA" meta="PK14656" idusrMD="146" quantity="0" precio="0.00" total="0" razonsoc="OPERADORA MEXPLA SA DE CV"/>
+    <Orden idop="593" rfc="PZC0000000002" producto="VARIOS PRODUCTOS PARA ENTREGA" meta="PK14756" idusrMD="147" quantity="0" precio="0.00" total="0" razonsoc="PIZZAS CIAO SA DE CV"/>
+    <Orden idop="595" rfc="BLS568923JUK" producto="VARIOS PRODUCTOS PARA ENTREGA" meta="PK14956" idusrMD="149" quantity="0" precio="0.00" total="0" razonsoc="BAR LA SANTITA "/>
+    <Orden idop="597" rfc="HTN00000000598" producto="VARIOS PRODUCTOS PARA ENTREGA" meta="PK15156" idusrMD="151" quantity="0" precio="0.00" total="0" razonsoc="HOTEL NAPOLES"/>
+    <Orden idop="601" rfc="GOSU170823RDZ" producto="1 caa con 12 lts de aceite primor" meta="PK12217" idusrMD="122" quantity="0" precio="0.00" total="0" razonsoc="GORDITAS SUZY"/>
+    <Orden idop="607" rfc="JMUE090909UT3" producto="2 bidones de 20 Lts de aceite comestible de Soya marca Primor" meta="PK1538" idusrMD="153" quantity="0" precio="0.00" total="0" razonsoc="JUAN MENDOZA"/>
+    <Orden idop="608" rfc="TALG150430QSR" producto="2 cajas de 12/1 lts de aceite de soya Primor" meta="PK12418" idusrMD="124" quantity="0" precio="0.00" total="0" razonsoc="TAQUERIA LOS GUEROS"/>
+    <Orden idop="609" rfc="RIME160428NCX" producto="2 bidones de 20 Lts de aceite comestible de Soya marca Primor" meta="PK1218" idusrMD="121" quantity="0" precio="0.00" total="0" razonsoc="RINCON MEXICANO"/>
+    <Orden idop="610" rfc="AYVL090909or4" producto="VARIOS PRODUCTOS PARA ENTREGA" meta="PK15456" idusrMD="154" quantity="0" precio="0.00" total="0" razonsoc="ALICIA YOLANDA VERA"/>
+    <Orden idop="611" rfc="TOVC3211A24" producto="VARIOS PRODUCTOS PARA ENTREGA" meta="PK2456" idusrMD="24" quantity="0" precio="0.00" total="0" razonsoc=""/>
+    <Orden idop="612" rfc="STMA0450A24" producto="VARIOS PRODUCTOS PARA ENTREGA" meta="PK2456" idusrMD="24" quantity="0" precio="0.00" total="0" razonsoc=""/>
+    <Orden idop="613" rfc="CVE170114RZ1" producto="VARIOS PRODUCTOS PARA ENTREGA" meta="PK2456" idusrMD="24" quantity="0" precio="0.00" total="0" razonsoc=""/>
+    <Orden idop="614" rfc="HRPL56892OPI8" producto="VARIOS PRODUCTOS PARA ENTREGA" meta="PK15256" idusrMD="152" quantity="0" precio="0.00" total="0" razonsoc="HOTELES REAL PLAZA SA DE CV"/>
+    <Orden idop="615" rfc="SOVC4500A24" producto="VARIOS PRODUCTOS PARA ENTREGA" meta="PK2456" idusrMD="24" quantity="0" precio="0.00" total="0" razonsoc=""/>
+    <Orden idop="616" rfc="JMUE090909UT3" producto="2 bidones de 20 Lts de aceite comestible de Soya marca Primor" meta="PK1538" idusrMD="153" quantity="0" precio="0.00" total="0" razonsoc="JUAN MENDOZA"/>
+    <Orden idop="617" rfc="GOSU170823RDZ" producto="1 caa con 12 lts de aceite primor" meta="PK12217" idusrMD="122" quantity="0" precio="0.00" total="0" razonsoc="GORDITAS SUZY"/>
+    <Orden idop="618" rfc="VAVA570609U43" producto="2 cajas de 12/1 lts de aceite de soya Primor" meta="PK10218" idusrMD="102" quantity="0" precio="0.00" total="0" razonsoc="ALMA ANGELICA VIGIANO VAZQUEZ"/>
+    <Orden idop="619" rfc="OIHE710405M66" producto="Paquete de 3 Cajas de aceite primor en presentacion de 1 Litro" meta="PK9846" idusrMD="98" quantity="0" precio="0.00" total="0" razonsoc="EMILIA ORTIZ HERNANDEZ"/>
+    <Orden idop="620" rfc="LALR510625LE8" producto="2 bidones de 20 Lts de aceite comestible de Soya marca Primor" meta="PK918" idusrMD="91" quantity="0" precio="0.00" total="0" razonsoc="MA. DEL ROSARIO LARA LOPEZ"/>
+    <Orden idop="621" rfc="CIMO710808ARA" producto="Paquete de 5 bidones de aceite primor" meta="PK8937" idusrMD="89" quantity="0" precio="0.00" total="0" razonsoc="OSWALDO CHIMAL MORALES"/>
+    <Orden idop="625" rfc="RIME160428NCX" producto="1 bidon de 20 Lts de aceite comestible de Soya marca Primor" meta="PK1217" idusrMD="121" quantity="0" precio="0.00" total="0" razonsoc="RINCON MEXICANO"/>
+    <Orden idop="626" rfc="GOAV170518RDN" producto="1 caa con 12 lts de aceite primor" meta="PK12017" idusrMD="120" quantity="0" precio="0.00" total="0" razonsoc="GORDITAS AVENIDA"/>
+    <Orden idop="627" rfc="JMUE090909UT3" producto="2 bidones de 20 Lts de aceite comestible de Soya marca Primor" meta="PK1538" idusrMD="153" quantity="0" precio="0.00" total="0" razonsoc="JUAN MENDOZA"/>
+    <Orden idop="628" rfc="CVE170114RZ1" producto="1 caa con 12 lts de aceite primor" meta="PK15617" idusrMD="156" quantity="0" precio="0.00" total="0" razonsoc="CAFETERIA VEAL SA DE CV"/>
+    <Orden idop="629" rfc="VAVA570609U43" producto="2 cajas de 12/1 lts de aceite de soya Primor" meta="PK10218" idusrMD="102" quantity="0" precio="0.00" total="0" razonsoc="ALMA ANGELICA VIGIANO VAZQUEZ"/>
+    <Orden idop="630" rfc="OIHE710405M66" producto="PAQUETE DE ACEITE PRIMOR" meta="PK9839" idusrMD="98" quantity="0" precio="0.00" total="0" razonsoc="EMILIA ORTIZ HERNANDEZ"/>
+    <Orden idop="631" rfc="GOSU170823RDZ" producto="2 cajas de 12/1 lts de aceite de soya Primor" meta="PK12218" idusrMD="122" quantity="0" precio="0.00" total="0" razonsoc="GORDITAS SUZY"/>
+    <Orden idop="632" rfc="TAKI180327BRK" producto="1 bidon de 20 Lts de aceite comestible de Soya marca Primor" meta="PK1257" idusrMD="125" quantity="0" precio="0.00" total="0" razonsoc="TABERNA EL KIKIN"/>
+    <Orden idop="633" rfc="TAKI180327BRK" producto="Caja con 12 paquetes de servilletas de papel" meta="PK12526" idusrMD="125" quantity="0" precio="0.00" total="0" razonsoc="TABERNA EL KIKIN"/>
+    <Orden idop="634" rfc="LAB180223PD2" producto="2 bidones de 20 Lts de aceite comestible de Soya marca Primor" meta="PK1578" idusrMD="157" quantity="0" precio="0.00" total="0" razonsoc="LB ALIMENTOS Y BEBIDAS"/>
+    <Orden idop="635" rfc="LAB180223PD2" producto="22 Litros de Cloro" meta="PK15732" idusrMD="157" quantity="0" precio="0.00" total="0" razonsoc="LB ALIMENTOS Y BEBIDAS"/>
+    <Orden idop="636" rfc="LAB180223PD2" producto="SUAVIZANTE DE TELAS LIQUIDO" meta="PK15735" idusrMD="157" quantity="0" precio="0.00" total="0" razonsoc="LB ALIMENTOS Y BEBIDAS"/>
+  </Ordenes>
+</Usuario>

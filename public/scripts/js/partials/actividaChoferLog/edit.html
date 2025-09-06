@@ -1,0 +1,115 @@
+<div ng-show="state.current.name === 'actividaChoferLog.edit' || state.current.name === 'actividaChoferLog.add'">
+    <ol class="breadcrumb">
+        <li class="active">Sistema</li>
+        <li class="active"><a ui-sref="inventory">Inventario</a></li>
+        <li class="active actualpg" ng-show="state.current.name === 'actividaChoferLog.add'">Agregar Inventario</li>
+        <li class="active actualpg" ng-show="state.current.name === 'actividaChoferLog.edit'">Editar Inventario</li>
+    </ol>
+    <progressbar class="progress-striped active" value="100" type="info" ng-show="loading"></progressbar>
+    <div class="toolbar">
+        <div class="pull-right">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group  btn-group-sm">
+                    <!--<button class="btn btn-default" tooltip="Regresar" ng-click="back()"><span class="glyphicon glyphicon-chevron-left"></span></button>-->
+                    <button class="btn btn-default sin-padding"  ng-click="save()" ng-disabled="frmActividaChoferLog.$invalid"><span class="pers-btn icono-guardar tam-normal"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Actividades del Chofer</div>
+
+        <div class="panel-body">
+            <form  role="form" novalidate name="frmActividaChoferLog">
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <input type="hidden" class="form-control" ng-model="actividaChoferLog.id">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmActividaChoferLog.tipoMovimiento)">
+                            <label for="tipoMovimiento">Tipo de Movimiento</label>
+                            <input type="text" class="form-control" id="tipoMovimiento" name="tipoMovimiento" disabled="true" ng-model="actividaChoferLog.tipoConcepto" >
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmActividaChoferLog.tipoDebito)">
+                            <label for="tipoDebito">Tipo de Debito</label>
+                            <input type="text" class="form-control" id="tipoDebito" name="tipoDebito" disabled="true" ng-model="actividaChoferLog.tipoDebito" >
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmActividaChoferLog.actividadTipo)">
+                            <label for="actividadTipo">Tipo de Actividad</label>
+                            <input type="text" class="form-control" id="actividadTipo" name="actividadTipo" disabled="true" ng-model="actividaChoferLog.actividadTipo" >
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmActividaChoferLog.actividad)">
+                            <label for="actividad">Actividad</label>
+                            
+                            <select class="form-control"  
+                                    id="actividad"  
+                                    name="actividad"  
+                                    required 
+                                    ng-model="actividaChoferLog.actividad" ng-options="actividad.name for actividad in actividades track by actividad.id">  
+                                <option value="" >Seleccionar...</option>
+                            </select> 
+
+                        </div>
+                    </div>
+
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmActividaChoferLog.montoCreditos)">
+                            <label for="montoCreditos">Monto en Creditos</label>
+                            <input type="text" class="form-control" id="montoCreditos" name="montoCreditos" disabled="true" ng-model="actividaChoferLog.montoCreditos" >
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmActividaChoferLog.montoMoneda)">
+                            <label for="montoMoneda">Monto en Moneda</label>
+                            <input type="text" class="form-control" id="montoMoneda" name="montoMoneda" disabled="true" ng-model="actividaChoferLog.montoMoneda" >
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmActividaChoferLog.vendedor)">
+                            <label for="vendedor">Vendedor</label>
+                            <input type="text" class="form-control" id="vendedor" name="vendedor" disabled="true" ng-model="actividaChoferLog.vendedor" >
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmActividaChoferLog.comprador)">
+                            <label for="comprador">Comprador</label>
+                            <input type="text" class="form-control" id="comprador" name="comprador" disabled="true" ng-model="actividaChoferLog.comprador" >
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmActividaChoferLog.puntoVentaOrigen)">
+                            <label for="puntoVentaOrigen">Punto de Origen</label>
+                            <input type="text" class="form-control" id="puntoVentaOrigen" name="puntoVentaOrigen" disabled="true" ng-model="actividaChoferLog.puntoVentaOrigen" >
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmActividaChoferLog.vendedor)">
+                            <label for="puntoVentaDestino">Punto de Destino</label>
+                            <input type="text" class="form-control" id="puntoVentaDestino" name="puntoVentaDestino" disabled="true" ng-model="actividaChoferLog.puntoVentaDestino" >
+                        </div>
+                    </div>
+                </div>
+
+            </form>        
+        </div>
+    </div>
+</div>

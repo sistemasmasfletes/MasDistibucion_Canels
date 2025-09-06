@@ -1,0 +1,56 @@
+<div ng-show="state.current.name==='points.contact'">
+    <ol class="breadcrumb">
+        <li class="active">Catálogos</li>
+        <li class="active"><a ui-sref="points">Puntos de venta</a></li>
+        <li class="active actualpg">Contacto</li>
+    </ol>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="pull-right">                         
+                    <div class="btn-group btn-group-sm">
+                        <!--<button tooltip="Regresar" class="btn btn-default" ng-click="back()"><span class="glyphicon glyphicon-chevron-left"></span></button>-->
+                        <button  class="btn btn-default sin-padding" ng-click="addContact()"><span class="pers-btn icono-nuevo tam-normal"></span></button>
+                        <button  class="btn btn-default sin-padding" ng-click="grid.editContact()"><span class="pers-btn icono-editar tam-normal"></span></button>
+                        <button  class="btn btn-default sin-padding" ng-click="grid.deleteContact()"><span class="pers-btn icono-eliminar tam-normal"></span> </button>
+                        <button class="btn btn-default sin-padding" ng-click="tableParams.reload()" ><span class="pers-btn icono-refrescar tam-normal"></span></button>
+                    </div>       
+                </div>
+            </div>
+        </div>
+        <p>&nbsp;</p>
+        
+        <div loading-container="tableParams.settings().$loading">
+                    <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable table-responsive">
+                        <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">
+                            &nbsp;Contacto: <span>{{tableParams.data[0]["pointName"]}}</span>
+                        </div>
+                        <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover">
+                            <tbody>
+                                <tr ng-repeat="schedule in $data" ng-click="schedule.$selected = !schedule.$selected; changeSelection(schedule)"
+                                    ng-class="{'ngactive': schedule.$selected}">
+                                    <td data-title="'Nombre'" class="text-center">
+                                        {{schedule.name}}
+                                    </td>
+                                    <td data-title="'Puesto'">
+                                        {{schedule.job}}
+                                    </td>
+                                    <td data-title="'Email'">
+                                        {{schedule.email}}
+                                    </td>
+                                    <td data-title="'Telefono'">
+                                        {{schedule.phone_number}}
+                                    </td>
+                                    <td data-title="'Estatus'" class="text-center">
+                                        <span tooltip="Ok" ng-if="(schedule.status==1)" class="pers-btn icono-palomita icono-tam-tabla" style="color:#52CA22;font-size:1.1em"></span>
+                                        <span tooltip="Pausado" ng-if="(schedule.status==2)" class="pers-btn icono-sin-accion icono-tam-tabla" style="color:#F8A41C"></span>
+                                        <span tooltip="Cancelado" ng-if="(schedule.status==3)" class="pers-btn icono-tacha icono-tam-tabla" style="color:#F52A2A;font-size:1.1em"></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>          
+                    </div>        
+                </div>
+    </div>
+</div>
+<div ui-view="contactEdit"></div>

@@ -1,0 +1,37 @@
+<!--
+<div class="modal-header">
+    
+</div>
+-->
+<div class="modal-body">
+    <div ng-if="modalOptions.type=='forbidden'">
+        <div class="alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>        
+            <strong>{{modalOptions.headerTitle}}</strong>
+        </div>
+    </div>
+    <div ng-if="modalOptions.type=='internalServerError'">
+        <div class="alert alert-info" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>        
+            <strong>{{modalOptions.headerTitle}}</strong>
+        </div>
+    </div>
+    <div ng-if="modalOptions.type=='error'">
+        <div class="alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>        
+            <strong>{{modalOptions.headerTitle}}</strong>
+        </div>
+    </div>
+    <div ng-if="modalOptions.type=='success'">
+        <div class="alert alert-success" role="alert">
+            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>        
+            <strong>{{modalOptions.headerTitle}}</strong>
+        </div>
+    </div>
+    {{modalOptions.bodyText}}
+
+</div>
+<div class="modal-footer">           
+    <button type="button" class="btn btn-primary" 
+            data-ng-click="modalOptions.ok();">{{modalOptions.actionButtonText}}</button>
+</div>

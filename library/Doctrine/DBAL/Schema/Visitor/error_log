@@ -1,0 +1,8 @@
+[25-Oct-2024 21:09:07 UTC] PHP Fatal error:  Interface 'Doctrine\DBAL\Schema\Visitor\Visitor' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Schema/Visitor/Graphviz.php on line 32
+[26-Jan-2025 20:57:35 UTC] PHP Fatal error:  Interface 'Doctrine\DBAL\Schema\Visitor\Visitor' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Schema/Visitor/Graphviz.php on line 32
+[24-Apr-2025 10:26:32 UTC] PHP Fatal error:  Interface 'Doctrine\DBAL\Schema\Visitor\Visitor' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Schema/Visitor/CreateSchemaSqlCollector.php on line 33
+[24-Apr-2025 18:16:31 UTC] PHP Fatal error:  Interface 'Doctrine\DBAL\Schema\Visitor\Visitor' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Schema/Visitor/RemoveNamespacedAssets.php on line 45
+[26-Apr-2025 06:16:33 UTC] PHP Fatal error:  Interface 'Doctrine\DBAL\Schema\Visitor\Visitor' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Schema/Visitor/Graphviz.php on line 32
+[27-Apr-2025 02:23:39 UTC] PHP Fatal error:  Interface 'Doctrine\DBAL\Schema\Visitor\Visitor' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Schema/Visitor/DropSchemaSqlCollector.php on line 41
+[29-Apr-2025 12:52:01 UTC] PHP Fatal error:  Interface 'Doctrine\DBAL\Schema\Visitor\Visitor' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Schema/Visitor/Graphviz.php on line 32
+[20-Jun-2025 11:33:17 UTC] PHP Fatal error:  Interface 'Doctrine\DBAL\Schema\Visitor\Visitor' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Schema/Visitor/Graphviz.php on line 32

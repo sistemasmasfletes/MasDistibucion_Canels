@@ -1,0 +1,32 @@
+PHP Coding Style Guide
+
+General
+Files MUST use only <?php tags, not <?, <%, etc.
+For files containing only PHP code, the closing tag must always be omitted.
+Class names MUST be declared in StudlyCaps.
+Class constants MUST be declared in all upper case with underscore separators.
+Method names MUST be declared in camelCase.
+Variable names MUST be declared in camelCase.
+Variable names may only contain alphanumeric characters. Underscores are not permitted. Numbers are permitted in variable names but are discouraged in most cases.
+Code MUST use 4 spaces for indenting, not tabs.
+There MUST NOT be a hard limit on line length; the soft limit MUST be 120 characters; lines SHOULD be 80 characters or less.
+
+--------------------
+
+Filenames
+For all other files, only alphanumeric characters, underscores, and the dash character ("-") are permitted. Spaces are strictly prohibited.
+Any file that contains PHP code should end with the extension ".php". The following examples show acceptable filenames for Model3 classes:
+
+Controller/IndeController.php
+Model/Auth/Service.php
+
+File names must map to class names as described above.
+
+--------------------
+
+Documentation Format
+All documentation blocks ("docblocks") must be compatible with the phpDocumentor format.
+Describing the phpDocumentor format is beyond the scope of this document.
+For more information, visit: » http://phpdoc.org/
+
+--------------------

@@ -1,0 +1,60 @@
+[19-Feb-2024 12:21:56 UTC] PHP Fatal error:  Uncaught Error: Class 'Doctrine\ORM\Persisters\AbstractCollectionPersister' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/OneToManyPersister.php:33
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/OneToManyPersister.php on line 33
+[20-Feb-2024 19:28:02 UTC] PHP Fatal error:  Uncaught Error: Class 'Doctrine\ORM\Persisters\AbstractEntityInheritancePersister' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/SingleTablePersister.php:34
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/SingleTablePersister.php on line 34
+[25-Feb-2024 20:56:00 UTC] PHP Fatal error:  Uncaught Error: Class 'Doctrine\ORM\Persisters\AbstractCollectionPersister' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/ManyToManyPersister.php:36
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/ManyToManyPersister.php on line 36
+[26-May-2024 07:31:17 UTC] PHP Fatal error:  Uncaught Error: Class 'Doctrine\ORM\Persisters\AbstractCollectionPersister' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/ManyToManyPersister.php:36
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/ManyToManyPersister.php on line 36
+[11-Sep-2024 02:17:25 UTC] PHP Fatal error:  Uncaught Error: Class 'Doctrine\ORM\Persisters\AbstractEntityInheritancePersister' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/JoinedSubclassPersister.php:38
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/JoinedSubclassPersister.php on line 38
+[17-Oct-2024 14:20:52 UTC] PHP Fatal error:  Uncaught Error: Class 'Doctrine\ORM\Persisters\AbstractCollectionPersister' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/ManyToManyPersister.php:36
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/ManyToManyPersister.php on line 36
+[27-Oct-2024 13:52:33 UTC] PHP Fatal error:  Uncaught Error: Class 'Doctrine\ORM\Persisters\AbstractCollectionPersister' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/OneToManyPersister.php:33
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/OneToManyPersister.php on line 33
+[16-Nov-2024 09:50:03 UTC] PHP Fatal error:  Uncaught Error: Class 'Doctrine\ORM\Persisters\BasicEntityPersister' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/UnionSubclassPersister.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/UnionSubclassPersister.php on line 5
+[11-Dec-2024 04:28:16 UTC] PHP Fatal error:  Uncaught Error: Class 'Doctrine\ORM\Persisters\AbstractCollectionPersister' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/ManyToManyPersister.php:36
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/ManyToManyPersister.php on line 36
+[07-Jan-2025 16:55:55 UTC] PHP Fatal error:  Uncaught Error: Class 'Doctrine\ORM\Persisters\BasicEntityPersister' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/AbstractEntityInheritancePersister.php:34
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/AbstractEntityInheritancePersister.php on line 34
+[28-Jan-2025 18:59:13 UTC] PHP Fatal error:  Uncaught Error: Class 'Doctrine\ORM\Persisters\AbstractCollectionPersister' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/OneToManyPersister.php:33
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/OneToManyPersister.php on line 33
+[25-Mar-2025 02:36:30 UTC] PHP Fatal error:  Uncaught Error: Class 'Doctrine\ORM\Persisters\AbstractCollectionPersister' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/ManyToManyPersister.php:36
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/ManyToManyPersister.php on line 36
+[05-Apr-2025 02:10:41 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Persisters\AbstractEntityInheritancePersister' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/SingleTablePersister.php on line 34
+[11-Apr-2025 02:36:29 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Persisters\BasicEntityPersister' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/AbstractEntityInheritancePersister.php on line 34
+[24-Apr-2025 15:56:42 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Persisters\BasicEntityPersister' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/AbstractEntityInheritancePersister.php on line 34
+[24-Apr-2025 17:30:40 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Persisters\AbstractCollectionPersister' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/ManyToManyPersister.php on line 36
+[25-Apr-2025 00:31:20 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Persisters\BasicEntityPersister' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/UnionSubclassPersister.php on line 5
+[26-Apr-2025 01:31:13 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Persisters\AbstractEntityInheritancePersister' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/SingleTablePersister.php on line 34
+[26-Apr-2025 16:28:03 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Persisters\AbstractEntityInheritancePersister' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/JoinedSubclassPersister.php on line 38
+[26-Apr-2025 17:59:31 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Persisters\AbstractCollectionPersister' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/OneToManyPersister.php on line 33
+[26-Apr-2025 22:07:08 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Persisters\AbstractCollectionPersister' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/ElementCollectionPersister.php on line 30
+[29-Apr-2025 08:00:07 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Persisters\AbstractEntityInheritancePersister' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/SingleTablePersister.php on line 34
+[02-May-2025 04:07:48 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Persisters\AbstractEntityInheritancePersister' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/SingleTablePersister.php on line 34
+[28-May-2025 22:28:51 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Persisters\AbstractEntityInheritancePersister' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Persisters/SingleTablePersister.php on line 34

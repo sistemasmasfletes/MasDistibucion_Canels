@@ -1,0 +1,148 @@
+<div ng-show="state.current.name === 'vehicles.edit' || state.current.name === 'vehicles.add'">
+    <ol class="breadcrumb">
+        <li class="active">Catálogos</li>
+        <li class="active "><a ui-sref="vehicles">Vehículos</a></li>
+        <li class="active actualpg" ng-show="state.current.name === 'vehicles.add'">Agregar Vehículo</li>
+        <li class="active actualpg" ng-show="state.current.name === 'vehicles.edit'">Editar Vehículo</li>
+    </ol>
+    <progressbar class="progress-striped active" value="100" type="info" ng-show="loading"></progressbar>
+    <div class="toolbar">
+        <div class="pull-right">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group  btn-group-sm">
+                    <!--<button class="btn btn-default" tooltip="Regresar" ng-click="back()"><span class="glyphicon glyphicon-chevron-left"></span></button>-->
+                    <button class="btn btn-default guardar" ng-click="save()" ng-disabled="sc.frmSchedule.$invalid"><span class="pers-btn icono-guardar tam-normal"></span></button>                
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Veh&iacute;culos</div>
+
+        <div class="panel-body">
+            <form  role="form" novalidate name="frmVehicle">
+                <div class="row">
+                    <div class="col-md-3">
+                        <input type="hidden" class="form-control" ng-model="vehicle.id">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmVehicle.name)">
+                            <label for="name">Nombre</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Nombre del vehículo" required ng-model="vehicle.name">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmVehicle.economicNumber)">
+                            <label for="economicNumber"># Económico</label>
+                            <input type="text" class="form-control" id="economicNumber" name="economicNumber" placeholder="Número económico" required ng-model="vehicle.economic_number">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmVehicle.volume)">
+                            <label for="volume">Volúmen</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="volume" name="volume" placeholder="Volúmen" required ng-pattern="/^\s*-?(\d+(\.\d{1,2})?|\.\d{1,2})\s*$/" ng-model="vehicle.volume">                      
+                                <span class="input-group-addon">000.00 ft<sup>3</sup></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmVehicle.type)">
+                            <label for="type">Tipo</label>
+                            <select id="type" name="type" class="form-control" required ng-model="vehicle.type"
+                                    ng-options="opt.id as opt.tipo for opt in vehicleTypes">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmVehicle.capacity)">
+                            <label for="capacity">Capacidad</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="capacity" name="capacity" placeholder="Capacidad" required ng-pattern="/^\s*-?(\d+(\.\d{1,2})?|\.\d{1,2})\s*$/" ng-model="vehicle.capacity">                      
+                                <span class="input-group-addon">000.00 Kg</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmVehicle.status)">
+                            <label for="status">Estatus</label>
+                            <select id="status" name="status" class="form-control" required ng-model="vehicle.status"
+                                    ng-options="opt.id as opt.status for opt in vehicleStatus">
+                            </select>                      
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmVehicle.trademark)">
+                            <label for="trademark">Marca</label>
+                            <input type="text" class="form-control" id="trademark" name="trademark" placeholder="Marca" required ng-model="vehicle.trade_mark">                      
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="plate">Placas</label>
+                            <input type="text" class="form-control" id="plate" name="plate" placeholder="Placas" required ng-model="vehicle.plate">                      
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmVehicle.color)">
+                            <label for="color">Color</label>
+                            <input type="text" class="form-control" id="color" name="color" placeholder="Color" required ng-model="vehicle.color">                      
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmVehicle.gps)">
+                            <label for="gps">GPS</label>
+                            <input type="text" class="form-control" id="gps" name="gps" placeholder="# Identificador de GPS" required ng-model="vehicle.gps">                      
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmVehicle.model)">
+                            <label for="model">Modelo</label>
+                            <input type="text" class="form-control" id="model" name="model" placeholder="Modelo" required ng-model="vehicle.model">                      
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmVehicle.width)">
+                            <label for="width">Ancho</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="width" name="width" placeholder="Ancho del vehículo" required ng-pattern="/^\s*-?(\d{1,2}(\.\d{1,2})?|\.\d{1,2})\s*$/" ng-model="vehicle.width">
+                                <span class="input-group-addon">00.00 m</span>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmVehicle.height)">
+                            <label for="height">Altura</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="height" name="height" placeholder="Altura del vehículo" required ng-pattern="/^\s*-?(\d{1,2}(\.\d{1,2})?|\.\d{1,2})\s*$/" ng-model="vehicle.height">                      
+                                <span class="input-group-addon">00.00 m</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmVehicle.deep)">
+                            <label for="deep">Profundidad</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="deep" name="deep"  placeholder="Profundidad de caja" required ng-pattern="/^\s*-?(\d{1,2}(\.\d{1,2})?|\.\d{1,2})\s*$/" ng-model="vehicle.deep">                      
+                                <span class="input-group-addon">00.00 m</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+
+            </form>        
+        </div>
+    </div>
+</div>

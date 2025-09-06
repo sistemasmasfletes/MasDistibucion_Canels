@@ -1,0 +1,153 @@
+<div ng-show="state.current.name==='cuentas.add'||state.current.name==='cuentas.edit'">
+    <ol class="breadcrumb">
+        <li class="active">Catálogos</li>
+        <li class="active"><a ui-sref="cuentas">Cuentas</a></li>
+        <li class="active actualpg" ng-show="state.current.name === 'cuentas.add'">Agregar Cuenta</li>
+        <li class="active actualpg" ng-show="state.current.name === 'cuentas.edit'">Editar Cuenta</li>
+    </ol>
+    <progressbar class="progress-striped active" value="100" type="info" ng-show="loading"></progressbar>
+    <div class="toolbar">
+        <div class="pull-right">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group  btn-group-sm">
+                    <!--<button class="btn btn-default" tooltip="Regresar" ng-click="back()"><span class="glyphicon glyphicon-chevron-left"></span></button>-->
+                    <button class="btn btn-default sin-padding"  ng-click="save()" ng-disabled="frmCuentas.$invalid"><span class="pers-btn icono-guardar tam-normal"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">Cuentas</div>
+
+        <div class="panel-body">
+            <form  role="form" novalidate name="frmCuentas">
+                
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="hidden" class="form-control" ng-model="cuentas.id">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmCuentas.numeroCuenta)">
+                            <label for="numeroCuenta">Número de Cuenta</label>
+                            <input type="text" ng-minlength="10" ng-maxlength="16" ng-pattern="/^[0-9]+$/"  class="form-control" id="numeroCuenta" name="numeroCuenta" placeholder="10 o 16 digitos" maxlength="16" required ng-model="cuenta.numeroCuenta">
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmCuentas.idPais)">
+                            <label for="idPais">Pais</label>
+                            <select class="form-control"  
+                                    id="idPais" 
+                                    name="idPais" 
+                                    required 
+                                    ng-model="cuenta.idPais"
+                                    ng-options="option.name for option in paises track by option.id" >
+                                <option value="" >Seleccionar...</option>
+                            </select> 
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmCuentas.moneda)">
+                            <label for="moneda">Moneda</label>
+                            <select 
+                                    class="form-control"  
+                                    id="moneda" 
+                                    name="moneda"
+                                    required 
+                                    ng-model="cuenta.idMoneda"
+                                    ng-options="option.moneda for option in monedas track by option.id" >
+                                <option value="" >Seleccionar...</option>
+                            </select> 
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-4">
+                        
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmCuentas.cuenta)">
+                            <label for="cuenta">Cuenta</label>
+                            <input type="text" class="form-control" id="cuenta" name="cuenta" placeholder="Nombre Cuenta" required ng-model="cuenta.cuenta">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmCuentas.idOperador)">
+                            <label for="idOperador">Tipo de Operador</label>
+                            <select class="form-control"  
+                                    id="idOperador" 
+                                    name="idOperador" 
+                                    required 
+                                    ng-model="cuenta.idOperador"
+                                    ng-options="option.chrOperator for option in operadores track by option.id" >
+                                <option value="" >Seleccionar...</option>
+                            </select> 
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    <div class="col-md-4">
+                         
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmCuentas.estado)">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"  id="estado" name="estado" ng-model="cuenta.estado"  ng-true-value="Activo" ng-false-value="Inactivo" >
+                                    Activar/Desactivar
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmCuentas.clabeInterbancaria)">
+                            <label for="clabeInterbancaria">CLABE</label>
+                            <input type="text" class="form-control" id="clabeInterbancaria" name="clabeInterbancaria" placeholder="CLABE Interbancaria" required ng-model="cuenta.clabeInterbancaria">
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="col-md-4">
+                        
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmCuentas.idbanco)">
+                            <label for="idbanco">Banco</label>
+                            <select class="form-control"  
+                                    id="idbanco" 
+                                    name="idbanco" 
+                                    required 
+                                    ng-model="cuenta.idBanco"
+                                    ng-options="option.name for option in bancos track by option.id" >
+                                <option value="" >Seleccionar...</option>
+                            </select> 
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmCuentas.tipoPago)">
+                            <label for="tipoPago">Metodo de Pago</label>
+                            <select 
+                                    class="form-control"  
+                                    id="tipoPago" 
+                                    name="tipoPago"
+                                    required 
+                                    ng-model="cuenta.tipoPago"
+                                    ng-options="option.tipoPago for option in tiposPago track by option.id" >
+                                <option value="" >Seleccionar...</option>
+                            </select> 
+
+                        </div>
+                    </div>
+                    
+                </div>
+                 <div class="row">
+                    
+                </div>
+                
+            </form>        
+        </div>
+    </div>
+</div>

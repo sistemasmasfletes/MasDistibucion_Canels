@@ -1,0 +1,1 @@
+[26-Apr-2025 15:41:26 UTC] PHP Fatal error:  Interface 'Doctrine\DBAL\Driver' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Driver/PDOSqlite/Driver.php on line 27

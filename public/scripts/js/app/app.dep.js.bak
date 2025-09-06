@@ -1,0 +1,209 @@
+var context = {path:path, pathJs:pathJs, pathCss:pathCss};
+(function(context){
+    function addBs(path){
+        if(path.length>0){
+            if(path.substring(path.length-1)!=='/')
+                return path+'/';
+            else
+                return path;
+        }
+        return path;
+    } 
+
+    angular.module('masDistribucion.dep',[])
+
+    .constant('CONFIG',
+    {   PATH:context.path,
+        JS:context.pathJs, 
+        CSS:context.pathCss,
+        PARTIALS:context.path+context.pathJs+'partials/'
+    })
+    .constant(
+        'PATH', {
+            activityReport:context.path + '/OperationController/ActivityReport/',
+            points: context.path + '/OperationController/Points/',
+            routes: context.path + '/OperationController/Routes/',
+            schedule: context.path + '/OperationController/Schedule/',
+            users: context.path + '/OperationController/Users/',
+            vehicles: context.path + '/OperationController/Vehicles/',
+            states: context.path + '/OperationController/States/',
+            auth: context.path + '/Admin/Security/',
+            causes: context.path + '/OperationController/Causes/',
+            activityType: context.path + '/OperationController/ActivityType/',
+            transactionType:context.path + '/OperationController/TransactionType/',
+            routeSummary: context.path + '/Driver/RouteSummary/',
+            report:context.path + '/Driver/Report/',
+            inventory:context.path + '/Driver/Inventory/',
+            bancos: context.path + '/OperationController/Bancos/',
+            tipoPagos: context.path + '/OperationController/TipoPagos/',
+            tipoMovimientos: context.path + '/OperationController/TipoMovimientos',
+            estatus: context.path + '/OperationController/Estatus',
+            tipoMonedas:context.path + '/OperationController/TipoMonedas',
+            paises:context.path + '/OperationController/Paises',
+            cuentas:context.path + '/OperationController/Cuentas',
+            conversion:context.path + '/OperationController/Conversion',
+            compraCreditos: context.path + '/OperationController/CompraCreditos',
+            aprobacionCreditos: context.path + '/OperationController/AprobacionCreditos',
+            transferenciaCreditos: context.path + '/OperationController/TransferenciaCreditos',
+            balanceGeneral: context.path + '/OperationController/BalanceGeneral',
+            pagos: context.path + '/OperationController/Pagos',
+//            actividadesChofer: context.path + '/OperationController/ActividadesChofer',
+            actividaChoferLog: context.path + '/OperationController/ActividaChoferLog',
+            aprobacionCreditoControlador: context.path + '/OperationController/AprobacionCreditoControlador',
+            administracionLogCliente: context.path + '/OperationController/AdministracionLogCliente',
+            warehouseman: context.path + '/Warehouseman/Warehouseman/',
+            paypalImg: context.path + '/images/paypal.png',
+            terminalImg: context.path + '/images/terminal.png',
+            paypalCancel: 'http://desarrollo.gservicio.com/MasDistribucion/application/Controller/OperationController/PaypalCancelController.php',
+            paypalSuccess: 'http://desarrollo.gservicio.com/MasDistribucion/application/Controller/OperationController/PaypalSuccessController.php',
+            urlCompra: 'desarrollo.gservicio.com/MasDistribucion/application/Controller/OperationController/PaypalSuccessController.php',
+
+            clientPackage:context.path + '/User/PackageCatalog/',
+            packageRate:context.path + '/OperationController/PackageRate/',
+            configuration:context.path+'/OperationController/Configuration/',
+            addresses:context.path + '/OperationController/Address/',
+            promotion:context.path + '/User/Promotion/',
+            inventoryWarehouseman:context.path + '/Warehouseman/InventoryWarehouseman/',
+            zone:context.path + '/User/Zone/',
+            cardOperators:context.path + '/OperationController/CardOperators/',
+            estados: context.path + '/OperationController/Estados/',
+            ciudades: context.path + '/OperationController/Ciudades/'
+           }
+    )
+    .constant(
+        'PARTIALPATH',{
+            modal: context.path + context.pathJs + 'partials/modal.html',
+            modalInfo: context.path + context.pathJs + 'partials/modalInfo.html',
+            activityReport: context.path + context.pathJs + 'activityReport/',
+            report:context.path + context.pathJs + 'partials/report/',
+            inventory:context.path + context.pathJs + 'partials/inventory/',
+            routeSummary:   context.path + context.pathJs + 'partials/routeSummary/',
+            warehouseman:   context.path + context.pathJs + 'partials/warehouseman/',
+            causes: context.path + context.pathJs + 'partials/causes/',
+            activityType: context.path + context.pathJs + 'partials/activityType/',
+            transactionType: context.path + context.pathJs + 'partials/transactionType/',
+            points: context.path + context.pathJs + 'partials/points/',
+            routes: context.path + context.pathJs + 'partials/routes/',
+            schedule: context.path + context.pathJs + 'partials/schedule/',
+            users: context.path + context.pathJs + 'partials/users/',
+            vehicles:context.path + context.pathJs + 'partials/vehicles/',
+            filter: context.path + context.pathJs + 'partials/filter/',
+            base: context.path + context.pathJs + 'partials/',
+            bancos:context.path + context.pathJs + 'partials/bancos/',
+            tipoPagos:context.path + context.pathJs + 'partials/tipoPagos/',
+            tipoMovimientos:context.path + context.pathJs + 'partials/tipoMovimientos/',
+            estatus:context.path + context.pathJs + 'partials/estatus/',
+            tipoMonedas:context.path + context.pathJs + 'partials/tipoMonedas',
+            paises:context.path + context.pathJs + 'partials/paises',
+            cuentas:context.path + context.pathJs + 'partials/cuentas',
+            conversion:context.path + context.pathJs + 'partials/conversion',
+            compraCreditos:context.path + context.pathJs + 'partials/compraCreditos/',
+            aprobacionCreditos:context.path + context.pathJs + 'partials/aprobacionCreditos/',
+            transferenciaCreditos:context.path + context.pathJs + 'partials/transferenciaCreditos/',
+            balanceGeneral:context.path + context.pathJs + 'partials/balanceGeneral/',
+            pagos:context.path + context.pathJs + 'partials/pagos/',
+//            actividadesChofer:context.path + context.pathJs + 'partials/actividadesChofer/',
+            actividaChoferLog:context.path + context.pathJs + 'partials/actividaChoferLog/',
+            aprobacionCreditoControlador:context.path + context.pathJs + 'partials/aprobacionCreditoControlador/',
+            administracionLogCliente:context.path + context.pathJs + 'partials/administracionLogCliente/',
+
+            clientPackage: context.path + context.pathJs + 'partials/clientPackage/',
+            packageRate: context.path + context.pathJs + 'partials/packageRate/',
+            configuration:context.path + context.pathJs + 'partials/configuration/',
+            addresses:context.path + context.pathJs + 'partials/addresses/', 
+            promotion:context.path + context.pathJs + 'partials/promotion/',
+            inventoryWarehouseman:context.path + context.pathJs + 'partials/inventoryWarehouseman/',
+            zone:context.path + context.pathJs + 'partials/zone/',
+            cardOperators:context.path + context.pathJs + 'partials/cardOperators/',
+            estados: context.path + context.pathJs + 'partials/estados/',
+            ciudades: context.path + context.pathJs + 'partials/ciudades/'
+        }
+    )    
+    .factory('HttpInterceptor', ['$rootScope', '$q',HttpInterceptor])
+    .service('SessionData',['$http',SessionData])
+    .service('ModalService',['$modal',ModalService])
+    .service('MessageBox',['ModalService','PARTIALPATH',MessageBox])
+    .service('JQGridService',['$state','$rootScope',JQGridService])
+    .service('CatalogService',['DataService','PATH',CatalogService])
+    .service('UtilsService',[UtilsService])
+    .service('DataService',['$http','PATH',DataService])
+    .service('CausesDataService',['DataService','PATH',CausesDataService])
+    .service('RouteSummaryDataService',['DataService','PATH',RouteSummaryDataService])
+    .service('WarehousemanDataService',['DataService','PATH',WarehousemanDataService])
+    .service('ActivityTypeDataService',['DataService','PATH',ActivityTypeDataService])
+    .service('ReportDataService',['DataService','PATH',ReportDataService])
+    .service('InventoryDataService',['DataService','PATH',InventoryDataService])
+    .service('TransactionTypeDataService', ['DataService','PATH',TransactionTypeDataService])
+    .service('RoutesDataService',['$http','PATH',RoutesDataService])
+    .service('PointsDataService',['DataService','PATH',PointsDataService])
+    .service('VehiclesDataService',['DataService','PATH',VehiclesDataService])
+    .service('StatesDataService',['DataService','PATH',StatesDataService])
+    .service('UsersDataService',['DataService','PATH',UsersDataService])
+    .service('ScheduleDataService',['DataService','PATH',ScheduleDataService])
+    .service('ScheduledRouteDataService',['DataService','PATH',ScheduledRouteDataService])
+    .service('AuthService',['$http','PATH',AuthService])
+    .service('BancosDataService',['DataService','PATH',BancosDataService])
+    .service('TipoPagosDataService',['DataService','PATH',TipoPagosDataService])
+    .service('TipoMovimientosDataService',['DataService','PATH',TipoMovimientosDataService])
+    .service('EstatusDataService',['DataService','PATH',EstatusDataService])
+    .service('TipoMonedasDataService',['DataService','PATH',TipoMonedasDataService])
+    .service('PaisesDataService',['DataService','PATH',PaisesDataService])
+    .service('CuentasDataService',['DataService','PATH',CuentasDataService])
+    .service('ConversionDataService',['DataService','PATH',ConversionDataService])
+    .service('CompraCreditosDataService',['DataService','PATH',CompraCreditosDataService])
+    .service('AprobacionCreditosDataService',['DataService','PATH',AprobacionCreditosDataService])
+    .service('TransferenciaCreditosDataService',['DataService','PATH',TransferenciaCreditosDataService])
+    .service('BalanceGeneralDataService',['DataService','PATH',BalanceGeneralDataService])
+    .service('PagosDataService',['DataService','PATH',PagosDataService])
+//    .service('ActividadesChoferDataService',['DataService','PATH',ActividadesChoferDataService])
+    .service('ActividaChoferLogDataService',['DataService','PATH',ActividaChoferLogDataService])
+    .service('AprobacionCreditoControladorDataService', ['DataService', 'PATH', AprobacionCreditoControladorDataService])
+    .service('AdministracionLogClienteDataService', ['DataService', 'PATH', AdministracionLogClienteDataService])
+   
+    .service('ClientPackageDataService',['DataService','PATH',ClientPackageDataService])
+    .service('PackageRateDataService',['DataService','PATH',PackageRateDataService])
+    .service('ConfigurationDataService',['DataService','PATH',ConfigurationDataService])
+    .service('AddressDataService',['DataService','PATH',AddressDataService])
+    .service('PromotionDataService',['DataService','PATH',PromotionDataService])
+    .service('InventoryWarehousemanDataService',['DataService','PATH',InventoryWarehousemanDataService])
+    .service('ZoneDataService',['DataService','PATH',ZoneDataService])
+    .service('CardOperatorsDataService',['DataService','PATH',CardOperatorsDataService])
+    .service('EstadosDataService',['DataService','PATH',EstadosDataService])
+    .service('CiudadesDataService',['DataService','PATH',CiudadesDataService])
+    
+    .directive('ngJqgrid', ngJqgrid)
+    .directive('zdMonthpicker', ZdMonthpicker)
+    .directive('loadingContainer', LoadingContainer)
+    .directive('zdFilter', ['$modal','PARTIALPATH',ZdFilter])
+    .directive('zdLogin', ['$modal','PARTIALPATH','AuthService','authService',ZdLogin])
+    .directive('zdSysMessaging', ['$modal','PARTIALPATH',ZdSysMessaging])
+
+    .filter('stringToDate',function(){
+        return function(input){
+            if(!input) return null;
+            var dt = input.split(/[- :]/);
+            return new Date(dt[0], dt[1] - 1, dt[2], dt[3] || 0, dt[4] || 0, dt[5] || 0);
+        }
+    })
+    .filter('dayOfWeek',function(){
+        return function(input,format/*S,L*/){
+            if(!input) return null;
+            var dt = input.split(/[- :]/);
+            var newDate = new Date(dt[0], dt[1] - 1, dt[2], dt[3] || 0, dt[4] || 0, dt[5] || 0);
+            var dayOfWeek = '';
+            if(newDate){
+                var nDay = newDate.getDay();
+                switch(nDay){
+                    case 0: dayOfWeek = format && format.toLowerCase()=='l' ? 'Domingo': 'Do'; break;
+                    case 1: dayOfWeek = format && format.toLowerCase()=='l' ? 'Lunes' : 'Lu'; break;
+                    case 2: dayOfWeek = format && format.toLowerCase()=='l' ? 'Martes' : 'Ma'; break;
+                    case 3: dayOfWeek = format && format.toLowerCase()=='l' ? 'Miércoles' : 'Mi'; break;
+                    case 4: dayOfWeek = format && format.toLowerCase()=='l' ? 'Jueves' : 'Ju'; break;
+                    case 5: dayOfWeek = format && format.toLowerCase()=='l' ? 'Viernes' : 'Vi'; break;
+                    case 6: dayOfWeek = format && format.toLowerCase()=='l' ? 'Sábado' : 'Sa'; break;
+                }
+            }
+            return dayOfWeek;
+        }
+    })
+})(context);

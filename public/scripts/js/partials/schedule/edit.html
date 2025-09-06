@@ -1,0 +1,167 @@
+<div ng-show="state.current.name==='schedule.detail.edit'||state.current.name==='schedule.detail.add'">
+    <ol class="breadcrumb">
+        <li class="active">Rutas</li>
+        <li class="active "><a ng-click="back()">Programación</a></li>
+        <li class="active actualpg">Programación de rutas</li>
+    </ol>
+    <progressbar class="progress-striped active" value="100" type="info" ng-show="sc.loading"></progressbar>
+    <div class="toolbar">
+        <div class="pull-right">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group  btn-group-sm">
+                    <!--<button tooltip="Regresar" class="btn btn-default" ng-click="back()"><span class="glyphicon glyphicon-chevron-left"></span></button>-->
+                    <button class="btn btn-default guardar" ng-click="save()" ng-disabled="sc.frmSchedule.$invalid"><span class="pers-btn icono-guardar tam-normal"></span></button>                
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="panel panel-default">
+       <div class="panel-heading">
+           Programaci&oacute;n de rutas
+       </div> 
+        <div class="panel-body">
+            <form role="form" novalidate name="sc.frmSchedule">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="route_id">Ruta</label>
+                            <input type="hidden" class="form-control" ng-model="schedule.id">
+                            <br>
+                            <div custom-select="route as route.route for route in getRoutes($searchTerm)" ng-model="selRoute" custom-select-options="selRouteOptions" ng-disabled="true"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="vehicle_id">Veh&iacute;culo</label>
+                            <br>
+                            <div custom-select="vehicle as vehicle.name for vehicle in getVehicles($searchTerm)" ng-model="selVehicle" custom-select-options="selVehicleOptions"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="user_id">Conductor</label>
+                            <br>
+                            <div custom-select="driver as driver.driver for driver in getDrivers($searchTerm)" ng-model="selDriver" custom-select-options="selDriverOptions"></div>
+                        </div>    
+                    </div>
+
+                                                   
+                    <div class="col-md-3">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="status" ng-model="schedule.status"  ng-true-value="1" ng-false-value="0" >
+                                Activa
+                            </label>
+                        </div>
+
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="recurrent" ng-model="schedule.recurrent" ng-change="toggleWeekDays()" ng-true-value="1" ng-false-value="0" ng-disabled="schedule.id">
+                                Peri&oacute;dica
+                            </label>
+                        </div>
+
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="week" disabled="disabled" ng-model="schedule.week"  ng-true-value="1" ng-false-value="0" >
+                                Semanal
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Repetir el:</label>
+                            <p></p>
+
+                            <label class="ckeckbox-inline" style="font-weight:normal">
+                                <input type="checkbox" name="monday" ng-model="schedule.monday"  ng-true-value="1" ng-false-value="0" ng-disabled="schedule.recurrent==0">
+                                Lu&nbsp;&nbsp;
+                            </label>
+                       
+                        
+                            <label class="ckeckbox-inline" style="font-weight:normal">
+                                <input type="checkbox" name="tuesday" ng-model="schedule.tuesday" ng-true-value="1" ng-false-value="0" ng-disabled="schedule.recurrent==0">
+                                Ma&nbsp;&nbsp;
+                            </label>
+                       
+                       
+                            <label class="ckeckbox-inline" style="font-weight:normal">
+                                <input type="checkbox" name="wednesday" ng-model="schedule.wednesday" ng-true-value="1" ng-false-value="0" ng-disabled="schedule.recurrent==0">
+                                Mi&nbsp;&nbsp;
+                            </label>
+                       
+                            <label class="ckeckbox-inline" style="font-weight:normal">
+                                <input type="checkbox" name="thursday" ng-model="schedule.thursday" ng-true-value="1" ng-false-value="0" ng-disabled="schedule.recurrent==0">
+                                Ju&nbsp;&nbsp;
+                            </label>
+                       
+                        
+                            <label class="ckeckbox-inline" style="font-weight:normal">
+                                <input type="checkbox" name="friday" ng-model="schedule.friday" ng-true-value="1" ng-false-value="0" ng-disabled="schedule.recurrent==0">
+                                Vi&nbsp;&nbsp;
+                            </label>
+                       
+                            <label class="ckeckbox-inline" style="font-weight:normal">
+                                <input type="checkbox" name="saturday" ng-model="schedule.saturday" ng-true-value="1" ng-false-value="0" ng-disabled="schedule.recurrent==0">
+                                Sa&nbsp;&nbsp;
+                            </label>
+                                                    
+                        
+                            <label class="ckeckbox-inline" style="font-weight:normal">
+                                <input type="checkbox" name="sunday" ng-model="schedule.sunday" ng-true-value="1" ng-false-value="0" ng-disabled="schedule.recurrent==0">
+                                Do&nbsp;&nbsp;
+                            </label>
+                        </div>                
+                    </div>
+
+                    <div class="col-md-2" style="display:inline-block; vertical-align:middle; float:none">
+                        <div class="form-group">
+                            <label for="date1">Fecha Inicial</label>
+                            <div class="input-group cust-datepicker">
+                                    <input type="text" class="form-control" id="date1" name="date1" placeholder="" ng-model="sc.dt" datepicker-popup="{{datePicker.format}}" 
+                                           is-open="datePicker.opened" min-date="datePicker.minDate" datepicker-options="datePicker.dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Borrar"  show-button-bar="false"/>
+                                    <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="datePicker.open($event)">&nbsp;<i class="glyphicon glyphicon-calendar"></i>&nbsp;</button>
+                                    </span>                                        
+                            </div>
+                        </div>
+                    </div> 
+
+                    <div class="col-md-1"  style="display:inline-block; vertical-align:middle; float:none;">
+                        <div class="form-group">
+                            <label for="time">Hora</label>
+                            <timepicker ng-model="sc.dt" id="time" class="time" name="time"  hour-step="1" minute-step="15" show-meridian="false" style="font-size:12px;"></timepicker>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2" style="display:inline-block; vertical-align:middle; float:none;padding-left:20px"> 
+                        <div class="form-group">
+                            <label for="date2">Fecha Final</label>
+                            <div class="input-group cust-datepicker">
+                                    <input type="text" class="form-control" id="date2" name="date2" placeholder="" ng-model="sc.dtEnd" datepicker-popup="{{datePicker2.format}}" 
+                                           is-open="datePicker2.opened" min-date="datePicker2.minDate" datepicker-options="datePicker2.dateOptions" ng-required="schedule.recurrent==1" close-text="Cerrar" current-text="Hoy" clear-text="Borrar" ng-disabled="schedule.recurrent==0" show-button-bar="false"/>
+                                    <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="datePicker2.open($event)" ng-disabled="schedule.recurrent==0">&nbsp;<i class="glyphicon glyphicon-calendar"></i>&nbsp;</button>
+                                    </span>                                        
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="col-md-1"  style="display:inline-block; vertical-align:middle; float:none;">
+                        <div class="form-group">
+                            <label for="time2">Hora</label>
+                            <fieldset ng-disabled="schedule.recurrent==0">
+                                <timepicker ng-model="sc.dtEnd" id="time2" class="time" name="time2"  hour-step="1" minute-step="15" show-meridian="false" style="height:1em" ng-disabled="true"></timepicker>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    
+                </div>
+                <div class="row">
+                    
+                </div>       
+            </form>           
+        </div>
+    </div>
+</div>

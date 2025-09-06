@@ -1,0 +1,46 @@
+<div ng-show="state.current.name==='inventory.view'">
+    <ol class="breadcrumb">
+        <li class="active">Sistema</li>
+        <li class="active"><a ui-sref="inventory">Inventario</a></li>
+        <li class="active actualpg">Detalle de Inventario</li>
+    </ol>
+    <div class="pull-right">
+        <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group btn-group-lg">
+                <!--<button class="btn btn-default" tooltip="Regresar" ng-click="regresar()"><span class="glyphicon glyphicon-chevron-left"></span></button>-->
+                <button class="btn btn-default sin-padding" ng-click="tableParams.reload()"><span class="pers-btn icono-refrescar tam-normal"></span></button>
+            </div>
+        </div>
+    </div>     
+    <div class="container-fluid">
+        <div class="row">
+            <div  align="center" class="col-md-6">
+                <p>&nbsp;</p>
+                <div loading-container="tableParams.settings().$loading">
+                    <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable table-responsive">
+                        <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">
+                            <span class="ui-ngt-title">Inventario</span>
+                        </div>
+                        <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover">
+                            <tbody>
+                                <tr ng-repeat="pack in $data" ng-click="pack.$selected = !pack.$selected; changeSelection(pack)"
+                                    ng-class="{'ngactive': schedule.$selected}">
+                                    <td data-title="'OC'" class="text-center">
+                                        {{pack.OC}}
+                                    </td>
+                                    <td data-title="'Paquete'">
+                                        {{pack.Paquete}}
+                                    </td>
+                                    <td data-title="'Estado'" class="text-center">
+                                        <span tooltip="Aceptado" ng-if="(pack.estado==1)" class="glyphicon glyphicon-ok-sign" style="color:#488EF0;font-size:1.1em"></span>
+                                    </td>                    
+                                </tr>
+                            </tbody>
+                        </table>            
+                    </div>        
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ui-view="edit"></div>

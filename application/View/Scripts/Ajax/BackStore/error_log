@@ -1,0 +1,4 @@
+[26-Apr-2025 07:48:14 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Ajax/BackStore/deletePackage.php on line 16
+[26-Apr-2025 12:37:00 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Ajax/BackStore/addPackage.php on line 16
+[29-Apr-2025 14:34:43 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Ajax/BackStore/deletePackage.php on line 16
+[29-Apr-2025 19:11:17 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Ajax/BackStore/addPackage.php on line 16

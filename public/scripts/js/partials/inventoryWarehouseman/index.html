@@ -1,0 +1,46 @@
+<div ng-show="state.current.name==='inventoryWarehouseman'">
+    <ol class="breadcrumb">
+        <li class="active">Sistema</li>
+        <li class="active actualpg">Inventario</li>
+    </ol>
+   
+    <br />
+    <div class="container-fluid">
+        <div class="row">
+            <div  align="center" class="col-md-6">
+                 <div class="pull-right">
+        <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group btn-group-lg">
+                <button class="btn btn-default sin-padding" ng-click="tableParams.reload()" ><span class="pers-btn icono-refrescar tam-normal"></span></button>
+            </div>
+        </div>
+    </div>
+                <p>&nbsp;</p>
+                <div loading-container="tableParams.settings().$loading">
+                    <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable table-responsive">
+                        <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">
+                            <span class="ui-ngt-title">Inventario</span>
+                        </div>
+                        <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover">
+                            <tbody>
+                                <tr ng-repeat="schedule in $data" ng-click="schedule.$selected = !schedule.$selected; changeSelection(schedule)"
+                                    ng-class="{'ngactive': schedule.$selected}">
+                                    <td data-title="'OC'" class="text-center">
+                                        {{schedule.OC}}
+                                    </td>
+                                    <td data-title="'Paquete'">
+                                        {{schedule.Paquete}}
+                                    </td>
+                                    <td data-title="'Estado'" class="text-center">
+                                        <span tooltip="Aceptado" ng-if="(schedule.estado==1)" class="glyphicon glyphicon-ok-sign" style="color:#488EF0;font-size:1.1em"></span>
+                                    </td>                    
+                                </tr>
+                            </tbody>
+                        </table>            
+                    </div>        
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--img  src="../images/Logo_1.png" alt="logo" class="pie"--> 

@@ -1,0 +1,13 @@
+[04-Oct-2024 15:58:52 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/Warehouseman/DashboardController.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/Warehouseman/DashboardController.php on line 3
+[28-Nov-2024 06:26:58 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/Warehouseman/DashboardController.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/Warehouseman/DashboardController.php on line 3
+[22-Apr-2025 02:11:01 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/Warehouseman/InventoryWarehousemanController.php on line 3
+[24-Apr-2025 08:42:18 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/Warehouseman/WarehousemanController.php on line 3
+[25-Apr-2025 18:29:03 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/Warehouseman/DashboardController.php on line 3
+[26-Apr-2025 07:01:11 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/Warehouseman/WarehousemanController.php.bak on line 3
+[29-Apr-2025 13:37:38 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/Warehouseman/WarehousemanController.php.bak on line 3

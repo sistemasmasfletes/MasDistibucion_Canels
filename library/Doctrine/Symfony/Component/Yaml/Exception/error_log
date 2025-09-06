@@ -1,0 +1,3 @@
+[25-Apr-2025 05:15:03 UTC] PHP Fatal error:  Interface 'Symfony\Component\Yaml\Exception\ExceptionInterface' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Symfony/Component/Yaml/Exception/DumpException.php on line 21
+[26-Apr-2025 04:47:06 UTC] PHP Fatal error:  Interface 'Symfony\Component\Yaml\Exception\ExceptionInterface' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Symfony/Component/Yaml/Exception/ParseException.php on line 21
+[29-Apr-2025 11:19:32 UTC] PHP Fatal error:  Interface 'Symfony\Component\Yaml\Exception\ExceptionInterface' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Symfony/Component/Yaml/Exception/ParseException.php on line 21

@@ -1,0 +1,186 @@
+<!--<progressbar class="progress-striped active" value="100" type="info" ng-show="sc.loading"></progressbar>-->
+<ol class="breadcrumb">
+    <li class="active">Catálogos</li>
+    <li class="active "><a ui-sref="points">Puntos de venta</a></li>
+    <li class="active actualpg" ng-show="state.current.name === 'points.add'">Agregar punto de venta</li>
+    <li class="active actualpg" ng-show="state.current.name === 'points.edit'">Editar punto de venta</li>
+</ol>
+<div class="toolbar">
+    <div class="pull-right">
+        <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group  btn-group-sm">
+                <!--<button tooltip="Regresar" class="btn btn-default" ng-click="back()"><span class="glyphicon glyphicon-chevron-left"></span></button>-->
+                <button tooltip="Guardar" class="btn btn-default sin-padding" ng-click="save()" ng-disabled="frmPoint.$invalid"><span class="pers-btn icono-guardar tam-normal"></span></button>                
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Puntos de Venta
+    </div> 
+    <div class="panel-body">
+        <div class="panel panel-default">                    
+            <div class="panel-body">
+                <form role="form" novalidate name="frmPoint">
+                    <div class="row">
+                        <div class="col-md-3">                               
+                            <input type="hidden" disabled class="form-control" ng-model="point.id">
+                            <div class="form-group" ng-class="getFormFieldCssClass(frmPoint.code)">
+                                <label for="code">Código</label>
+                                <input type="text" class="form-control" id="code" name="code" placeholder="Código único alfanumerico" required ng-model="point.code">
+                            </div>
+
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <div class="form-group" ng-class="getFormFieldCssClass(frmPoint.name)">
+                                <label for="name">Nombre comercial</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Nombre del punto de venta" required ng-model="point.name">
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <div class="form-group" ng-class="getFormFieldCssClass(frmPoint.country)">
+                                <label for="country">Pais</label>
+                                <select ng-model="point.country_id"
+                                    ng-options="opt.id as opt.name for opt in getCountry"
+                                    ng-change="getSelectedCountry()"
+                                    class="form-control"
+                                    required
+                                    id="country"
+                                    name="country">
+                                    <option value="">Seleccionar pais</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <div class="form-group" ng-class="getFormFieldCssClass(frmPoint.state)">
+                                <label for="country">Estado</label>
+                                <select ng-model="point.state_id"
+                                        ng-options="opt.id as opt.name for opt in getState"
+                                        ng-change="getSelectedState()"
+                                        class="form-control"
+                                        required
+                                        id="state" name="state">
+                                    <option value="">Seleccionar estado</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group" ng-class="getFormFieldCssClass(frmPoint.city)">
+                                <label for="country">Ciudad</label>
+                                <select ng-model="point.city_id"
+                                        ng-options="opt.id as opt.name for opt in getCity"
+                                        ng-change="getSelectedCity()"
+                                        class="form-control"
+                                        required
+                                        id="state" name="state">
+                                    <option value="">Seleccionar ciudad</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <div class="form-group" ng-class="getFormFieldCssClass(frmPoint.address_id)">
+                                <label for="address">Calle</label>
+                                <select id="address" name="address" class="form-control" required  ng-model="point.address_id"
+                                        ng-options="opt.id as opt.address for opt in getAddress">
+                                    <option value="">Seleccionar calle</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3">                               
+                            <div class="form-group" ng-class="getFormFieldCssClass(frmPoint.extNumber)">
+                                <label for="extNumber">Numero exterior</label>
+                                <input type="text" class="form-control" id="extNumber" name="extNumber" placeholder="Numero exterior" required ng-model="point.extNumber">
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3">                               
+                            <div class="form-group" ng-class="getFormFieldCssClass(frmPoint.intNumber)">
+                                <label for="intNumber">numero interior</label>
+                                <input type="text" class="form-control" id="intNumber" name="intNumber" placeholder="Numero interior" required ng-model="point.intNumber">
+                            </div>
+
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-3">
+                             <div class="form-group" ng-class="getFormFieldCssClass(frmPoint.type)">
+                                <label for="type">Tipo</label>
+                                <select id="type" name="type" class="form-control" required ng-model="point.type"
+                                        ng-options="opt.id as opt.tipo for opt in pointTypes">
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <div class="form-group" ng-class="getFormFieldCssClass(frmPoint.categoryId_id)">
+                                <label for="category">Categoría</label>
+                                <select id="category" name="category" class="form-control" ng-disabled="point.type!=1" ng-model="point.categoryId_id" ng-options="opt.id as opt.name for opt in getCategories">
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <div class="form-group" ng-class="getFormFieldCssClass(frmPoint.webpage)">
+                                <label for="webpage" tooltip="Solo los puntos de venta pueden tener pagina web">Página web</label>
+                                <input type="text" class="form-control" id="webpage" name="webpage" ng-disabled="point.type!=1" placeholder="Link sitio web" ng-model="point.webpage">
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <div class="form-group" ng-class="getFormFieldCssClass(frmPoint.status)">
+                                <label for="status">Estatus</label>
+                                <select id="status" name="status" class="form-control" required ng-model="point.status"
+                                        ng-options="opt.id as opt.status for opt in pointStatus">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group" ng-class="getFormFieldCssClass(frmPoint.opening_time)">
+                                <label for="closingTime">Hora de apertura</label>
+                                <timepicker ng-model="hour" id="openingTime" class="openingTime" name="openingTime"  hour-step="1" minute-step="10" show-meridian="false" style="font-size:12px;" required></timepicker>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <div class="form-group" ng-class="getFormFieldCssClass(frmPoint.closing_time)">
+                                <label for="closingTime">Hora de cierre</label>
+                                <timepicker ng-model="hourEnd" id="closingTime" class="closingTime" name="closingTime" hour-step="1" minute-step="10" show-meridian="false" style="font-size:12px;" required></timepicker>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="form-group" ng-class="getFormFieldCssClass(frmPoint.comments)">
+                                <label for="comments">Comentarios</label>
+                                <textarea class="form-control" id="comments" name="comments" placeholder="Agrega aquí tus comentarios" ng-model="point.comments" rows="5" cols="33"></textarea> 
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group" ng-class="getFormFieldCssClass(frmPoint.urlGoogleMaps)">
+                                <label for="urlGoogleMaps">Ubicacion</label>
+                                <input type="text" class="form-control" id="urlGoogleMaps" name="urlGoogleMaps" ng-disabled="point.type!=1" placeholder="Link ubicacion Google Maps" ng-model="point.urlGoogleMaps">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>          
+    </div>
+</div>

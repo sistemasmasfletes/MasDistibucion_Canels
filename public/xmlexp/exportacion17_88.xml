@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Usuario razonsocial="CORAL DISTRIBUIDORA" usuario="coraldistr" rfc="DIDG730222874" id="88" idxml="17">
+  <Clientes>
+    <Cliente idMD="90" rfc="" nombre="EL MEJICANTO" razonsocial=""/>
+    <Cliente idMD="93" rfc="" nombre="LA CABAÑA DE LOS COMPADRES " razonsocial="LCLC020306DST"/>
+    <Cliente idMD="94" rfc="" nombre="LA FUNDIDORA" razonsocial="LAFU730425MBK"/>
+    <Cliente idMD="132" rfc="1111111111110" nombre="SIX ACERINA" razonsocial="GABRIELA HERRERA SANCHEZ"/>
+    <Cliente idMD="123" rfc="BABR161104LSJ" nombre="BAR LAS BRUJITAS" razonsocial="BAR LAS BRUJITAS"/>
+    <Cliente idMD="101" rfc="BOCH111111XXX" nombre="BOCA CHICA" razonsocial=""/>
+    <Cliente idMD="135" rfc="BRLMPT2019" nombre="BAR LA MALA PATA" razonsocial="BAR LA MALA PATA"/>
+    <Cliente idMD="128" rfc="CALO160428RLZ" nombre="CARLOS LOPEZ" razonsocial="CARLOS LOPEZ"/>
+    <Cliente idMD="89" rfc="CIMO710808ARA" nombre="RESTAURAN LA GOZOSA" razonsocial="OSWALDO CHIMAL MORALES"/>
+    <Cliente idMD="67" rfc="CONA720802XDF" nombre="COLEGIO NACIONAL DE EDUCACIÓN PROFESIONAL TÉCNICA" razonsocial="CONALEP"/>
+    <Cliente idMD="131" rfc="CPE180101U32" nombre="CONSUELO PEREZ" razonsocial="CONSUELO PEREZ"/>
+    <Cliente idMD="130" rfc="EOCM750801UBA" nombre="EDGAR OMAR CASTRO MARTÍNEZ" razonsocial="EDGAR OMAR CASTRO MARTÍNEZ"/>
+    <Cliente idMD="92" rfc="FEND111122MSJ" nombre="FRUTERÍA EL NUEVO DÍA" razonsocial=""/>
+    <Cliente idMD="117" rfc="GAR150107TR6" nombre="COMEDOR EATON" razonsocial="GASTRONOMIA ARTISTICA S. DE R.L. DE C.V."/>
+    <Cliente idMD="114" rfc="GCA1302223F5" nombre="GRUPO CONTROLADORA DE ALIMENTOS GCA" razonsocial="GRUPO CONTROLADORA DE ALIMENTOS GCA"/>
+    <Cliente idMD="129" rfc="GERI170802DLR" nombre="GUADALUPE DE LA ROSA IBARRA" razonsocial="GUADALUPE DE LA ROSA IBARRA"/>
+    <Cliente idMD="120" rfc="GOAV170518RDN" nombre="GORDITAS AVENIDA" razonsocial="GORDITAS AVENIDA"/>
+    <Cliente idMD="122" rfc="GOSU170823RDZ" nombre="GORDITAS SUZY" razonsocial="GORDITAS SUZY"/>
+    <Cliente idMD="133" rfc="GPALCRFC2019" nombre="GUADALUPE ALCALA" razonsocial="GUADALUPE ALCALA"/>
+    <Cliente idMD="91" rfc="LALR510625LE8" nombre="LOS ARCOS" razonsocial="MA. DEL ROSARIO LARA LOPEZ"/>
+    <Cliente idMD="126" rfc="MAPE150201RSE" nombre="MARISCOS PEPE" razonsocial="MARISCOS PEPE"/>
+    <Cliente idMD="83" rfc="MAS0906308L8" nombre="MAS FLETES SA DE CV" razonsocial=""/>
+    <Cliente idMD="108" rfc="MOEV010211LRT" nombre="MOVILIARIO EVENTUM" razonsocial=""/>
+    <Cliente idMD="98" rfc="OIHE710405M66" nombre="MARISCOS JORGE" razonsocial="EMILIA ORTIZ HERNANDEZ"/>
+    <Cliente idMD="116" rfc="ORM150304ML7" nombre="OPERADORA DE RESTAURANTES MID S.A. DE C.V." razonsocial="OPERADORA DE RESTAURANTES MID S.A. DE C.V."/>
+    <Cliente idMD="99" rfc="RBGP030716BNM" nombre="RESTAURANT GRILL PROVECHITO" razonsocial=""/>
+    <Cliente idMD="121" rfc="RIME160428NCX" nombre="RINCON MEXICANO" razonsocial="RINCON MEXICANO"/>
+    <Cliente idMD="140" rfc="ROCE830103QK6" nombre="EL PARAISO CARNIVORO" razonsocial="ERIKA RODRIGUEZ CORTES"/>
+    <Cliente idMD="100" rfc="ROML661119SW5" nombre="SPORT BAR LA NAVE" razonsocial="LAURA ALICIA RODRÍGUEZ MALTOS"/>
+    <Cliente idMD="106" rfc="RPP760101966" nombre="RESTAURANTE LA PARROQUIA POTOSINA" razonsocial="RESTAURANTE LA PARROQUIA POTOSINA"/>
+    <Cliente idMD="136" rfc="SCLRFC2019" nombre="SUSANA CORTÉZ LIÑAN" razonsocial="SUSANA CORTÉZ LIÑAN"/>
+    <Cliente idMD="127" rfc="TAES170707CTD" nombre="TACOS ESTADIO" razonsocial="TACOS ESTADIO"/>
+    <Cliente idMD="125" rfc="TAKI180327BRK" nombre="TABERNA EL KIKIN" razonsocial="TABERNA EL KIKIN"/>
+    <Cliente idMD="124" rfc="TALG150430QSR" nombre="TAQUERIA LOS GUEROS" razonsocial="TAQUERIA LOS GUEROS"/>
+    <Cliente idMD="134" rfc="TQLCHRFC2019" nombre="TAQUERIA LOS CHARCOS" razonsocial="TAQUERIA LOS CHARCOS"/>
+    <Cliente idMD="137" rfc="TTI150826G50" nombre="HANKS RESTAURANTE" razonsocial="THI TRAVIS INTERNACIONAL S.A. DE C.V."/>
+    <Cliente idMD="102" rfc="VAVA570609U43" nombre="MIKOCINA" razonsocial="ALMA ANGELICA VIGIANO VAZQUEZ"/>
+    <Cliente idMD="119" rfc="VIH170814520" nombre="VIANDAS INDUSTRIALES HERNANDEZ Y SUCESORES" razonsocial="VIANDAS INDUSTRIALES HERNANDEZ Y SUCESORES"/>
+  </Clientes>
+  <Articulos>
+    <Articulo rfc="TAKI180327BRK" producto="1 bidon de 20 Lts de aceite comestible de Soya marca Primor" metaclave="PK1257" precio="0.00"/>
+    <Articulo rfc="VAVA570609U43" producto="2 cajas de 12/1 lts de aceite de soya Primor" metaclave="PK10218" precio="0.00"/>
+    <Articulo rfc="OIHE710405M66" producto="PAQUETE DE ACEITE PRIMOR" metaclave="PK9839" precio="0.00"/>
+    <Articulo rfc="GOSU170823RDZ" producto="1 caa con 12 lts de aceite primor" metaclave="PK12217" precio="0.00"/>
+    <Articulo rfc="ROCE830103QK6" producto="1 caa con 12 lts de aceite primor" metaclave="PK14017" precio="0.00"/>
+    <Articulo rfc="CIMO710808ARA" producto="PAQUETE DE 10 BIDONES DE ACEITE COMESTIBLE PRIMOR" metaclave="PK8944" precio="0.00"/>
+    <Articulo rfc="RPP760101966" producto="cajas de aceite primor" metaclave="PK10655" precio="0.00"/>
+    <Articulo rfc="ORM150304ML7" producto="PAQUETE DE 15 BIDONES DE ACEITE PRIMOR" metaclave="PK11650" precio="0.00"/>
+    <Articulo rfc="TALG150430QSR" producto="2 cajas de 12/1 lts de aceite de soya Primor" metaclave="PK12418" precio="0.00"/>
+  </Articulos>
+  <Ordenes>
+    <Orden idop="569" rfc="TAKI180327BRK" producto="1 bidon de 20 Lts de aceite comestible de Soya marca Primor" meta="PK1257" idusrMD="125" quantity="0" precio="0.00" total="0" razonsoc="TABERNA EL KIKIN"/>
+    <Orden idop="570" rfc="TAKI180327BRK" producto="1 bidon de 20 Lts de aceite comestible de Soya marca Primor" meta="PK1257" idusrMD="125" quantity="0" precio="0.00" total="0" razonsoc="TABERNA EL KIKIN"/>
+    <Orden idop="577" rfc="VAVA570609U43" producto="2 cajas de 12/1 lts de aceite de soya Primor" meta="PK10218" idusrMD="102" quantity="0" precio="0.00" total="0" razonsoc="ALMA ANGELICA VIGIANO VAZQUEZ"/>
+    <Orden idop="578" rfc="OIHE710405M66" producto="PAQUETE DE ACEITE PRIMOR" meta="PK9839" idusrMD="98" quantity="0" precio="0.00" total="0" razonsoc="EMILIA ORTIZ HERNANDEZ"/>
+    <Orden idop="579" rfc="GOSU170823RDZ" producto="1 caa con 12 lts de aceite primor" meta="PK12217" idusrMD="122" quantity="0" precio="0.00" total="0" razonsoc="GORDITAS SUZY"/>
+    <Orden idop="582" rfc="ROCE830103QK6" producto="1 caa con 12 lts de aceite primor" meta="PK14017" idusrMD="140" quantity="0" precio="0.00" total="0" razonsoc="ERIKA RODRIGUEZ CORTES"/>
+    <Orden idop="583" rfc="CIMO710808ARA" producto="PAQUETE DE 10 BIDONES DE ACEITE COMESTIBLE PRIMOR" meta="PK8944" idusrMD="89" quantity="0" precio="0.00" total="0" razonsoc="OSWALDO CHIMAL MORALES"/>
+    <Orden idop="585" rfc="RPP760101966" producto="cajas de aceite primor" meta="PK10655" idusrMD="106" quantity="0" precio="0.00" total="0" razonsoc="RESTAURANTE LA PARROQUIA POTOSINA"/>
+    <Orden idop="586" rfc="ORM150304ML7" producto="PAQUETE DE 15 BIDONES DE ACEITE PRIMOR" meta="PK11650" idusrMD="116" quantity="0" precio="0.00" total="0" razonsoc="OPERADORA DE RESTAURANTES MID S.A. DE C.V."/>
+    <Orden idop="588" rfc="TALG150430QSR" producto="2 cajas de 12/1 lts de aceite de soya Primor" meta="PK12418" idusrMD="124" quantity="0" precio="0.00" total="0" razonsoc="TAQUERIA LOS GUEROS"/>
+  </Ordenes>
+</Usuario>

@@ -1,0 +1,168 @@
+<div ng-show="state.current.name === 'compraCreditos.edit' || state.current.name === 'compraCreditos.add'">
+    <progressbar class="progress-striped active" value="100" type="info" ng-show="loading"></progressbar>
+    <div class="toolbar">
+        <div class="pull-right">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group  btn-group-sm">
+                    <!--<button class="btn btn-default" tooltip="Regresar" ng-click="back()"><span class="glyphicon glyphicon-chevron-left"></span></button>-->
+                    <button class="btn btn-default" tooltip="Guardar" ng-click="save()" ng-disabled="frmCompraCreditos.$invalid"><span class="glyphicon glyphicon-floppy-save"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Compra de Creditos </div>
+
+        <div class="panel-body">
+            <form  role="form" novalidate name="frmCompraCreditos">
+                <!--     <div class="row">
+                         <div class="col-md-3">
+                             <input type="hidden" class="form-control" ng-model="compraCreditos.id">
+                             <div class="form-group" ng-class="getFormFieldCssClass(frmCompraCreditos.usuario)">
+                                 <label for="usuario">Categorias</label>
+                                 <select class="form-control"  id="categorias"  name="categorias" required ng-model="compra.usuario">
+                                 </select> 
+     
+                             </div>
+                         </div>
+                     </div>-->
+                <div class="row">
+                    <div class="col-md-3">
+                        <input type="hidden" class="form-control" ng-model="compraCreditos.id">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmCompraCreditos.usuario)">
+                            <label for="usuario">Cliente</label>
+                            <select class="form-control"  id="usuario"  name="usuario" required ng-model="compra.usuario">
+                            </select> 
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="hidden" class="form-control" ng-model="compraCreditos.id">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmCompraCreditos.moneda)">
+                            <label for="moneda">Moneda</label>
+                            <select class="form-control"  id="moneda"  name="moneda" required ng-model="compra.moneda">
+                            </select> 
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-3" id="consulta">
+
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <input type="hidden" class="form-control" ng-model="compraCreditos.id">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmCompraCreditos.tipoPago)">
+                            <label for="tipoPago">Metodo de Pago</label>
+                            <select class="form-control"  id="tipoPago"  name="tipoPago" required ng-model="compra.tipoPago">
+                            </select> 
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmCompraCreditos.name)">
+                            <label for="name">Banco</label>
+
+                            <select class="form-control"  id="idbanco" name="idbanco" ng-change="datosBancos()" required ng-model="compra.name">
+                            </select> 
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <input type="hidden" class="form-control" ng-model="compraCreditos.id">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmCompraCreditos.montoCompra)">
+                            <label for="montoCompra">Monto de Compra</label>
+                            <input type="text" class="form-control" id="montoCompracredito" name="montoCompra" placeholder="$$" required ng-model="compra.montoCompra">
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <input type="hidden" class="form-control" ng-model="compraCreditos.id">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmCompraCreditos.cuenta)">
+                            <label for="cuenta">Cuenta</label>
+                            <input type="text" class="form-control"  id="cuenta" name="cuenta" placeholder=""  ng-model="compra.cuenta" />
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!--<div class="col-md-3" >
+                        <input type="hidden" class="form-control" ng-model="compraCreditos.id">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmCompraCreditos.referencia)">
+                            <label for="creditos"> Creditos a  Adquirir </label>
+                            <input type="text" class="form-control"   id="creditosAdquirir" name="creditosAdquirir" placeholder="Creditos a Adquirir" required ng-model="compra.referencia">
+                        </div>
+                    </div> -->
+
+                    <div class="col-md-3">
+                        <input type="hidden" class="form-control" ng-model="compraCreditos.id">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmCompraCreditos.referencia)">
+                            <label for="referencia">Referencia</label>
+                            <input type="text" class="form-control"   id="referencia" name="referencia" placeholder=""  ng-model="compra.referencia">
+
+                        </div>
+                    </div>
+                     <div class="col-md-3" >
+                        <div class="form-group">
+                            <label for="fecha">Fecha </label>
+                            <div class="input-group cust-datepicker">
+                                <input type="text" class="form-control" disabled="true" id="fecha" name="fecha" placeholder="" required ng-model="compra.fecha" datepicker-popup="{{datePicker.format}}" 
+                                       is-open="datePicker.opened" min-date="datePicker.minDate" datepicker-options="datePicker.dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Borrar"  show-button-bar="false"/>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="datePicker.open($event)">&nbsp;<i class="glyphicon glyphicon-calendar"></i>&nbsp;</button>
+                                </span>                                        
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+                <div class="row">
+                   
+                    <div  class="col-md-6">
+                        <input type="hidden" class="form-control" ng-model="compraCreditos.id">
+                        <div style="display: none;" class="form-group" ng-class="getFormFieldCssClass(frmCompraCreditos.nombreImg)">
+                            <label for="nombreImg">Comprobante</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="nombreImg" name="nombrImg"   ng-model="compra.nombreImg">
+                                <span class="input-group-btn">
+                                    <button  class="btn btn-default" type="button">Seleccionar</button>
+                                </span>
+                                <script >
+                                    $('#path').live('change', function () {
+                                            var imagen = document.getElementById("path").value;
+                                                                                      
+                                            document.getElementById("nombreImg").value = imagen;
+                                    });
+                                </script>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmCompraCreditos.path)">
+                            <label for="nombreImg">Comprobante</label>
+                            <div class="input-group">
+                                <input type="file" class="form-control" id="path" name="path"   ng-model="compra.path">
+
+                            </div>
+                        </div>
+                        <!-- <input type="hidden" class="form-control" ng-model="compraCreditos.id">
+                         <div class="form-group" ng-class="getFormFieldCssClass(frmCompraCreditos.nombreImg)">
+                             <label for="nombreImg">Comprobante</label>
+                             <input type="file"  class="form-control" id="nombreImg" name="nombrImg"  placeholder="comprobante.png"  ng-model="compra.nombreImg" />
+                         </div> -->                   </div>
+                </div>
+
+
+
+            </form>        
+        </div>
+    </div>
+</div>

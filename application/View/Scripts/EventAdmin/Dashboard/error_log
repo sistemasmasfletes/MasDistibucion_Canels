@@ -1,0 +1,16 @@
+[24-Apr-2025 05:29:46 UTC] PHP Fatal error:  Uncaught Error: Call to a member function TrHelper() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/EventAdmin/Dashboard/_default.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/EventAdmin/Dashboard/_default.php on line 7
+[26-Apr-2025 05:33:54 UTC] PHP Fatal error:  Uncaught Error: Call to a member function TrHelper() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/EventAdmin/Dashboard/axSearchUser.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/EventAdmin/Dashboard/axSearchUser.php on line 5
+[27-Apr-2025 04:43:23 UTC] PHP Fatal error:  Uncaught Error: Call to a member function TrHelper() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/EventAdmin/Dashboard/axListUser.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/EventAdmin/Dashboard/axListUser.php on line 5
+[29-Apr-2025 12:06:29 UTC] PHP Fatal error:  Uncaught Error: Call to a member function TrHelper() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/EventAdmin/Dashboard/axSearchUser.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/EventAdmin/Dashboard/axSearchUser.php on line 5

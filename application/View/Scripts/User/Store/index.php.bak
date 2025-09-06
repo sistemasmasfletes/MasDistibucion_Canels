@@ -1,0 +1,116 @@
+<div class="contiene-bread">
+    <ol class="breadcrumb">
+        <li class="active">Clientes</li>
+        <li class="active actualpg ">Tiendas</li>
+    </ol>
+</div>
+<div class="container">
+    <div class="row">
+
+    </div>
+    <div class="row" >
+        <span></span>
+        <form id="formStoreFilter" method="post">
+            <table>
+                <tr>
+                    <th>Tiendas registradas</th>
+                    <td><input type="checkbox"  id="chkTiendasSucursal" name="chkTiendasSucursal">&nbsp;</td>
+                </tr>
+                <tr>
+                    <th>País:</th>
+                    <td><select name="country" id="country" onchange="getStates(this.value)">
+
+                            <?php
+                            foreach ($view->countries as $pais) {
+                                $seleccion = $view->country != NULL ? ((int) $view->country == $pais->getId() ? 'selected = "selected"' : '') : '';
+                                echo '<option value="' . $pais->getId() . '" ' . $seleccion . '>' . $pais->getNombre() . '</option>';
+                            }
+                            ?>
+                        </select>
+                        <script type="text/javascript">
+                            $(document).ready(function () {
+                                document.getElementById("country").onchange();
+                            });
+                        </script>
+                        <?php if ($view->check) { ?>
+                            <script type="text/javascript">
+                                $(document).ready(function () {
+                                    $("#chkTiendasSucursal").prop("checked", true);
+                                });
+                            </script>
+                        <?php } else { ?>
+                            <script type="text/javascript">
+                                $(document).ready(function () {
+                                    $("#chkTiendasSucursal").prop("checked", false);
+                                });
+                            </script>
+                        <?php } ?>
+                    </td>
+
+                    <th>Estado:</th>
+                    <td><select name="state" id="state" onchange="getCities(this.value)">
+                            <?php
+                            if ($view->states != NULL) {
+                                foreach ($view->states as $state) {
+                                    $seleccion = ($view->state != NULL) && ($view->state != "") ? ( (int) $view->state == $state->getId() ? 'selected = "selected"' : '') : '';
+                                    echo '<option value="' . $state->getId() . '" ' . $seleccion . '>' . $state->getName() . '</option>';
+                                }
+                            }
+                            ?>
+                        </select></td>
+
+
+                    <th>Ciudad:</th>
+                    <td><select name="city" id="city" onchange="">
+                            <?php
+                            if ($view->cities != null) {
+                                foreach ($view->cities as $city) {
+                                    $seleccion = $view->city != NULL ? ((int) $view->city == $city->getId() ? 'selected = "selected"' : '') : '';
+                                    echo '<option value="' . $city->getId() . '" ' . $seleccion . '>' . $city->getName() . '</option>';
+                                }
+                            }
+                            ?>  
+                        </select></td>
+
+                </tr>
+                <tr>
+                    <th>Cliente &oacute; Direcci&oacute;n:</th>
+                    <td>
+                        <input name="usernameTxt" class="order search-query" id="usernameTxt" autocomplete="off" type="text" class="input300" value="<?php  echo $view->usernameTxt; ?>" placeholder="Buscar"/><span></span>
+                        <input name="hiddenBranch" type="hidden" id="hiddenBranch" value="<?php  echo $view->hiddenBranch; ?>" />
+                        <div style="position: relative;">
+                            <div class="suggestionUsers-sf" id="suggestedUsers">
+                                <div id="suggestedUsersList"></div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div class="row">
+                
+                <div class="pull-right" style="padding-right: 5%">
+                    
+                    <input type="submit" class="btn btn-default sin-padding pers-btn icono-filtrar tam-normal" value=""/>
+                </div>
+            </div>
+        </form>
+        <!--<div class="span12 blockGray">-->
+        <div class="row">
+            <div class="blockInner">
+                <h1>Categorías</h1>
+
+                <?php
+                echo '<div class="contenedor-categorias">';
+                foreach ($view->categories as $cat) {
+                    echo '<a class="btn  square-bordered" href="' . $view->url(array('controller' => 'Store', 'action' => 'category', 'id' => $cat->getId())) . '">';
+//                    echo '<a href="'.$view->url(array('controller' => 'Store', 'action' => 'category', 'id' => $cat->getId())).'">'.$cat->getName().'</a>';                    
+                    echo '<div class="contenido-categoria"><img style="max-width: 35px;max-height: 35px;" src="' . $view->getBaseUrl() . '/' . $cat->getImagePath() . '" class="icono-categoria"/><label>' . $cat->getName() . '</labek></div>';
+                    echo '</a>';
+                }
+                echo '</div>';
+                ?>
+            </div>
+        </div>
+        <!--</div>-->
+    </div>
+</div>

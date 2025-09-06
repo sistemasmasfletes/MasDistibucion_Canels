@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Usuario razonsocial="CORAL DISTRIBUIDORA" usuario="coraldistr" rfc="DIDG730222874" id="88" idxml="1">
+  <Clientes>
+    <Cliente idMD="67" rfc="" nombre="COLEGIO NACIONAL DE EDUCACIÓN PROFESIONAL TÉCNICA"/>
+    <Cliente idMD="83" rfc="MAS0906308L8" nombre="MAS FLETES SA DE CV"/>
+    <Cliente idMD="89" rfc="CIMO710808ARA" nombre="OSWALDO CHIMAL MORALES"/>
+    <Cliente idMD="90" rfc="" nombre="EL MEJICANTO"/>
+    <Cliente idMD="91" rfc="" nombre="LA PROVIDENCIA"/>
+    <Cliente idMD="92" rfc="" nombre="FRUTERÍA EL NUEVO DÍA"/>
+    <Cliente idMD="93" rfc="" nombre="LA CABAÑA DE LOS COMPADRES "/>
+    <Cliente idMD="94" rfc="" nombre="LA FUNDIDORA"/>
+    <Cliente idMD="98" rfc="" nombre="MARISCOS JORGE"/>
+    <Cliente idMD="99" rfc="" nombre="RESTAURANT GRILL PROVECHITO"/>
+    <Cliente idMD="100" rfc="" nombre="SPORT BAR LA NAVE"/>
+    <Cliente idMD="101" rfc="" nombre="BOCA CHICA"/>
+    <Cliente idMD="102" rfc="" nombre="MIKOCINA"/>
+    <Cliente idMD="106" rfc="RPP760101966" nombre="RESTAURANTE LA PARROQUIA POTOSINA"/>
+    <Cliente idMD="108" rfc="" nombre="MOVILIARIO EVENTUM"/>
+    <Cliente idMD="114" rfc="GCA1302223F5" nombre="GRUPO CONTROLADORA DE ALIMENTOS GCA"/>
+    <Cliente idMD="116" rfc="ORM150304ML7" nombre="OPERADORA DE RESTAURANTES MID S.A. DE C.V."/>
+    <Cliente idMD="117" rfc="GAR150107TR6" nombre="GASTRONOMIA ARTISTICA S. DE R.L. DE C.V."/>
+    <Cliente idMD="119" rfc="VIH170814520" nombre="VIANDAS INDUSTRIALES HERNANDEZ Y SUCESORES"/>
+  </Clientes>
+  <Articulos>
+    <Articulo rfc="RPP760101966" producto="PAQUETE DE 24 CAJAS DE ACEITE PRIMOR DE 1 LTS" metaclave="PK10638" precio="0.00"/>
+    <Articulo rfc="CIMO710808ARA" producto="Paquete de 5 bidones de aceite primor" metaclave="PK8937" precio="0.00"/>
+    <Articulo rfc="RPP760101966" producto="Caja 12 bolletas de litro" metaclave="PR1064" precio="0.00"/>
+  </Articulos>
+  <Ordenes>
+    <Orden idop="438" rfc="RPP760101966" producto="PAQUETE DE 24 CAJAS DE ACEITE PRIMOR DE 1 LTS" meta="PK10638" idusrMD="106" quantity="0" precio="0.00" total="0"/>
+    <Orden idop="449" rfc="CIMO710808ARA" producto="Paquete de 5 bidones de aceite primor" meta="PK8937" idusrMD="89" quantity="0" precio="0.00" total="0"/>
+    <Orden idop="425" rfc="RPP760101966" producto="Caja 12 bolletas de litro" meta="PR1064" idusrMD="106" quantity="20" precio="0.00" total="0"/>
+  </Ordenes>
+</Usuario>

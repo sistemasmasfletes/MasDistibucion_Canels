@@ -1,0 +1,5 @@
+[24-Apr-2025 18:16:36 UTC] PHP Fatal error:  Interface 'Symfony\Component\Console\Input\InputInterface' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Symfony/Component/Console/Input/Input.php on line 25
+[25-Apr-2025 14:29:15 UTC] PHP Fatal error:  Class 'Symfony\Component\Console\Input\ArgvInput' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Symfony/Component/Console/Input/StringInput.php on line 25
+[25-Apr-2025 23:14:19 UTC] PHP Fatal error:  Class 'Symfony\Component\Console\Input\Input' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Symfony/Component/Console/Input/ArrayInput.php on line 25
+[26-Apr-2025 12:37:13 UTC] PHP Fatal error:  Class 'Symfony\Component\Console\Input\Input' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Symfony/Component/Console/Input/ArgvInput.php on line 41
+[29-Apr-2025 19:11:27 UTC] PHP Fatal error:  Class 'Symfony\Component\Console\Input\Input' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Symfony/Component/Console/Input/ArgvInput.php on line 41

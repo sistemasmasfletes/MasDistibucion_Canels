@@ -1,0 +1,32 @@
+#formLogIn
+{
+    padding: 10px 0;
+}
+
+#formLogIn .button{
+    cursor: pointer;
+}
+#formLogIn #logIn{
+    padding-left: 10px;
+}
+
+#responseLogIns .alert
+{
+    margin: 0px;
+}
+
+#formLogIn label.error
+{
+    margin: 0 10px;
+    background-color: #E8BAB4;
+
+    /* borde */
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+
+    /* shadow roja */
+    -moz-box-shadow: 4px 3px 26px #ff0000;
+    -webkit-box-shadow: 4px 3px 26px #ff0000;
+    box-shadow: 4px 3px 26px #ff0000;
+}

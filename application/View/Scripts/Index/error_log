@@ -1,0 +1,24 @@
+[24-Apr-2025 04:39:39 UTC] PHP Fatal error:  Uncaught Error: Call to a member function url() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Index/recoverPass.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Index/recoverPass.php on line 1
+[24-Apr-2025 04:39:41 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getBaseUrl() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Index/register.php:24
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Index/register.php on line 24
+[24-Apr-2025 11:11:03 UTC] PHP Fatal error:  Uncaught Error: Class 'Model3_Auth' not found in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Index/_default.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Index/_default.php on line 2
+[26-Apr-2025 08:34:31 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getBaseUrl() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Index/aboutDeal.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Index/aboutDeal.php on line 3
+[26-Apr-2025 19:45:35 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getBaseUrlPublic() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Index/contactUs.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Index/contactUs.php on line 1
+[29-Apr-2025 15:22:38 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getBaseUrl() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Index/aboutDeal.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Index/aboutDeal.php on line 3

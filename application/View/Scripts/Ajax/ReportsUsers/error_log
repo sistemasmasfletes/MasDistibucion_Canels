@@ -1,0 +1,24 @@
+[24-Apr-2025 21:30:15 UTC] PHP Fatal error:  Uncaught Error: Class 'Model3_Registry' not found in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Ajax/ReportsUsers/blockUser.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Ajax/ReportsUsers/blockUser.php on line 2
+[24-Apr-2025 21:30:19 UTC] PHP Fatal error:  Uncaught Error: Class 'Model3_Registry' not found in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Ajax/ReportsUsers/catalogs.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Ajax/ReportsUsers/catalogs.php on line 2
+[25-Apr-2025 06:00:28 UTC] PHP Fatal error:  Uncaught Error: Call to a member function Users() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Ajax/ReportsUsers/details.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Ajax/ReportsUsers/details.php on line 2
+[25-Apr-2025 17:43:20 UTC] PHP Fatal error:  Uncaught Error: Call to a member function Orders() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Ajax/ReportsUsers/branchesUser.php:86
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Ajax/ReportsUsers/branchesUser.php on line 86
+[26-Apr-2025 04:01:45 UTC] PHP Fatal error:  Uncaught Error: Call to a member function Orders() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Ajax/ReportsUsers/saveChangeBranche.php:61
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Ajax/ReportsUsers/saveChangeBranche.php on line 61
+[29-Apr-2025 10:32:00 UTC] PHP Fatal error:  Uncaught Error: Call to a member function Orders() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Ajax/ReportsUsers/saveChangeBranche.php:61
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Ajax/ReportsUsers/saveChangeBranche.php on line 61

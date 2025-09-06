@@ -1,0 +1,133 @@
+<div ng-show="state.current.name==='addresses.edit'||state.current.name==='addresses.add'">
+    <ol class="breadcrumb">
+        <li class="active">Catálogos</li>
+        <li class="active"><a ui-sref="addresses">Calles</a></li>
+        <li class="active actualpg" ng-show="state.current.name==='addresses.edit'">Editar Calle</li>
+        <li class="active actualpg" ng-show="state.current.name==='addresses.add'" >Agregar Calle</li>
+    </ol>
+    <div class="toolbar">
+        <div class="pull-right">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group  btn-group-sm">
+                    <!--<button class="btn btn-default" tooltip="Regresar" ng-click="back()"><span class="glyphicon glyphicon-chevron-left"></span></button>-->
+                    <button class="btn btn-default sin-padding"  ng-click="save()" ng-disabled="frmAddress.$invalid"><span class="pers-btn icono-guardar-fila icono-tam-tabla"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Guardar calle
+        </div> 
+        <div class="panel-body">
+            <div class="panel panel-default">                    
+                <div class="panel-body">
+                    <form role="form" novalidate name="frmAddress">
+                        <div class="row">
+                            <div class="col-md-3">                               
+                                <input type="hidden" disabled class="form-control" ng-model="address.id">
+                                <!--<input type="hidden" disabled class="form-control" ng-model="address.userRole">-->
+                                <div class="form-group" ng-class="getFormFieldCssClass(frmAddress.address)">
+                                    <label for="address">Calle</label>
+                                    <input type="text" class="form-control" id="address" name="address" placeholder="Nombre de la calle" required ng-model="address.address">
+                                </div>
+
+                            </div>
+
+                            <!-- div class="col-md-3">
+                                <div class="form-group" ng-class="getFormFieldCssClass(frmAddress.neighborhood)">
+                                    <label for="neighborhood">Colonia</label>
+                                    <input type="text" class="form-control" id="neighborhood" name="neighborhood" placeholder="Nombre de la colonia" required ng-model="address.neighborhood">
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-3">
+                                <div class="form-group" ng-class="getFormFieldCssClass(frmAddress.zipcode)">
+                                    <label for="zipcode">C&oacute;digo postal</label>
+                                    <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="C&oacute;digo postal" require ng-model="address.zipcode">
+                                </div>
+
+                            </div-->
+                            
+                            <div class="col-md-3">
+                                <div class="form-group" ng-class="getFormFieldCssClass(frmAddress.country_id)">
+                                    <label for="country">Pa&iacute;s</label>
+                                    <select ng-model="address.country_id"
+                                        ng-options="opt.id as opt.name for opt in getCountry"
+                                        ng-change="getSelectedCountry()"
+                                        class="form-control"
+                                        ng-required="true"
+                                        id="country"
+                                        name="country">
+                                        <option value="">Seleccionar pais</option>
+                                    </select>
+                                </div>
+                            </div>
+                        <!-- /div>
+
+                        <div class="row" -->
+                            <div class="col-md-3">
+                                <div class="form-group" ng-class="getFormFieldCssClass(frmAddress.state)">
+                                    <label for="state">Estado</label>
+                                    <select ng-model="address.state_id"
+                                            ng-options="opt.id as opt.name for opt in getState"
+                                            ng-change="getSelectedState()"
+                                            class="form-control"
+                                            ng-required="true"
+                                            id="state" name="state">
+                                        <option value="">Seleccionar estado</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-3">
+                                <div class="form-group" ng-class="getFormFieldCssClass(frmAddress.city)">
+                                    <label for="city">Ciudad</label>
+                                    <select id="city" name="city" class="form-control" ng-model="address.city_id"
+                                            ng-options="opt.id as opt.name for opt in getCity"
+                                            ng-required="true">
+                                        <option value="">Seleccionar ciudad</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-3" ng-show="userRole==='1'">
+                                <div class="form-group" ng-class="getFormFieldCssClass(frmAddress.authorized)" >
+                                    <label for="authorized">Autorizar</label>
+                                    <select id="authorized" name="authorized" class="form-control" ng-model="address.authorized"
+                                            ng-options="opt.id as opt.status for opt in getAuthorization"
+                                            >
+                                        <option value="">Seleccionar Autorizar</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            
+ 
+                            
+                            <div class="col-md-3" >
+                                <div class="form-group" ng-class="getFormFieldCssClass(frmAddress.zona)" >
+                                    <label for="zona">Zona</label>
+                                    <select id="zona" name="zona" class="form-control" ng-model="address.zone_id"
+                                            ng-options="opt.name for  opt in getZones track by opt.id"
+                                            >
+                                        <option value="">Seleccionar Zona</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group" ng-class="getFormFieldCssClass(frmAddress.controller)" ng-show="userRole==='1'">
+                                    <label for="controller">Controlador</label>
+                                    <input type="text" class="form-control" id="neighborhood" name="controller"  ng-model="address.controller" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>          
+        </div>
+    </div>
+</div>

@@ -1,0 +1,402 @@
+<?php    
+    $view->getJsManager()->loadJsFile('angularjs-1.2.18/angular.min.js');
+    $view->getJsManager()->loadJsFile('angularjs-1.2.18/ui-bootstrap-tpls-0.11.0.js');
+    $view->getJsManager()->loadJsFile('app/services/ModalService.js');
+    $view->getJsManager()->loadJsFile('app/modules/customSelect/customSelect.js');
+    $credentials = Model3_Auth::getCredentials();
+?>
+<div class="contiene-bread">
+    <ol class="breadcrumb">
+        <li class="active">Clientes</li>
+        <li class="active "> <?php
+            echo '<a href="'.$view->linkTo("/User/Store").'" >Tiendas</a>';
+            ?></li>
+        <li class="active actualpg "><?php echo $view->category->getName();?></li>
+    </ol>
+</div>
+<div class="container" ng-app="promoApp">
+    <div class="row" ng-controller="MainController">
+        <!--<div class="span12 blockGray">-->
+            <div class="blockInner">               
+                <?php
+                echo '<h1><img style="max-width: 35px;max-height: 35px;" src="'.$view->getBaseUrl().'/' . $view->category->getImagePath().'" class="icono-categoria"/>'.$view->category->getName().'</h1>';
+                echo '<br/><table class="table table-inverse" style="max-width: 40%;float:left;">';
+                foreach ($view->category->getUsers() as $user)
+                {
+                    if($view->userId!==$user->getId() 
+                            && $user->getStatus() == DefaultDb_Entities_User::STATUS_ACTIVE 
+                            && count($user->getBranches()))
+                    {
+                        $commercialName = "";
+                        if($user->getCommercialName() != ""){
+                            $commercialName = $user->getCommercialName();
+                        } else {
+                            $commercialName = $user->getFirstName(). ' ' . $user->getLastName();
+                        }
+                        echo '<tr class="ui-row-ltr"><td class="tabla-pers">';
+                        echo $commercialName;
+                        if($user->getVisible() != '0'){
+                        	echo '<a onclick="fiscalDat('.$user->getId().')" href="#" ><span style="width:18px;height:18px" class="pers-btn icono-ver-actividad tam-normal"></span></a>';
+                        }
+                        echo '<span class=" pull-right">';
+                      // echo '&nbsp; &nbsp;<a class=" pull-right"><span class="pers-btn icono-lupa tam-normal"></span></a>';
+						$i=1;
+                        foreach ($user->getBranches() as $branch){
+							if($branch->getPoint()->getUrlGoogleMaps() != ""){
+								echo '&nbsp; &nbsp;<a href="';
+								echo $branch->getPoint()->getUrlGoogleMaps();
+	    						echo '" target="_blank" title="Ubicaci&oacute;n '.$i.'">';
+								echo '<span class="pers-btn icono-posicion tam-normal"></span>&nbsp;';
+								echo '</a>';
+								$i++;
+							}
+	                    }
+                        
+                        echo '&nbsp; &nbsp;<a  onclick="goToPage('.$user->getId().')">';
+                        echo '<span class="pers-btn icono-lupa tam-normal"></span>&nbsp;';
+                        echo '</a>';
+                        
+                        echo '&nbsp';
+                        echo '&nbsp; &nbsp;<a class=" pull-right" href="'.$view->url(array('controller' => 'Store', 'action' => 'viewCart', 'id' => $user->getId())).'">';
+                        echo '<span class="pers-btn icono-carrito tam-normal"></span>';
+                        echo '</a>';
+                        echo '</span>';
+                     
+                        echo '</td>';
+                        echo '<td class="tabla-pers"><a ng-click="schedulePromotion('.$user->getId().')" href="#"><span style="width:18px;height:18px" class="pers-btn icono-calendario tam-normal"></span></a></td>';
+                        echo'</tr>';
+                    }
+                }
+                echo '</table>';
+                echo '<div id="user" style="float:right;width:50% !important"></div>'
+                ?>
+            </div>
+        <!--</div>-->
+    </div>
+
+    <!-- Plantillas Angular -->
+    <script type="text/ng-template" id="templatePromotion.html">
+        <div class="modal-body">
+            <div class="panel-heading">Programar envío de Promoción</div>
+            <form role="form" novalidate name="sc.frmRoute">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="promotionid">Promoción</label>
+                        <input type="hidden" class="form-control" ng-model="schedule.id">
+                        <select ng-model="select.selPromotion"
+                                    ng-options="option.name for option in promotions track by option.id"
+                                    class="form-control"
+                                    id="promotionid"
+                                    name="promotionid"
+                                    ng-change="onPromoSelect()">
+                                <option value="">Seleccionar promoción</option>
+                            </select>
+                    </div>
+                    <div class="form-group" ng-class="">
+                        <label for="branchid">Sucursal</label>
+                        <select id="branchid" name="branchid" class="form-control" ng-model="promotionSchedule.branchid" ng-change="calculateDelivery()"
+                                ng-options="opt.id as opt.nameAddress for opt in branchesUser">
+                            <option value="" >Selecciona una sucursal</option>
+                        </select>
+                    </div>
+                    <div class="form-group" ng-class="">
+                        <label for="promotionDate">Fecha Promoción</label>
+                        <select id="promotionDate" name="promotionDate" class="form-control" ng-model="promotionSchedule.promotionDate"
+                                ng-options="label for label in deliveryDates">
+                            <option value="" >Selecciona una fecha de entrega</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-info" data-ng-click="ok();">Cerrar</button>
+            <button type="button" class="btn btn-primary" data-ng-click="savePromotionSchedule();">Guardar</button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="templateMessagebox.html">
+        <div class="modal-body">
+        <br/>
+        <p>{{modalOptions.bodyText}}</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary"
+                    data-ng-click="modalOptions.ok();">{{modalOptions.actionButtonText}}</button>
+        </div>
+    </script>
+</div>
+<script type="text/javascript">
+
+    //Código GlobalSoft
+    //===============================================================================
+    function goToPage(user) {
+             $.ajax({url: '<?php echo $view->getBaseUrl(); ?>/User/Store/user/id/'+user+'/',
+            data: {action: 'test', arguments: '1'},
+            type: 'post',
+            success: function (output) {
+                var nodo = output;
+                var buscar = String('<div class="blockInner">');
+                var lonBuscar = buscar.length;
+                var pos = nodo.search(buscar);
+                var sc = nodo.substring(pos + lonBuscar, nodo.length);
+                 document.getElementById("user").innerHTML = sc;
+            }
+        });
+    }
+
+    function addToFavoriteBuyer(arg)
+    {
+        var arrId = arg.split('_');
+        var typeFavorite = document.getElementById('typeFavoriteBuyer').value;
+        var clientId = arrId[3];
+        
+        $.post(urlAddFavorite, {'clientId':clientId,
+                                'type':typeFavorite}, function(data)
+        {
+            if(data == true || data == 'true')
+            {
+                $('#addFavoriteBuyer').hide();
+                $('#removeFavoriteBuyer').show();
+                alert('Ha agregado al cliente '+commercialName+' a sus favoritos');
+            }
+        });
+    }
+
+    function removeFromFavoriteBuyer(arg)
+    {
+        var arrId = arg.split('_');
+        var typeFavorite = document.getElementById('typeFavoriteBuyer').value;
+        var clientId = arrId[2];
+        
+        $.post(urlRemoveFavorite, {'clientId':clientId,
+                                    'type':typeFavorite}, function(data)
+        {
+            if(data == true || data == 'true')
+            {
+                $('#addFavoriteBuyer').show();
+                $('#removeFavoriteBuyer').hide();
+                alert('Ha eliminado al cliente '+commercialName+' a sus favoritos');
+            }
+        });
+    }
+
+    function addToFavoriteSeller(arg)
+    {
+        var arrId = arg.split('_');
+        var typeFavorite = document.getElementById('typeFavoriteSeller').value;
+        var clientId = arrId[3];
+        
+        $.post(urlAddFavorite, {'clientId':clientId,
+                                'type':typeFavorite}, function(data)
+        {
+            if(data == true || data == 'true')
+            {
+                $('#addFavoriteSeller').hide();
+                $('#removeFavoriteSeller').show();
+                alert('Ha agregado al proveedor '+commercialName+' a sus favoritos');
+            }
+        });
+    }
+
+    function removeFromFavoriteSeller(arg)
+    {
+        var arrId = arg.split('_');
+        var typeFavorite = document.getElementById('typeFavoriteSeller').value;
+        var clientId = arrId[2];
+        
+        $.post(urlRemoveFavorite, {'clientId':clientId,
+                                    'type':typeFavorite}, function(data)
+        {
+            if(data == true || data == 'true')
+            {
+                $('#addFavoriteSeller').show();
+                $('#removeFavoriteSeller').hide();
+                alert('Ha eliminado al proveedor '+commercialName+' a sus favoritos');
+            }
+        });
+    }
+
+    var currentUser = <?php echo $credentials["id"];?>
+
+    //Aplicación de programación de promociones
+    //===============================================================================
+    var promoApp = angular.module("promoApp",['ui.bootstrap','masDistribucion.customSelect']);
+
+    promoApp
+    .service('ModalService',['$modal',ModalService])
+    .service('PromotionScheduleDataService',['$http',PromotionScheduleDataService])
+
+
+    function MainController($scope,$http,ModalService){       
+
+        $scope.schedulePromotion = function(clientId){
+            var modalOptions = {
+                actionButtonText: 'Aceptar',
+                bodyText: ''
+            };
+            ModalService.showModal(
+                {   templateUrl: 'templatePromotion.html',
+                    controller:'PromoController',size:'xl',
+                    resolve:{
+                        promotiondata:function(){
+                            return {user: currentUser, client:clientId}
+                        }
+                    }
+                },
+                modalOptions).then(function (result) {});
+        }
+
+	}
+
+    function PromoController($scope, $http,ModalService,$modalInstance,PromotionScheduleDataService,promotiondata){   
+        $scope.promotiondata=promotiondata;
+        $scope.promotionSchedule = {userid:promotiondata.user, clientid:promotiondata.client, promotionid:null};
+        $scope.branchesUser = [];
+        $scope.deliveryDates = [];
+        $scope.promotions=[];
+        $scope.select = {};
+        
+        $scope.onPromoSelect = function(){
+            $scope.promotionSchedule.promotionid = ($scope.select.selPromotion) ? $scope.select.selPromotion.id : null;
+        }
+
+        $scope.ok = function (result) {
+                $modalInstance.close($scope.promotiondata);
+            };
+       
+        $scope.calculateDelivery=function(){
+            if(!$scope.promotionSchedule.branchid){
+                $scope.deliveryDates=[];
+                $scope.promotionSchedule.promotionDate=null;
+                return;
+            }
+            PromotionScheduleDataService.calculatePromotionDelivery({branchid:$scope.promotionSchedule.branchid}).then(function(response){
+                $scope.deliveryDates = response.data.dates;
+                $scope.promotionSchedule.routepointid = response.data.routepointid;
+                $scope.promotionSchedule.promotionDate=null;
+            })
+        }
+
+        $scope.savePromotionSchedule = function(){        
+            if($scope.promotionSchedule.promotionid==null || $scope.promotionSchedule.promotionDate==null){
+                var modalOptions = {
+                    actionButtonText: 'Aceptar',
+                    bodyText: "Necesita capturar todos los campos."
+                };
+                ModalService.showModal(
+                    {templateUrl: 'templateMessagebox.html',size:'sm'},
+                    modalOptions).then(function (result) {});
+                return;
+            }   
+            PromotionScheduleDataService.savePromotionSchedule($scope.promotionSchedule).then(function(response){
+                var result = response.data; 
+                var modalOptions = {
+                    actionButtonText: 'Aceptar',
+                    bodyText: result.message
+                };
+                ModalService.showModal(
+                    {templateUrl: 'templateMessagebox.html',size:'sm'},
+                    modalOptions).then(function (result) {
+                        $modalInstance.close();
+                    });
+            });
+        }
+
+        PromotionScheduleDataService.getBranchesUser({clientid:promotiondata.client}).then(function(response){            
+            $scope.branchesUser = response.data;
+        });
+        
+        if(PromotionScheduleDataService.getData('promotions').length==0){        
+            PromotionScheduleDataService.getPromotion({filter:{name:""}}).then(function(response){
+                var arrData = response.data.data;
+                $scope.promotions = arrData;
+                PromotionScheduleDataService.setData(arrData,'promotions')
+            });
+        }else{
+            $scope.promotions =  PromotionScheduleDataService.getData('promotions');
+        }
+    }
+
+    
+    //Servicios
+    //===============================================================================
+    function PromotionScheduleDataService($http){
+        var branchesUser = [];
+        var promotions = [];
+
+        this.setData=function(externalData,arrayName){
+            switch(arrayName){
+                case 'branchesUser':
+                    while(branchesUser.length > 0) {
+                        branchesUser.pop();
+                    }
+                    branchesUser = externalData.slice();
+                    break;
+                case 'promotions':
+                    while(promotions.length > 0) {
+                        promotions.pop();
+                    }
+                    promotions = externalData.slice();
+                    break;
+            }            
+        }
+
+        this.getData=function(arrayName){
+            switch(arrayName){
+                case 'branchesUser': return branchesUser;break;
+                case 'promotions': return promotions;break;
+            }
+        }
+
+        this.getBranchesUser=function(paramsData,httpParams){
+            return $http.post(urlGetBranchesUser, paramsData, httpParams)
+        }
+
+        this.getPromotion=function(paramsData,httpParams){
+            var defaultParams = {page: 1, rowsPerPage: 10, sortField: '', sortDir: ''};
+            if(!paramsData)
+                paramsData = defaultParams
+
+            var params = angular.extend({},defaultParams,paramsData);
+            return $http.post(urlGetPromotion, paramsData, httpParams)
+        }
+
+        this.calculatePromotionDelivery=function(paramsData,httpParams){
+            return $http.post(urlCalculatePromotionDelivery, paramsData, httpParams)
+        }
+
+        this.savePromotionSchedule = function(paramsData,httpParams){
+            return $http.post(urlSavePromotionSchedule, paramsData, httpParams)
+        }
+    }
+
+    function fiscalDat(user) {
+
+            $.ajax({url: '<?php echo $view->getBaseUrl(); ?>/User/Store/fiscalDat/id/',
+           data: {id: user},
+           type: 'post',
+           success: function (output) {
+               var nodo = output;
+               var buscar = String('INFOI');
+               var buscar2 = String('INFOF');
+               var lonBuscar = buscar.length;
+               var posI = nodo.search(buscar);
+               var posF = nodo.search(buscar2);
+               var sc = nodo.substring(posI + lonBuscar, posF - lonBuscar);
+               //alert(sc)
+               
+                document.getElementById("user").innerHTML = sc;
+           }
+       });
+   
+
+    
+
+	}
+
+    
+
+    
+
+</script>

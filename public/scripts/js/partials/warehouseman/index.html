@@ -1,0 +1,54 @@
+<div ng-show="state.current.name==='warehouseman'">   
+    <ol class="breadcrumb">
+        <!-- li class="active">Sistema</li>
+        <li class="active actualpg">Actividades</li-->
+        <li><a ui-sref="warehouseman"><span class="glyphicon glyphicon-home"> </span> Almacén</a></li>
+        <li> <a ui-sref="warehouseman.tracking"><span class="glyphicon glyphicon-folder-close"> </span> Rastreo de paquetes </a></li>
+        <li> <a ui-sref="warehouseman.rejected"><span class="glyphicon glyphicon-folder-close"> </span> Paquetes rechazados </a></li>
+    </ol>
+    <h1 class="text-center">Almacén: {{tableParams.data[0]["warehouse"]}}</h1>    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="pull-right">                         
+                    <div class="btn-group"> 
+                        <button class="btn btn-default refrescar" ng-click="tableParams.reload()"><span class="pers-btn icono-refrescar tam-normal"></span></button>
+                    </div>       
+                </div>
+                <p>&nbsp;</p>
+                <div loading-container="tableParams.settings().$loading">
+                    <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable table-responsive">
+                        <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">
+                        </div>
+                        <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover">
+                            <tbody>
+                                <tr ng-repeat="schedule in $data" ng-click="schedule.$selected = !schedule.$selected; changeSelection(schedule)"
+                                    ng-class="{'ngactive': schedule.$selected}">
+                                    <td data-title="'Fecha'">
+                                        {{schedule.scheduledDate|stringToDate|date:"dd-MM-yyyy hh:mm a"}}
+                                    </td>
+                                    <td data-title="'Ruta'">
+                                        {{schedule.routeName}}
+                                    </td>
+                                    <td data-title="'Conductor'">
+                                        {{schedule.driver}}
+                                    </td>
+                                    <td data-title="'Vehículo y capacidad'">
+                                        {{schedule.vehicle}}
+                                    </td>
+                                    <td data-title="'Actividades'" class="text-center col-md-1">
+                                        <span tooltip="Ver actividades" ng-if="(schedule.status==null || schedule.status==0)" class="pers-btn icono-ver-actividad icono-tam-tabla"   ng-click="go(schedule)"></span>
+                                        <span tooltip="Ver actividades" ng-if="(schedule.status==1)" class="pers-btn icono-ver-actividad icono-tam-tabla"   ng-click="go(schedule)"></span>
+                                        <span tooltip="Transferencias finalizadas" ng-if="(schedule.status==2)" class="pers-btn icono-palomita icono-tam-tabla"  ng-click="go(schedule)"></span>
+                                    </td>                 
+                                </tr>
+                            </tbody>
+                        </table>            
+                    </div>        
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ui-view="edit"></div>
+<!--img  src="../images/Logo_1.png" alt="logo" class="pie"--> 

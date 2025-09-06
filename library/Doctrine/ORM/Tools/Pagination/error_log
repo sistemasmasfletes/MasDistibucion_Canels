@@ -1,0 +1,3 @@
+[25-Apr-2025 15:14:45 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Query\TreeWalkerAdapter' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Tools/Pagination/WhereInWalker.php on line 43
+[26-Apr-2025 23:05:22 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Query\TreeWalkerAdapter' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Tools/Pagination/LimitSubqueryWalker.php on line 37
+[27-Apr-2025 01:27:31 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Query\TreeWalkerAdapter' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Tools/Pagination/CountWalker.php on line 31

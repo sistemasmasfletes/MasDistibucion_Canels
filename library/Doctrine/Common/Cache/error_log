@@ -1,0 +1,17 @@
+[21-Feb-2024 18:20:32 UTC] PHP Fatal error:  Interface 'Doctrine\Common\Cache\Cache' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Common/Cache/CacheProvider.php on line 33
+[14-May-2024 20:49:53 UTC] PHP Fatal error:  Interface 'Doctrine\Common\Cache\Cache' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Common/Cache/CacheProvider.php on line 33
+[08-Sep-2024 03:55:55 UTC] PHP Fatal error:  Interface 'Doctrine\Common\Cache\Cache' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Common/Cache/CacheProvider.php on line 33
+[02-Nov-2024 04:01:47 UTC] PHP Fatal error:  Interface 'Doctrine\Common\Cache\Cache' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Common/Cache/CacheProvider.php on line 33
+[03-Jan-2025 00:32:57 UTC] PHP Fatal error:  Interface 'Doctrine\Common\Cache\Cache' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Common/Cache/CacheProvider.php on line 33
+[09-Mar-2025 01:58:21 UTC] PHP Fatal error:  Interface 'Doctrine\Common\Cache\Cache' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Common/Cache/CacheProvider.php on line 33
+[24-Apr-2025 06:26:43 UTC] PHP Fatal error:  Class 'Doctrine\Common\Cache\CacheProvider' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Common/Cache/WinCacheCache.php on line 35
+[25-Apr-2025 15:59:40 UTC] PHP Fatal error:  Class 'Doctrine\Common\Cache\CacheProvider' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Common/Cache/XcacheCache.php on line 35
+[26-Apr-2025 10:52:42 UTC] PHP Fatal error:  Interface 'Doctrine\Common\Cache\Cache' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Common/Cache/CacheProvider.php on line 33
+[26-Apr-2025 13:21:54 UTC] PHP Fatal error:  Class 'Doctrine\Common\Cache\CacheProvider' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Common/Cache/ArrayCache.php on line 36
+[26-Apr-2025 14:55:04 UTC] PHP Fatal error:  Class 'Doctrine\Common\Cache\CacheProvider' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Common/Cache/MemcachedCache.php on line 37
+[26-Apr-2025 16:27:31 UTC] PHP Fatal error:  Class 'Doctrine\Common\Cache\CacheProvider' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Common/Cache/ZendDataCache.php on line 31
+[26-Apr-2025 17:13:29 UTC] PHP Fatal error:  Class 'Doctrine\Common\Cache\CacheProvider' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Common/Cache/MemcacheCache.php on line 37
+[26-Apr-2025 18:51:00 UTC] PHP Fatal error:  Class 'Doctrine\Common\Cache\CacheProvider' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Common/Cache/ApcCache.php on line 35
+[29-Apr-2025 17:37:28 UTC] PHP Fatal error:  Interface 'Doctrine\Common\Cache\Cache' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Common/Cache/CacheProvider.php on line 33
+[29-Apr-2025 19:56:29 UTC] PHP Fatal error:  Class 'Doctrine\Common\Cache\CacheProvider' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Common/Cache/ArrayCache.php on line 36
+[29-Apr-2025 21:42:56 UTC] PHP Fatal error:  Class 'Doctrine\Common\Cache\CacheProvider' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Common/Cache/MemcachedCache.php on line 37

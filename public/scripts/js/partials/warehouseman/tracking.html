@@ -1,0 +1,58 @@
+<div ng-show="state.current.name==='warehouseman.tracking'">    
+    
+    <ol class="breadcrumb">
+        <li><a ui-sref="warehouseman"><span class="glyphicon glyphicon-home"></span> Almacén </a></li>
+        <li><a ui-sref="warehouseman.tracking"><span class="glyphicon glyphicon-folder-close"> </span> Rastreo de paquetes </a></li>
+        <li><a ui-sref="warehouseman.rejected"><span class="glyphicon glyphicon-folder-close"> </span> Paquetes rechazados </a></li>
+        
+    </ol>
+    
+    <h4>Paquete: {{currentData.data[2][0]["namePackage"]}}</h4>
+    <h4>Orden de compra: {{currentData.data[2][0]["order_id"]}}</h4>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="pull-right">                         
+                    <div class="btn-group">
+                        <button zd-filter custom-filter="customFilter" ng-click="openFilter()" is-open="filterOpen" apply-filter="appFilter(filter)" class="btn btn-default"><span class="glyphicon glyphicon-filter"></span></button>
+                        <button class="btn btn-default" ng-click="tableParams.reload()" tooltip="Recargar"><span class="glyphicon glyphicon-refresh"></span></button>
+                    </div>       
+                </div>
+                <p>&nbsp;&nbsp;</p>
+                <div loading-container="tableParams.settings().$loading">
+                    <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable table-responsive">
+                        <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover">
+                            <tbody>
+                                <tr ng-repeat="schedule in $data" ng-click="schedule.$selected = !schedule.$selected; changeSelection(schedule)"
+                                    ng-class="{'ngactive': schedule.$selected}">                        
+                                    <td data-title="'Ruta'">
+                                        {{schedule.routeName}}
+                                    </td>
+                                    <td data-title="'Punto de venta'">
+                                        {{schedule.pointName}}
+                                    </td>                                    
+                                    <td data-title="'Fecha'">
+                                        {{getDateFromString(schedule.scheduleDate)|date:"dd-MM-yyyy hh:mm a"}}
+                                    </td>
+                                    <td data-title="'Hora real'">
+                                        {{getDateFromString(schedule.hourActivity)|date:"hh:mm a"}}
+                                    </td>
+                                    <td data-title="'Actividad'">
+                                        {{schedule.activityType}}
+                                    </td>
+                                    <td data-title="'Estado'" class="col-md-1 text-center">
+                                        <span tooltip="Sin acción" ng-if="(schedule.status==null)" class="glyphicon glyphicon-minus-sign" style="color:#D3D3D3"></span>
+                                        <span tooltip="Recibido" ng-if="(schedule.status==1)" class="glyphicon glyphicon-ok-sign" style="color:#52CA22;font-size:1.1em"></span>
+                                        <span tooltip="Entregado" ng-if="(schedule.status==3)" class="glyphicon glyphicon-ok-sign" style="color:#52CA22;font-size:1.1em"></span>
+                                        <span tooltip="Rechazado" ng-if="(schedule.status==6)" class="glyphicon glyphicon-remove-sign" style="color:#F52A2A;font-size:1.1em"></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>            
+                    </div>        
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div ui-view="edit"></div>--

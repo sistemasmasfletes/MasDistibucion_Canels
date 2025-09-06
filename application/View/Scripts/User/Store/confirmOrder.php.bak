@@ -1,0 +1,26 @@
+<div class="contiene-bread">
+    <ol class="breadcrumb">
+        <li class="active">Clientes</li>
+        <li class="active "> <?php
+            echo '<a href="' . $view->linkTo("/User/Store/viewCart") . '" >Carrito</a>';
+            ?></li>
+        <li class="active actualpg ">Confirmar Orden</li>
+    </ol>
+</div>
+<div class="container">
+    <div class="row" >
+        <!--<div class="span12 blockGray">-->
+            <div class="blockInner">
+                
+                <?php echo $view->mensaje . "<br />" ;
+                if($view->payment_result && $view->error_stock == false) : ?>
+                    Felicidades.
+                <?php elseif($view->error_stock == true) : ?>
+                    Error al generar el pedido, no se cuenta con suficiente producto.
+                <?php else : ?>
+                    La contrase&ntilde;a es incorrecta.
+                <?php endif; ?>
+            </div>
+        <!--</div>-->
+    </div>
+</div>

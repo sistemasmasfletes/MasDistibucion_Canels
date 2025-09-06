@@ -1,0 +1,9 @@
+[24-Apr-2025 12:41:36 UTC] PHP Fatal error:  Class 'Doctrine\DBAL\Platforms\AbstractPlatform' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Platforms/DB2Platform.php on line 26
+[24-Apr-2025 19:15:57 UTC] PHP Fatal error:  Class 'Doctrine\DBAL\Platforms\AbstractPlatform' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Platforms/OraclePlatform.php on line 32
+[25-Apr-2025 05:14:43 UTC] PHP Fatal error:  Class 'Doctrine\DBAL\Platforms\AbstractPlatform' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Platforms/PostgreSqlPlatform.php on line 34
+[25-Apr-2025 13:42:07 UTC] PHP Fatal error:  Class 'Doctrine\DBAL\Platforms\SQLServer2005Platform' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Platforms/SQLServer2008Platform.php on line 28
+[26-Apr-2025 02:17:13 UTC] PHP Fatal error:  Class 'Doctrine\DBAL\Platforms\AbstractPlatform' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Platforms/SQLServerPlatform.php on line 37
+[26-Apr-2025 16:27:58 UTC] PHP Fatal error:  Class 'Doctrine\DBAL\Platforms\AbstractPlatform' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Platforms/SqlitePlatform.php on line 33
+[26-Apr-2025 23:05:03 UTC] PHP Fatal error:  Class 'Doctrine\DBAL\Platforms\SQLServerPlatform' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Platforms/SQLServer2005Platform.php on line 36
+[27-Apr-2025 03:54:39 UTC] PHP Fatal error:  Class 'Doctrine\DBAL\Platforms\AbstractPlatform' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Platforms/MySqlPlatform.php on line 37
+[29-Apr-2025 08:47:27 UTC] PHP Fatal error:  Class 'Doctrine\DBAL\Platforms\AbstractPlatform' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Platforms/SQLServerPlatform.php on line 37

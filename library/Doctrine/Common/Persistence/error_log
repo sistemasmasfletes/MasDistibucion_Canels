@@ -1,0 +1,3 @@
+[21-Apr-2025 23:54:53 UTC] PHP Fatal error:  Interface 'Doctrine\Common\Persistence\ManagerRegistry' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Common/Persistence/AbstractManagerRegistry.php on line 35
+[25-Apr-2025 02:15:15 UTC] PHP Fatal error:  Interface 'Doctrine\Common\Persistence\ConnectionRegistry' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Common/Persistence/ManagerRegistry.php on line 32
+[26-Apr-2025 16:27:53 UTC] PHP Fatal error:  Interface 'Doctrine\Common\Persistence\ObjectManagerAware' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Common/Persistence/PersistentObject.php on line 58

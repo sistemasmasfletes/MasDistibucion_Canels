@@ -1,0 +1,48 @@
+<div ng-show="state.current.name === 'schedule.detail.scheduledDates'">   
+    <ol class="breadcrumb">
+        <li class="active">Rutas</li>
+        <li class="active "><a ui-sref="schedule">Programación</a></li>
+        <li class="active actualpg">Fechas Programadas</li>
+    </ol>
+    <div class="container-fluid">
+        <div class="row">            
+            <div class="col-md-6">
+                <div class="pull-right">                         
+                    <div class="btn-group  btn-group-sm">  
+                        <!--<button tooltip="Regresar" class="btn btn-default" ng-click="back()"><span class="glyphicon glyphicon-chevron-left"></span></button>-->                      
+                        <!--<button zd-filter custom-filter="customFilter" ng-click="openFilter()" is-open="filterOpen" apply-filter="appFilter(filter)" class="btn btn-default"><span class="glyphicon glyphicon-filter"></span></button>-->
+                        <button class="btn-default refrescar" ng-click="tableParams.reload()" ><span class="pers-btn icono-refrescar tam-normal"></span></button>
+                    </div>       
+                </div>
+                <p>&nbsp;</p>
+                <div loading-container="tableParams.settings().$loading">
+                    <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable table-responsive">
+                        <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">
+                            <span class="ui-ngt-title">Fechas programadas</span>
+                        </div>
+                        <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover table-striped ">
+                            <tbody>
+                                <tr ng-repeat="schedule in $data" ng-click="schedule.$selected = !schedule.$selected;
+                                        changeSelection(schedule)"
+                                    ng-class="{'ngactive': schedule.$selected}">                        
+                                    <td data-title="'Fecha'" sortable="'scheduled_date'">
+                                        {{schedule.scheduled_date|stringToDate|date:"dd-MM-yyyy hh:mm a"}}
+                                    </td>
+                                    <td data-title="'Unidad'">
+                                        {{schedule.vehicle}}
+                                    </td>
+                                    <td data-title="'Chofer'">
+                                        {{schedule.driver}}
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="pers-btn icono-editar-fila icono-tam-tabla" ng-click="goEdit(schedule)" title="Editar"></span>                                        
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>            
+                    </div>        
+                </div>
+            </div>            
+        </div>
+    </div>
+</div>

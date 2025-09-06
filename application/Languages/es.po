@@ -1,0 +1,781 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: DealBusinessCenter\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-05-03 17:46-0600\n"
+"PO-Revision-Date: 2012-05-03 17:46-0600\n"
+"Last-Translator: haydee <haydee_10_18@hotmail.com>\n"
+"Language-Team:  <contact@logistic-apps.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop\n"
+"X-Poedit-Basepath: C:\\xampp\\htdocs\\BussinessCenter\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: MEXICO\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SearchPath-0: C:\\xampp\\htdocs\\BussinessCenter\n"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:12
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:154
+msgid "Pending"
+msgstr "Pendiente"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:13
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:157
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:172
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:288
+msgid "Accept"
+msgstr "Aceptar"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:14
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:159
+msgid "Reject"
+msgstr "Rechazar"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:20
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:54
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:90
+msgid "No meetings."
+msgstr "Sin Invitaciones"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:26
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:60
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:96
+msgid "Requested By You"
+msgstr "Solicitadas por usted"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:28
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:39
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:62
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:74
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:98
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:110
+msgid "Owner"
+msgstr "Propietario"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:28
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:39
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:62
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:74
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:98
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:110
+msgid " Guest"
+msgstr " Invitado"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:28
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:39
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:62
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:74
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:98
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:110
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MessagesHelper.php:26
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MessagesHelper.php:46
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MessagesHelper.php:65
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:150
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:167
+msgid "Company"
+msgstr "Compa&ntilde;&iacute;a"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:28
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:39
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:62
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:74
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:98
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:110
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MessagesHelper.php:26
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MessagesHelper.php:46
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MessagesHelper.php:65
+msgid "Date"
+msgstr "Fecha"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:28
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:39
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:62
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:74
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:98
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:110
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MessagesHelper.php:26
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MessagesHelper.php:46
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MessagesHelper.php:65
+msgid "Message"
+msgstr "Mensaje"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:28
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:39
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:62
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:74
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:98
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:110
+msgid "Status"
+msgstr "Estado"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:37
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:72
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:108
+msgid "Requested Of You"
+msgstr "Solicitada para usted"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:149
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MessagesHelper.php:103
+msgid "message"
+msgstr "mensaje"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:164
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:173
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:180
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MeetingsHelper.php:180
+msgid "Rejected"
+msgstr "Rechazada"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MenuHelper.php:18
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MenuHelper.php:24
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MenuHelper.php:19
+msgid "Configuration"
+msgstr "Configuraci&oacute;n"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MenuHelper.php:20
+msgid "Users"
+msgstr "Usuarios"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MenuHelper.php:25
+msgid "Calendar"
+msgstr "Calendario"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MenuHelper.php:26
+msgid "My meetings"
+msgstr "Mis invitaciones"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MenuHelper.php:27
+msgid "My Messages"
+msgstr "Mis mensajes"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MenuHelper.php:28
+msgid "Favorites"
+msgstr "Favorites"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MenuHelper.php:29
+msgid "Profile"
+msgstr "Perfil"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MenuHelper.php:30
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:145
+msgid "Password"
+msgstr "Contrase&ntilde;a"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MenuHelper.php:31
+msgid "Settings"
+msgstr "Configuraci&oacute;n"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MenuHelper.php:32
+msgid "Feedback"
+msgstr "Comentarios"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MenuHelper.php:40
+msgid "AWC2012"
+msgstr "AWC2012"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MenuHelper.php:41
+msgid "About Deal Business Center"
+msgstr "Sobre Deal Business Center"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MenuHelper.php:42
+msgid "Contact us"
+msgstr "Cont&aacute;ctenos"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MessagesHelper.php:11
+msgid "Unread"
+msgstr "No le&iacute;do "
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MessagesHelper.php:12
+msgid "Read"
+msgstr "Le&iacute;do"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MessagesHelper.php:13
+msgid "Sent"
+msgstr "Enviado"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MessagesHelper.php:21
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MessagesHelper.php:41
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MessagesHelper.php:60
+msgid "No message."
+msgstr "Sin mensajes"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MessagesHelper.php:26
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MessagesHelper.php:46
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MessagesHelper.php:65
+msgid "From"
+msgstr "De"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MessagesHelper.php:26
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MessagesHelper.php:46
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MessagesHelper.php:65
+msgid "To"
+msgstr "A"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MessagesHelper.php:26
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MessagesHelper.php:46
+msgid "Respond"
+msgstr "Responder"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MessagesHelper.php:46
+msgid "Unreade"
+msgstr "No Le&iacute;do"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MessagesHelper.php:110
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MessagesHelper.php:118
+msgid "respond"
+msgstr "responder"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/MessagesHelper.php:119
+msgid "unread"
+msgstr "no le&iacute;do"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:51
+msgid "Geographical Areas"
+msgstr "&Aacute;reas Geogr&aacute;ficas"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:58
+msgid "Services"
+msgstr "Servicios"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:68
+msgid "Interests"
+msgstr "Intereses"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:73
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:221
+msgid "Buyer"
+msgstr "Comprador"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:76
+msgid "Both (Buyer Seller)"
+msgstr "Ambos (Comprador Vendedor)"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:79
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:222
+msgid "Seller"
+msgstr "Vendedor"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:82
+msgid "Neither (Buyer Seller)"
+msgstr "Ninguno (Comprador Vendedor)"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:92
+msgid "Description:"
+msgstr "Descripci&oacute;n:"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:109
+msgid "Social Networks:"
+msgstr "Redes Sociales:"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:126
+msgid "Invite"
+msgstr "Invitar"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:127
+msgid "Send Message."
+msgstr "Enviar Mensaje"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:129
+msgid "Add to favorites"
+msgstr "Agregar a favoritos"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:143
+msgid "Email"
+msgstr "Correo electronico"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:146
+msgid "Repeat Password"
+msgstr "Repite la Contrase&ntilde;a"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:148
+msgid "First name"
+msgstr "Nombre"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:149
+msgid "Last name"
+msgstr "Apellido"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:152
+msgid "Country "
+msgstr "Pa&iacute;s"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:168
+msgid "Title"
+msgstr "Titulo"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:169
+msgid "Local Number"
+msgstr "N&uacute;mero local"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:170
+msgid "Cell phone"
+msgstr "Tel&eacute;fono celular"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:177
+msgid "What geographical area do you offer services?(Check all that apply)"
+msgstr "&iquest;En que &aacute;rea geogr&aacute;fica ofrece sus servicios?(Marque todo lo que abarque)"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:197
+msgid "What services does your company provide? (check all that apply)"
+msgstr "&iquest;Que servicios ofrece su compa&ntilde;&iacute;a? (Marque todo lo que abarque)"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:220
+msgid "Select One"
+msgstr "Selecciona una "
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:223
+msgid "Both"
+msgstr "Ambos"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:224
+msgid "Neither"
+msgstr "Ninguno"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:228
+msgid "Extended profile view"
+msgstr "Extender vista de tu perfil "
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:230
+msgid "can not display the image"
+msgstr "No se puede mostrar la imagen"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:232
+msgid "Add your headshot (82 pixel x 82 pixel png, gif or jpeg)"
+msgstr "A&ntilde;ade tu foto (82 x 82 pixel pixel png, gif o jpeg)"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:235
+msgid "Add a 250 character description of your company, product or service"
+msgstr "A&ntilde;adir una descripci&oacute;n de 250 caracteres de de su empresa, producto o servicio"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:256
+msgid "Document "
+msgstr "Documento"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:261
+msgid "Upload document(i.e. Mission Statement, Whitepaper, etc.)"
+msgstr "Subir documento (i.e. Mission Statement, Whitepaper, etc.)"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:263
+msgid "Document Description"
+msgstr "Descripci&oacute;n del documento"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:270
+msgid "add"
+msgstr "agregar"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:271
+msgid "Remove"
+msgstr "eliminar"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:277
+msgid "Add Your Social Networking Addresses to Your Profile"
+msgstr "Agregar sus direcciones de redes sociales para su perfil"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:278
+msgid "(please copy and paste full URL with http://)"
+msgstr "(por favor copie y pegue la URL completa con http://)"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:285
+msgid "Mandatory field"
+msgstr "campo obligatorio"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Helper/ProfileHelper.php:288
+msgid "Terms of Use"
+msgstr "Condiciones de uso "
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Layout/Sidebar.php:3
+msgid "Where and When"
+msgstr "Donde y Cuando"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Layout/Sidebar.php:13
+msgid "Sponsors"
+msgstr "Patrocinadores"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Layout/Sidebar.php:26
+msgid "Downloads"
+msgstr "Descargas"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Layout/Sidebar.php:30
+msgid "Attendees list"
+msgstr "Lista de Invitados"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Ajax/Users/list.php:4
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Ajax/Users/search.php:13
+msgid "Firstname"
+msgstr "Nombre"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Ajax/Users/list.php:5
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Ajax/Users/search.php:14
+msgid "Lastname"
+msgstr "Apellido"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Ajax/Users/list.php:6
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Ajax/Users/search.php:15
+msgid "Country"
+msgstr "Pa&iacute;s"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Ajax/Users/list.php:11
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Ajax/Users/search.php:20
+msgid "Favorite"
+msgstr "Favorito"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Calendar/invite.php:5
+msgid "Your invitation has been sent"
+msgstr "Su invitaci&oacute;n ha sido enviada"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Calendar/invite.php:27
+msgid "Inviting "
+msgstr "Invitando "
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Calendar/invite.php:32
+msgid "Time"
+msgstr "Time"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Calendar/myMeetings.php:6
+msgid "No meetings yet."
+msgstr "No hay invitaciones."
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Calendar/myMeetings.php:7
+msgid "Find people you like to meet and invite them to a meeting."
+msgstr "Encuentra y conoce a  los invitados a esta reuni&oacute;n."
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Calendar/myMeetings.php:14
+msgid "My Meetings"
+msgstr "Mis invitaciones"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Calendar/update.php:4
+msgid "Update Meeting... Ok"
+msgstr "Actualizando invitacion... Ok"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Calendar/_default.php:3
+msgid "Requested by me"
+msgstr "Solicitado por m&iacute;"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Calendar/_default.php:5
+msgid "Requested of me"
+msgstr "Solicitado para mi"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Calendar/_default.php:9
+msgid "Book an apointment"
+msgstr "Concertar una cita"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Calendar/_default.php:15
+msgid "Date:"
+msgstr "Fecha:"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Calendar/_default.php:20
+msgid "Hour:"
+msgstr "Hora:"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Calendar/_default.php:23
+msgid "Message:"
+msgstr "Mensaje:"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Dashboard/viewProfile.php:4
+msgid "View Profile"
+msgstr "Ver Perfil"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Dashboard/_default.php:13
+msgid "Watch the"
+msgstr "Ver el "
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Dashboard/_default.php:15
+msgid "Duration:"
+msgstr "Duraci&oacute;n:"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Dashboard/_default.php:19
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/EventAdmin/Dashboard/_default.php:15
+msgid "Search"
+msgstr "Buscar"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Dashboard/_default.php:24
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/EventAdmin/Dashboard/_default.php:20
+msgid "Search Name, Email or Company"
+msgstr "Buscar Nombre.Correo Electr&oacute;nico o Compa&ntilde;&iacute;a"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Dashboard/_default.php:29
+msgid "Show rows:"
+msgstr "Mostrar renglones"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/EventAdmin/Configuration/_default.php:6
+msgid "Changed Save"
+msgstr "Cambios guardados"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/EventAdmin/Configuration/_default.php:17
+msgid "Where and when"
+msgstr "Donde y Cuando "
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/EventAdmin/Dashboard/axListUser.php:5
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/EventAdmin/Dashboard/axSearchUser.php:5
+msgid "DBC"
+msgstr "DBC"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/EventAdmin/Dashboard/axListUser.php:11
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/EventAdmin/Dashboard/axSearchUser.php:11
+msgid "Delete"
+msgstr "Borrar"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/EventAdmin/Dashboard/_default.php:7
+msgid "Total Users"
+msgstr "Total usuarios"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/EventAdmin/Dashboard/_default.php:8
+msgid "Registered Users"
+msgstr "Usuarios registrados "
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/EventAdmin/Dashboard/_default.php:9
+msgid "Total Meetings "
+msgstr "Total de invitaciones"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/EventAdmin/Dashboard/_default.php:10
+msgid "Total Acepted Meetings "
+msgstr "Total de invitaciones aceptadas"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/EventAdmin/Dashboard/_default.php:11
+msgid "Total Canceled/Rejected Meetings "
+msgstr "Total de invitaciones Canceladas/Rechazadas"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/EventAdmin/Dashboard/_default.php:12
+msgid "Total Pending Meetings "
+msgstr "Total de invitaciones pendientes"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/EventAdmin/Users/addUser.php:9
+msgid "Success"
+msgstr "&Eacute;xito"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/EventAdmin/Users/addUser.php:21
+msgid "Error: Email already exist."
+msgstr "Error: E-mail ya existe."
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/EventAdmin/Users/import.php:19
+msgid "Warnings"
+msgstr "Advernencia "
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/EventAdmin/Users/_default.php:4
+msgid "Users Management"
+msgstr "Users Management"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/EventAdmin/Users/_default.php:7
+msgid "Import users"
+msgstr "Importar Usuarios"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/EventAdmin/Users/_default.php:9
+msgid "Sample file"
+msgstr "Archivo de ejemplo"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/EventAdmin/Users/_default.php:12
+msgid "Your .csv file : "
+msgstr "Tu archivo .csv : "
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/EventAdmin/Users/_default.php:14
+msgid "(Only upload a .csv file, with a maximum size of 8 MB"
+msgstr "(S&oacute;lo cargar un archivo. Csv, con un tama&ntilde;o m&aacute;ximo de 8 MB)"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/EventAdmin/Users/_default.php:20
+msgid "Add a user"
+msgstr "Agregar un usuario "
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/EventAdmin/Users/_default.php:25
+msgid "E-mail"
+msgstr "Correo electr&oacute;nico"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/EventAdmin/Users/_default.php:56
+msgid "Required field"
+msgstr "Campos requeridos"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Favorites/add.php:3
+msgid "Added User"
+msgstr "Usuario Agregado"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Favorites/add.php:7
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Favorites/delete.php:7
+msgid "Back"
+msgstr "atras"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Favorites/delete.php:3
+msgid "Deleted user"
+msgstr "Borrar usuario"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Favorites/index.php:6
+msgid "No favorites yet."
+msgstr "No hay favoritos"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Favorites/index.php:7
+msgid "If you mark a user as favorite, you can consult them here."
+msgstr "Si tienes un usuario como favorito, puedes consultarlo aqu&iacute;."
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Feedback/index.php:5
+msgid "Message Sent"
+msgstr "Mensaje enviado "
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Feedback/index.php:16
+msgid "Comments? Reviews? Something wrong happens? Please leave a comment:"
+msgstr "&iquest;Comentarios?  &iquest;Cr&iacute;ticas? &iquest; Algo malo sucede? Por favor, deje un comentario:"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Index/aboutDeal.php:3
+msgid ""
+"Deal Business Center creates a website specific for your event, featuring the event and sponsor logos, where guests can login securely and view other attendee and exhibitor profiles. \n"
+"    These profiles include headshots or company logos, company descriptions, service and/or product details and even Facebook, LinkedIn or Twitter profiles."
+msgstr "Deal Business Cente crea un sitio web espec&iacute;fico para su evento, con el evento y logotipos de los patrocinadores, donde los invitados pueden acceder de forma segura y ver otros asistentes y los perfiles de los expositores.  Estos perfiles incluyen header o logotipos de empresa, las descripciones de la compa&ntilde;&iacute;a, servicio y / o detalles del producto e incluso Facebook, LinkedIn o perfiles de Twitter."
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Index/aboutDeal.php:7
+msgid "With this key information, Deal Business Center creates a database that all guests can easily search and select other peers they would like to meet."
+msgstr "Con esta informaci&oacute;n clave, Deal Business Center  crea una base de datos que todos los invitados pueden f&aacute;cilmente buscar y seleccionar a otros compa&ntilde;eros que les gustar&iacute;a contactar."
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Index/aboutDeal.php:10
+msgid "Deal Business Center will send out a meeting invitation on behalf of the user. The requestee can then view the profile of the person sending the invitation and choose to \"Accept\" or \"Decline\" the meeting invite. The online meeting system can be open throughout the event, for real-time updates and meetings, or we can close the site a day or two before the event. It s up to you."
+msgstr "Deal Business Center enviar&aacute; una invitaci&oacute;n a la reuni&oacute;n en nombre del usuario. El invitado a continuaci&oacute;n, puede ver el perfil de la persona que env&iacute;a la invitaci&oacute;n y elegir Aceptar  o Rechazar  la invitaci&oacute;n a la reuni&oacute;n. El sistema de reuni&oacute;n en l&iacute;nea pueden estar abiertos durante todo el evento, para actualizaciones en tiempo real y reuniones, o podemos cerrar el sitio de uno o dos d&iacute;as antes del evento. Todo depende de usted"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Index/contactUs.php:4
+msgid "First Name"
+msgstr "Nombre"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Index/contactUs.php:5
+msgid "Last Name"
+msgstr "Nombre de evento"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Index/contactUs.php:7
+msgid "Phone"
+msgstr "Tel&eacute;fono"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Index/contactUs.php:8
+msgid "Event Name"
+msgstr "Apellido"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Index/contactUs.php:9
+msgid "Event Website"
+msgstr "Sitio web del evento"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Index/contactUs.php:10
+msgid "Comments"
+msgstr "Comentarios"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Index/recoverPass.php:4
+msgid "Type your E-mail"
+msgstr "Tipo de correo electr&oacute;nico"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Index/sendPass.php:13
+msgid "your password has been successfully sent to your email"
+msgstr "su contrase&ntilde;a ha sido enviado con &eacute;xito a su correo electr&oacute;nico"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Index/_default.php:16
+msgid "User registered successfully"
+msgstr "Usuario registrado con &eacute;xito"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Index/_default.php:26
+msgid "Current members"
+msgstr "Actual mente miembro "
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Index/_default.php:27
+msgid "Please login below to plan your show meetings."
+msgstr "Por favor ingresa abajo para planificar sus reuniones."
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Index/_default.php:30
+msgid "E-mail Address"
+msgstr "Corro electr&oacute;nico  "
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Index/_default.php:38
+msgid "Forgot your password"
+msgstr "&iquest;Olvidaste tu contrase&ntilde;a?"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Index/_default.php:41
+msgid "First time visitors"
+msgstr "Los visitantes de primera vez"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Index/_default.php:43
+msgid "If you have not yet registered for"
+msgstr "Si no se ha registrado para el"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Index/_default.php:43
+msgid "AWC 2012"
+msgstr "AWC 2012"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Index/_default.php:44
+msgid "please click"
+msgstr "por favor de click "
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Index/_default.php:44
+msgid "here"
+msgstr "Aqu&iacute;"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Index/_default.php:47
+msgid "If you are a first-time user of the Deal Business Center, click \"Register\" below."
+msgstr "Si usted es un usuario por primera vez del Deal Business Center, haga clic en Registro  a continuaci&oacute;n"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Index/_default.php:50
+msgid "Register"
+msgstr "Registrar "
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Message/sendMessage.php:5
+msgid "Your message has been sent"
+msgstr "Tu mensaje ha sido enviado "
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Message/sendMessage.php:27
+msgid "To "
+msgstr "A"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Profile/pass.php:5
+msgid "Current Password"
+msgstr "Contrase&ntilde;a Actual"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Profile/pass.php:11
+msgid "New Password"
+msgstr "Nueva Contrase&ntilde;a "
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Profile/save.php:15
+msgid "success"
+msgstr "&Eacute;xito"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Profile/_default.php:8
+msgid "Edit Profile"
+msgstr "Editar Perfil"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Settings/_default.php:23
+msgid "Meetings"
+msgstr "Invitaciones"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Settings/_default.php:27
+msgid "Allow other users to request me a meeting"
+msgstr "Permitir a otros usuarios que me puedan enviar citas "
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Settings/_default.php:28
+msgid "Meeting duration"
+msgstr "Duracion de la cita"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Settings/_default.php:43
+msgid "Set availability for meetings"
+msgstr "Establecer disponibilidad para las reuniones"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Settings/_default.php:47
+msgid "Activate break time"
+msgstr "Activar el tiempo de descanso"
+
+#: C:\xampp\htdocs\BussinessCenter/application/View/Scripts/Settings/_default.php:48
+msgid "Set break time"
+msgstr "Establezca el tiempo de descanso"
+
+#~ msgid "Password:"
+#~ msgstr "Password:"
+
+#~ msgid "From:"
+#~ msgstr "De:"
+
+#~ msgid "To:"
+#~ msgstr "A:"
+
+#~ msgid "Password *"
+#~ msgstr "Password *"
+
+#~ msgid "Repeat Password *"
+#~ msgstr "Repeat Password *"
+
+#~ msgid "Company *"
+#~ msgstr "Company *"

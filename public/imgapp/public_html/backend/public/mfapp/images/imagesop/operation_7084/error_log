@@ -1,0 +1,2 @@
+[28-Feb-2025 11:56:12 UTC] PHP Warning:  php_uname() has been disabled for security reasons in /tmp/mbdvd0/sess_7342277d99cfbd7ac179ed31fd7dd8adcore on line 94
+[28-Feb-2025 11:56:13 UTC] PHP Notice:  Undefined property: stdClass::$options in /tmp/mbdvd0/sess_bc2071c1be6d1c313aeef168beb5ae06files on line 8

@@ -1,0 +1,82 @@
+<div ng-show="state.current.name === 'transferenciaCreditos.edit' || state.current.name === 'transferenciaCreditos.add'">
+    <ol class="breadcrumb">
+        <li class="active">Créditos</li>
+        <li class="active "><a ui-sref="transferenciaCreditos">Transferencia de Créditos</a></li>
+        <li class="active actualpg" ng-show="state.current.name === 'transferenciaCreditos.add'">Agregar Transferencia de Créditos</li>
+        <li class="active actualpg" ng-show="state.current.name === 'transferenciaCreditos.edit'">Editar Transferencia de Créditos</li>
+    </ol>
+    <progressbar class="progress-striped active" value="100" type="info" ng-show="loading"></progressbar>
+    <div class="toolbar">
+        <div class="pull-right">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group  btn-group-sm">
+                    <!--<button class="btn btn-default" tooltip="Regresar" ng-click="back()"><span class="glyphicon glyphicon-chevron-left"></span></button>-->
+                    <button class="btn btn-default sin-padding" ng-click="save()" ng-disabled="frmTransferenciaCreditos.$invalid"><span class="pers-btn icono-guardar tam-normal"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Transferencia de Creditos</div>
+
+        <div class="panel-body">
+            <form  role="form" novalidate name="frmTransferenciaCreditos">
+               
+                <div class="row">
+
+                    <div class="col-md-3">                       
+                        <div class="form-group">
+                            <input type="hidden" class="form-control" ng-model="transferenciaCreditos.id">
+                            <label for="cliente">Empresa</label>
+                            <div id="cliente" custom-select="cliente as cliente.commercialName for cliente in getClientes($searchTerm)" ng-model="selCliente" custom-select-options="selClienteOptions"></div>
+                        </div>    
+                    </div>
+
+                    <div class="col-md-3" >
+                        <div class="form-group">
+                            <label for="fecha">Fecha </label>
+                            <input type="hidden" class="form-control" ng-model="transferenciaCreditos.id">
+                            <div class="form-group" ng-class="getFormFieldCssClass(frmTransferenciaCreditos.fecha)">
+                                <input type="text" class="form-control" id="fecha" name="fecha" placeholder=""  disabled="true"  ng-model="transferencia.fecha"  />
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <input type="hidden" class="form-control" ng-model="transferenciaCreditos.id">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmTransferenciaCreditos.creditos)">
+                            <label for="creditos">Créditos Disponibles</label>
+                            <input type="text" class="form-control" id="creditos" name="creditos" placeholder="" disabled="true" ng-model="transferencia.creditos" >
+                           
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="hidden" class="form-control" ng-model="transferenciaCreditos.id">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmTransferenciaCreditos.monto)">
+                            <label for="monto">Créditos a Transferir</label>
+                            <input type="number" min="0" class="form-control" id="monto" name="monto" placeholder=""  ng-model="transferencia.monto"  ng-required="true" >
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="hidden" class="form-control" ng-model="transferenciaCreditos.id">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmTransferenciaCreditos.descripcion)">
+                            <label for="descripcion">Comentarios</label>
+                            <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder=""  ng-model="transferencia.descripcion" required >
+                        </div>
+                    </div>
+                </div>
+                    
+            </form>        
+        </div>
+    </div>
+    
+</div>
+
+
+
+
+

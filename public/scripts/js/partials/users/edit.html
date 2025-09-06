@@ -1,0 +1,132 @@
+<ol class="breadcrumb">
+        <li class="active">Catálogos</li>
+        <li class="active"><a ui-sref="users">Usuarios</a></li>
+        <li class="active actualpg">Editar Usuario</li>
+ </ol>
+<progressbar class="progress-striped active" value="100" type="info" ng-show="loading"></progressbar>
+<div class="toolbar">
+    <div class="pull-right">
+        <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group  btn-group-sm">
+                <!--<button tooltip="Regresar" class="btn btn-default" ng-click="back()"><span class="glyphicon glyphicon-chevron-left"></span></button>-->
+                <button tooltip="Guardar" class="btn btn-default sin-padding" ng-click="save()" ng-disabled="frmUser.$invalid"><span class="pers-btn icono-guardar tam-normal"></span></button>                
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Administración de Usuarios</div>
+
+    <div class="panel-body">
+        <form role="form" novalidate name="frmUser">
+            <div class="col-lg-8">
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="hidden" class="form-control" ng-model="user.id">
+                    <div class="form-group" ng-class="getFormFieldCssClass(frmUser.code)">
+                        <label for="code">Clave</label>
+                        <input type="text" class="form-control" id="code" name="code" placeholder="Clave de usuario" required  ng-model="user.code">
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" ng-class="getFormFieldCssClass(frmUser.first_name)">
+                        <label for="first_name">Nombre</label>
+                        <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Nombre de usuario" required ng-model="user.first_name">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" ng-class="getFormFieldCssClass(frmUser.last_name)">
+                        <label for="last_name">Apellidos</label>
+                        <input type="text" class="form-control" id="apellidos" name="last_name" placeholder="Apellidos del usuario" required ng-model="user.last_name">
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" ng-class="getFormFieldCssClass(frmUser.username)">
+                        <label for="username">Id de Usuario</label>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Id de usuario" required ng-model="user.username">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" ng-class="getFormFieldCssClass(frmUser.password)">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Introduce el password" required ng-model="user.password">
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <!-- <div class="form-group">
+                        <label for="repassword">Confirma el password</label>
+                        <input type="password" class="form-control" id="repassword" name="repassword" placeholder="Confirma el password" ng-model="repassword">
+                    </div> -->
+                    <div class="form-group" ng-class="getFormFieldCssClass(frmUser.type)">
+                        <label for="type">Tipo de usuario</label>
+                        <select id="type" name="type" class="form-control" ng-model="user.type"
+                                ng-options="opt.id as opt.tipo for opt in userTypes" ng-change="categoriesId()">
+                                <option value="">Selecciona un tipo de usuario</option>
+                        </select>                            
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" ng-class="getFormFieldCssClass(frmUser.status)">
+                        <label for="status">Estatus</label>
+                        <select id="status" name="status" class="form-control" required ng-model="user.status"
+                                ng-options="opt.id as opt.status for opt in userStatus">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group" ng-class="getFormFieldCssClass(frmUser.category)">
+                        <label for="status">Categoría</label>
+                        <select id="category" name="category" class="form-control" ng-disabled="user.type!=3" ng-model="user.category_id"
+                                ng-options="opt.id as opt.name for opt in getCategories">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group" ng-class="getFormFieldCssClass(frmUser.point)">
+                        <label for="point">Centro de intercambio</label>
+                        <select id="point" name="point" class="form-control" ng-disabled="user.type!=6" ng-model="user.point_id"
+                                ng-options="opt.id as opt.name for opt in getPoint">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" ng-class="getFormFieldCssClass(frmUser.moneda)">
+                        <label for="moneda">Tipo de moneda</label>
+                        <select id="moneda" name="moneda" class="form-control" ng-model="user.moneda_id"
+                                ng-options="opt.id as opt.chrMoneda for opt in getMonedas">
+                                <option value="">Selecciona un tipo de moneda</option>
+                        </select>                            
+                    </div>
+                </div>
+            </div>
+                
+            </div>
+            <div class="col-lg-4">
+                <div class="row">
+                    <div class="col-md-12">
+                    <div class="form-group" ng-class="getFormFieldCssClass(frmUser.zona)">
+                        <label for="zona">Zonas</label>
+                        <select ng-disabled="user.type != 2 && user.type != 7" id="zona" name="zona" class="form-control" ng-model="user.zonas_id"
+                                ng-options="opt.id as opt.name for opt in getZonas" multiple>
+                                <option value="">Selecciona las zonas</option>
+                        </select>                            
+                    </div>
+                </div>
+                </div>
+            </div>
+        </form>        
+    </div>
+</div>

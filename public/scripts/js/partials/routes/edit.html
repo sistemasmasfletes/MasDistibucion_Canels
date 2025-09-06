@@ -1,0 +1,92 @@
+<div ng-show="state.current.name==='routes.edit'||state.current.name==='routes.add'">
+    <ol class="breadcrumb">
+        <li class="active">Catálogos</li>
+        <li class="active "><a ui-sref="routes">Rutas</a></li>
+        <li class="active actualpg" ng-show="state.current.name === 'routes.add'">Agregar Ruta</li>
+        <li class="active actualpg" ng-show="state.current.name === 'routes.edit'">Editar Ruta</li>
+    </ol>
+<progressbar class="progress-striped active" value="100" type="info" ng-show="progressbar.loading"></progressbar>
+    <div class="toolbar"> 
+        <div class="pull-right">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group  btn-group-sm">
+                    <!--<button tooltip="Regresar" class="btn btn-default" ng-click="regresar()"><span class="glyphicon glyphicon-chevron-left"></span></button>-->
+                    <button class="btn btn-default sin-padding" ng-click="points()" ng-disabled="sc.frmRoute.$invalid || state.current.name !== 'routes.edit'"><span class="pers-btn icono-puntos-venta tam-normal"></span></button>
+                </div>
+                <div class="btn-group  btn-group-sm">
+                    <button class="btn btn-default guardar" ng-click="save()" ng-disabled="sc.frmRoute.$invalid "><span class="pers-btn icono-guardar tam-normal"></span></button>                
+                </div>
+            </div>
+        </div>        
+    </div>
+   <div class="panel panel-default">       
+        <div class="panel-body">
+                    <div class="panel panel-default">                    
+                        <div class="panel-body">
+                            <form role="form" novalidate name="sc.frmRoute">
+                                <div class="row">
+                                    <div class="col-md-3">                               
+                                        <input type="hidden" class="form-control" ng-model="route.id">
+                                        <div class="form-group" ng-class="getFormFieldCssClass(sc.frmRoute.code)">
+                                            <label for="code">Clave</label>
+                                            <input type="text" class="form-control" id="code" name="code" placeholder="Clave de ruta" required  ng-model="route.code">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group" ng-class="getFormFieldCssClass(sc.frmRoute.name)">
+                                            <label for="name">Nombre</label>
+                                            <input type="text" class="form-control" id="name" name="name" placeholder="Nombre de la ruta" required ng-model="route.name">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group" ng-class="getFormFieldCssClass(sc.frmRoute.status)">
+                                            <label for="status">Estatus</label>
+                                            <select id="status" name="status" class="form-control" required ng-model="route.status"
+                                                    ng-options="opt.id as opt.status for opt in routeStatus">
+                                                    <option value="">Selecciona una Opci&oacute;n</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                         <div class="form-group" ng-class="getFormFieldCssClass(sc.frmRoute.capacity)">
+                                            <label for="capacity">Capacidad</label>
+                                            <input type="text" class="form-control" id="capacity" name="capacity" placeholder="Capacidad" required ng-model="route.capacity">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group" ng-class="getFormFieldCssClass(sc.frmRoute.factor)">
+                                            <label for="factor">Factor</label>
+                                            <input type="text" class="form-control" id="factor" name="factor" placeholder="Factor" required ng-pattern="/^\s*-?(\d+)\s*$/" ng-model="route.factor">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group" ng-class="getFormFieldCssClass(sc.frmRoute.zone)">
+                                            <label for="zone">Zona</label>
+                                            <select id="zone" name="zone" class="form-control" required ng-model="route.zone_id" ng-options="opt.id as opt.name for opt in getZonas">
+                                                <option value="">Selecciona la zona</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>  
+                              	<div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                       	<label for="franchisee">Franquisiatario</label>
+                                        	<select id="franchisee" name="franchisee" class="form-control" required ng-model="route.franchisee_id" ng-options="opt.id as opt.firstName for opt in getFranchisee">
+                                                <option value="">Selecciona un Usuario</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>                
+                            </form>
+                        </div>
+                    </div>           
+        </div>
+   </div> 
+</div>
+<div ui-view></div>

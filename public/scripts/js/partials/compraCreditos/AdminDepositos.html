@@ -1,0 +1,16 @@
+<div ng-show="state.current.name === 'compra.AdminDepositos'">  
+    <div class="container-fluid">
+        <div class="row">
+            <div class="pull-right">                         
+                <div class="btn-group  btn-group-sm">                        
+                    <button tooltip="Nuevo" class="btn btn-default" ng-click="grid.add()"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                    <button tooltip="Editar" class="btn btn-default" ng-click="grid.edit()"><span class="glyphicon glyphicon-edit"></span></button>
+                    <button tooltip="Eliminar" class="btn btn-default" ng-click="grid.delete()"><span class="glyphicon glyphicon-trash"></span></button>
+                    <!--<button zd-filter custom-filter="customFilter" ng-click="openFilter()" is-open="filterOpen" apply-filter="appFilter(filter)" class="btn btn-default"><span class="glyphicon glyphicon-filter"></span></button>-->
+                    <button class="btn btn-default" ng-click="tableParams.reload()" tooltip="Recargar"><span class="glyphicon glyphicon-refresh"></span></button>
+                </div>       
+            </div>
+            <p>&nbsp;</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,2 @@
+[26-Apr-2025 20:32:14 UTC] PHP Warning:  require_once(Zend/Loader.php): failed to open stream: No such file or directory in /home/masdistr/public_html/masdistribucion.com/library/Zend/Translate.php on line 25
+[26-Apr-2025 20:32:14 UTC] PHP Fatal error:  require_once(): Failed opening required 'Zend/Loader.php' (include_path='.:/opt/cpanel/ea-php70/root/usr/share/pear') in /home/masdistr/public_html/masdistribucion.com/library/Zend/Translate.php on line 25

@@ -1,0 +1,15 @@
+[12-Oct-2024 22:04:28 UTC] PHP Fatal error:  Uncaught Error: Class 'Model3_Controller' not found in /home/masdistr/public_html/masdistribucion.com/library/Model3/Scaffold/Controller.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/library/Model3/Scaffold/Controller.php on line 3
+[06-Dec-2024 10:55:03 UTC] PHP Fatal error:  Uncaught Error: Class 'Model3_Controller' not found in /home/masdistr/public_html/masdistribucion.com/library/Model3/Scaffold/Controller.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/library/Model3/Scaffold/Controller.php on line 3
+[13-Feb-2025 23:19:44 UTC] PHP Fatal error:  Uncaught Error: Class 'Model3_Controller' not found in /home/masdistr/public_html/masdistribucion.com/library/Model3/Scaffold/Controller.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/library/Model3/Scaffold/Controller.php on line 3
+[24-Apr-2025 22:59:20 UTC] PHP Fatal error:  Class 'Model3_Controller' not found in /home/masdistr/public_html/masdistribucion.com/library/Model3/Scaffold/Controller.php on line 3
+[11-May-2025 16:29:09 UTC] PHP Fatal error:  Class 'Model3_Controller' not found in /home/masdistr/public_html/masdistribucion.com/library/Model3/Scaffold/Controller.php on line 3
+[07-Jun-2025 21:22:22 UTC] PHP Fatal error:  Class 'Model3_Controller' not found in /home/masdistr/public_html/masdistribucion.com/library/Model3/Scaffold/Controller.php on line 3

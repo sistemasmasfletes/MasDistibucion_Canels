@@ -1,0 +1,48 @@
+
+<div class="container-fluid">
+    <div class="row">            
+            <div class="col-md-12">
+                <div ng-show="state.current.name==='packageRate' || state.current.name==='packageRate.points'">       
+                    <div class="pull-right">                         
+                        <div class="btn-group  btn-group-sm">                      
+                            <button tooltip="Ver hist&oacute;rico de tarifas" class="btn btn-default btn18px" ng-click="goRateList()"><span class="pers-btn icono-historico icono-tam-tabla"></span></button>
+                            <button tooltip="Agregar tarifa" class="btn btn-default btn18px" ng-click="goAdd()"><span class="pers-btn icono-agregar-fila icono-tam-tabla"></span></button>
+                            <button tooltip="Editar tarifa" class="btn btn-default btn18px" ng-click="goEdit()"><span class="pers-btn icono-editar-fila icono-tam-tabla"></span></button>
+                            
+                            <button class="btn btn-default btn18px" ng-click="tableParams.reload()" tooltip="Recargar"><span class="pers-btn icono-refrescar-fila icono-tam-tabla"></span></button>
+                        </div>       
+                    </div>
+                    <p>&nbsp;&nbsp;</p>
+                    <div loading-container="tableParams.settings().$loading">                
+                        <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable table-responsive">
+                        <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">
+                            <span class="ui-ngt-title">{{headerData.routeName}} - Tarifas</span>
+                        </div>
+                            <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover table-striped table-condensed">
+                                <tbody>
+                                    <tr ng-repeat="point in $data" ng-click="point.$selected = !point.$selected; changeSelection(point)" ng-class="{'ngactive': point.$selected}" >
+                                        <td data-title="'Id'">
+                                            {{point.id}}
+                                        </td>                                                                            <td data-title="'Posicion'">                                            {{point.position}}                                        </td>                                    
+                                        <td data-title="'Ruta'" title="{{point.name}}" filter="{name: 'text'}">
+                                            {{point.name.length>28 ? point.name.substring(0,28)+'...' : point.name}}
+                                        </td>
+                                        <td data-title="'Fecha'" class="text-center">
+                                            <span ng-show="(point.hasRate==0)" style="color:#ccc; font-size:11px" class="glyphicon glyphicon-minus"></span>
+                                            {{point.date|stringToDate|date :"dd-MM-yyyy"}}
+                                        </td>
+                                        <td data-title="'T. Cliente'" class="text-center">
+                                            <span ng-show="(point.hasRate==0)" style="color:#ccc; font-size:11px" class="glyphicon glyphicon-minus"></span>
+                                            {{point.client_rate | currency : '$' : 2}}
+                                        </td>                                 
+                                    </tr>
+                                </tbody>
+                            </table>            
+                        </div>        
+                    </div>
+                </div>
+                <div ng-show="state.current.name==='packageRate' || state.current.name==='packageRate.points' || state.current.name==='packageRate.points.add' || state.current.name==='packageRate.points.edit'"><div ui-view="edit"></div></div>
+                <div ng-show="state.current.name==='packageRate' || state.current.name==='packageRate.points' || state.current.name==='packageRate.points.listRates'"><div ui-view="rateList"></div></div>
+            </div>        
+    </div>
+</div>

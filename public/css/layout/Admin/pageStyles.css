@@ -1,0 +1,32 @@
+body
+{
+    background-color: #ABABAB;
+    font: 12pt "Lucida Sans Unicode","Trebuchet Ms",Helvetica,Arial;
+    margin: 0;
+}
+#page-header
+{
+    background-color: red;
+    background-image: url('../../../../images/fondo-menu.gif') repeat-x;
+    z-index: 1000;
+    height: 60px;
+}
+
+#page-content
+{
+    padding: 10px;
+    /*el background */
+    background-color: white;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    /* la sombra del contenigo general*/
+    -moz-box-shadow: 0px 0px 7px #2e2d2e;
+    -webkit-box-shadow: 0px 0px 7px #2e2d2e;
+    box-shadow: 0px 0px 7px #2e2d2e;
+}
+
+#helloDiv
+{
+   text-align: right;
+}

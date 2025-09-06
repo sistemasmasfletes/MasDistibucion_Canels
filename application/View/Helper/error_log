@@ -1,0 +1,15 @@
+[24-Apr-2025 03:06:32 UTC] PHP Fatal error:  Class 'Model3_View_Helper' not found in /home/masdistr/public_html/masdistribucion.com/application/View/Helper/Products.php on line 7
+[24-Apr-2025 05:29:18 UTC] PHP Fatal error:  Class 'Model3_View_Helper' not found in /home/masdistr/public_html/masdistribucion.com/application/View/Helper/Display.php on line 3
+[24-Apr-2025 07:11:24 UTC] PHP Fatal error:  Class 'Model3_View_Helper' not found in /home/masdistr/public_html/masdistribucion.com/application/View/Helper/ECommerce.php on line 3
+[24-Apr-2025 07:56:49 UTC] PHP Fatal error:  Class 'Model3_View_Helper' not found in /home/masdistr/public_html/masdistribucion.com/application/View/Helper/Orders.php on line 11
+[24-Apr-2025 08:42:28 UTC] PHP Fatal error:  Class 'Model3_View_Helper' not found in /home/masdistr/public_html/masdistribucion.com/application/View/Helper/Catalogos.php on line 12
+[24-Apr-2025 21:29:46 UTC] PHP Fatal error:  Class 'Model3_View_Helper' not found in /home/masdistr/public_html/masdistribucion.com/application/View/Helper/ECommerce.php.bak on line 3
+[25-Apr-2025 01:28:57 UTC] PHP Fatal error:  Class 'Model3_View_Helper' not found in /home/masdistr/public_html/masdistribucion.com/application/View/Helper/EfectuarPago.php on line 10
+[25-Apr-2025 15:59:37 UTC] PHP Fatal error:  Class 'Model3_View_Helper' not found in /home/masdistr/public_html/masdistribucion.com/application/View/Helper/MenuHelper.php on line 3
+[25-Apr-2025 18:29:15 UTC] PHP Fatal error:  Class 'Model3_View_Helper' not found in /home/masdistr/public_html/masdistribucion.com/application/View/Helper/SidebarHelper.php on line 13
+[26-Apr-2025 06:16:19 UTC] PHP Fatal error:  Class 'Model3_View_Helper' not found in /home/masdistr/public_html/masdistribucion.com/application/View/Helper/TrHelper.php on line 13
+[27-Apr-2025 05:38:12 UTC] PHP Fatal error:  Class 'Model3_View_Helper' not found in /home/masdistr/public_html/masdistribucion.com/application/View/Helper/LoginHelper.php on line 3
+[27-Apr-2025 21:25:18 UTC] PHP Fatal error:  Class 'Model3_View_Helper' not found in /home/masdistr/public_html/masdistribucion.com/application/View/Helper/Users.php on line 7
+[29-Apr-2025 04:41:39 UTC] PHP Fatal error:  Class 'Model3_View_Helper' not found in /home/masdistr/public_html/masdistribucion.com/application/View/Helper/ManagerImages.php on line 7
+[29-Apr-2025 12:51:31 UTC] PHP Fatal error:  Class 'Model3_View_Helper' not found in /home/masdistr/public_html/masdistribucion.com/application/View/Helper/TrHelper.php on line 13
+[02-May-2025 10:43:39 UTC] PHP Fatal error:  Class 'Model3_View_Helper' not found in /home/masdistr/public_html/masdistribucion.com/application/View/Helper/ManagerImages.php on line 7

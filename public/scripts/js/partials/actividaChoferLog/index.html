@@ -1,0 +1,22 @@
+<div ng-show="state.current.name === 'actividaChoferLog'">
+    <ol class="breadcrumb">
+        <li class="active">Sistema</li>
+        <li class="active actualpg">Actividades del Chofer</li>
+    </ol>
+    <progressbar class="progress-striped active" value="100" type="info" ng-show="loading"></progressbar>
+    <h1 align="center" id="clock" ng-hide="true"></h1>
+    <div class="toolbar">
+        <div class="pull-right">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group  btn-group-sm">                            
+                    <button zd-filter custom-filter="customFilter" ng-click="openFilter()" is-open="filterOpen"  apply-filter="appFilter(filter)" class="btn btn-default sin-padding" title="Filtro"><span class="pers-btn icono-filtrar tam-normal"></span></button>
+                    <button class="btn btn-default sin-padding"  ng-click="grid.refresh()"><span class="pers-btn icono-refrescar tam-normal"></span></button>
+                    <button class="btn btn-default sin-padding" ng-csv="fncExportar()" charset="utf-8" csv-header="columnasCsv" filename="{{nombreArchivo}}.csv" title="Exportar CSV"><span class="pers-btn icono-exportar tam-normal"></span></button>
+                </div>
+            </div>
+        </div>            
+    </div>
+    <ng-jqgrid vapi="grid.apicall" config="grid.config" api="grid.api" gridid="grdActividaChoferLog" pagerid="pager"></ng-jqgrid>
+</div>
+<div ui-view="edit"></div>
+<!--img  src="../images/Logo_1.png" alt="logo" class="pie"--> 

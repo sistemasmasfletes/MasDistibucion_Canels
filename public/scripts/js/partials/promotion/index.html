@@ -1,0 +1,139 @@
+<div ng-show="state.current.name==='promotion'">    
+    <ol class="breadcrumb">
+        <li class="active">Panel</li>
+        <li class="active actualpg">Promoción</li>
+    </ol>
+    <div class="container-fluid">
+        <div class="row">            
+            <div class="col-md-9">
+                <div class="pull-right">                         
+                    <div class="btn-group  btn-group-sm">                        
+                        <button zd-filter custom-filter="customFilter" ng-click="openFilter()" is-open="filterOpen" apply-filter="appFilter(filter)" class="btn btn-default sin-padding"><span class="pers-btn icono-filtrar tam-normal"></span></button>
+                        <button  class="btn btn-default sin-padding" ng-click="goAdd()"><span class="pers-btn icono-nuevo tam-normal"></span></button>
+                        <button  class="btn btn-default sin-padding" ng-click="goEdit(selRow)"><span class="pers-btn icono-editar tam-normal"></span></button>
+                        <button class="btn btn-default sin-padding" ng-click="delete(selRow)"><span class="pers-btn icono-eliminar tam-normal"></span> </button>
+                        <button class="btn btn-default sin-padding" ng-click="tableParams.reload()" ><span class="pers-btn icono-refrescar tam-normal"></span></button>
+                    </div>       
+                </div>
+                <p>&nbsp;&nbsp;</p>
+                <div loading-container="tableParams.settings().$loading">                
+                    <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable table-responsive">
+                    <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">
+                        <span class="ui-ngt-title">Catálogo de promociones</span>
+                    </div>
+                        <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover table-striped ">
+                            <tbody>
+                                <tr ng-repeat="promotion in $data" ng-click="updateSelection(promotion)"
+                                    ng-class="{'ngactive': promotion.$selected}">
+                                    <td data-title="'N°'" sortable="'id'"  class="col-md-2">
+                                        {{promotion.id}}
+                                    </td>                      
+                                    <td data-title="'Promoción'" sortable="'name'">
+                                        {{promotion.name}}
+                                    </td>                     
+                                    <td data-title="'Acciones'">
+                                       <!-- span tooltip="Enviar a usuarios" ng-click="sendPromotion(promotion)"><img src="../images/iconos/icono-promocion-agregar.png"></span-->                                        
+                                       <span tooltip="Enviar a usuarios" ng-click="schedulePromotion(88,null,true,promotion)"><img src="../images/iconos/icono-promocion-agregar.png"></span>                                        
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>        
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+    <script type="text/ng-template" id="templatePromotion.html">
+        <div class="modal-body">
+            <div class="panel-heading">Programar env&iacute;o de Promoci&oacute;n</div>
+            <form role="form" novalidate name="sc.frmRoute">
+			<br />
+       		<button type="button" class="btn btn-primary" data-ng-click="showselrute();">Enviar a todos los usuarios en  una ruta</button>
+           	<button type="button" class="btn btn-primary" data-ng-click="showselclient();">Enviar a un usuario en espec&iacute;fico</button>
+
+		<div  ng-show="selectroute">
+            <div class="row">
+                <div class="col-md-6"> 
+                        <label for="promotionDate">Selecciona una ruta</label>
+                        <select ng-model="select.selPromotion"
+                                    ng-options="option.name for option in promotions"
+                                    class="form-control"
+                                    id="promotionid"
+                                    name="promotionid"
+									ng-change="calculateDelivery(1)"
+                                    >
+                                <option value="">Seleccionar ruta</option>
+                        </select>
+                </div>
+			</div>
+	</div>
+		<div  ng-show="selectclient">
+            <div class="row">
+                <div class="col-md-6">
+                        <label for="promotionDate">Selecciona una categoria</label>
+                        <select ng-model="select.selCategory"
+                                    ng-options="option.name for option in categories"
+                                    class="form-control"
+                                    id="categoryid"
+                                    name="categoryid"
+									ng-change="getClients()"
+                                    >
+                                <option value="">Seleccionar categoria</option>
+                        </select>
+                </div>
+			</div>
+            <div class="row">
+                <div class="col-md-6">
+                        <label for="promotionDate">Selecciona un cliente</label>
+                        <select ng-model="select.selClient"
+                                    ng-options="option.name for option in clients"
+									class="form-control"
+                                    id="clientid"
+                                    name="clientid"
+									ng-change="getBranches()"
+                                    >
+                                <option value="">Seleccionar cliente</option>
+                        </select>
+                </div>
+			</div>
+            <!--div class="row">
+                <div class="col-md-6">
+                        <label for="promotionDate">Selecciona una sucursal</label>
+                        <select ng-model="select.selBranche"
+                                    ng-options="option.nameAddress for option in branchesUser"
+									class="form-control"
+									ng-change="calculateDelivery(2)"
+                                    >
+                                <option value="">Seleccionar sucursal</option>
+                        </select>
+                </div>
+			</div-->
+		</div>
+
+            <!--div class="row" ng-show="selectroute || selectclient">
+                <div class="col-md-6">
+                        <label for="promotionDate">Fecha de Promoci&oacute;n</label>
+                        <select ng-model="promotionSchedule.promotionDate"
+							ng-options="label.name for label in deliveryDates"
+	 						class="form-control"
+							id="promotionDate"
+							name="promotionDate"
+                            >
+                            <option value="" >Selecciona una fecha de entrega</option>
+                        </select>
+               </div>
+            </div-->
+
+            </form>
+        </div>
+        <div class="modal-footer">
+       		<button type="button" class="btn btn-warning" data-ng-click="cerrar();">Cerrar</button>
+           	<button type="button" class="btn btn-primary" data-ng-click="sendPromotion();">Guardar</button>
+        </div>
+    </script>
+
+<div ui-view="edit"></div>
+<!--img  src="../images/Logo_1.png" alt="logo" class="pie"--> 

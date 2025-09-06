@@ -1,0 +1,42 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+		<div class="toolbar">
+	    <div class="pull-right">
+	        <div class="btn-toolbar" role="toolbar">
+	            <div class="btn-group  btn-group-sm">
+	                <button tooltip="Regresar" class="btn btn-default" style="width:70px; height: 18px;" ng-click="back()"><span class="glyphicon glyphicon-chevron-left" style="width:70px;height: 18px;"></span></button>
+	                <button tooltip="Reenviar a Destino" class="btn btn-default" style="width:70px; height: 18px;" ng-click="dest_send('acdes')" ><span class="glyphicon glyphicon-random tam-normal" style="width:70px;height: 18px;"></span></button>                
+	                <button tooltip="Reenviar a Origen" class="btn btn-default" style="width:70px; height: 18px;" ng-click="dest_send('acorg')" ><span class="glyphicon glyphicon-transfer" style="width:70px;height: 18px;"></span></button> 
+	            </div>
+	        </div>
+	    </div>
+		</div>
+	</div> 
+    <div class="panel-body">
+        <div class="panel panel-default">                    
+            <div class="panel-body">
+                <form role="form" novalidate name="frmPoint">
+                    <div class="row">
+                    
+                        <div class="col-md-3">                               
+                            <input type="hidden" disabled class="form-control" ng-model="folio">
+                            <div class="form-group" ng-class="getFormFieldCssClass(frmPoint.code)">
+                                <label for="code">Folio de la Orden de compra</label>
+                                <input type="text" class="form-control" id="folio" name="folio" disabled ng-model="folio">
+                            </div>
+                 		</div>
+
+                        <div class="col-md-3">                               
+                            <input type="hidden" disabled class="form-control" ng-model="orderid">
+                            <div class="form-group" ng-class="getFormFieldCssClass(frmPoint.code)">
+                                <label for="code">Comentarios</label>
+                                <input type="text" class="form-control" id="comments" name="comments" disabled ng-model="comments">
+                            </div>
+                      	</div>
+                            
+                    </div>
+                </form>
+            </div>
+        </div>          
+    </div>
+</div>

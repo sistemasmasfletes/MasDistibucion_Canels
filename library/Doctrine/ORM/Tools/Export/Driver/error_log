@@ -1,0 +1,4 @@
+[21-Apr-2025 23:55:05 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Tools\Export\Driver\AbstractExporter' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Tools/Export/Driver/AnnotationExporter.php on line 38
+[22-Apr-2025 02:11:23 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Tools\Export\Driver\AbstractExporter' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Tools/Export/Driver/YamlExporter.php on line 36
+[24-Apr-2025 05:29:51 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Tools\Export\Driver\AbstractExporter' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Tools/Export/Driver/XmlExporter.php on line 36
+[26-Apr-2025 23:52:10 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Tools\Export\Driver\AbstractExporter' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Tools/Export/Driver/PhpExporter.php on line 36

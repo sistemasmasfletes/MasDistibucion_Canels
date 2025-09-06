@@ -1,0 +1,119 @@
+/* 
+    Document   : bussinesscenter
+    Created on : 6/06/2011, 04:50:10 PM
+    Author     : hector
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+a {
+    color: #172F44;    
+}
+
+img {
+    border: none;
+}
+
+.contentBox {
+    margin: 0;
+}
+
+.profileHeader {
+    overflow: hidden; 
+    margin-bottom: 12px;
+    font-size: 16px;
+}
+
+.profileImage {
+    float: left; 
+    margin-right: 12px;
+}
+
+.profileName {
+    font-size: 24px;
+}
+
+#sidebarLinks a {
+    text-align: left;
+}
+
+#footRight {
+    width: 255px;
+}
+
+label.error {
+    padding-left: 20px;
+    background:url(../smart/images/icon_error.gif) no-repeat;
+    color: #8a1f11;
+}
+
+#paginator {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.pagLink {
+    cursor: pointer;
+}
+.videoBox{
+    background:#E5EAEC;
+    padding:10px;
+}
+.dealVideo{
+    background: #E5EAEC;
+    border:1px solid #ccc;
+    font-size: 12px;
+    margin-right: 7px;
+    padding:10px; 
+    overflow: hidden;
+}
+
+.dealVideo a{
+    color:#0071BC;
+    font-size: 18px;
+    text-decoration: none;
+}
+.dealVideo a:hover{
+    text-decoration: underline;
+}
+.dealVideo label{
+    color:#790000;
+}
+.videoImg{
+    background: url(img-deal-tutorial.jpg)no-repeat;
+        border:1px solid #777;
+        display:block;
+        float:left;
+        height:60px;
+        margin:0 5px;
+        vertical-align: top;
+        width:98px;
+}
+.videoImg:hover{
+    background: url(img-deal-tutorial-hover.jpg)no-repeat;
+    border:1px solid #ccc;
+}
+.dealVideo a img{
+    border:none;
+}
+
+.textWhereAndWhen{
+    min-width: 50%;
+    min-height: 150px;
+    
+}
+
+textArea.order
+{
+     height: 145px;
+}
+
+select.order
+{
+    display: block; 
+}
+
+input.order
+{
+    display: block;
+}

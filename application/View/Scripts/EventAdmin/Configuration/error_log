@@ -1,0 +1,4 @@
+[25-Apr-2025 04:29:26 UTC] PHP Fatal error:  Uncaught Error: Call to a member function TrHelper() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/EventAdmin/Configuration/_default.php:6
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/EventAdmin/Configuration/_default.php on line 6

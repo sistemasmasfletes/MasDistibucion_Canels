@@ -1,0 +1,8 @@
+[26-Apr-2025 19:45:52 UTC] PHP Fatal error:  Uncaught Error: Call to a member function TrHelper() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/EventAdmin/Users/_default.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/EventAdmin/Users/_default.php on line 4
+[27-Apr-2025 21:25:50 UTC] PHP Fatal error:  Uncaught Error: Call to a member function url() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/EventAdmin/Users/import.php:28
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/EventAdmin/Users/import.php on line 28

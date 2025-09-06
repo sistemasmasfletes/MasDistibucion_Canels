@@ -1,0 +1,4 @@
+[24-Apr-2025 01:33:03 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getBranches() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/User/Dashboard/_default.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/User/Dashboard/_default.php on line 3

@@ -1,0 +1,84 @@
+Javascript Coding Style Guide
+
+General
+All the code should use the module pattern (Immediately Invoked Function Expression)
+Always use strict mode
+Put the scripts at the bottom of a html file
+
+--------------------
+
+AngularJs
+Define 1 component per file
+Reserve $ for Angular properties and services
+
+Use:
+- $timeout instead of setTimeout
+- $interval instead of setInterval
+- $window instead of window
+- $document instead of document
+- $http instead of $.ajax
+
+--------------------
+
+Directory Structure
+.
+├── app
+│   ├── app.js
+│   ├── config.js
+│   ├── controllers
+│   │   ├── home
+│   │   │   ├── SampleController.js
+│   │   │   └── SecondController.js
+│   │   └── about
+│   │       └── ThirdController.js
+│   ├── directives
+│   │   ├── commonDirective.js
+│   │   ├── home
+│   │   │   └── directive1.js
+│   │   └── about
+│   │       ├── directive2.js
+│   │       └── directive3.js
+│   ├── filters
+│   │   ├── home
+│   │   └── about
+│   └── services
+│       ├── CommonService.js
+│       ├── cache
+│       │   ├── Cache1.js
+│       │   └── Cache2.js
+│       └── models
+│           ├── Model1.js
+│           └── Model2.js
+├── partials
+└── lib
+
+--------------------
+
+Sample file
+
+(function() {
+    'use strict';
+    var controllerId = 'SampleController';
+
+    angular.module('app').controller(controllerId,
+    ['$location','$scope','services.myService', SampleController]);
+
+    function SampleController($location, $scope, myService) {
+        //Binding to $scope
+        //$scope.foo = foo;
+        //$scope.function1 = function1
+
+        //Activating controller
+        _activate();
+
+        //Private functions
+        function _activate() {
+            // ...
+        }
+
+        //Public functions
+        function function1() {
+            // ...
+        }
+    }
+})();

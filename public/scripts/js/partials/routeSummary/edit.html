@@ -1,0 +1,252 @@
+<style type="text/css">
+#qr-canvas{
+    display:none;
+}
+#qrfile{
+    width:320px;
+    height:240px;
+}
+#mp1{
+    text-align:center;
+    font-size:35px;
+}
+#imghelp{
+    position:relative;
+    left:0px;
+    top:-160px;
+    z-index:100;
+    font:18px arial,sans-serif;
+    background:#f0f0f0;
+	margin-left:35px;
+	margin-right:35px;
+	padding-top:10px;
+	padding-bottom:10px;
+	border-radius:20px;
+}
+.selector{
+    margin:0;
+    padding:0;
+    cursor:pointer;
+    margin-bottom:-5px;
+}
+#outdiv
+{
+    width:320px;
+    height:240px;
+	border: solid;
+	border-width: 3px 3px 3px 3px;
+}
+#result{
+    border: solid;
+	border-width: 1px 1px 1px 1px;
+	padding:20px;
+	width:70%;
+}
+
+.tsel{
+    padding:0;
+}
+
+</style>
+
+<script type="text/javascript">
+
+function reload_js(src) {
+    $('script[src="' + src + '"]').remove();
+    $('<script>').attr('src', src).appendTo('head');
+}
+
+var urloc = document.location.toString(); 
+var urlbasef = urloc.search("App");
+var urlbasei = urloc.slice(0,urlbasef);
+
+reload_js(urlbasei +'scripts/js/dist/webqr.js');
+/*
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-24451557-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+*/
+</script>
+
+<div ng-show="(state.current.name === 'routeSummary.edit'  || state.current.name === 'routeSummary.activity') || (state.current.name === 'routeSummary.edit'  && state.current.name === 'routeSummary.activity')">
+    <ol class="breadcrumb">
+        <li class="active">Sistema</li>
+        <li class="active"><a ui-sref="routeSummary">Rutas</a></li>
+        <li class="active actualpg">Iniciar Ruta</li>
+    </ol>
+
+    <div class="main container">
+        <div class="row">
+            <div class="col-md-3">
+                <div id="mainbody">
+                    <p><label>Código:</label> {{code}}</p>
+                    <table class="tsel" border="0" width="100%">
+                        <tr>
+                            <td valign="top" align="center" width="50%">
+                                <table class="tsel" border="0">
+                                    <tr>
+                                        <td><img style="display:none;" class="selector" id="webcamimg" src="vid.png" onclick="setwebcam()" align="left" /></td>
+                                        <td><img style="display:none;" class="selector" id="qrimg" src="cam.png" onclick="setimg()" align="right"/></td>
+                                    </tr>
+                                    <tr><td colspan="2" align="center">
+                                            <div id="outdiv">
+                                            </div></td></tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr><td colspan="3" align="center">
+                            </td></tr>
+                        <tr><td colspan="3" align="center">
+                                <div style="display:none;" id="result"></div>
+                                <input id="mivalor" style="display:none;" placeholder="Search" type="text" ng-click="onSuccess()">
+                                <!-- input id="mivalor" type="text" ng-click="onSuccess()" ng-model="my.Value" /-->
+                            </td></tr>
+                    </table>
+                    
+                    <!--<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
+                    <!-- webqr_2016 -->
+                    <!--
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-8418802408648518"
+                         data-ad-slot="2527990541"
+                         data-ad-format="auto"></ins>
+                    <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                    -->
+                </div>&nbsp;
+                <canvas id="qr-canvas" width="800" height="600"></canvas>
+                <script type="text/javascript">load();</script>
+            </div>
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-8">
+                <div class="toolbar">
+                    <div class="pull-right">
+                        <div class="btn-toolbar" role="toolbar">
+                            <div class="btn-group btn-group-lg">
+                                <!--<button class="btn btn-default" tooltip="Regresar" ng-click="regresar()"><span class="glyphicon glyphicon-chevron-left"></span></button>-->
+                                <button class="btn btn-default sin-padding" ng-click="tableParams.reload()"><span class="pers-btn icono-refrescar tam-normal"></span></button>
+                                <button zd-filter custom-filter="customFilter" ng-click="openFilter()" is-open="filterOpen" apply-filter="appFilter(filter)" class="btn btn-default filtrar"><span class="pers-btn icono-filtrar tam-normal"></span></button>
+                                <!--<button zd-filter custom-filter="customFilter" ng-click="showModal()" is-open="filterOpen" apply-filter="appFilter(filter)" class="btn btn-default filtrar"><span class="pers-btn icono-filtrar tam-normal"></span></button>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading ui-ngtwidget-header">
+                        <span>Ruta: {{tableParams.data[0]["ruta"]}} | </span>
+                        <span>Fecha: {{tableParams.data[0]["hourProgram"]| date:dateFormat}}</span>
+                    </div>
+                    <div loading-container="tableParams.settings().$loading">
+                        <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable">
+                            <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover">
+                                <tbody>
+                                    <tr ng-repeat="schedule in $data" ng-click="schedule.$selected = !schedule.$selected;
+                                            changeSelection(schedule)"
+                                        ng-class="{'ngactive': schedule.$selected}" ng-mouseover="hoverTrIn()" ng-mouseleave="hoverTrOut()">
+
+                                        <td data-title="'Ubicaci&oacute;n'" class="col-md-1 text-center" >
+                                           <a href="{{schedule.url}}" target="_blank"><span tooltip="Ubicaci&oacute;n" class="pers-btn icono-posicion icono-tam-tabla" style="color:#D3D3D3"></span></a>
+                                        </td>
+                                        <td data-title="'Hora programada'" class="col-md-1 text-center" >
+                                            {{((schedule.Hora).substring(0, 19)).replace(' ', '') | date:'dd-MM-yyyy hh:mm a'}}
+                                        </td>
+                                        <td data-title="'Nombre'" >
+                                            {{schedule.Nombre}}
+                                        </td>
+                                        <td data-title="'Dirección'" >
+                                            {{schedule.Direccion}}
+                                        </td>
+                                        <td data-title="'Codigo'">
+                                            {{schedule.Codigo}}
+                                        </td>
+                                        <td data-title="'Hora actual'" class="col-md-1 text-center" >
+                                            <!--<span ng-if="(schedule.HoraActual==null)" class="label-success" style="#52CA22">{{schedule.HoraActual}}</span>-->
+                                            {{schedule.HoraActual}}
+                                        </td>
+                                        <td data-title="'Actividad'" class="col-md-1 text-center"  >
+                                            <span tooltip="Sin Actividad" ng-if="(schedule.validar == 0)" class="pers-btn icono-sin-accion icono-tam-tabla" style="color:#D3D3D3" ng-click="showRoutePointActivities(schedule)"></span>
+                                            <span tooltip="Actividad" ng-if="(schedule.validar > 0)" class="pers-btn icono-actividad icono-tam-tabla" style="color:#52CA22;font-size:1.1em" ng-click="showRoutePointActivities(schedule)"></span>                            
+                                        </td>                        
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>        
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </div>
+</div>
+<div ui-view="edit"></div>
+<div ui-view="activity"></div>
+
+<script type="text/ng-template" id="templateShowRoutePointActivities.html">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 align="left">Punto de venta: {{tableParams.data[0]["name"]}}</h4>
+                <div class="pull-right">
+                    <div class="btn-toolbar" role="toolbar">
+                        <div class="btn-group btn-group-lg">
+                            <button class="btn btn-default sin-padding" ng-click="tableParams.reload()" tooltip="Recargar"><span class="pers-btn icono-refrescar tam-normal"></span></button>                
+                            <!-- <button zd-filter custom-filter="customFilter" ng-click="openFilter()" is-open="filterOpen" apply-filter="appFilter(filter)" class="btn btn-default filtrar"><span class="pers-btn icono-filtrar tam-normal"></span></button> -->
+                        </div>
+                    </div>
+                </div>
+                <p>&nbsp;</p>
+                <div loading-container="tableParams.settings().$loading">
+                    <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable table-responsive">
+                        <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">
+                            <span class="ui-ngt-title">Paquetes</span>
+                        </div>
+                        <table ng-table="tableParams" show-filter="false" template-pagination="../scripts/js/partials/pager.html" class="table ng-table-rowselected table-hover">
+                            <tbody>
+                                <tr ng-repeat="schedule in $data" ng-click="schedule.$selected = !schedule.$selected;
+                                        changeSelection(schedule)"
+                                    ng-class="{'ngactive': schedule.$selected}" ng-mouseover="hoverTrIn()" ng-mouseleave="hoverTrOut()">
+                                    <td data-title="'OC'" class="col-md-1 text-center" >
+                                        {{schedule.id}}            
+                                    </td>
+                                    <td data-title="'Paquete'" class="text-center" >
+                                        {{schedule.Paquete}}            
+                                    </td>
+                                    <td data-title="'Actividad'" class="text-center" >
+                                        {{schedule.Actividad}}            
+                                    </td>
+                                    <td data-title="'Hora'" class="text-center" >
+                                        {{schedule.horaReal}}            
+                                    </td>
+                                    <td data-title="'Estado del paquete'" class="text-center" >
+                                        <span tooltip="Sin acción" ng-if="(schedule.Estado == null)" class="glyphicon glyphicon-minus-sign" style="color:#D3D3D3"></span>
+                                        <span tooltip="Recibido" ng-if="(schedule.Estado == 1)" class="glyphicon glyphicon-ok-sign" style="color:#52CA22;font-size:1.1em"></span>
+                                        <span tooltip="Entregado" ng-if="(schedule.Estado == 3)" class="glyphicon glyphicon-ok-sign" style="color:#52CA22;font-size:1.1em"></span>
+                                        <span tooltip="Rechazado" ng-if="(schedule.Estado == 6)" class="glyphicon glyphicon-remove-sign" style="color:#F52A2A;font-size:1.1em"></span>
+                                    </td>   
+                                    <td data-title="'Comentarios enviador'">
+                                        {{schedule.comments1}}
+                                    </td>
+                                    <td data-title="'Comentarios receptor'">
+                                        {{schedule.comments2}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>            
+                    </div>        
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">        
+        <button type="button" class="btn btn-info" data-ng-click="ok();">Cerrar</button>
+    </div>  
+</script>

@@ -1,0 +1,1 @@
+[23-Mar-2025 01:09:49 UTC] PHP Parse error:  syntax error, unexpected end of file, expecting variable (T_VARIABLE) or ${ (T_DOLLAR_OPEN_CURLY_BRACES) or {$ (T_CURLY_OPEN) in /var/cpanel/php/sessions/ea-php81/sess_ddb865924f6632ba3e5f86129e836100(1) : eval()'d code on line 1

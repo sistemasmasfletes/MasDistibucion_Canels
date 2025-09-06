@@ -1,0 +1,4 @@
+[24-Apr-2025 03:52:51 UTC] PHP Fatal error:  Interface 'Doctrine\DBAL\Driver\ResultStatement' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Cache/ResultCacheStatement.php on line 41
+[24-Apr-2025 13:27:05 UTC] PHP Fatal error:  Interface 'Doctrine\DBAL\Driver\ResultStatement' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Cache/ArrayStatement.php on line 25
+[26-Apr-2025 02:17:11 UTC] PHP Fatal error:  Class 'Doctrine\DBAL\DBALException' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Cache/CacheException.php on line 26
+[29-Apr-2025 08:47:25 UTC] PHP Fatal error:  Class 'Doctrine\DBAL\DBALException' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Cache/CacheException.php on line 26

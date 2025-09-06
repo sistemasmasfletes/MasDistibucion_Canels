@@ -1,0 +1,46 @@
+<div ng-show="state.current.name==='scheduledRoute'||state.current.name==='scheduledRoute.schedule'">    
+<ol class="breadcrumb">
+        <li class="active">Rutas</li>
+        <li class="active actualpg ">Reportes de actividades</li>
+        <!--<li class="active "><a ui-sref="packages">Paquetes</a></li>-->
+    </ol>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="pull-right">                         
+                    <div class="btn-group  btn-group-sm">                        
+                        <!--<button class="btn btn-default" tooltip="Editar"><span class="glyphicon glyphicon-edit"></span></button>-->
+                        <button zd-filter custom-filter="customFilter" ng-click="openFilter()" is-open="filterOpen" apply-filter="appFilter(filter)" class="btn btn-default filtrar"><span class="pers-btn icono-filtrar tam-normal"></span></button>
+                        <button class="btn btn-default refrescar" ng-click="tableParams.reload()" ><span class="pers-btn icono-refrescar tam-normal"></span></button>
+                    </div>       
+                </div>
+                <p>&nbsp;</p>
+                <div loading-container="tableParams.settings().$loading">
+                    <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable table-responsive">
+                        <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">
+                            <span class="ui-ngt-title">Rutas programadas</span>
+                        </div>
+                        <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover">
+                            <tbody>
+                                <tr ng-repeat="schedule in $data" ng-click="schedule.$selected = !schedule.$selected; changeSelection(schedule)"
+                                    ng-class="{'ngactive': schedule.$selected}">
+                                    <td data-title="'N°'" sortable="'id'" class="col-md-2">
+                                        {{schedule.id}}
+                                    </td>                     
+                                    <td data-title="'Ruta'" sortable="'routeName'">
+                                        {{schedule.routeName}}
+                                    </td>                    
+                                </tr>
+                            </tbody>
+                        </table>            
+                    </div>        
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div ui-view="schedules"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ui-view="activities"></div>
+<!--img  src="../images/Logo_1.png" alt="logo" class="pie"--> 

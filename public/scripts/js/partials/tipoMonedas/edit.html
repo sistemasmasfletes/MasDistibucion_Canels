@@ -1,0 +1,49 @@
+<div ng-show="state.current.name==='tipoMonedas.edit'||state.current.name==='tipoMonedas.add'">
+    <ol class="breadcrumb">
+        <li class="active">Catálogos</li>
+        <li class="active"><a ui-sref="tipoMonedas">Tipos de Monedas</a></li>
+        <li class="active actualpg" ng-show="state.current.name === 'tipoMonedas.add'">Agregar Tipo de Moneda</li>
+        <li class="active actualpg" ng-show="state.current.name === 'tipoMonedas.edit'">Editar Tipo de Moneda</li>
+    </ol>
+    <progressbar class="progress-striped active" value="100" type="info" ng-show="loading"></progressbar>
+    <div class="toolbar">
+        <div class="pull-right">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group  btn-group-sm">
+                    <!--<button class="btn btn-default" tooltip="Regresar" ng-click="back()"><span class="glyphicon glyphicon-chevron-left"></span></button>-->
+                    <button class="btn btn-default sin-padding" ng-click="save()" ng-disabled="frmTipoMonedas.$invalid"><span class="pers-btn icono-guardar tam-normal"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">Insersion de tipos de Monedas</div>
+
+        <div class="panel-body">
+            <form  role="form" novalidate name="frmTipoMonedas">
+                <div class="row">
+                    <div class="col-md-3">
+                        <input type="hidden" class="form-control" ng-model="tipoMonedas.id">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmTipoMonedas.moneda)">
+                            <label for="name">Monedas</label>
+                            <input type="text" class="form-control" id="name" name="moneda" placeholder="Nombre" required ng-model="monedas.moneda">
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <input type="hidden" class="form-control" ng-model="tipoMonedas.id">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmTipoMonedas.codigoMoneda)">
+                            <label for="codigoMoneda">Código de Moneda (PayPal)</label>
+                            <input type="text" class="form-control" id="codigoMoneda" name="codigoMoneda" placeholder="Código de Moneda" required ng-model="monedas.codigoMoneda">
+                        </div>
+                    </div>
+                    
+                </div>
+            </form>        
+        </div>
+    </div>
+</div>

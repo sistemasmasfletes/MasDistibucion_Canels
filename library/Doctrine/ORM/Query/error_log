@@ -1,0 +1,7 @@
+[24-Apr-2025 04:39:45 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Query\TreeWalker' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Query/TreeWalkerAdapter.php on line 31
+[24-Apr-2025 13:27:14 UTC] PHP Fatal error:  Class 'Doctrine\ORM\ORMException' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Query/QueryException.php on line 38
+[25-Apr-2025 12:12:30 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Query\TreeWalker' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Query/TreeWalkerChain.php on line 32
+[25-Apr-2025 16:46:08 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Query\TreeWalker' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Query/SqlWalker.php on line 40
+[26-Apr-2025 08:34:39 UTC] PHP Fatal error:  Class 'Doctrine\Common\Lexer' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Query/Lexer.php on line 30
+[26-Apr-2025 17:59:34 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Query\ResultSetMapping' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Query/ResultSetMappingBuilder.php on line 31
+[29-Apr-2025 15:22:44 UTC] PHP Fatal error:  Class 'Doctrine\Common\Lexer' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Query/Lexer.php on line 30

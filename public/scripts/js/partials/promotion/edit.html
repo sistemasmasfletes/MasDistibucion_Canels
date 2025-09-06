@@ -1,0 +1,122 @@
+<ol class="breadcrumb">
+        <li class="active">Panel</li>
+        <li class="active"><a ui-sref="promotion">Promoción</a></li>
+        <li class="active actualpg" ng-show="state.current.name === 'promotion.add'">Agregar Promoción</li>
+        <li class="active actualpg" ng-show="state.current.name === 'promotion.edit'">Editar Promoción</li>
+    </ol>
+<progressbar class="progress-striped active" value="100" type="info" ng-show="loading"></progressbar>  
+<div class="toolbar">
+    <div class="pull-right">
+        <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group  btn-group-sm">
+                <!--<button tooltip="Regresar" class="btn btn-default" ng-click="back()"><span class="glyphicon glyphicon-chevron-left"></span></button>-->
+                <button class="btn btn-default sin-padding" ng-click="save()" ng-disabled="sc.frmPromotion.$invalid"><span class="pers-btn icono-guardar tam-normal"></span></button>                
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+<div class="panel panel-default">
+    <div class="panel-heading" style="padding-top:5px; padding-bottom:5px">
+        Editar promoción
+    </div>    
+    <div class="panel-body">
+        <div class="panel panel-default">                    
+            <div class="panel-body">                
+                <div class="row">
+                    <div class="col-md-6">
+                        <form role="form" novalidate name="sc.frmPromotion" class="form-horizontal">
+                            
+                                <div class="col-md-6">                               
+                                    <input type="hidden" class="form-control" ng-model="promotion.id">
+                                    <div class="form-group" ng-class="getFormFieldCssClass(sc.frmPromotion.name)">
+                                        <label for="name">Nombre</label>
+                                        <input type="text" class="form-control" id="name" name="name" placeholder="Nombre" required  ng-model="promotion.name">
+                                    </div>
+                                </div>                               
+                            
+                        </form>
+                    </div>
+                </div>
+                <div class="row">                    
+                    <div style="border-bottom:1px dotted #ccc">&nbsp;</div>                    
+                    <div class="col-md-4" style="border-right:1px dotted #ccc">
+                        <p style="text-align:center;padding-top:2px; padding-bottom:2px; border-bottom:1px dotted #ccc">
+                            <span style="font-weight:bold;font-size:12pt">Agregar recurso</span>
+                        </p>
+                        <form role="form" novalidate name="sc.frmResource" class="">
+                            <div class="form-group" ng-class="getFormFieldCssClass(sc.frmResource.name)">
+                                <label for="name">Nombre</label>
+                                <input type="text" class="form-control input-md" id="name" name="name" placeholder="Agregar " required  ng-model="newResource.name">
+                            </div>
+                                                            
+                            <div class="form-group" ng-class="getFormFieldCssClass(sc.frmResource.resourceType)">
+                                 <label for="resourceType">Tipo</label>
+                                <select id="resourceType" name="resourceType" class="form-control input-md"  ng-model="newResource.resourceType"
+                                        ng-options="opt.id as opt.type for opt in getResourceType">
+                                </select>
+                            </div>                           
+                            <div  ng-show="newResource.resourceType==1" class="form-group" ng-class="getFormFieldCssClass(sc.frmResource.name)">
+                                <label for="file">Archivo</label>
+                                <input type="file" id="recurso" class="form-control" accept="application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, text/plain, image/*, text/html, video/*, audio/*, .pdf"/>
+                            </div> 
+                            <div ng-show="newResource.resourceType==2" class="form-group" ng-class="getFormFieldCssClass(sc.frmResource.path)">
+                                <label for="url">Url</label>
+                                <input type="text" class="form-control input-md" id="path" name="path" placeholder="" required  ng-model="newResource.path">
+                            </div>
+
+                            <div class="form-group pull-right" ng-class="">                               
+                                <button type="button" ng-click="addResource()" tooltip="Agregar" class="btn btn-default sin-padding" style="background-color: transparent !important;">
+                                     <span class="pers-btn icono-agregar-fila  icono-tam-tabla" aria-hidden="true"></span> 
+                                </button>                                
+                            </div>                            
+                        </form>
+                    </div>
+                    <div class="col-md-8">                        
+                        <!-- Tabla de partidas -->
+                        <p>&nbsp;</p>
+                        <div loading-container="loadingDetail">                       
+                            <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable table-responsive">
+                                <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">
+                                    <span class="ui-ngt-title">Detalle de promoción</span><span class="pull-right"><button class="btn btn-default btn-sm" style="background-color: transparent !important; border-color: transparent !important; outline: 0px !important" ng-click="loaData(promotion.id)" tooltip="Recargar"><span class="pers-btn icono-refrescar-fila icono-tam-tabla"></span></button></span>
+                                </div>
+                                <table class="table ng-table-rowselected table-hover table-striped table-condensed">
+                                    <thead>
+                                        <th>N&deg;</th><th>Nombre</th><th>Recurso</th><th class="text-center">Borrar</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="r in resource" ng-click=""
+                                            ng-class="{'ngactive': r.$selected}">                                        
+                                            <td class="col-md-1">
+                                                {{r.num}}
+                                            </td>                     
+                                            <td class="col-md-3">
+                                                {{r.name}}                                            
+                                            </td>
+                                            <td class="col-md-3">
+                                                <span ng-show="r.resourceType==1 && r.id<0" class="glyphicon glyphicon-file" style="font-size:10pt"></span>
+                                                <span ng-show="r.resourceType==2 && r.id<0" class="glyphicon glyphicon-link" style="font-size:10pt"></span>
+                                                <a ng-show="r.id>0" href="{{r.path}}" target="_blank">
+                                                    <span ng-show="r.resourceType==1" class="glyphicon glyphicon-file" style="font-size:10pt"></span>
+                                                    <span ng-show="r.resourceType==2" class="glyphicon glyphicon-link" style="font-size:10pt"></span> {{r.filename}}
+                                                </a>
+                                                {{(r.resourceType==1 && r.id<0) ? r.file.name : (r.resourceType==2 && r.id<0) ? r.path : ""}}
+                                            </td>
+                                            <td class="text-center col-md-1">
+                                                <span class="pers-btn icono-eliminar-fila icono-tam-tabla" ng-click="delResource(r)" title="Eliminar recurso"></span>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+                
+                      
+            </div>
+        </div>          
+    </div>
+</div> 

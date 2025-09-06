@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Usuario razonsocial="Gaby comercializadora " usuario="coraldistr" rfc="DIDG730222874" id="88" idxml="53">
+  <Clientes>
+    <Cliente idMD="24" rfc="ANEUA0500A24" nombre="ANNA SEGOVIA" razonsocial=""/>
+    <Cliente idMD="90" rfc="" nombre="EL MEJICANTO" razonsocial=""/>
+    <Cliente idMD="93" rfc="" nombre="LA CABAÑA DE LOS COMPADRES " razonsocial="LCLC020306DST"/>
+    <Cliente idMD="94" rfc="" nombre="LA FUNDIDORA" razonsocial="LAFU730425MBK"/>
+    <Cliente idMD="132" rfc="11111111111A" nombre="SIX ACERINA" razonsocial="GABRIELA HERRERA SANCHEZ"/>
+    <Cliente idMD="144" rfc="AOCA561226LLO" nombre="EL CAFE CORTAO" razonsocial="ALFREDO ARROYO CARRANZA"/>
+    <Cliente idMD="154" rfc="AYVL090909or4" nombre="PIRATAS BURGUER" razonsocial="ALICIA YOLANDA VERA"/>
+    <Cliente idMD="123" rfc="BABR161104LSJ" nombre="BAR LAS BRUJITAS" razonsocial="BAR LAS BRUJITAS"/>
+    <Cliente idMD="149" rfc="BLS568923JUK" nombre="BAR LA SANTITA" razonsocial="BAR LA SANTITA "/>
+    <Cliente idMD="101" rfc="BOCH111111XXX" nombre="BOCA CHICA" razonsocial=""/>
+    <Cliente idMD="24" rfc="BAPFO0390A24" nombre="BAR LAS BRUJITAS" razonsocial=""/>
+    <Cliente idMD="135" rfc="BRLMPT2019" nombre="BAR LA MALA PATA" razonsocial="BAR LA MALA PATA"/>
+    <Cliente idMD="24" rfc="CAVC3045A24" nombre="CAFETERIA COLIBRI SLP" razonsocial=""/>
+    <Cliente idMD="128" rfc="CALO160428RLZ" nombre="CARLOS LOPEZ" razonsocial="CARLOS LOPEZ"/>
+    <Cliente idMD="160" rfc="CFV1008304Q6" nombre="COMERCIALIZADORA DE FRANQUICIAS LA VENTILLA SA DE CV" razonsocial="COMERCIALIZADORA DE FRANQUICIAS LA VENTILLA SA DE CV"/>
+    <Cliente idMD="67" rfc="CONA720802XDF" nombre="COLEGIO NACIONAL DE EDUCACIÓN PROFESIONAL TÉCNICA" razonsocial="CONALEP"/>
+    <Cliente idMD="24" rfc="COMLR0500A24" nombre="CONSUELO PEREZ" razonsocial=""/>
+    <Cliente idMD="131" rfc="CPE180101U32" nombre="CONSUELO PEREZ" razonsocial="CONSUELO PEREZ"/>
+    <Cliente idMD="156" rfc="CVE170114RZ1" nombre="CAFETERIA COLIBRI SLP" razonsocial="CAFETERIA VEAL SA DE CV"/>
+    <Cliente idMD="24" rfc="EUSN2455A24" nombre="EURO TINTA" razonsocial=""/>
+    <Cliente idMD="24" rfc="ELC572161A24" nombre="EL 124 COCINA MEXICANA Y CORTES FINOS" razonsocial=""/>
+    <Cliente idMD="130" rfc="EOCM750801UBA" nombre="EDGAR OMAR CASTRO MARTÍNEZ" razonsocial="EDGAR OMAR CASTRO MARTÍNEZ"/>
+    <Cliente idMD="92" rfc="FEND111122MSJ" nombre="FRUTERÍA EL NUEVO DÍA" razonsocial=""/>
+    <Cliente idMD="117" rfc="GAR150107TR6" nombre="COMEDOR EATON" razonsocial="GASTRONOMIA ARTISTICA S. DE R.L. DE C.V."/>
+    <Cliente idMD="114" rfc="GCA1302223F5" nombre="GRUPO CONTROLADORA DE ALIMENTOS GCA" razonsocial="GRUPO CONTROLADORA DE ALIMENTOS GCA"/>
+    <Cliente idMD="129" rfc="GERI170802DLR" nombre="GUADALUPE DE LA ROSA IBARRA" razonsocial="GUADALUPE DE LA ROSA IBARRA"/>
+    <Cliente idMD="24" rfc="GOAVS0500A24" nombre="GORDITAS YAZ" razonsocial=""/>
+    <Cliente idMD="146" rfc="GHC0000000000001" nombre="GRAN HOTEL CONCORDIA" razonsocial="OPERADORA MEXPLA SA DE CV"/>
+    <Cliente idMD="120" rfc="GOAV170518RDN" nombre="GORDITAS AVENIDA" razonsocial="GORDITAS AVENIDA"/>
+    <Cliente idMD="24" rfc="GOAVCT0500A24" nombre="GORDITAS SUZY" razonsocial=""/>
+    <Cliente idMD="122" rfc="GOSU170823RDZ" nombre="GORDITAS SUZY" razonsocial="GORDITAS SUZY"/>
+    <Cliente idMD="133" rfc="GPALCRFC2019" nombre="GUADALUPE ALCALA" razonsocial="GUADALUPE ALCALA"/>
+    <Cliente idMD="24" rfc="GRRDCT0500A24" nombre="GRUPO CONTROLADORA DE ALIMENTOS GCA" razonsocial=""/>
+    <Cliente idMD="24" rfc="GURNT0500A24" nombre="GUADALUPE ALCALA" razonsocial=""/>
+    <Cliente idMD="161" rfc="HECL950115I33" nombre="LETICIA HERRERA" razonsocial="LETICIA HERRERA"/>
+    <Cliente idMD="152" rfc="HRPL56892OPI8" nombre="HOTEL REAL PLAZA" razonsocial="HOTELES REAL PLAZA SA DE CV"/>
+    <Cliente idMD="150" rfc="IPO640805KU9" nombre="HOTEL PANORAMA" razonsocial="INVERSIONES POTOSINAS SA DE CV"/>
+    <Cliente idMD="145" rfc="IPO640805KU9" nombre="HOTEL SAN FRANCISCO" razonsocial="INVERSIONES POTOSINAS SA DE CV"/>
+    <Cliente idMD="153" rfc="JMUE090909UT3" nombre="JUAN MENDOZA" razonsocial="JUAN MENDOZA"/>
+    <Cliente idMD="24" rfc="JUBLP0500A24" nombre="JUAN MENDOZA" razonsocial=""/>
+    <Cliente idMD="91" rfc="LALR510625LE8" nombre="LA PROVIDENCIA" razonsocial="MA. DEL ROSARIO LARA LOPEZ"/>
+    <Cliente idMD="24" rfc="LAMEC0200A24" nombre="LA SANTA ROCK HOUSE" razonsocial=""/>
+    <Cliente idMD="126" rfc="MAPE150201RSE" nombre="MARISCOS PEPE" razonsocial="MARISCOS PEPE"/>
+    <Cliente idMD="24" rfc="MIAMJ0400A24" nombre="MIKOCINA" razonsocial=""/>
+    <Cliente idMD="108" rfc="MOEV010211LRT" nombre="MOVILIARIO EVENTUM" razonsocial=""/>
+    <Cliente idMD="98" rfc="OIHE710405M66" nombre="MARISCOS JORGE" razonsocial="EMILIA ORTIZ HERNANDEZ"/>
+    <Cliente idMD="24" rfc="MAGJD0500A24" nombre="MARISCOS PEPE" razonsocial=""/>
+    <Cliente idMD="24" rfc="MACRZ0500A24" nombre="MARÍA R. ARELLANO LUNA" razonsocial=""/>
+    <Cliente idMD="89" rfc="CIMO710808ARA" nombre="RESTAURAN LA GOZOSA" razonsocial="OSWALDO CHIMAL MORALES"/>
+    <Cliente idMD="151" rfc="HTN00000000598" nombre="HOTEL NAPOLES" razonsocial="HOTEL NAPOLES"/>
+    <Cliente idMD="157" rfc="LAB180223PD2" nombre="PURA BARRA" razonsocial="LB ALIMENTOS Y BEBIDAS"/>
+    <Cliente idMD="24" rfc="MADTL0500A24" nombre="MARÍA DE JESUS SILVA CAPETILLO" razonsocial=""/>
+    <Cliente idMD="83" rfc="MAS0906308L8" nombre="MAS FLETES SA DE CV" razonsocial=""/>
+    <Cliente idMD="116" rfc="ORM150304ML7" nombre="OPERADORA DE RESTAURANTES MID S.A. DE C.V." razonsocial="OPERADORA DE RESTAURANTES MID S.A. DE C.V."/>
+    <Cliente idMD="147" rfc="PZC0000000002" nombre="PIZZAS CIAO" razonsocial="PIZZAS CIAO SA DE CV"/>
+    <Cliente idMD="99" rfc="RBGP030716BNM" nombre="RESTAURANT GRILL PROVECHITO" razonsocial=""/>
+    <Cliente idMD="121" rfc="RIME160428NCX" nombre="RINCON MEXICANO" razonsocial="RINCON MEXICANO"/>
+    <Cliente idMD="140" rfc="ROCE830103QK6" nombre="EL PARAISO CARNIVORO" razonsocial="ERIKA RODRIGUEZ CORTES"/>
+    <Cliente idMD="24" rfc="RIMEC0500A24" nombre="RINCON MEXICANO" razonsocial=""/>
+    <Cliente idMD="100" rfc="ROML661119SW5" nombre="SPORT BAR LA NAVE" razonsocial="LAURA ALICIA RODRÍGUEZ MALTOS"/>
+    <Cliente idMD="106" rfc="RPP760101966" nombre="RESTAURANTE LA PARROQUIA POTOSINA" razonsocial="RESTAURANTE LA PARROQUIA POTOSINA"/>
+    <Cliente idMD="24" rfc="SOVC4500A24" nombre="SOCIEDAD DE BENEFICENCIA ESPAÑOLA A.C." razonsocial=""/>
+    <Cliente idMD="136" rfc="SCLRFC2019" nombre="SUSANA CORTÉZ LIÑAN" razonsocial="SUSANA CORTÉZ LIÑAN"/>
+    <Cliente idMD="24" rfc="STJR02601A24" nombre="STOP TORTAS" razonsocial=""/>
+    <Cliente idMD="24" rfc="STMA0450A24" nombre="STAR MÉDICA SAN LUIS POTOSÍ" razonsocial=""/>
+    <Cliente idMD="24" rfc="SUVJLV0500A24" nombre="SUSANA CORTÉZ LIÑAN" razonsocial=""/>
+    <Cliente idMD="24" rfc="TAEZPT0500A24" nombre="TABERNA EL KIKIN" razonsocial=""/>
+    <Cliente idMD="24" rfc="TACCG0500A24" nombre="TACOS ESTADIO" razonsocial=""/>
+    <Cliente idMD="127" rfc="TAES170707CTD" nombre="TACOS ESTADIO" razonsocial="TACOS ESTADIO"/>
+    <Cliente idMD="125" rfc="TAKI180327BRK" nombre="TABERNA EL KIKIN" razonsocial="TABERNA EL KIKIN"/>
+    <Cliente idMD="24" rfc="TAJR03301A24" nombre="TAQUERIA LAS GUERAS" razonsocial=""/>
+    <Cliente idMD="148" rfc="TNS269874UO9" nombre="NICOLLS PIZZA" razonsocial="TRANSNISED SA DE CV"/>
+    <Cliente idMD="137" rfc="TTI150826G50" nombre="HANKS RESTAURANTE" razonsocial="THI TRAVIS INTERNACIONAL S.A. DE C.V."/>
+    <Cliente idMD="24" rfc="TAJR02503A24" nombre="TAQUERIA LOS CHARCOS" razonsocial=""/>
+    <Cliente idMD="24" rfc="TAJR02602A24" nombre="TAQUERIA LOS GUEROS" razonsocial=""/>
+    <Cliente idMD="124" rfc="TALG150430QSR" nombre="TAQUERIA LOS GUEROS" razonsocial="TAQUERIA LOS GUEROS"/>
+    <Cliente idMD="24" rfc="TIANTN0500A24" nombre="TIENDA LA LIEBERTAD" razonsocial=""/>
+    <Cliente idMD="134" rfc="TQLCHRFC2019" nombre="TAQUERIA LOS CHARCOS" razonsocial="TAQUERIA LOS CHARCOS"/>
+    <Cliente idMD="24" rfc="TOVC3211A24" nombre="TORTAS HIPOCAMPO" razonsocial=""/>
+    <Cliente idMD="102" rfc="VAVA570609U43" nombre="MIKOCINA" razonsocial="ALMA ANGELICA VIGIANO VAZQUEZ"/>
+    <Cliente idMD="119" rfc="VIH170814520" nombre="VIANDAS INDUSTRIALES HERNANDEZ Y SUCESORES" razonsocial="VIANDAS INDUSTRIALES HERNANDEZ Y SUCESORES"/>
+    <Cliente idMD="155" rfc="sebv090909yt1" nombre="CAFETERIA CECYTE 1" razonsocial="SANDRA EDITH BANDA VERA"/>
+  </Clientes>
+  <Articulos>
+    <Articulo rfc="RPP760101966" producto="cajas de aceite primor" metaclave="PK10655" precio="0.00"/>
+  </Articulos>
+  <Ordenes>
+    <Orden idop="741" rfc="RPP760101966" producto="cajas de aceite primor" meta="PK10655" idusrMD="106" quantity="0" precio="0.00" total="0" razonsoc="RESTAURANTE LA PARROQUIA POTOSINA"/>
+  </Ordenes>
+</Usuario>

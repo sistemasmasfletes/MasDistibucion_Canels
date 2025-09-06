@@ -1,0 +1,338 @@
+[11-Feb-2024 22:51:18 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/VehiclesController.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/VehiclesController.php on line 10
+[16-Feb-2024 13:11:23 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/TipoMonedasController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/TipoMonedasController.php on line 4
+[17-Feb-2024 17:06:43 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CausesController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CausesController.php on line 4
+[18-Feb-2024 02:52:37 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/EstadosController.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/EstadosController.php on line 5
+[20-Feb-2024 01:08:38 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ConfigurationController.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ConfigurationController.php on line 3
+[23-Feb-2024 20:04:03 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/EstatusController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/EstatusController.php on line 4
+[08-Mar-2024 05:53:20 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/PagosController.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/PagosController.php on line 5
+[24-Mar-2024 22:58:45 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ActivityReportController.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ActivityReportController.php on line 3
+[26-Mar-2024 04:46:30 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CuentasController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CuentasController.php on line 4
+[03-Apr-2024 22:27:47 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/VehiclesController.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/VehiclesController.php on line 10
+[04-Apr-2024 12:54:06 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/TipoPagosController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/TipoPagosController.php on line 4
+[09-Apr-2024 22:30:23 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/TipoMonedasController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/TipoMonedasController.php on line 4
+[11-Apr-2024 13:21:11 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CausesController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CausesController.php on line 4
+[22-Apr-2024 16:38:58 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/AdministracionLogClienteController.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/AdministracionLogClienteController.php on line 5
+[28-Apr-2024 01:57:41 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ConversionController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ConversionController.php on line 4
+[14-May-2024 20:47:01 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CardOperatorsController.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CardOperatorsController.php on line 3
+[18-May-2024 10:33:43 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/EstatusController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/EstatusController.php on line 4
+[29-May-2024 15:23:12 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/VehiclesController.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/VehiclesController.php on line 10
+[30-May-2024 02:19:35 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/VehiclesController.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/VehiclesController.php on line 10
+[30-May-2024 16:55:46 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/TipoPagosController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/TipoPagosController.php on line 4
+[21-Jun-2024 14:24:11 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CompraCreditosController.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CompraCreditosController.php on line 5
+[21-Jun-2024 16:21:12 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CuentasController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CuentasController.php on line 4
+[21-Jun-2024 19:30:26 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ActivityTypeController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ActivityTypeController.php on line 4
+[14-Jul-2024 02:13:43 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CausesController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CausesController.php on line 4
+[23-Jul-2024 06:35:55 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ConversionController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ConversionController.php on line 4
+[28-Jul-2024 14:40:45 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/VehiclesController.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/VehiclesController.php on line 10
+[29-Jul-2024 18:51:17 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/PagosController.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/PagosController.php on line 5
+[03-Aug-2024 22:56:39 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ActividaChoferLogController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ActividaChoferLogController.php on line 4
+[06-Aug-2024 10:13:55 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ConfigurationController.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ConfigurationController.php on line 3
+[09-Aug-2024 08:02:53 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CardOperatorsController.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CardOperatorsController.php on line 3
+[09-Aug-2024 20:41:50 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/TransactionTypeController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/TransactionTypeController.php on line 4
+[17-Aug-2024 10:25:01 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ActivityReportController.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ActivityReportController.php on line 3
+[28-Aug-2024 13:08:42 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/PagosController.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/PagosController.php on line 5
+[10-Sep-2024 16:58:42 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/EstatusController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/EstatusController.php on line 4
+[15-Sep-2024 06:49:09 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CompraCreditosController.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CompraCreditosController.php on line 5
+[22-Sep-2024 23:23:08 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/VehiclesController.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/VehiclesController.php on line 10
+[28-Sep-2024 14:53:30 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ActividaChoferLogController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ActividaChoferLogController.php on line 4
+[30-Sep-2024 15:44:20 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ConfigurationController.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ConfigurationController.php on line 3
+[08-Oct-2024 07:50:58 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/AdministracionLogClienteController.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/AdministracionLogClienteController.php on line 5
+[14-Oct-2024 18:09:40 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/DashboardController.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/DashboardController.php on line 8
+[19-Oct-2024 22:27:57 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/VehiclesController.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/VehiclesController.php on line 10
+[25-Oct-2024 21:29:05 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/EstadosController.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/EstadosController.php on line 5
+[03-Nov-2024 16:22:14 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/EstatusController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/EstatusController.php on line 4
+[08-Nov-2024 14:18:02 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ActivityReportController.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ActivityReportController.php on line 3
+[08-Nov-2024 15:10:28 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CuentasController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CuentasController.php on line 4
+[27-Nov-2024 16:07:28 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/TransactionTypeController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/TransactionTypeController.php on line 4
+[02-Dec-2024 06:12:07 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/AdministracionLogClienteController.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/AdministracionLogClienteController.php on line 5
+[03-Dec-2024 07:18:18 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/RoutesController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/RoutesController.php on line 4
+[04-Dec-2024 22:27:53 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ActivityTypeController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ActivityTypeController.php on line 4
+[07-Dec-2024 21:59:20 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/DashboardController.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/DashboardController.php on line 8
+[11-Dec-2024 04:10:17 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CiudadesController.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CiudadesController.php on line 5
+[14-Dec-2024 21:47:25 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/TipoPagosController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/TipoPagosController.php on line 4
+[26-Dec-2024 10:51:55 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/EstadosController.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/EstadosController.php on line 5
+[05-Jan-2025 03:36:53 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CausesController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CausesController.php on line 4
+[05-Jan-2025 13:28:19 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/EstatusController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/EstatusController.php on line 4
+[07-Jan-2025 14:01:07 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/AdministracionLogClienteController.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/AdministracionLogClienteController.php on line 5
+[10-Jan-2025 00:45:54 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ActivityTypeController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ActivityTypeController.php on line 4
+[19-Jan-2025 18:54:00 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/VehiclesController.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/VehiclesController.php on line 10
+[01-Feb-2025 15:53:26 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CardOperatorsController.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CardOperatorsController.php on line 3
+[09-Feb-2025 23:55:10 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/RoutesController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/RoutesController.php on line 4
+[19-Feb-2025 02:03:47 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CiudadesController.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CiudadesController.php on line 5
+[10-Mar-2025 22:51:31 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/EstatusController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/EstatusController.php on line 4
+[14-Mar-2025 15:51:23 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/RoutesController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/RoutesController.php on line 4
+[14-Mar-2025 17:11:49 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/RoutesController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/RoutesController.php on line 4
+[15-Mar-2025 16:22:32 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/RoutesController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/RoutesController.php on line 4
+[17-Mar-2025 16:11:10 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/RoutesController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/RoutesController.php on line 4
+[18-Mar-2025 16:37:37 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/RoutesController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/RoutesController.php on line 4
+[19-Mar-2025 07:54:50 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/DashboardController.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/DashboardController.php on line 8
+[19-Mar-2025 17:16:04 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/RoutesController.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/RoutesController.php on line 4
+[25-Mar-2025 14:13:01 UTC] PHP Fatal error:  Uncaught Error: Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/VehiclesController.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/VehiclesController.php on line 10
+[26-Mar-2025 12:32:11 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/TipoPagosController.php on line 4
+[26-Mar-2025 14:57:47 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/VehiclesController.php on line 10
+[27-Mar-2025 18:09:59 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/PagosController.php on line 5
+[05-Apr-2025 17:32:09 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/TipoMonedasController.php on line 4
+[20-Apr-2025 04:07:43 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CiudadesController.php on line 5
+[21-Apr-2025 22:56:57 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ConfigurationController.php on line 3
+[21-Apr-2025 23:54:37 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/AprobacionCreditosController.php on line 5
+[23-Apr-2025 04:29:09 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/TipoPagosController.php on line 4
+[23-Apr-2025 22:58:53 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/DashboardController.php on line 8
+[24-Apr-2025 03:06:21 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/AddressController.php on line 4
+[24-Apr-2025 03:06:25 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CiudadesController.php on line 5
+[24-Apr-2025 05:29:12 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/TransferenciaCreditosController.php on line 5
+[24-Apr-2025 07:11:18 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ScheduleController.php on line 4
+[24-Apr-2025 07:56:10 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/PagosController.php on line 5
+[24-Apr-2025 10:26:06 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/AprobacionCreditoControladorController.php on line 5
+[24-Apr-2025 12:41:18 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/EstadosController.php on line 5
+[24-Apr-2025 13:26:55 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/TransactionTypeController.php on line 4
+[24-Apr-2025 16:44:24 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/StatesController.php on line 4
+[24-Apr-2025 19:15:38 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/PointsController.php.bak on line 4
+[24-Apr-2025 20:00:14 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/PagosController.php.bak on line 4
+[24-Apr-2025 21:29:18 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ActividaChoferLogController.php on line 4
+[24-Apr-2025 22:13:56 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/RoutesController.php.bak on line 4
+[25-Apr-2025 04:28:59 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/PointsController.php on line 5
+[25-Apr-2025 11:27:58 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/TipoPagosController.php on line 4
+[25-Apr-2025 15:59:23 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ActivityReportController.php on line 3
+[25-Apr-2025 16:45:51 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/AdministracionLogClienteController.php on line 5
+[25-Apr-2025 17:42:56 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/PaisesController.php on line 4
+[25-Apr-2025 18:28:55 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/BancosController.php on line 4
+[25-Apr-2025 18:28:59 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/RoutesController.php on line 4
+[25-Apr-2025 19:58:34 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/BalanceGeneralController.php on line 4
+[26-Apr-2025 00:00:02 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CompraCreditosController.php on line 5
+[26-Apr-2025 01:30:46 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/VehiclesController.php on line 10
+[26-Apr-2025 04:01:15 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ConversionController.php on line 4
+[26-Apr-2025 05:31:19 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/TipoMonedasController.php on line 4
+[26-Apr-2025 07:47:53 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/PackageRateController.php on line 3
+[26-Apr-2025 10:52:35 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/PagosController.php on line 5
+[26-Apr-2025 11:38:57 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CausesController.php on line 4
+[26-Apr-2025 11:39:01 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ContractsController.php on line 5
+[26-Apr-2025 16:26:49 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ActivityTypeController.php on line 4
+[26-Apr-2025 17:13:20 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CreteShippingController.php on line 7
+[26-Apr-2025 19:45:23 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CardOperatorsController.php on line 3
+[26-Apr-2025 19:45:26 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/TipoMovimientosController.php on line 4
+[27-Apr-2025 03:10:00 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/UsersController.php on line 10
+[27-Apr-2025 04:43:10 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/EstatusController.php on line 4
+[27-Apr-2025 05:38:17 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/AddressController.php.bak on line 4
+[27-Apr-2025 05:38:25 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CuentasController.php on line 4
+[29-Apr-2025 06:26:35 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CompraCreditosController.php on line 5
+[29-Apr-2025 07:59:53 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/VehiclesController.php on line 10
+[29-Apr-2025 10:31:43 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ConversionController.php on line 4
+[29-Apr-2025 12:05:09 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/TipoMonedasController.php on line 4
+[29-Apr-2025 14:34:26 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/PackageRateController.php on line 3
+[29-Apr-2025 17:37:21 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/PagosController.php on line 5
+[29-Apr-2025 18:24:27 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CausesController.php on line 4
+[29-Apr-2025 18:24:31 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/ContractsController.php on line 5
+[07-May-2025 13:33:11 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/CausesController.php on line 4
+[26-May-2025 00:15:32 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/EstadosController.php on line 5
+[13-Jun-2025 17:46:02 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/VehiclesController.php on line 10
+[17-Jun-2025 11:23:15 UTC] PHP Fatal error:  Class 'JController' not found in /home/masdistr/public_html/masdistribucion.com/application/Controller/OperationController/PagosController.php on line 5

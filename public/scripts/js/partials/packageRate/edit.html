@@ -1,0 +1,65 @@
+
+    <progressbar class="progress-striped active" value="100" type="info" ng-show="loading"></progressbar>
+    <div class="toolbar">
+        <div class="pull-right">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group  btn-group-sm">
+                    <button class="btn btn-default btn18px" tooltip="Regresar" ng-click="back()"><span class="pers-btn icono-atras icono-tam-tabla"></span></button>
+                    <button class="btn btn-default btn18px" tooltip="Guardar" ng-click="save()" ng-disabled="frmRate.$invalid"><span class="pers-btn icono-guardar-fila icono-tam-tabla"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="panel panel-default">
+        <div class="panel-heading" style="padding-top:5px; padding-bottom:5px"><span style="font-weight:600; color:#424445">Tarifa de paquete</span></div>
+        <div class="panel-body">
+            <div class="container-fluid">
+                <div class="row">
+                    <form  role="form" novalidate name="frmRate">                        
+                        <div class="row">
+                            
+                            <input type="hidden" class="form-control" ng-model="rate.id">                            
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <!-- <fieldset style="border-bottom:1px dotted #ccc; padding-bottom:6px">-->
+                                            <div class="form-group" ng-class="getFormFieldCssClass(frmRate.name)">
+                                                <label for="name">{{rate.element_type==1 ? "Ruta" : "Punto de venta"}}</label>                                    
+                                                <input type="text" class="form-control" id="name" name="name" placeholder="" ng-required ng-model="rate.name" ng-disabled="true">
+                                            </div>    
+                                        <!-- </fieldset> -->
+                                        <p></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-8">                                
+                                        <div class="form-group">
+                                            <label for="date">Fecha inicial de la tarifa</label>
+                                            <div class="input-group cust-datepicker">
+                                                    <input type="text" class="form-control" id="date" name="date" placeholder="" ng-model="dt" datepicker-popup="{{datePicker.format}}" 
+                                                           is-open="datePicker.opened" min-date="datePicker.minDate" datepicker-options="datePicker.dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Borrar"  show-button-bar="false"/>
+                                                    <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-default" ng-click="datePicker.open($event)">&nbsp;<i class="glyphicon glyphicon-calendar"></i>&nbsp;</button>
+                                                    </span>                                        
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" ng-class="getFormFieldCssClass(frmRate.client_rate)">
+                                            <label for="client_rate">Tarifa del cliente</label>                                    
+                                            <input type="text" class="form-control" id="client_rate" name="client_rate" placeholder="Tarifa para el cliente" ng-pattern="/^\s*-?(\d+(\.\d{1,2})?|\.\d{1,2})\s*$/" ng-model="rate.client_rate">
+                                        </div>
+
+                                        <div class="form-group" ng-class="getFormFieldCssClass(frmRate.provider_fee)">
+                                            <label for="provider_fee">Comisión del Proveedor</label>                                    
+                                            <input type="text" class="form-control" id="provider_fee" name="provider_fee" placeholder="Comisión del proveedor" ng-pattern="/^\s*-?(\d+(\.\d{1,2})?|\.\d{1,2})\s*$/" ng-model="rate.provider_fee">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>

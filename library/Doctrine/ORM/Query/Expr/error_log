@@ -1,0 +1,8 @@
+[24-Apr-2025 02:19:22 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Query\Expr\Base' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Query/Expr/GroupBy.php on line 35
+[24-Apr-2025 05:29:49 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Query\Expr\Composite' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Query/Expr/Andx.php on line 35
+[25-Apr-2025 05:15:02 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Query\Expr\Base' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Query/Expr/Literal.php on line 5
+[26-Apr-2025 09:20:53 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Query\Expr\Base' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Query/Expr/Select.php on line 35
+[26-Apr-2025 23:51:56 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Query\Expr\Composite' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Query/Expr/Orx.php on line 35
+[29-Apr-2025 04:42:04 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Query\Expr\Base' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Query/Expr/Composite.php on line 35
+[29-Apr-2025 16:07:38 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Query\Expr\Base' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Query/Expr/Select.php on line 35
+[02-May-2025 10:44:10 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Query\Expr\Base' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Query/Expr/Composite.php on line 35

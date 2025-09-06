@@ -1,0 +1,56 @@
+<div ng-show="state.current.name==='warehouseman.point'">
+    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="pull-right">
+                    <div class="btn-group">
+                        <button tooltip="Regresar" class="btn btn-default" ng-click="back()"><span class="glyphicon glyphicon-chevron-left"></span></button>
+                        <button class="btn btn-default" ng-click="tableParams.reload()" tooltip="Recargar"><span class="glyphicon glyphicon-refresh"></span></button>
+                    </div>
+                </div>
+                <p id="topTitle"> 
+                    &nbsp;&nbsp;
+                </p>
+            
+                <div loading-container="tableParams.settings().$loading">
+                    <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable">
+                        <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">
+                            <span class="ui-ngt-title">Centro de intercambio</span>
+                        </div>
+                        <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover table-condensed">
+                            <tbody>
+                                <tr ng-repeat="schedule in $data" ng-click="schedule.$selected = !schedule.$selected; changeSelection(schedule)"
+                                    ng-class="{'ngactive': schedule.$selected}">
+                                    <!-- <td data-title="currentData.data[1][0]['routeName']" class="col-md-4">
+                                    <td data-title="'Hora'" class="col-md-2 text-center">
+                                        {{getDateFromString(schedule.datePoint)|date:"hh:mm a"}}
+                                        {{schedule.datePoint}} 
+                                    </td>-->
+                                    <td data-title="'Fecha'" class="col-md-4">
+                                        {{schedule.scheduledDate}}
+                                    </td>
+                                    <td data-title="'Chofer'">
+                                        {{schedule.driveName}}
+                                    </td>
+                                    <td data-title="'Vehículo'">
+                                        {{schedule.vehicleName}}
+                                    </td>
+                                    <td data-title="'Iniciar'" class="text-center col-md-1">
+                                        <span tooltip="Ver programaciones" class="glyphicon glyphicon-hand-right" style="color:#21CC2D" ng-click="go(schedule)"></span>
+                                    </td>
+                                    <!--<td data-title="'Actividad'"  class="col-md-1 text-center">
+                                        <span ng-if="(schedule.hasActivity==1)" class="glyphicon glyphicon-transfer" style="color:#147D06;font-size:1.1em"></span>
+                                        <span ng-if="(schedule.hasActivity==0)" class="glyphicon glyphicon-minus" style="color:#ccc;font-size:1.1em"></span>
+                                    </td>-->
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                    </div>        
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ui-view="edit"></div>

@@ -1,0 +1,392 @@
+<style type="text/css">
+#qr-canvas{
+    display:none;
+}
+#qrfile{
+    width:320px;
+    height:240px;
+}
+#mp1{
+    text-align:center;
+    font-size:35px;
+}
+#imghelp{
+    position:relative;
+    left:0px;
+    top:-160px;
+    z-index:100;
+    font:18px arial,sans-serif;
+    background:#f0f0f0;
+	margin-left:35px;
+	margin-right:35px;
+	padding-top:10px;
+	padding-bottom:10px;
+	border-radius:20px;
+}
+.selector{
+    margin:0;
+    padding:0;
+    cursor:pointer;
+    margin-bottom:-5px;
+}
+#outdiv
+{
+    width:320px;
+    height:240px;
+	border: solid;
+	border-width: 3px 3px 3px 3px;
+}
+#result{
+    border: solid;
+	border-width: 1px 1px 1px 1px;
+	padding:20px;
+	width:70%;
+}
+
+.tsel{
+    padding:0;
+}
+
+</style>
+
+<script type="text/javascript">
+	function reload_js(src) {
+	    $('script[src="' + src + '"]').remove();
+	    $('<script>').attr('src', src).appendTo('head');
+	}
+	
+	var urloc = document.location.toString(); 
+	var urlbasef = urloc.search("App");
+	var urlbasei = urloc.slice(0,urlbasef);
+	
+	reload_js(urlbasei +'scripts/js/dist/webqr.js');
+/*
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-24451557-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+*/
+</script>
+
+<div ng-show="state.current.name === 'routeSummary.add'">
+<ol class="breadcrumb">
+        <li class="active">Sistema</li>
+        <li class="active"><a ui-sref="routeSummary">Rutas</a></li>
+        <li class="active"><a ng-click="regresar()">Iniciar Ruta</a></li>
+        <li class="active actualpg">Punto de venta: {{tableParams.data[0]["name"]}}</li>
+    </ol>
+    <h1 align="center">Punto de venta: {{tableParams.data[0]["name"]}}</h1>
+    <div class="main container" >
+        <div class="row">
+            <div class="col-md-3">
+                <p><label>Orden de compra:</label> {{code}}</p>
+                <div id="mainbody">
+                    <table class="tsel" border="0" width="100%">
+                        <tr>
+                            <td valign="top" align="center" width="50%">
+                                <table class="tsel" border="0">
+                                    <tr>
+                                        <td><img style="display:none;" class="selector" id="webcamimg" src="vid.png" onclick="setwebcam()" align="left" /></td>
+                                        <td><img style="display:none;" class="selector" id="qrimg" src="cam.png" onclick="setimg()" align="right"/></td>
+                                    </tr>
+                                    <tr><td colspan="2" align="center">
+                                            <div id="outdiv">
+                                            </div></td></tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr><td colspan="3" align="center">
+                            </td></tr>
+                        <tr><td colspan="3" align="center">
+                                <div id="result" style="display:none;"></div>
+                                <input id="mivalor" style="display:none;" placeholder="Search" type="text" ng-click="onSuccess()">
+                                <!-- input id="mivalor" type="text" ng-click="onSuccess()" ng-model="my.Value" /-->
+                            </td></tr>
+                    </table>
+                    <!--<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
+                    <!-- webqr_2016 -->
+                    <!--
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-8418802408648518"
+                         data-ad-slot="2527990541"
+                         data-ad-format="auto"></ins>
+                    <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                    -->
+                </div>&nbsp;
+                <canvas id="qr-canvas" width="800" height="600"></canvas>
+                <script type="text/javascript">load();</script>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-8">
+                <div class="toolbar">
+                    <div class="pull-right">
+                        <div class="btn-toolbar" role="toolbar">
+                            <div class="btn-group btn-group-lg">
+                                <button class="btn btn-default sin-padding" tooltip="Favoritos" ng-click="showFavorites()"><span class="pers-btn icono-proveedor-favorito tam-normal"></span></button>
+                                <button class="btn btn-default sin-padding" ng-click="tableParams.reload()" ><span class="pers-btn icono-refrescar tam-normal"></span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">  
+                    <div class="panel-heading ui-ngtwidget-header">Paquetes</div>
+                    <div loading-container="tableParams.settings().$loading">
+                        <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable">
+                            <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover">
+                                <tbody>
+                                    <tr ng-repeat="pack in $data" ng-click="pack.$selected = !pack.$selected; changeSelection(pack)"
+                                        ng-class="{'ngactive': pack.$selected}">                        
+                                        <td data-title="'ID'" class="col-md-1 text-center">
+                                            {{pack.id}}            
+                                        </td>
+                                        <td data-title="'Envía'" class="text-center">
+                                            {{pack.userSending}}            
+                                        </td>
+                                        <td data-title="'Transacción'" class="text-center">
+                                            {{pack.Paquete}}            
+                                        </td>
+                                        <td data-title="'Actividad'" class="text-center">
+                                            <span tooltip="Recolectar" ng-if="(pack.Actividad == 'Recolectar')" class="pers-btn icono-recolectar icono-tam-tabla"></span>
+                                            <span tooltip="Entrega" ng-if="(pack.Actividad == 'Entrega')" class="pers-btn icono-entregar icono-tam-tabla"></span>
+                                            <span style="font-size:1.3em" tooltip={{pack.Actividad}} ng-if="(pack.ttype==2)" class="glyphicon glyphicon-bullhorn" ></span>
+                                            <span style="font-size:1.3em" tooltip={{"Promocionar"}} ng-if="(pack.ttype==1 && pack.promotionid>0 && pack.curpoint==pack.endpoint)" class="glyphicon glyphicon-bullhorn" >&nbsp;</span>
+                                            <span style="font-size:1.3em; color:#ccc" tooltip={{"Promocionar"}} ng-if="(pack.ttype==1 && pack.promotionid>0 && pack.curpoint!=pack.endpoint)" class="glyphicon glyphicon-bullhorn" >&nbsp;</span>
+                                        </td>
+                                        <td data-title="'Hora'" class="text-center">
+                                            {{pack.horaReal}}            
+                                        </td>
+                                        <td data-title="'Estado del paquete'" class="text-center">
+                                            <span tooltip="Sin acción" ng-if="(pack.Estado == null)" class="pers-btn icono-sin-accion icono-tam-tabla"  ></span>
+                                            <span tooltip="Recibido" ng-if="(pack.Estado == 1)" class="pers-btn icono-palomita icono-tam-tabla"  ></span>
+                                            <span tooltip="Entregado" ng-if="(pack.Estado == 3)" class="pers-btn icono-palomita icono-tam-tabla"  ></span>
+                                            <span tooltip="Rechazado" ng-if="(pack.Estado == 6)" class="pers-btn icono-tacha icono-tam-tabla"  ></span>
+                                            <span tooltip="No entregado" ng-if="(pack.Estado == 7)" class="glyphicon glyphicon-minus-sign"  ></span>
+                                        </td>
+                                        <td data-title="'Acciones'" class="text-center">
+                                            <span tooltip="Paquete no encontrado" ng-if="(pack.ttype==1 && pack.Estado == null && pack.Actividad == 'Recolectar' && poType == 1)" class="pers-btn icono-tacha icono-tam-tabla" style="color:#52CA22;font-size:1.1em" ng-click="goCancel(pack)"></span>
+                                            <span tooltip="" ng-if="(pack.numfiles>0 && pack.ttype==2 && pack.Estado == null)" class="glyphicon glyphicon-play-circle" style="font-size:1.3em" ng-click="getPromotionResult(pack)"></span>
+                                            <span tooltip="" ng-if="(pack.numfiles>0 && pack.ttype==2 && pack.Estado == null)" class="glyphicon glyphicon-remove-circle" style="font-size:1.3em" ng-click="rejectPromotion(pack)"></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>        
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </div>
+
+
+    <script type="text/ng-template" id="ng-table/filters/textsm.html">
+        <input type="text" class="form-control input-sm" ng-model="params.filter()[name]" name="" value="" />
+    </script>
+</div>
+
+<!-- Plantillas para las ventanas modales-->
+
+<script type="text/ng-template" id="templateShowSurvey.html">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">Encuesta</h4>
+    </div>
+    <div class="modal-body">
+        <form role="form" novalidate name="sc.frmSurvey">
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="hidden" class="form-control" ng-model="promotionSchedule.id">
+                    <div class="form-group" ng-class="getFormFieldCssClass(sc.frmSurvey.consumerType)">
+                        <label for="consumerType">Tipo de Consumidor</label>
+                        <select ng-model="select.consumerType"
+                                ng-options="option.name for option in getConsumerType track by option.id"
+                                class="form-control"
+                                ng-required="true"
+                                id="consumerType"
+                                name="consumerType">
+                            <option value="">Seleccionar tipo de consumidor</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" ng-class="getFormFieldCssClass(sc.frmSurvey.interestLevel)">
+                        <label for="interestLevel">Nivel de Interés</label>
+                        <select ng-model="select.interestLevel"
+                                ng-options="option.name for option in getInterestLevel track by option.id"
+                                class="form-control"
+                                ng-required="true"
+                                id="interestLevel"
+                                name="interestLevel">
+                            <option value="">Seleccionar nivel de interés</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" ng-class="getFormFieldCssClass(sc.frmSurvey.request)">
+                        <label for="request">Solicita</label>
+                        <select ng-model="select.request"
+                                ng-options="option.name for option in getRequest track by option.id"
+                                class="form-control"
+                                ng-required="true"
+                                id="request"
+                                name="request">
+                            <option value="">Seleccionar si solicita </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group" ng-class="getFormFieldCssClass(sc.frmSurvey.receivingUser)">
+                        <label for="receivingUser">Usuario que recibe</label>
+                        <input type="text" class="form-control input-sm" id="receivingUser" name="receivingUser" placeholder="" ng-required="true" ng-model="promotionSchedule.receivingUser"/>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group" ng-class="getFormFieldCssClass(sc.frmSurvey.telephone)">
+                        <label for="comments">Teléfono/Celular</label>
+                        <input type="text" class="form-control input-sm" id="telephone" name="telephone" placeholder=""  ng-model="promotionSchedule.telephone"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group" ng-class="getFormFieldCssClass(sc.frmSurvey.comments)">
+                        <label for="comments">Observaciones</label>
+                        <textarea class="form-control"  id="comments" name="comments" placeholder=""  ng-model="promotionSchedule.comments"/>
+                    </div>
+                </div>                
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-info" ng-disabled="sc.frmSurvey.$invalid" data-ng-click="ok();">Guardar y Cerrar</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="templateShowResource.html">
+    <div class=""><h4 style="border-bottom:1px solid #e5e5e5;padding-bottom:3px ">{{resource.userSending}} - {{resource.packagePromotion ? resource.packagePromotion : resource.Paquete}}</h4></div>
+    <div class="modal-body">
+        <iframe src="{{resource.promotionpath}}" style="width: 100%; height: 500px;" id="viewer"
+            scrolling="no" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0">
+        </iframe>
+    </div>
+    <div class="modal-footer">
+        <button ng-if="!resource.isLoadedFromPromoList" type="button" class="btn btn-info" data-ng-click="rejectPromotion(resource);">Rechazar</button>
+        <button ng-if="!resource.isLoadedFromPromoList" type="button" class="btn btn-info" data-ng-click="notDeliver(resource);">No entregar</button>
+        <button type="button" class="btn btn-info" data-ng-click="ok(resource);">Aceptar y Cerrar</button>
+    </div>    
+</script>
+
+<script type="text/ng-template" id="templateShowPromotion.html">
+    <div class="modal-body">
+        <div class=""><h4 style="border-bottom:1px solid #e5e5e5;padding-bottom:3px ">{{promotion.userSending}} - {{promotion.packagePromotion ? promotion.packagePromotion : promotion.Paquete}}</h4></div>
+        <div class="col-md-12">
+            <!-- Tabla de partidas -->
+            <div loading-container="loadingDetail">
+                <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable table-responsive">
+                    <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">
+                        <span class="ui-ngt-title">Detalle</span><span class="pull-right"><button class="btn btn-default btn-sm" style="background-color: transparent !important; border-color: transparent !important; outline: 0px !important" ng-click="loaData(promotion.promotionid)" tooltip="Recargar"><span class="pers-btn icono-refrescar-fila icono-tam-tabla"></span></button></span>
+                    </div>
+                    <table class="table ng-table-rowselected table-hover table-striped table-condensed">
+                        <thead>
+                            <th>N&deg;</th><th>Nombre</th><th>Recurso</th><th>Visto</th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="r in resource" ng-click=""
+                                ng-class="{'ngactive': r.$selected}">
+                                <td class="col-md-1">
+                                    {{r.num}}
+                                </td>
+                                <td class="col-md-3">
+                                    {{r.name}}
+                                </td>
+                                <td class="col-md-4">
+                                    <span ng-show="r.resourceType==1 && r.id<0" class="glyphicon glyphicon-file" style="font-size:10pt"></span>
+                                    <span ng-show="r.resourceType==2 && r.id<0" class="glyphicon glyphicon-link" style="font-size:10pt"></span>
+                                    <a ng-show="r.id>0" ng-click="showResource({id:r.id,promotionpath:r.path,userSending:promotion.userSending, packagePromotion:r.name})" >
+                                        <span ng-show="r.resourceType==1" class="glyphicon glyphicon-file" style="font-size:10pt"></span>
+                                        <span ng-show="r.resourceType==2" class="glyphicon glyphicon-link" style="font-size:10pt"></span> {{r.filename}}
+                                    </a>
+                                    {{(r.resourceType==1 && r.id<0) ? r.file.name : (r.resourceType==2 && r.id<0) ? r.path : ""}}
+                                </td>
+                                <td class="col-md-1"><span tooltip="Visto" ng-if="(r.checked)" class="pers-btn icono-palomita icono-tam-tabla"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div><p style="clear:both"></p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-ng-click="rejectPromotion(promotion);">Rechazar</button>
+        <button type="button" class="btn btn-info" data-ng-click="notDeliver(promotion);">No entregar</button>
+        <button type="button" class="btn btn-info" data-ng-click="ok(promotion);">Aceptar y Cerrar</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="templateShowNotDeliveryReason.html">
+    <!-- <div class=""><h4 style="border-bottom:1px solid #e5e5e5;padding-bottom:3px "></h4></div> -->
+    <div class="modal-body">
+         <form role="form" novalidate name="sc.frmReason">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" ng-class="getFormFieldCssClass(sc.frmReason.comments)">
+                        <label for="comments">Razón del rechazo/No entrega</label>
+                        <textarea class="form-control"  id="comments" name="comments" placeholder=""  ng-model="reason.comments"/>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">        
+        <button type="button" class="btn btn-info" data-ng-click="ok();">Aceptar</button>
+    </div>    
+</script>
+
+<script type="text/ng-template" id="templateShowFavorites.html">
+    <div class="modal-body">
+        <div class="row">
+            <h2 align="center">Favoritos</h2>
+            <div class="col-md-12">
+                <div class="panel panel-default">  
+                    <div class="panel-heading ui-ngtwidget-header">Productos Favoritos</div>
+                    <div loading-container="tableParamsFavoritos.settings().$loading">
+                        <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable">
+                            <table ng-table="tableParamsFavoritos" show-filter="true" template-pagination="../scripts/js/partials/pager.html" class="table ng-table-rowselected table-hover">
+                                <tbody>
+                                    <tr ng-repeat="favorite in $data" >                        
+                                        <td data-title="'Producto'" class="col-md-3 text-center">
+                                            {{favorite.Producto}}            
+                                        </td>
+                                        <td data-title="'Proveedor'" class="col-md-3 text-center">
+                                            {{favorite.Proveedor}}            
+                                        </td>
+                                        <td data-title="'Generar Pedido'" class="col-md-3 text-center">
+                                            <a ng-click="addFavoriteToCar(favorite)"> Realizar nuevo pedido </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">        
+        <button type="button" class="btn btn-info" data-ng-click="ok();">Cerrar</button>
+    </div>  
+</script>
+<div ui-view="edit"></div>

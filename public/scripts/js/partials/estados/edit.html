@@ -1,0 +1,77 @@
+<div ng-show="state.current.name === 'estados.edit' || state.current.name === 'estados.add'">
+    <ol class="breadcrumb">
+        <li class="active">Catálogos</li>
+        <li class="active"><a ui-sref="estados">Estados</a></li>
+        <li class="active actualpg" ng-show="state.current.name === 'estados.add'">Agregar Estado</li>
+        <li class="active actualpg" ng-show="state.current.name === 'estados.edit'">Editar Estado</li>
+    </ol>
+    <progressbar class="progress-striped active" value="100" type="info" ng-show="loading"></progressbar>  
+    <div class="toolbar">
+        <div class="pull-right">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group  btn-group-sm">
+                    <!--<button tooltip="Regresar" class="btn btn-default" ng-click="back()"><span class="glyphicon glyphicon-chevron-left"></span></button>-->
+                    <button class="btn btn-default sin-padding" ng-click="save()" ng-disabled="sc.frmEstado.$invalid"><span class="pers-btn icono-guardar tam-normal"></span></button>                
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Editar Estado
+        </div>    
+        <div class="panel-body">
+            <div class="panel panel-default">                    
+                <div class="panel-body">                
+                    <form role="form" novalidate name="sc.frmEstado">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input type="hidden" class="form-control" ng-model="estado.id">
+                                <div class="form-group" ng-class="getFormFieldCssClass(sc.frmEstado.countryId)">
+                                    <label for="country">Pa&iacute;s</label>
+                                    <select ng-model="estado.countryId"
+                                            ng-options="option.name for option in getCountry track by option.id"
+                                            class="form-control"
+                                            ng-required="true"
+                                            id="country"
+                                            name="country">
+                                        <option value="">Seleccionar pais</option>
+                                    </select>
+                                </div>
+                            </div>         
+                            <div class="col-md-4">                               
+                                <div class="form-group" ng-class="getFormFieldCssClass(sc.frmEstado.name)">
+                                    <label for="name">Nombre</label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Nombre" required  ng-model="estado.name">
+                                </div>
+                            </div> 
+                            <div class="col-md-4">                               
+                                <div class="form-group" ng-class="getFormFieldCssClass(sc.frmEstado.abbreviation)">
+                                    <label for="abbreviation">Abreviación</label>
+                                    <input type="text" class="form-control" id="name" name="abbreviation" placeholder="Abreviación"  ng-model="estado.abbreviation">
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="checkbox">
+                                    <label for="estatus">
+                                        <input type="checkbox" 
+                                               id="estatus" 
+                                               name="estatus" 
+                                               ng-model="estado.chrEstatus"
+                                               ng-checked="estado.chrEstatus == '1'"
+                                               >Activar/Desactivar
+                                    </label>
+                                </div>
+                            </div>
+                        </div> 
+                    </form>
+
+                </div>
+            </div>          
+        </div>
+    </div> 
+</div> 

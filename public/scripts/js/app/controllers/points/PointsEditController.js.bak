@@ -1,0 +1,178 @@
+function PointsEditController($scope, $timeout, $state, $stateParams, PARTIALPATH, ModalService, CatalogService, PointsDataService, point, CONFIG, UtilsService, $filter) {
+    $scope.point = point;
+    $scope.save = save;
+    $scope.back = function () {
+        $state.go('^', $stateParams)
+    };
+
+
+
+    PointsDataService.getCountry($scope.point, {})
+            .then(function (response) {
+                $scope.getCountry = response.data;
+                if($scope.point.country_id){
+                    PointsDataService.getState({id:$scope.point.country_id})
+                            .then(function (response){
+                                $scope.getState = response.data;
+                        if($scope.point.state_id ){
+                            PointsDataService.getCity({id: $scope.point.state_id})
+                                    .then(function(response){
+                                        $scope.getCity = response.data;
+                                if($scope.point.city_id){
+                                    PointsDataService.getAddress({id:$scope.point.city_id})
+                                            .then(function(response){
+                                                $scope.getAddress = response.data;
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+
+
+    $scope.getSelectedCountry = function () {
+        var countryId = $scope.point.country_id;
+        if (countryId !== undefined && countryId !== "") {
+            var postParams = {id: countryId};
+            PointsDataService.getState(postParams)
+                    .then(function (response) {
+                        $scope.getState = response.data;
+                        $scope.point.state_id = $scope.getStateData(response.data);
+                        $scope.getSelectedState()
+                    });
+        } else {
+            $scope.getState = "";
+            $scope.getCity = "";
+            $scope.getAddress = "";
+        }
+
+    };
+    
+    $scope.getStateData = function(data){
+        for(var i = 0; i < data.length;i++){
+            if(data[i].id == $scope.point.state_id) {
+                return data[i].id;
+            }
+        }
+        $scope.point.city_id = "";
+        $scope.point.address_id = "";
+        return "";
+    };
+
+    $scope.getSelectedState = function () {
+        $scope.getState;
+        var stateId = $scope.point.state_id;
+        if (stateId !== undefined &&stateId !== "") {
+            var postParams = {id: stateId};
+            PointsDataService.getCity(postParams)
+                    .then(function (response) {
+                        $scope.getCity = response.data;
+                        $scope.city_id = $scope.getCityData(response.data);
+                         $scope.getSelectedCity();
+                    });
+        } else {
+            $scope.getCity = "";
+            $scope.getAddress = "";
+        }
+
+    };
+    
+    $scope.getCityData = function(data){
+        for(var i = 0; i < data.length; i++){
+            if(data[i].id == $scope.point.city_id){
+                return data[i];
+            }
+        }
+        $scope.point.address_id = "";
+        return "";
+    };
+
+    $scope.getSelectedCity = function () {
+        $scope.getCity;
+        var cityId = $scope.point.city_id;
+        if (cityId !== undefined && cityId !== "") {
+            var postParams = {id: cityId};
+            PointsDataService.getAddress(postParams)
+                    .then(function (response) {
+                        $scope.getAddress = response.data;
+                        $scope.point.address_id = $scope.getSelectedAddress(response.data);
+                    });
+        } else {
+            $scope.getAddress = "";
+        }
+
+    };
+    
+    $scope.getSelectedAddress = function(data){
+        for(var i = 0; i < data.length; i++){
+            if(data[i].id == $scope.point.address_id){
+                return data[i];
+            }
+        }
+        return "";
+    };
+
+    $scope.pointTypes = CatalogService.getPointType();
+    $scope.pointStatus = CatalogService.getPointStatus();
+    $scope.getCategories = [];
+    CatalogService.getBranchCategories()
+            .then(function (response) {
+                $scope.getCategories = response.data;
+            });
+
+    $scope.hour = new Date();
+    $scope.hourEnd = new Date();
+    $scope.isoHour = $scope.hour.toISOString();
+    if ($scope.point.opening_time) {
+        $scope.hour = UtilsService.getDateFromString('2017-01-01 ' + $scope.point.opening_time);
+        $scope.hourEnd = UtilsService.getDateFromString('2017-01-01 ' +  $scope.point.closing_time);
+ 
+        $scope.hour = $scope.hour.getTime();
+        $scope.hourEnd = $scope.hourEnd.getTime();
+    }
+
+    function save() {
+        if ($scope.point) {
+            $scope.loading = true;
+            if ($scope.point.type == '2') {
+                $scope.point.webpage = null;
+            }
+            if ($scope.point.type == '2') {
+                $scope.point.categoryId_id = null;
+            }
+            if ($scope.point.type == '2') {
+                $scope.point.urlGoogleMaps = null;
+            }
+            $scope.point.opening_time = $filter('date')($scope.hour, 'yyyy-MM-dd HH:mm:ss');
+            $scope.point.closing_time = $filter('date')($scope.hourEnd, 'yyyy-MM-dd HH:mm:ss');
+
+            PointsDataService.save($scope.point, {})
+                    .success(function (data, status, headers, config) {
+                        $scope.loading = false;
+                        if (data.error) {
+                            var modalOptions = {
+                                actionButtonText: 'Aceptar',
+                                bodyText: data.error
+                            };
+                            ModalService.showModal({templateUrl: PARTIALPATH.modalInfo}, modalOptions);
+                        } else {
+                            var modalOptions = {
+                                actionButtonText: 'Aceptar',
+                                bodyText: '¡Registro guardado con éxito!'
+                            };
+                            ModalService.showModal({templateUrl: PARTIALPATH.modalInfo}, modalOptions).then(function (result) {
+                                $scope.back();
+                                $scope.tableParams.reload();
+                            });
+                        }
+                    })
+                    .error(function (data, status, headers, config) {
+                        $scope.loading = false;
+                    });
+        }
+    }
+ 
+
+
+}

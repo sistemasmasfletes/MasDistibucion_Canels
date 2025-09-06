@@ -1,0 +1,537 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 17/11/2016, 07:49:15 PM
+    Author     : oramos
+*/
+@font-face{
+	font-family:Raleway-Bold;	
+	src: url(fonts/Raleway-Bold.ttf)	
+}
+
+@font-face{
+	font-family:Raleway-Light;	
+	src: url(fonts/Raleway-Light.ttf)	
+}
+
+a:hover{
+	text-decoration: none;
+}
+.rootcontainer {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    height: 85%;
+
+}
+
+.container {
+    height: 100%;
+}
+
+img.imagelogo {
+    position: absolute;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    height: auto;
+}
+
+body 
+{
+	/*background-image: url(https://masdistribucion.com/public/images/fondomd.png);
+	/*background-color: rgb(178, 178, 178);/*gris*/
+	
+background: rgba(226,226,226,1);
+background: -moz-linear-gradient(top, rgba(226,226,226,1) 0%, rgba(219,219,219,1) 38%, rgba(209,209,209,1) 51%, rgba(254,254,254,1) 91%, rgba(254,254,254,1) 100%);
+background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(226,226,226,1)), color-stop(38%, rgba(219,219,219,1)), color-stop(51%, rgba(209,209,209,1)), color-stop(91%, rgba(254,254,254,1)), color-stop(100%, rgba(254,254,254,1)));
+background: -webkit-linear-gradient(top, rgba(226,226,226,1) 0%, rgba(219,219,219,1) 38%, rgba(209,209,209,1) 51%, rgba(254,254,254,1) 91%, rgba(254,254,254,1) 100%);
+background: -o-linear-gradient(top, rgba(226,226,226,1) 0%, rgba(219,219,219,1) 38%, rgba(209,209,209,1) 51%, rgba(254,254,254,1) 91%, rgba(254,254,254,1) 100%);
+background: -ms-linear-gradient(top, rgba(226,226,226,1) 0%, rgba(219,219,219,1) 38%, rgba(209,209,209,1) 51%, rgba(254,254,254,1) 91%, rgba(254,254,254,1) 100%);
+background: linear-gradient(to bottom, rgba(226,226,226,1) 0%, rgba(219,219,219,1) 38%, rgba(209,209,209,1) 51%, rgba(254,254,254,1) 91%, rgba(254,254,254,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#fefefe', GradientType=0 );
+	
+    /*background-color:#fd9972 !important;*/
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+     background-blend-mode: soft-light;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: center;
+    color: #000;
+	font-family: Raleway-Bold;
+}
+
+#page {
+	position:absolute;width:100%;margin: 5em 5px 10px 5px;
+    /*background-image: url(https://masdistribucion.com/public/images/fondomd.png);
+    background-color: rgb(178, 178, 178);/*gris*/
+    /*background-repeat: no-repeat;
+	background-attachment: fixed;
+    /*background-color: rgb(255,100,55);/*rojo*/
+    /*background-color: rgb(100,150,255);azul
+    /*background-color: rgb(255, 244, 200);amarillo*/
+    /*background-blend-mode: soft-light;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: center;
+    color: #000;
+    height:100%;*/
+}
+     
+@media only screen and (max-width: 500px) {
+    img.imagelogo {
+        position: absolute;
+        top: 50%; 
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        height: 80%;
+    }
+}
+
+ div#footer {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 0px;
+    /*background-color: #aa1818;*/
+    background-color: #212121;
+    text-align: center; 
+    color: #fff;
+    z-index: 5;
+ }
+ 
+ div#footer > p{
+     margin: 0px;
+ }
+ 
+
+ 
+/* @media (min-width: 768px){
+     .navbar-nav{
+         margin-left: 0%;
+         margin-right: 0%; 
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+         width: auto;
+         height: auto;
+ }
+ }*/
+
+.nav.nav-center {
+    margin:0;
+    float:none;
+}
+.navbar-inner{
+    text-align:center;
+}
+
+.navbar-collapse.nav-center{
+    color: green;
+}
+
+.spangreen{
+	color:#d94e19;
+	font-family:Raleway-Light;		
+	width:100%;
+	margin-bottom:1.5em;
+}
+
+.allbuttons {
+	width:23%;
+	box-shadow:-19px 12px 17px -7px rgba(13,12,12,0.58);
+	padding:0.5em;
+	color: white;
+	text-align:center;
+	border-radius:5px;
+	display: flex;
+   	justify-content:center;
+   	align-items: center;	
+	margin-right:1em;
+}
+
+a.buttonin{
+	margin-left:2em;
+}
+	
+.buttonhref{	
+	background-color:#303030;
+	color:#fff;
+	border:none;
+	float:left;
+}
+
+.buttonin{
+	width:80%;
+	margin-bottom:0.5em;
+}
+
+.buttoninlog{
+	width:80%;
+	margin-bottom:0.5em;
+}
+
+.buttoncat{
+	box-shadow:-19px 12px 17px -7px rgba(13,12,12,0.58);
+	padding:0.5em;
+	color: white;
+	text-align:center;
+	border-radius:5px;
+	display: flex;
+   	justify-content:center;
+   	align-items: center;	
+	margin-right:1em;
+	background-color:blue;
+	min-width:10em;
+	
+}
+
+#formLogIn > .capture{
+	width:50%;
+}
+
+#formRegister > .capture{
+	width:50%;
+}
+
+.modal-headertitle{
+	width: 100%; text-align:center; background-color: #000; color: #FFF; text-weight:bold; margin-bottom:0.5em; border-radius:5px;
+}
+
+#loginForm button.btn{
+	width:20%;
+}
+
+#video1{
+	display:none;
+	width:100%;
+}
+
+.loader {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url(http://localhost/d7.1/public/images/ajaxloader.gif) 50% 50% no-repeat rgb(249,249,249);
+	opacity: .8;
+	display:none;
+}
+		
+body{
+	height: 100%;
+}
+
+
+.nav-main-commercial{
+	margin:auto;
+	width: 98%;
+	font-size: 17px;
+	display:flex;
+	justify-content: space-between;
+	align-items:center;
+	height:60px;
+	padding: 0.5em;
+	/*background-color:#303030;*/
+	background-color:#F05A23;
+	opacity:.8;
+	position:fixed;
+	z-index:2;	
+}
+
+.nav-main-commercial a{
+	color:#fff;
+}
+
+.nav-brand-commercial{
+	width: 50px;
+}
+
+.nav-main-commercial ul{
+	display: flex;
+}
+
+.nav-main-commercial ul li{
+	padding: 10px;
+}
+
+.nav-main-commercial ul li a{
+	padding:6px;
+}
+
+.nav-main-commercial ul li a:hover{
+	color:#fff;
+}
+
+.nav-main-commercial ul.nav-menu-commercial{
+	flex:1;
+	margin-left: 20px;	
+}
+
+ul.nav-menu-commercial li > a{
+	display:flex;
+	justify-content:center;
+	align-items: center;	
+}
+
+.menu-btn-commercial{
+	display:none;
+	position:absolute;
+	cursor:pointer;
+	top:15px;
+	right:15px;
+	z-index:3;
+}
+
+#formLogIn button.buttoninlog{
+	min-height:2.5em !important;
+	margin:auto;
+	margin-bottom:0.5em;
+	max-width:50% !important;
+}
+
+#formLogIn a.buttoninlog{
+	max-width:45% !important;
+	margin:auto;
+	font-size: 0.7em;
+	font-weight: normal;
+	
+}
+.contlogo{
+	width:90%;
+	padding:2em;
+}
+
+.contlogo > img{
+	height:13em;
+	width:50%;
+}
+
+.contcatalog{
+	display: flex; overflow-x: auto; width: 100%; margin-bottom:1em;
+}
+
+.socialico{
+	display: none;	
+}
+
+.contsearch{
+	width: 50%; margin-top:0.5em;   display: flex; align-items: center;
+}
+
+@media(max-width:980px){
+	
+	#page {
+		margin-top:12em;
+	}
+	
+	.menu-btn-commercial{
+		padding-top:3em;
+		padding-right:4em;
+		position:fixed;
+	}
+	
+	.nav-brand-commercial{
+		transform: scale(3);
+	}
+	.nav-main-commercial{
+		height:5em;
+		font-size:2em;
+		opacity:1;
+	}
+	
+	.nav-main-commercial > a.nav-brand-commercial{
+		margin-left:2em;
+	}
+	
+	.nav-main-commercial ul.nav-menu-commercial{
+		display:block;
+		position:absolute;
+		top:0;
+		left:0;
+		/*background:#303030;*/
+		background-color:#F05A23;
+		height:auto;
+		padding: 30px;
+		/*opacity:.9;*/
+		transform: translatex(-600px);
+		transition: transform .5s ease-in-out;
+	}
+	
+	.nav-main-commercial ul.nav-menu-commercial.show{
+		transform: translatex(-20px);
+	}
+	
+	.nav-main-commercial ul.nav-menu-commercial li{
+		padding: 0.5em;
+		border-bottom: #ccc solid 1px;
+		font-size: 3em;
+	}
+	
+	.nav-main-commercial ul.nav-menu-right-commercial{
+		margin-right: 50px;
+		display: none;		
+	}
+	
+	.menu-btn-commercial, .socialico{
+		display:block;
+	}
+	
+	.socialico >a >img{
+	  transform: scale(2);
+	}	
+		
+	ul.nav-menu-commercial li > a >img{
+	  transform: scale(3);
+	}
+		
+	.allbuttons{
+		line-height:1em;
+		height: 3em;
+		font-size:3em;
+		width:80%;
+		margin-bottom:0.5em;
+	}
+	
+	.buttoncat{
+		min-width:15em;
+		height: 3em;
+		font-size:3em;
+	}
+	
+	.buttonin{
+		max-height: 1em;
+		font-size: 1em;
+	}
+	
+	a.buttonin{
+		padding: 0em;
+		font-size: 3em;
+		margin-left:1.5em;
+	}
+
+	td > a.buttonin{
+		font-size: 1em;
+		min-height:3em;
+		margin-left:0.5em;
+		min-width:10em;
+	}
+	
+	button.allbuttons >img, a.allbuttons >img{
+	  transform: scale(2);
+	}
+	
+	button.allbuttons{
+		margin-left:1.5em;
+	}
+
+	.alert{
+		font-size:3em;
+		line-height:1em;
+	}
+	
+	#az5{
+		display:none;
+	}
+	
+	#kwd_search{
+		min-width:10em;
+		height: 2em;
+		font-size:3em;
+	}
+	
+	.modal-headertitle{
+		font-size:3em;
+		line-height:1em;
+		height: 1em;
+	}
+	
+	#loginForm button.btn{
+		width:40%;
+		font-size:3em;
+		line-height:1em;
+	}
+
+	#video1{
+		min-height: 30em;
+	}
+	
+	div.dataTables_paginate{
+		font-size:2em;
+	}
+	
+	#formLogIn > .capture{
+		width:95%;
+	}
+	
+	#formRegister > .capture{
+		width:90%;
+	}
+	
+	#formLogIn button.buttoninlog{
+		max-width:80% !important;
+		font-size:3em;
+		line-height:1em;
+	}
+
+	#formLogIn a.buttoninlog{
+		max-height:1em; !important;
+		max-width:73% !important;
+		font-size: 2.5em;
+		font-weight: bold;
+	}
+	
+	#formLogIn .labelog, #formRegister .labelog, .modal-body .labelog{
+		font-size: 2.5em;
+	}
+	
+	.infostore{
+		font-size: 2.5em;
+		color: blue;
+		line-height:1em;
+		padding-left:0.5em;
+	}
+	.contlogo > img{
+		max-height:5em;
+		width:20%;
+		margin-bottom:2.5em;
+	}
+	
+	.icono-ver-actividad.icono-tam-tabla{
+		width: 4em;
+		height: 4em;
+	}
+	
+	.icono-refrescar-fila.icono-tam-tabla{
+		width: 1.5em;
+		height: 1.5em;
+	}			
+	
+	.pers-btn.icono-qr.icono-tam-tabla{
+		width: 4em;
+		height: 4em;
+	}
+	
+	.contsearch{
+		width:90%;
+		display:block;
+	}
+	
+	.contsearch > input[type = text]{
+		min-width: 90%; 	font-size: 2.5em;
+	}	
+
+}

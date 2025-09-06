@@ -1,0 +1,65 @@
+<div ng-show="state.current.name === 'scheduledRoute.schedule.activities' || state.current.name === 'scheduledRoute.schedule.activities.routePoint'">
+    <ol class="breadcrumb">
+        <li class="active">Rutas</li>
+        <li class="active "><a ng-click="back()">Reportes de actividades</a></li>
+        <li class="active actualpg">Puntos de venta</li>
+    </ol>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="pull-right">
+                    <div class="btn-group  btn-group-sm">
+                        <!--<button tooltip="Regresar" class="btn btn-default" ng-click="back()"><span class="glyphicon glyphicon-chevron-left"></span></button>
+                        <button zd-filter custom-filter="customFilter" ng-click="openFilter()" is-open="filterOpen" apply-filter="appFilter(filter)" class="btn btn-default filtrar"><span class="pers-btn icono-filtrar tam-normal"></span></button-->
+
+                    </div>
+                </div>
+                <p id="topTitle"> 
+                    &nbsp;&nbsp;
+                </p>
+
+                <div loading-container="tableParams.settings().$loading">
+                    <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable">
+                    	<div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">
+                			<span class="ui-ngt-title">Unidad: {{currentData.data[1][0]["vname"]}} -  Volumen: {{currentData.data[1][0]["volume"]}} - Capacidad: {{currentData.data[1][0]["capacity"]}} Kg</span>
+            			</div>
+                        <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover table-condensed">
+                            <tbody>
+                                <tr ng-repeat="schedule in $data" ng-click="schedule.$selected = !schedule.$selected;
+                                        changeSelection(schedule)"
+                                    ng-class="{'ngactive': schedule.$selected}">
+                                    <td ng-if="(schedule.hasActivity == 1)" data-title="" class="col-md-1 text-center">
+                                        {{schedule.position}}
+                                    </td>
+                                    <td ng-if="(schedule.hasActivity == 1)" data-title="currentData.data[1][0]['routeName'] " class="col-md-4">
+                                        {{schedule.pointName}}
+                                    </td>
+                                    <td ng-if="(schedule.hasActivity == 1)" data-title="routeDate|date:'dd MM yyyy'" class="col-md-2 text-center">
+                                        {{getDateFromString(schedule.datePoint) | date:"hh:mm a"}}
+                                    </td>
+                                    <td ng-if="(schedule.hasActivity == 1)" data-title="'Vol disp'" class="col-md-2 text-center">
+                                        {{schedule.volPoint}} m<sup>3</sup>
+                                    </td>
+                                    <td ng-if="(schedule.hasActivity == 1)" data-title="'Cap disp'" class="col-md-2 text-center">
+                                        {{schedule.capPoint}} Kg
+                                    </td>
+                                    <td ng-if="(schedule.hasActivity == 1)" data-title="'Actividad'"  class="col-md-1 text-center">
+                                        <span ng-if="(schedule.hasActivity == 1)" class="pers-btn icono-actividad icono-tam-tabla"  ></span>
+                                        <span ng-if="(schedule.hasActivity == 0)" class="pers-btn icono-sin-accion icono-tam-tabla" ></span>
+                                    </td>
+                                    <td ng-if="(schedule.hasActivity == 1)" data-title="'Hora actividad'" class="col-md-1 text-center">
+                                        {{schedule.hactual}}
+                                    </td>
+                            	</tr>
+                            </tbody>
+                        </table>
+
+                    </div>        
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div ui-view="routePoint"></div>
+            </div>
+        </div>
+    </div>
+</div>

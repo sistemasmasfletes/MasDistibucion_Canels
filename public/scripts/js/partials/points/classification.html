@@ -1,0 +1,61 @@
+<div ng-show="state.current.name==='points.classification'">
+    <ol class="breadcrumb">
+        <li class="active">Catálogos</li>
+        <li class="active"><a ui-sref="points">Puntos de venta</a></li>
+        <li class="active actualpg">Clasificación</li>
+    </ol>
+<div class="toolbar">
+    <div class="pull-right">
+        <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group  btn-group-sm">
+                <!--<button tooltip="Regresar" class="btn btn-default" ng-click="back()"><span class="glyphicon glyphicon-chevron-left"></span></button>-->
+                <button class="btn btn-default sin-padding" ng-click="save()" ng-disabled="frmClasiffication.$invalid"><span class="pers-btn icono-guardar tam-normal"></span></button>                
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<br>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Clasificacion del punto de venta
+    </div> 
+    <div class="panel-body">
+        <div class="panel panel-default">                    
+            <div class="panel-body">
+                <form role="form" novalidate name="frmClasiffication">                    
+                    <div class="row">                       
+                        <div class="col-md-3">
+                            <div class="form-group" ng-class="getFormFieldCssClass(frmClasiffication.size)">
+                                <label for="size">Tamaño</label>
+                                <select id="size" name="size" class="form-control" required ng-model="classification.size"
+                                        ng-options="opt.id as opt.size for opt in getSize">
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <div class="form-group" ng-class="getFormFieldCssClass(frmClasiffication.activity)">
+                                <label for="activity">Actividad</label>
+                                <select id="activity" name="activity" class="form-control" required ng-model="classification.activity"
+                                        ng-options="opt.id as opt.activity for opt in getActivity">
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <div class="form-group" ng-class="getFormFieldCssClass(frmClasiffication.consumption)">
+                                <label for="consumption">Tipo de consumo</label>
+                                <select id="consumption" name="consumption" class="form-control" required ng-model="classification.consumption"
+                                        ng-options="opt.id as opt.consumption for opt in getConsumption">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>          
+    </div>
+</div>
+</div>

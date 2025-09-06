@@ -1,0 +1,4 @@
+[25-Apr-2025 01:28:59 UTC] PHP Fatal error:  Uncaught Error: Call to a member function generatetable() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Test/index.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Test/index.php on line 2

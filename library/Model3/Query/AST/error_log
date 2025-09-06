@@ -1,0 +1,2 @@
+[26-Apr-2025 07:48:02 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Query\AST\Functions\FunctionNode' not found in /home/masdistr/public_html/masdistribucion.com/library/Model3/Query/AST/MysqlDateFunction.php on line 6
+[29-Apr-2025 14:34:32 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Query\AST\Functions\FunctionNode' not found in /home/masdistr/public_html/masdistribucion.com/library/Model3/Query/AST/MysqlDateFunction.php on line 6

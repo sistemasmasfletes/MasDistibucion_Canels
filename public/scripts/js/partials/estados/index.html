@@ -1,0 +1,47 @@
+<div ng-show="state.current.name === 'estados'">    
+    <ol class="breadcrumb">
+        <li class="active">Catálogos</li>
+        <li class="active actualpg">Estados</li>
+    </ol>
+    <div class="container-fluid">
+        <div class="row">
+                <div class="pull-right">                         
+                    <div class="btn-group  btn-group-sm">         
+                        <button class="btn btn-default sin-padding" ng-click="add()"><span class="pers-btn icono-nuevo tam-normal"></span></button>
+                        <button  class="btn btn-default sin-padding" ng-click="grid.edit()"><span class="pers-btn icono-editar tam-normal"></span></button>
+                        <button  class="btn btn-default sin-padding" ng-click="grid.delete()"><span class="pers-btn icono-eliminar tam-normal"></span> </button>
+                        <button zd-filter custom-filter="customFilter" ng-click="openFilter()" is-open="filterOpen" apply-filter="appFilter(filter)" class="btn btn-default filtrar"><span class="pers-btn icono-filtrar tam-normal"></span></button>
+                        <button class="btn btn-default refrescar" ng-click="tableParams.reload()" ><span class="pers-btn icono-refrescar tam-normal"></span></button>
+                        <!--<button class="btn btn-default refrescar" ng-click="tableParams.reload()" tooltip="Recargar"><span class="your-icon icono-refrescar tam-normal"></span></button>-->
+                    </div>       
+                </div>
+                <p>&nbsp;&nbsp;</p>
+                <div loading-container="tableParams.settings().$loading">                
+                    <div class="ui-ngtwidget-content ui-ngtcorner-all  table-responsive ">
+                        <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">
+                            <span class="ui-ngt-title">Estados</span>
+                        </div>
+                        <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover table-striped ">
+                            <tbody>
+                                <tr ng-repeat="estado in $data" ng-click="estado.$selected = !estado.$selected;
+                                        changeSelection(estado)"
+                                    ng-class="{'ngactive': estado.$selected}">
+                                    <td data-title="'Estado'" sortable="'name'"  class="">
+                                        {{estado.name}}
+                                    </td>                      
+                                    <td data-title="'Abreviación'" sortable="'abbreviation'" class="">
+                                        {{estado.abbreviation}}
+                                    </td>    
+                                    <td data-title="'País'" sortable="'paisName'" class="">
+                                        {{estado.paisName}}
+                                    </td> 
+                                </tr>
+                            </tbody>
+                        </table>            
+                    </div>        
+                </div>
+        </div>
+    </div>
+</div>
+<div ui-view="edit"></div>
+<!--img  src="../images/Logo_1.png" alt="logo" class="pie"--> 

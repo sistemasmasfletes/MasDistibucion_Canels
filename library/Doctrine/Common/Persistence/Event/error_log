@@ -1,0 +1,5 @@
+[22-Apr-2025 00:40:17 UTC] PHP Fatal error:  Class 'Doctrine\Common\EventArgs' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Common/Persistence/Event/ManagerEventArgs.php on line 33
+[23-Apr-2025 22:59:24 UTC] PHP Fatal error:  Class 'Doctrine\Common\EventArgs' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Common/Persistence/Event/LifecycleEventArgs.php on line 34
+[24-Apr-2025 21:30:22 UTC] PHP Fatal error:  Class 'Doctrine\Common\Persistence\Event\LifecycleEventArgs' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Common/Persistence/Event/PreUpdateEventArgs.php on line 33
+[25-Apr-2025 21:31:20 UTC] PHP Fatal error:  Class 'Doctrine\Common\EventArgs' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Common/Persistence/Event/OnClearEventArgs.php on line 31
+[27-Apr-2025 01:27:26 UTC] PHP Fatal error:  Class 'Doctrine\Common\EventArgs' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/Common/Persistence/Event/LoadClassMetadataEventArgs.php on line 32

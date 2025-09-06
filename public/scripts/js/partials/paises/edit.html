@@ -1,0 +1,50 @@
+<div ng-show="state.current.name === 'paises.edit' || state.current.name === 'paises.add'">
+    <ol class="breadcrumb">
+        <li class="active">Catálogos</li>
+        <li class="active"><a ui-sref="paises">Países</a></li>
+        <li class="active actualpg" ng-show="state.current.name === 'paises.add'">Agregar País</li>
+        <li class="active actualpg" ng-show="state.current.name === 'paises.edit'">Editar País</li>
+    </ol>
+    <progressbar class="progress-striped active" value="100" type="info" ng-show="loading"></progressbar>
+    <div class="toolbar">
+        <div class="pull-right">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group  btn-group-sm">
+                    <!--<button class="btn btn-default" tooltip="Regresar" ng-click="back()"><span class="glyphicon glyphicon-chevron-left"></span></button>-->
+                    <button class="btn btn-default sin-padding" ng-click="save()" ng-disabled="frmPaises.$invalid"><span class="pers-btn icono-guardar tam-normal"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Insersion de Paises</div>
+
+        <div class="panel-body">
+            <form  role="form" novalidate name="frmPaises">
+                <div class="row">
+                    <div class="col-md-3">
+                        <input type="hidden" class="form-control" ng-model="paises.id">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmPaises.nombre)">
+                            <label for="name">Nombre</label>
+                            <input type="text" class="form-control" id="name" name="nombre" placeholder="Nombre del Pais" required ng-model="pais.nombre">
+                        </div>
+                    </div>
+                       <div class="col-md-3">
+                        <div class="checkbox">
+                            <label for="estado">
+                                <input type="checkbox" 
+                                       id="estado" 
+                                       name="estado" 
+                                       ng-model="pais.estado"
+                                       ng-checked="pais.estado == 'Activo'"
+                                       >Activar/Desactivar
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </form>        
+        </div>
+    </div>
+</div>

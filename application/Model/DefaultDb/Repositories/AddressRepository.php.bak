@@ -1,0 +1,225 @@
+<?php
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
+use com\masfletes\db\DBUtil;
+
+class DefaultDb_Repositories_AddressRepository extends EntityRepository
+{
+    //METODOS CRUD CATÁLOGO INFORMACION ADICIONAL, CORPOGENIUS COMENTA
+    const NOT_AUTHORIZED_ADDRESS_CODE = 0;
+    const ADDRESS_AUTHORIZED_CODE  = 1;
+    const ROL_ADMIN_CODE = 1;
+    
+    public function getAdditionalInformationListDQL($page,$rowsPerPage,$sortField,$sortDir, $sidx, $userId, $Pais, $Estado, $Ciudad, $Calle, $CP){
+        $em = $this->getEntityManager();
+        
+        if($page==null) $page=1;
+        if($rowsPerPage==null) $rowsPerPage=10;
+
+        $offset = ($page-1)*$rowsPerPage;
+        
+        $whereZones = "";
+
+        // Obtener todas las zonas del usuario
+        // Si no es administrador, se filtran las direcciones por zonas asignadas al usuario
+        if($_SESSION['__M3']['MasDistribucion']['Credentials']['role'] != self::ROL_ADMIN_CODE){
+             $dql = $em->createQueryBuilder();
+            $dql->select('z')
+                ->from('DefaultDb_Entities_UserZone', 'z')->where('z.user = '.$userId.'');
+            $query = $em->createQuery($dql);
+            $zonas = $query->getResult();
+            
+            $numZonas = count($zonas);
+            $counter = 0;
+            
+
+            $whereZones .= "AND (";
+            foreach ($zonas as $zona){
+                $counter += 1;
+                 $zoneId = $zona->getZone()->getId();
+                 
+                 if($counter == $numZonas){
+                     $whereZones .=  ' a.zone_id like '.$zoneId.' OR a.zone_id is null';
+                 } else {
+                     $whereZones .=  ' a.zone_id like '.$zoneId.' OR ';
+                 }
+                 
+            }
+            $whereZones .= ')';
+        }
+        
+        $sqlSelect="
+            a.*,
+            s.name as state,
+            c.name as city,
+            t.chrNombre as country
+        ";
+        
+        $whereUser = "";
+        $checkAuth = "";
+        $innerJoinController = " ";
+        if($_SESSION['__M3']['MasDistribucion']['Credentials']['role'] != self::ROL_ADMIN_CODE){
+            $whereUser = "WHERE a.user_id = $userId ";
+            $checkAuth = "  AND a.authorized = ".self::ADDRESS_AUTHORIZED_CODE." ";
+            
+        } else {
+            $sqlSelect="
+            a.*,
+            s.name as state,
+            c.name as city,
+            t.chrNombre as country,
+            concat(u.first_name , ' ' , u.last_name) as controller
+        ";
+            $innerJoinController = ' INNER JOIN users u ON a.user_id = u.id ';
+        }
+        
+        $query="
+            SELECT [FIELDS]
+                FROM address a
+                INNER JOIN states s ON a.state_id=s.id
+                INNER JOIN city c ON a.city_id=c.id
+                INNER JOIN tblpaises t ON a.country_id=t.id
+                $innerJoinController
+                WHERE (:Pais IS NULL OR t.chrNombre like :Pais)
+                    AND (:Estado IS NULL OR s.name like :Estado)
+                    AND (:Ciudad IS NULL OR c.name like :Ciudad)
+                    AND (:Calle IS NULL OR a.address like :Calle)
+                    AND (:CP IS NULL OR a.zipcode like :CP)
+                    $whereZones
+                    $checkAuth 
+                [ORDERBY] 
+            [LIMT]
+        ";
+        
+        $queryCount = str_replace('[FIELDS]', ' COUNT(*) totalRecords ', $query);
+        $queryCount = str_replace('[ORDERBY]', " ", $queryCount);
+        $queryCount = str_replace('[LIMT]', " ", $queryCount);
+        $querySelect = str_replace('[FIELDS]', $sqlSelect, $query);
+        $querySelect = str_replace('[ORDERBY]',($sortField && $sortDir) ? " ORDER BY ".$sortField." ".$sortDir : "", $querySelect);
+        $querySelect = str_replace('[LIMT]', " LIMIT ".$rowsPerPage.' OFFSET '.$offset, $querySelect);        
+        $querys = $querySelect."; ".$queryCount;
+   
+        $conn = $em->getConnection()->getWrappedConnection();
+        $stmt = $conn->prepare($querys);
+        
+    
+         $stmt->bindValue(':Pais', ($Pais==null) ? null : '%'.$Pais.'%');
+         $stmt->bindValue(':Estado', ($Estado==null) ? null : '%'.$Estado.'%');
+         $stmt->bindValue(':Ciudad', ($Ciudad==null) ? null : '%'.$Ciudad.'%');
+         $stmt->bindValue(':Calle', ($Calle==null) ? null : '%'.$Calle.'%');
+         $stmt->bindValue(':CP', ($CP==null) ? null : '%'.$CP.'%');
+
+        
+        $stmt->execute();
+ 
+        $result = DBUtil::getResultsetFromStatement($stmt, \PDO::FETCH_NAMED);
+        
+        return array('data'=>$result[0],'meta'=>array('totalRecords'=>$result[1][0]["totalRecords"]));
+    }
+    
+    public function getAddressByIdDQL($id){
+        $em = $this->getEntityManager();
+        
+        $sqlSelect=" a.* ";
+        
+        
+        $innerJoinController = " ";
+        if($_SESSION['__M3']['MasDistribucion']['Credentials']['role'] == self::ROL_ADMIN_CODE){
+
+            $sqlSelect="
+            a.*,
+            concat(u.first_name , ' ' , u.last_name) as controller
+        ";
+            $innerJoinController = ' INNER JOIN users u ON a.user_id = u.id ';
+        }
+        
+        
+        $query="
+            SELECT [FIELDS]
+            FROM address a
+            $innerJoinController
+            WHERE a.id=:id
+            
+        ";
+        
+        $queryCount = str_replace('[FIELDS]', ' COUNT(*) totalRecords ', $query);
+        $querySelect = str_replace('[FIELDS]', $sqlSelect, $query);
+        $querys = $querySelect."; ".$queryCount;
+        
+        $conn = $em->getConnection()->getWrappedConnection();
+        $stmt = $conn->prepare($querys);
+        
+        $stmt->bindValue(":id", $id);
+        
+        $stmt->execute();
+        $result = DBUtil::getResultsetFromStatement($stmt, \PDO::FETCH_NAMED);
+
+        return array('data'=>$result[0],'meta'=>array('totalRecords'=>$result[1][0]["totalRecords"]));
+    }
+    
+    public function addAddress($id,$state,$city,$country,$address,$neighborhood,$zipcode, $user, $authorized, $zoneId){
+        $em = $this->getEntityManager();
+
+        if($id == null){
+            $additionalAddress = new DefaultDb_Entities_Address();
+        } else {
+            $additionalAddress = $this->find($id);
+        }
+        
+        if($city != null){
+            $cityRepo = $em->find('DefaultDb_Entities_City', $city);
+            $additionalAddress->setCity($cityRepo);
+        }
+        
+        if($state != null){
+            $stateRepo = $em->find('DefaultDb_Entities_State', $state);
+            $additionalAddress->setState($stateRepo);
+        }
+        
+        if($country){
+            $countryRepo = $em->find('DefaultDb_Entities_Paises', $country);
+            $additionalAddress->setCountry($countryRepo);
+        }
+        
+        if($user){
+            $userRepo = $em->find('DefaultDb_Entities_User', $user);
+            $additionalAddress->setUser($userRepo);
+        }
+
+        
+        
+        $additionalAddress->setAddress($address);
+        
+        $additionalAddress->setNeighborhood($neighborhood);
+        $additionalAddress->setZipcode($zipcode);
+        $additionalAddress->setAuthorized($authorized);
+        $additionalAddress->setZoneId($zoneId);
+
+        $em->persist($additionalAddress);
+        $em->flush();
+        return;
+    }
+    
+    public function delete($id){
+        $em = $this->getEntityManager();
+        
+        if($id == null){
+            return;
+        } else {
+            $addres = $this->find($id);
+            $result = $em->remove($addres);
+ 
+            $em->flush();
+ 
+            return $result;
+        }
+    }
+    
+        
+    public function getPendingAddresses(){
+        $em = $this->getEntityManager();
+        $query = $em->createQuery('SELECT m FROM DefaultDb_Entities_Address m WHERE m.authorized = '.self::NOT_AUTHORIZED_ADDRESS_CODE.' AND m.user IS NOT NULL ');
+        return $query->getResult();
+    }
+
+}

@@ -1,0 +1,41 @@
+<div ng-show="state.current.name==='contracts'">
+    <ol class="breadcrumb"></ol>
+
+    <div class="panel-body">
+        <div class="panel panel-default">                    
+            <div class="panel-body">
+                <form role="form" novalidate name="frmPoint">
+                    <div class="row">
+                        <div class="col-md-3" style="width:90%">                               
+
+                            <div class="form-group">
+                                <label for="">CONDICIONES DE USO DEL PORTAL</label>
+                                <textarea ng-model="terms" style="width:100%; height:200px" ng-disabled="usrtype != 1"></textarea>
+                                <div ng-show="usrtype != 1" style="text-align:right; padding-right:2em">Acepto los términos y condiciones<input type="checkbox" ng-change="add()" data-ng-model="termsac" style="margin-left: 1em"/></div>
+                                <div ng-show="usrtype == 1" style="text-align:right; padding-right:2em"><button id="btnTerm" class="btn btn-default editar" ng-click="upTerm()"><span class="pers-btn icono-editar tam-normal"></span></button></div>
+                            </div>
+
+                            <div class="form-group" >
+                                <label for="">CONTRATO DE SERVICIO DE PAQUETER&Iacute;A</label>
+                                <textarea ng-model="service" style="width:100%; height:200px" ng-disabled="usrtype != 1"></textarea>
+                                <div ng-show="usrtype != 1" style="text-align:right; padding-right:2em">Acepto los términos y condiciones<input type="checkbox" ng-change="add()" data-ng-model="serviceac" style="margin-left: 1em"/></div>
+                         		<div ng-show="usrtype == 1" style="text-align:right; padding-right:2em"><button id="btnServ" class="btn btn-default editar"  ng-click="upServ()"><span class="pers-btn icono-editar tam-normal"></span></button></div>
+                           	</div>
+                            
+                            <div class="form-group" >
+                                <label for="">AVISO DE PRIVACIDAD</label>
+                                <textarea ng-model="privacy" style="width:100%; height:200px" ng-disabled="usrtype != 1"></textarea>
+                                <div ng-show="usrtype != 1" style="text-align:right; padding-right:2em">Acepto los términos y condiciones<input type="checkbox" ng-change="add()" data-ng-model="privacyac" style="margin-left: 1em"/></div>
+                                <div ng-show="usrtype == 1" style="text-align:right; padding-right:2em"><button id="btnPriv" class="btn btn-default editar"  ng-click="upPriv()"><span class="pers-btn icono-editar tam-normal"></span></button></div>
+                            </div>
+
+                 		</div>
+                 		                 		
+                    </div>
+                </form>
+            </div>
+        </div>          
+    </div>
+</div>
+<div ui-view="edit"></div>
+<!--img  src="../images/Logo_1.png" alt="logo" class="pie"--> 

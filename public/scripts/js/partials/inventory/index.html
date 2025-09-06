@@ -1,0 +1,47 @@
+<div ng-show="state.current.name==='inventory'">
+    <ol class="breadcrumb">
+        <li class="active">Sistema</li>
+        <li class="active actualpg">Inventario</li>
+    </ol>
+    <div class="pull-right">
+        <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group btn-group-lg">
+                <button class="btn btn-default sin-padding" ng-click="tableParams.reload()"><span class="pers-btn icono-refrescar tam-normal"></span></button>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="container-fluid">
+        <div class="row">
+            <div  align="center" class="col-md-6">
+                <p>&nbsp;</p>
+                <div loading-container="tableParams.settings().$loading">
+                    <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable table-responsive">
+                        <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">
+                            <span class="ui-ngt-title">Inventario</span>
+                        </div>
+                        <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover">
+                            <tbody>
+                                <tr ng-repeat="inventory in $data" ng-click="inventory.$selected = !inventory.$selected; changeSelection(inventory)"
+                                    ng-class="{'ngactive': schedule.$selected}">
+                                    <td data-title="'OC'" class="text-center">
+                                        {{inventory.OC}}
+                                    </td>
+                                    <td data-title="'Paquete'">
+                                        {{inventory.Paquete}}
+                                    </td>
+                                    <td data-title="'Estado'" class="text-center">
+                                        <span tooltip="Aceptado" ng-if="(inventory.estado==1)" class="glyphicon glyphicon-ok-sign" style="color:#488EF0;font-size:1.1em"></span>
+                                    </td>                    
+                                </tr>
+                            </tbody>
+                        </table>            
+                    </div>        
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div ui-view="edit"></div>
+<!--img  src="../images/Logo_1.png" alt="logo" class="pie"--> 

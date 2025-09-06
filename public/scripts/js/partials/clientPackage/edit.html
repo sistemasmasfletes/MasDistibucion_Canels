@@ -1,0 +1,120 @@
+<ol class="breadcrumb">
+        <li class="active">Panel</li>
+        <li class="active"><a ui-sref="clientPackage">Paquetes</a></li>
+        <li class="active actualpg" ng-show="state.current.name === 'clientPackage.add'">Agregar Paquete</li>
+        <li class="active actualpg" ng-show="state.current.name === 'clientPackage.edit'">Editar Paquete</li>
+    </ol><progressbar class="progress-striped active" value="100" type="info" ng-show="loading"></progressbar>  
+<div class="toolbar">
+    <div class="pull-right">
+        <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group  btn-group-sm">
+                <!--<button tooltip="Regresar" class="btn btn-default" ng-click="back()"><span class="glyphicon glyphicon-chevron-left"></span></button>-->
+                <button  class="btn btn-default sin-padding" ng-click="save()" ng-disabled="sc.frmClientPackage.$invalid"><span class="pers-btn icono-guardar tam-normal"></span></button>                
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" style="padding-top:5px; padding-bottom:5px">
+        Editar Paquete
+    </div> 
+    <div class="panel-body">
+        <div class="panel panel-default">                    
+            <div class="panel-body">                
+                <div class="row">
+                    <div class="col-md-6">
+                        <form role="form" novalidate name="sc.frmClientPackage">
+                            <div class="row">
+                                <div class="col-md-6">                               
+                                    <input type="hidden" class="form-control" ng-model="package.id">
+                                    <div class="form-group" ng-class="getFormFieldCssClass(sc.frmClientPackage.name)">
+                                        <label for="name">Nombre</label>
+                                        <input type="text" class="form-control" id="name" name="name" placeholder="Nombre del paquete" required  ng-model="package.name">
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group" ng-class="getFormFieldCssClass(sc.frmClientPackage.width)">
+                                        <label for="width">Ancho (cm)</label>
+                                        <input type="text" class="form-control" id="width" name="width" placeholder="Ancho en cm" required ng-model="package.width" ng-pattern="/^\s*-?(\d+(\.\d{1})?|\.\d{1})\s*$/">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group" ng-class="getFormFieldCssClass(sc.frmClientPackage.height)">
+                                        <label for="height">Alto (cm)</label>
+                                        <input type="text" class="form-control" id="height" name="height" placeholder="Alto en cm" required ng-model="package.height"  ng-pattern="/^\s*-?(\d+(\.\d{1})?|\.\d{1})\s*$/">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                     <div class="form-group" ng-class="getFormFieldCssClass(sc.frmClientPackage.depth)">
+                                        <label for="depth">Largo (cm)</label>
+                                        <input type="text" class="form-control" id="depth" name="depth" placeholder="Largo en cm" required ng-model="package.depth"  ng-pattern="/^\s*-?(\d+(\.\d{1})?|\.\d{1})\s*$/">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group" ng-class="getFormFieldCssClass(sc.frmClientPackage.weight)">
+                                        <label for="weight">Peso</label>
+                                        <input type="text" class="form-control" id="weight" name="weight" placeholder="Peso" ng-model="package.weight" ng-pattern="/^\s*-?(\d+(\.\d{1,2})?|\.\d{1,2})\s*$/">
+                                    </div>
+                                </div>
+                                <!-- >div class="col-md-6">
+                                    <div class="form-group" ng-class="getFormFieldCssClass(sc.frmClientPackage.price)">
+                                        <label for="price">Precio de venta</label>
+                                        <input type="text" class="form-control" id="price" name="price" placeholder="Precio" ng-model="package.price" ng-pattern="/^\s*-?(\d+(\.\d{1,2})?|\.\d{1,2})\s*$/">
+                                    </div>
+                                </div-->
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group" ng-class="getFormFieldCssClass(sc.frmClientPackage.description)">
+                                        <label for="description">Descripción</label>
+                                        <textarea class="form-control" id="description" name="description" placeholder="Descripción" ng-model="package.description" rows="4" cols="15"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </form>
+                    </div>
+                    <!--
+                    <div class="col-md-6">
+                        <div loading-container="tableParams.settings().$loading">                
+                            <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable table-responsive">
+                                <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">
+                                    <span class="ui-ngt-title">Productos en este paquete</span>
+                                </div>
+                                <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover table-striped ">
+                                    <tbody>
+                                        <tr ng-repeat="product in $data" ng-click="product.$selected = !product.$selected; changeSelection(product)"
+                                            ng-class="{'ngactive': product.$selected}">
+                                            <td data-title="'N°'" sortable="'id'"  class="col-md-2">
+                                                {{product.id}}
+                                            </td>
+                                            <td data-title="'Cantidad'">
+                                                {{product.quantity}}
+                                            </td>
+                                            <td data-title="'Producto'">
+                                                {{product.product}}
+                                            </td>
+                                            <td data-title="'Embalaje por defecto'">
+                                                {{product.default_package}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>            
+                            </div>        
+                        </div>
+                    </div>
+                    -->
+                </div>                
+            </div>
+        </div>          
+    </div>
+</div> 

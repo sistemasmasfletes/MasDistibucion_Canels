@@ -1,0 +1,34 @@
+<?php use Doctrine\ORM\Mapping\Driver\DatabaseDriver;
+/* @var $view Model3_View */?> 
+<?php 
+echo '<option value="0">Seleccione...</option>';
+
+$array_dias['Sunday'] = "Domingo";
+$array_dias['Monday'] = "Lunes";
+$array_dias['Tuesday'] = "Martes";
+$array_dias['Wednesday'] = "Miercoles";
+$array_dias['Thursday'] = "Jueves";
+$array_dias['Friday'] = "Viernes";
+$array_dias['Saturday'] = "Sabado";
+
+foreach ($view->schedules as $schedule) 
+{
+	switch ((int)$schedule['route_id']){
+		case 1:
+				$bc="000080";
+			break;
+		case 12:
+				$bc="006400";
+			break;
+		case 13:
+				$bc="00FFFF";
+			break;
+				
+			default:
+				$bc="001146";
+	}
+	
+	$day = $array_dias[date('l', strtotime($schedule['start_date']))];
+	
+    echo '<option style="color: #fff; background-color: #'.$bc.';" value="' . $schedule['id'] . '">' . $schedule['start_date'] . ' ' . $schedule['name'] . ' ' . $day. '</option>';
+}

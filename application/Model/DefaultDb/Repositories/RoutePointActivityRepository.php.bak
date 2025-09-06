@@ -1,0 +1,263 @@
+<?php
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
+use com\masfletes\db\DBUtil;
+
+class DefaultDb_Repositories_RoutePointActivityRepository extends EntityRepository
+{
+    public function createRoutePointActivites($sequentialActivities){
+
+        $em = $this->getEntityManager();
+       
+        $dql = "SELECT partial atype.{id} FROM  DefaultDb_Entities_ActivityType atype";
+        $query=$em->createQuery($dql);
+        $activityTypes = $query->getResult();
+
+        $dql = "SELECT partial ttype.{id} FROM  DefaultDb_Entities_TransactionType ttype WHERE ttype=1";
+        $query=$em->createQuery($dql);
+        $transactionTypes = $query->getOneOrNullResult();
+
+        $arrIdRoutePoints = array();
+        foreach ($sequentialActivities as $activity){
+            $arrIdRoutePoints[] = $activity["routePointId"]; 
+        }
+
+        $dql = "SELECT partial rp.{id} FROM  DefaultDb_Entities_RoutePoint rp WHERE rp IN(:routePointsId)";
+        $query=$em->createQuery($dql);
+        $query->setParameter('routePointsId',$arrIdRoutePoints);
+        $routePoints = $query->getResult();
+
+        $transaction = null;
+        foreach ($sequentialActivities as $index=>$activity) {
+            $dql = "SELECT sr FROM DefaultDb_Entities_ScheduledRoute sr WHERE DATE(sr.scheduledDate) = DATE(:scheduledDate) and sr.route = :route ";
+            $query=$em->createQuery($dql);
+            $query->setParameter('scheduledDate',$activity["shippingDate"]);
+            $query->setParameter('route', $activity["routeId"]);
+            $scheduledRoute = $query->getOneOrNullResult();
+            
+            $rpActivity = new DefaultDb_Entities_RoutePointActivity();
+
+            if($transaction == null){
+                $transaction = new DefaultDb_Entities_Transactions();
+                $transaction->setTransactionId($activity["orderId"]);
+                $transaction->setTransactionType($transactionTypes);
+                $transaction->setStatus(1);
+                $em->persist($transaction);
+            }
+            
+            $activityType = null;
+            foreach ($activityTypes as $at) {
+                if($at->getId() == $activity["activityType"])
+                    $activityType = $at;
+            } 
+            
+            $currRutePoint = null;
+            foreach ($routePoints as $rp) {
+                if($rp->getId()==$activity["routePointId"])
+                    $currRutePoint = $rp;
+            }
+
+            $rpActivity->setRoutePoint($currRutePoint);
+            $rpActivity->setTransaction($transaction);
+            $rpActivity->setDate($activity["shippingDate"]);
+            $rpActivity->setActivityType($activityType);
+            $rpActivity->setScheduledRoute($scheduledRoute);
+
+            $em->persist($rpActivity);
+        }
+    }
+
+    //De acuerdo a una Orden de Compra dada, obtiene la lista de actividades secuenciales y el costo para cada actividad (Punto de Venta).
+    // Con Puntos de Venta repetidos, divide el costo.
+    // Este método devuelve las tarifas por puntos de venta y por rutas
+    /* Devuelve:
+
+    - element_id    El id del elemento (Id de la entidad, puede ser Ruta o Punto de Venta)
+    - element_type  Tipo de elemento (1.Ruta, 2.Punto de venta)
+    - pv            El id del punto de venta único por ruta (Route Point)
+    - activityType  Tipo de actividad 1. Recolecta, 2. Entrega
+    - ptype         Tipo de punto de venta. 1 PV, 2. Centro de Intercambio
+    - shippingDate  Fecha programada de la actividad
+    - client_rate   Tarifa para el PV o Ruta
+    - elementName   Nombre del PV o Ruta
+    */
+    public function getRoutePointRatesByOrder($orderId){
+        $em = $this->getEntityManager();
+
+        $query = "
+            SET @num := 0, @groupElement := '', @groupElementType:='';
+            SELECT elements.element_id, elements.element_type, elements.pv pv,elements.activityType,
+            p.type ptype,elements.shippingDate,rates.client_rate, rates.factorCount,
+            CASE elements.element_type WHEN 1 THEN r.name ELSE p.name END elementName
+            FROM(
+                SELECT p.id element_id,2 element_type,rp.id pv,sa.type activityType,sa.shipping_date shippingDate,r.id routeId  
+                FROM sequential_activities sa 
+                INNER JOIN route_points rp on sa.routePoint_id=rp.id
+                INNER JOIN points p on rp.point_id = p.id
+                INNER JOIN routes r on rp.route_id=r.id
+                WHERE sa.order_id=:orderId
+                UNION
+                SELECT r.id element_id,1 element_type,rp.id pv,sa.type activityType,sa.shipping_date shippingDate,r.id routeId  
+                FROM sequential_activities sa 
+                INNER JOIN route_points rp on sa.routePoint_id=rp.id    
+                INNER JOIN routes r on rp.route_id=r.id
+                WHERE sa.order_id=:orderId
+            )elements
+            LEFT JOIN
+            (   
+                select rpactivities.id element_id,rpactivities.element_type,lastRates.client_rate/IFNULL(rpactivities.cant,1) client_rate,rpactivities.cant factorCount FROM (
+                    SELECT pr.id,pr.element_id, pr.element_type,pr.date,pr.client_rate,pr.provider_fee,
+                    @num := if(@groupElement = element_id AND @groupElementType = element_type, @num + 1, 1) row_number,
+                    @groupElement := element_id gpName,
+                    @groupElementType := element_type gpname2
+                    FROM package_rate pr 
+                    WHERE pr.element_type in (1,2)
+                    ORDER BY pr.element_id,pr.element_type,pr.date DESC
+                )lastRates  
+                LEFT JOIN
+                (
+                SELECT p.id, 2 element_type, count(p.id) cant
+                FROM sequential_activities sa 
+                INNER JOIN route_points rp on sa.routePoint_id=rp.id
+                INNER JOIN points p on rp.point_id = p.id
+                WHERE sa.order_id=:orderId
+                GROUP BY p.id
+                UNION
+                SELECT r.id, 1 element_type, count(r.id) cant
+                FROM sequential_activities sa 
+                INNER JOIN route_points rp on sa.routePoint_id=rp.id
+                INNER JOIN routes r on rp.route_id = r.id
+                WHERE sa.order_id=:orderId
+                GROUP BY r.id
+                ) rpactivities
+                ON lastRates.element_id = rpactivities.id and lastRates.element_type=rpactivities.element_type
+                WHERE lastRates.row_number=1    
+            )rates            
+            ON elements.element_id=rates.element_id AND elements.element_type = rates.element_type
+            LEFT JOIN points p ON elements.element_id=p.id and elements.element_type=2
+            LEFT JOIN routes r ON elements.routeId=r.id and elements.element_type=1
+            ORDER BY elements.element_type,elements.shippingDate
+        ";
+
+        $conn = $em->getConnection()->getWrappedConnection();
+        $stmt = $conn->prepare($query);
+        $stmt->bindValue("orderId",$orderId);
+
+        $stmt->execute();
+        $result = DBUtil::getResultsetFromStatement($stmt, \PDO::FETCH_NAMED);
+        $rateByRoutePoint = $result[0];
+
+        return $rateByRoutePoint;
+    }
+
+    //De acuerdo a una Orden de Compra dada, obtiene el resumen de costos por todas las actividades(Punto de Venta).
+    public function getSumRatesByRoutePoint($orderId){
+        $em = $this->getEntityManager();
+
+        $query = "
+            SET @num := 0, @groupElement := '', @groupElementType:='';
+            SELECT rpactivities.element_id,rpactivities.element_type,rates.client_rate FROM(
+                SELECT DISTINCT r.id element_id,1 element_type
+                FROM sequential_activities sa 
+                INNER JOIN route_points rp on sa.routePoint_id=rp.id    
+                INNER JOIN routes r on rp.route_id=r.id
+                WHERE sa.order_id=:orderId
+                UNION
+                SELECT DISTINCT p.id element_id,2 element_type
+                FROM sequential_activities sa 
+                INNER JOIN route_points rp on sa.routePoint_id=rp.id
+                INNER JOIN points p on rp.point_id = p.id
+                INNER JOIN routes r on rp.route_id=r.id
+                WHERE sa.order_id=:orderId
+            ) rpactivities
+            LEFT JOIN
+            (   
+                select lastRates.* FROM (
+                    SELECT pr.id,pr.element_id, pr.element_type,pr.client_rate,pr.provider_fee,
+                    @num := if(@groupElement = element_id AND @groupElementType = element_type, @num + 1, 1) row_number,
+                    @groupElement := element_id gpName,
+                    @groupElementType := element_type gpname2
+                    FROM package_rate pr 
+                    WHERE pr.element_type in (1,2)
+                    ORDER BY pr.element_id,pr.element_type,pr.date DESC
+                )lastRates  WHERE row_number=1  
+                )rates
+                ON rpactivities.element_id=rates.element_id AND rpactivities.element_type = rates.element_type   
+            ORDER BY rpactivities.element_type
+        ";
+
+        $conn = $em->getConnection()->getWrappedConnection();
+        $stmt = $conn->prepare($query);
+        $stmt->bindValue("orderId",$orderId);
+
+        $stmt->execute();
+        $result = DBUtil::getResultsetFromStatement($stmt, \PDO::FETCH_NAMED);
+        $rateByRoutePoint = $result[0];
+
+        $sumTotalRate = 0;
+        $totalRates = 0;
+        
+        $arrRatesCaptured = array_filter($rateByRoutePoint, function($el){
+            return floatval($el['client_rate'])>0;            
+        });
+        
+        foreach ($arrRatesCaptured as $key => $item) {
+           $sumTotalRate += floatval($item['client_rate']);
+        }
+
+        $response = array(
+                    "hasFullRatesCaptured"=>count($rateByRoutePoint)==count($arrRatesCaptured),
+                    "totalAmount"=>$sumTotalRate,
+                    "totalRoutePoint"=>count($arrRatesCaptured)
+                    );
+
+        return $response;
+    }
+
+// ----------------------------- CORPOGENIUS COMENTA ------------------------------------
+    //FUNCIÓN QUE ALMACENA LA HORA EN EN QUE SE REALIZO LA LECTURA DE CODIGO DE BARRAS
+    //AL LLEGAR AL PUNTO MARCADO POR LA RUTA.
+    public function saveCurrentHourPoint ($id, $HoraActual){
+        $em = $this->getEntityManager();
+        
+        $currentHour = $this->find($id);
+        
+        $currentHour->setHoraActual($HoraActual);
+        
+        $em->persist($currentHour);
+        $em->flush();
+        return;
+    }
+
+    //FUNCIÓN SALVAR TRANFERENCIA MODULO ALMACENISTA
+    public function saveWarehousemanTransfer($id,$userDelivery,$userReceiving,$status,$userAbsence,$statusReason,$entityFrom,$entityTo){
+        $em = $this->getEntityManager();
+        
+        if($id==null){
+            $transfer = new DefaultDb_Entities_RoutePointActivity();
+        }else{
+            $transfer = $this->find($id);
+        }
+        if($userDelivery == null){
+        } else {
+            $uDelivery=$em->find("DefaultDb_Entities_User", $userDelivery);
+            $transfer->setUserDelivery($uDelivery);
+        }
+        if($userReceiving == null){
+        } else {
+            $uReceiving=$em->find("DefaultDb_Entities_User", $userReceiving);
+            $transfer->setUserReceiving($uReceiving);
+        }
+        
+        $transfer->setStatus($status);
+        $transfer->setUserAbsence($userAbsence);
+        $transfer->setStatusReason($statusReason);
+        $transfer->setEntityFrom($entityFrom);
+        $transfer->setEntityTo($entityTo);
+        
+        $em->persist($transfer);
+        $em->flush();
+        return;
+    }
+// ----------------------------- CORPOGENIUS COMENTA ------------------------------------
+}

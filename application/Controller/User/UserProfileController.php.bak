@@ -1,0 +1,151 @@
+<?php
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ * Description of userProfileController
+ *
+ * @author usuario
+ */
+class User_UserProfileController extends Model3_Controller
+{
+
+    public function init()
+    {
+        if (!Model3_Auth::isAuth())
+        {
+            $this->redirect('Index/index');
+        }
+        
+        $ACTIVO = 1;
+        
+        $credentials = Model3_Auth::getCredentials();
+        $dbs = Model3_Registry::getInstance()->get('databases');
+        $em = $dbs['DefaultDb'];
+        /* @var $em Doctrine\ORM\EntityManager */
+
+
+        $user = $em->find('DefaultDb_Entities_User', $credentials['id']);
+        $countries = $em->getRepository('DefaultDb_Entities_Paises')->findBy(array('estado' => $ACTIVO));
+        $this->view->user = $user;
+        $this->view->countries = $countries;
+        $states = null;
+        $cities = null;
+        if($user->getCountry()){
+    		$states = $em->getRepository('DefaultDb_Entities_State')->findBy(array('country' => $user->getCountry()->getId(), 'estatus' => $ACTIVO));
+        }
+        $this->view->states = $states;
+        
+        if($user->getState()){
+            $cities = $em->getRepository('DefaultDb_Entities_City')->findBy(array('state' => $user->getState()->getId(), 'estatus' => $ACTIVO));
+        }
+        $this->view->cities = $cities;
+    }
+
+    public function indexAction()
+    {
+        $this->view->getJsManager()->addJs('jquery/jquery.validate.js');
+        $this->view->getJsManager()->addJs('application/User/UserProfile/validateProfile.js');
+        $this->view->getJsManager()->addJsVar('urlGetStates', '\'' . $this->view->url(array('module' => '', 'controller' => 'OperationController_Estados', 'action' => 'getEstadosByCountryId')) . '\'');
+        $this->view->getJsManager()->addJsVar('urlGetCities', '\'' . $this->view->url(array('module' => '', 'controller' => 'OperationController_Ciudades', 'action' => 'getCitiesByStateId')) . '\'');
+        
+        $this->view->error = false;
+        $credentials = Model3_Auth::getCredentials();
+        $dbs = Model3_Registry::getInstance()->get('databases');
+        $em = $dbs['DefaultDb'];
+        
+        if ($this->getRequest()->isPost())
+        {
+            $post = $this->getRequest()->getPost();
+            //$state = $em->find('DefaultDb_Entities_State', $post['state']);
+            //$country = $em->find('DefaultDb_Entities_Paises', $post['country']);
+            ///$city = $em->find('DefaultDb_Entities_City', $post['city']);
+            $user = $em->find('DefaultDb_Entities_User', $credentials['id']);
+            
+            $user->setFirstName($post['firstName']);
+            $user->setLastName($post['lastName']);
+            $user->setTitle($post['title']);
+            //$user->setCommercialName($post['commercialName']);
+            //$user->setDayInvoice($post['dateInvoice']);
+            $user->setCellPhone($post['cellPhone']);
+            $user->setLocalNumber($post['localNumber']);
+            //$user->setState($state);
+            //$user->setCountry($country);
+            //$user->setCity($city);
+            $em->persist($user);
+            $em->flush();
+            $this->view->resp = true;
+        }
+    }
+
+    public function passwordAction()
+    {
+        $this->view->error = false;
+        $credentials = Model3_Auth::getCredentials();
+        $dbs = Model3_Registry::getInstance()->get('databases');
+        $em = $dbs['DefaultDb'];
+        if ($this->getRequest()->isPost())
+        {
+            $user = $em->find('DefaultDb_Entities_User', $credentials['id']);
+            $post = $this->getRequest()->getPost();
+            if (md5($post['passOld']) == $user->getPassword())
+            {
+                if ($post['passNew'] == $post['passRepeat'])
+                {
+                    $user->setPassword(md5($post['passNew']));
+                    $em->persist($user);
+                    $em->flush();
+                    $this->view->resp = true;
+                }
+                else
+                    $this->view->error = "La confirmacion es incorrecta";
+            }
+            else
+                $this->view->error = "La contrase&ntilde;a es incorrecta";
+        }
+    }
+    
+    public function fiscaldatAction()
+    {
+    	$this->view->getJsManager()->addJs('jquery/jquery.validate.js');
+    	$this->view->getJsManager()->addJs('application/User/UserProfile/validateProfile.js');
+    	$this->view->getJsManager()->addJsVar('urlGetStates', '\'' . $this->view->url(array('module' => '', 'controller' => 'OperationController_Estados', 'action' => 'getEstadosByCountryId')) . '\'');
+    	$this->view->getJsManager()->addJsVar('urlGetCities', '\'' . $this->view->url(array('module' => '', 'controller' => 'OperationController_Ciudades', 'action' => 'getCitiesByStateId')) . '\'');
+    	
+    	$this->view->error = false;
+    	$credentials = Model3_Auth::getCredentials();
+    	$dbs = Model3_Registry::getInstance()->get('databases');
+    	$em = $dbs['DefaultDb'];
+        if ($this->getRequest()->isPost())
+        {
+            $post = $this->getRequest()->getPost();
+            $state = $em->find('DefaultDb_Entities_State', $post['state']);
+            $country = $em->find('DefaultDb_Entities_Paises', $post['country']);
+            $city = $em->find('DefaultDb_Entities_City', $post['city']);
+            $user = $em->find('DefaultDb_Entities_User', $credentials['id']);
+            
+            $user->setCommercialName($post['commercialName']);
+            //$user->setDayInvoice($post['dateInvoice']);
+            $user->setState($state);
+            $user->setCountry($country);
+            $user->setCity($city);
+            $user->setRfc($post['rfc']);
+            $user->setStreet($post['street']);
+            $user->setSuburb($post['suburb']);
+            $user->setNumber($post['number']);
+            $user->setNumint($post['numberi']);
+            $user->setZip($post['zip']);
+            $user->setVisible((isset($post['visible']))?$post['visible']:"0");
+            
+            $em->persist($user);
+            $em->flush();
+            $this->view->resp = true;
+        }
+ 	}
+    
+}
+
+?>

@@ -1,0 +1,123 @@
+<div ng-show="state.current.name === 'warehouseman.form'">
+    <ol class="breadcrumb">
+        <li class="active">Sistema</li>
+        <li class="active "> <a ui-sref="warehouseman">Actividades</a></li>
+        <li class="active "> <a ng-click="regresar()">Actividad</a></li>
+        <li class="active actualpg">Transferencia</li>
+    </ol>
+    <progressbar class="progress-striped active" value="100" type="info" ng-show="loading"></progressbar>
+    <h4>Realizar Transferencia</h4>
+
+    <br>
+    <div class="panel panel-default">
+        <div class="panel-heading">Transferencia</div>
+        <div class="panel-body">
+            <form  role="form" novalidate name="frmWarehouse" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmWarehouse.userDelivery)">
+                            <input type="hidden" disabled class="form-control" ng-model="warehouse.id">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="userDelivery">Usuario que entrega</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <select id="userDelivery" name="userDelivery" class="form-control" required ng-model="warehouse.userDelivery"
+                                            ng-options="opt.id as opt.firstName for opt in getUserDelivery">
+                                        <option value="">Seleccionar usuario</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmWarehouse.userReceiving)">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="userReceiving">Usuario que recibe</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <select id="userReceiving" name="userReceiving" class="form-control" required ng-model="warehouse.userReceiving"
+                                            ng-options="opt.id as opt.firstName for opt in getUserDelivery">
+                                        <option value="">Seleccionar usuario</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmWarehouse.status)">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="status">Estado de la transferencia</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <select id="status" name="status" class="form-control" required ng-model="warehouse.status"
+                                            ng-options="opt.id as opt.status for opt in transferType">
+                                        <option value="">Seleccionar estado</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmWarehouse.userAbsence)">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="userAbsence">Ausencia de usuario</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="userAbsence" name="userAbsence" placeholder="ausencia de usuario" ng-disabled="warehouse.userDelivery != null && warehouse.userReceiving != null" ng-model="warehouse.userAbsence"> 
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmWarehouse.statusReason)">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="statusReason">Razón del estado</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <textarea class="form-control" id="statusReason" name="statusReason" placeholder="Indicar razón de transferencia fallida" ng-disabled="warehouse.status != 2" ng-model="warehouse.statusReason" rows="5" cols="33" style="resize: none;"></textarea>                                 </div>
+                            </div>
+
+                            <!--<input type="text" class="form-control" id="statusReason" name="statusReason" placeholder="Razón de estado" ng-disabled="warehouse.status!=2" ng-model="warehouse.statusReason">-->
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmWarehouse.entityFrom)">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label  for="entityFrom">Origen de la tranferencia</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="entityFrom" name="entityFrom" placeholder="Origen de la tranferencia" required ng-model="warehouse.entityFrom">
+                                </div>
+                            </div>
+
+                            <div class="form-group" ng-class="getFormFieldCssClass(frmWarehouse.entityTo)">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="entityTo">Destrino de la transferencia</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" id="entityTo" name="entityTo" placeholder="Destino de la tranferencia" required ng-model="warehouse.entityTo">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>        
+        </div>
+    </div>
+    <div class="toolbar">
+        <div class="pull-left">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group">
+                    <!--<button class="btn btn-default" tooltip="Regresar" ng-click="regresar()"><span class="glyphicon glyphicon-chevron-left"></span></button>-->                    
+                    <button class="btn btn-default sin-padding"   ng-click="save()" ng-disabled="frmWarehouse.$invalid"><span class="pers-btn icono-guardar tam-normal "></span></button>
+                </div>
+            </div>
+        </div>
+    </div>

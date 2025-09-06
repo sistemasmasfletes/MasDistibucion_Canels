@@ -1,0 +1,5 @@
+[26-Apr-2025 04:01:29 UTC] PHP Fatal error:  Interface 'Doctrine\DBAL\Driver\Connection' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Connection.php on line 47
+[26-Apr-2025 13:21:55 UTC] PHP Fatal error:  Class 'Doctrine\DBAL\DBALException' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/ConnectionException.php on line 33
+[26-Apr-2025 17:13:31 UTC] PHP Fatal error:  Interface 'Doctrine\DBAL\Driver\Statement' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Statement.php on line 35
+[29-Apr-2025 10:31:29 UTC] PHP Fatal error:  Interface 'Doctrine\DBAL\Driver\Connection' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Connection.php on line 47
+[29-Apr-2025 19:56:30 UTC] PHP Fatal error:  Class 'Doctrine\DBAL\DBALException' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/ConnectionException.php on line 33

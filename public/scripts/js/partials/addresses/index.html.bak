@@ -1,0 +1,59 @@
+<div ng-show="state.current.name==='addresses'">
+    <ol class="breadcrumb">
+        <li class="active">Catálogos</li>
+        <li class="active actualpg">Direcciones</li>
+    </ol>
+    <div class="toolbar">
+                Buscar: <input type="text" ng-placeholder="Buscar..." data-ng-change="search(data)" data-ng-model="data" />
+        <div class="pull-right">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group  btn-group-sm">
+                    <button tooltip="Nuevo" class="btn btn-default sin-padding" ng-click="add()"><span class="pers-btn icono-agregar-fila icono-tam-tabla"></span></button>
+                    <button tooltip="Editar" class="btn btn-default sin-padding" ng-click="grid.edit()"><span class="pers-btn icono-editar-fila icono-tam-tabla"></span></button>
+                    <button tooltip="Eliminar" class="btn btn-default sin-padding" ng-click="grid.delete()"><span class="pers-btn icono-eliminar-fila icono-tam-tabla"></span> </button>
+                    <button class="btn btn-default sin-padding" ng-click="tableParams.reload()" tooltip="Recargar"><span class="pers-btn icono-refrescar-fila icono-tam-tabla"></span></button>
+                    <button zd-filter custom-filter="customFilter" ng-click="openFilter()" is-open="filterOpen" apply-filter="appFilter(filter)" class="btn btn-default sin-padding"><span class="pers-btn icono-filtrar-fila icono-tam-tabla"></span></button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div loading-container="tableParams.settings().$loading">                
+        <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable table-responsive">
+            <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">
+                <span class="ui-ngt-title">Calles autorizadas</span>
+            </div>
+            <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover table-striped ">
+                <tbody>
+                    <tr ng-repeat="schedule in $data" ng-click="schedule.$selected = !schedule.$selected; changeSelection(schedule)"
+                        ng-class="{'ngactive': schedule.$selected}">
+                        <td data-title="'Pais'" class="text-center" sortable="'country'">
+                            {{schedule.country}}
+                        </td>
+                        <td data-title="'Estado'" sortable="'state'">
+                            {{schedule.state}}
+                        </td>
+                        <td data-title="'Ciudad'" sortable="'city'">
+                            {{schedule.city}}
+                        </td>
+                        <td data-title="'Calle'">
+                            {{schedule.address}}
+                        </td>
+                        <!-- td data-title="'Codigo postal'">
+                            {{schedule.zipcode}}
+                        </td-->
+                        <td ng-show="userRole==='1'" data-title="'Autorización'" sortable="'authorized'">
+                            {{schedule.authorized == 0 ? 'No autorizado':'Autorizado'}}
+                        </td>
+                        <td ng-show="userRole==='1'" data-title="'Controlador'" sortable="'controller'">
+                            {{schedule.controller}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>            
+        </div>        
+    </div>
+</div>
+<div ui-view="edit"></div>
+<img  src="../images/Logo_1.png" alt="logo" class="pie"> 

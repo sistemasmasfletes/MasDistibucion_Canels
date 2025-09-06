@@ -1,0 +1,9 @@
+[22-Apr-2025 02:56:02 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Event\LifecycleEventArgs' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Event/PreUpdateEventArgs.php on line 35
+[24-Apr-2025 04:39:44 UTC] PHP Fatal error:  Class 'Doctrine\Common\EventArgs' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Event/LifecycleEventArgs.php on line 34
+[24-Apr-2025 23:44:24 UTC] PHP Fatal error:  Class 'Doctrine\Common\EventArgs' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Event/PostFlushEventArgs.php on line 35
+[25-Apr-2025 14:29:01 UTC] PHP Fatal error:  Class 'Doctrine\Common\EventArgs' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Event/LoadClassMetadataEventArgs.php on line 32
+[25-Apr-2025 23:13:50 UTC] PHP Fatal error:  Class 'Doctrine\Common\EventArgs' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Event/OnClearEventArgs.php on line 31
+[26-Apr-2025 02:17:16 UTC] PHP Fatal error:  Class 'Doctrine\Common\EventArgs' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Event/OnFlushEventArgs.php on line 35
+[26-Apr-2025 02:17:17 UTC] PHP Fatal error:  Class 'Doctrine\Common\EventArgs' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Event/PreFlushEventArgs.php on line 34
+[29-Apr-2025 08:47:29 UTC] PHP Fatal error:  Class 'Doctrine\Common\EventArgs' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Event/OnFlushEventArgs.php on line 35
+[29-Apr-2025 08:47:30 UTC] PHP Fatal error:  Class 'Doctrine\Common\EventArgs' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Event/PreFlushEventArgs.php on line 34

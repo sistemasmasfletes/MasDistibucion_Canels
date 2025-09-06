@@ -1,0 +1,2 @@
+[26-Apr-2025 23:05:16 UTC] PHP Warning:  require_once(Zend/Loader/Exception.php): failed to open stream: No such file or directory in /home/masdistr/public_html/masdistribucion.com/library/Zend/Loader/PluginLoader/Exception.php on line 26
+[26-Apr-2025 23:05:16 UTC] PHP Fatal error:  require_once(): Failed opening required 'Zend/Loader/Exception.php' (include_path='.:/opt/cpanel/ea-php70/root/usr/share/pear') in /home/masdistr/public_html/masdistribucion.com/library/Zend/Loader/PluginLoader/Exception.php on line 26

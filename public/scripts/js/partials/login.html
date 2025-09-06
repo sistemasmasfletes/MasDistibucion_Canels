@@ -1,0 +1,26 @@
+<div>
+    <div class="modal-header">
+        <h3>Login</h3>
+    </div> 
+    <div class="modal-body">
+        <form role="form" novalidate name="app.frmLogin">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="usuario">Usuario</label>
+                        <input type="text" class="form-control" id="usuario" name="usuario" placeholder="" required ng-model="usuario.user">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="" required ng-model="usuario.password">
+                    </div>
+                </div>
+            </div>
+            <alert ng-if="loginError" type="{{alert.type}}">{{alert.msg}}</alert>
+            <progressbar class="progress-striped active" value="100" type="info" ng-show="loading"></progressbar>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-ng-click="login();">Login</button>
+    </div>
+</div>

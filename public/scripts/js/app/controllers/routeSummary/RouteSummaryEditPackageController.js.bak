@@ -1,0 +1,114 @@
+//Pantalla de paquetes de punto
+function RouteSummaryEditPackageController($rootScope,$scope,$timeout,$state,$stateParams,ngTableParams,PARTIALPATH,ModalService,RouteSummaryDataService,UtilsService,CONFIG){
+
+    $scope.isLoading=false;
+    $scope.partials = CONFIG.PARTIALS;
+    var scheduleId= $stateParams.id2;
+    RouteSummaryDataService.getCountPacks($stateParams)
+    .then(function(response){
+        var data=response.data;
+        if(data.meta.totalRecords == 0){
+            var modalOptions = {
+                actionButtonText: 'Aceptar',
+                bodyText: 'Operación finalizada, pasar al siguiente punto en la ruta.'
+            };
+            ModalService.showModal({templateUrl: PARTIALPATH.modalInfo}, modalOptions).then(function (result){});
+            $state.go('routeSummary.edit',{id:scheduleId}); //NAVEGA A PANTALLA DE PUNTOS DE LA RUTA
+        }
+
+    });
+
+    $scope.tableParams = new ngTableParams(
+        {   page:1,
+            count:10,
+            sorting:{
+                start_date:'desc'
+            }
+        },
+        {
+            total:0,
+            getData:function($defer,params){
+                var idPack= $stateParams.id; //routePointId
+                var schedId = $stateParams.id2; //scheduleRouteId
+                var oc = $stateParams.id4; //orden de compra
+                var rpaId = $stateParams.id3; //routePointActivityId
+
+                var postParams = {page:params.page(), rowsPerPage:params.count(),stateParams:$stateParams,idrow:idPack,idrow2:schedId,idrow3:oc,idrow4:rpaId};
+                var filter=params.filter();
+                var sorting = params.sorting();
+                var sortField=UtilsService.getKeysFromJsonOnject(sorting)[0];
+
+                if(sorting) angular.extend(postParams,{sortField:sortField,sortDir:sorting[sortField]});
+                if(filter) angular.extend(postParams,{filter:filter});
+
+                RouteSummaryDataService.getRouteSummaryPackage(postParams)
+                .then(function(response){
+                    var data=response.data;
+                    $scope.isLoading=false;
+                    params.total(data.meta.totalRecords);
+                    $defer.resolve(data.data);
+                });
+            }
+        }
+
+    );
+
+    $scope.changeSelection = function(pack) {
+        var data = $scope.tableParams.data;
+        for(var i=0;i<data.length;i++){
+            if(data[i].id!=pack.id)
+                data[i].$selected=false;
+        }
+    }
+
+    
+
+    $scope.regresar=function(){
+        $state.go('routeSummary.edit',{id:scheduleId}); //NAVEGA A PANTALLA DE PUNTOS DE LA RUTA
+    }
+    
+    $scope.onSuccess = function(code) {
+        $scope.code = code;
+        var data = $scope.tableParams.data;
+        for(var i=0;i<data.length;i++){
+            var $scheduleId = data[i].scheduleId;
+            var $routePointId = data[i].routePoint_id;
+            var $id = data[i].id; //Orden de compra
+            var $rpa_id = data[i].routePointActivityId
+            var $hour = data[i].horaReal;
+            var packcode = data[i].id; //Orden de compra
+            var $pointType = data[i].pointType;
+            
+            if(packcode==$scope.code){
+                if($hour == null && $pointType==1){
+                    RouteSummaryDataService.saveHourPoint(data[i]);
+			        $state.go('routeSummary.view',{scheId:$scheduleId,point:$routePointId,id:$id,rpaId:$rpa_id}); //NAVEGA A PANTALLA DE SALVAR EVIDENCIA
+                } else if($hour == null && $pointType==2) {
+                    RouteSummaryDataService.saveHourPoint(data[i]);
+                    RouteSummaryDataService.saveEvidenceCI(data[i]);
+                    $scope.tableParams.reload();
+                    var modalOptions = {
+                        actionButtonText: 'Aceptar',
+                        bodyText: '¡Evidencia salvada en centro de intercambio'
+                    };
+                    ModalService.showModal({templateUrl: PARTIALPATH.modalInfo}, modalOptions).then(function (result){});
+                    $scope.tableParams.reload();
+                } else {
+                    var modalOptions2 = {
+                        actionButtonText: 'Aceptar',
+                        bodyText: '¡Actividad realizada! Realizar la siguiente acción.'
+                    };
+                    ModalService.showModal({templateUrl: PARTIALPATH.modalInfo}, modalOptions2).then(function (result){});
+                    $scope.tableParams.reload();
+                }
+            }
+        }
+    };
+    $scope.onError = function(error) {
+        console.log(error);
+    };
+    $scope.onVideoError = function(error) {
+        console.log(error);
+    };
+    
+}

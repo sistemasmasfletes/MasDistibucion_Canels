@@ -1,0 +1,73 @@
+<div ng-show="state.current.name==='routes.edit.points'">
+<div>
+    <progressbar class="progress-striped active" value="100" type="info" ng-show="sc.loading"></progressbar>
+    <!-- alert ng-repeat="alert in routeAlerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert-->
+    <ol class="breadcrumb">
+        <li class="active">Catálogos</li>
+        <li class="active "><a ui-sref="routes">Rutas</a></li>
+        <li class="active actualpg">Editar Punto de Venta</li>
+    </ol>
+    <div>
+        <progressbar class="progress-striped active" value="100" type="info" ng-show="sc.loading"></progressbar>
+        <alert ng-repeat="alert in routeAlerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+        <div class="toolbar">
+            <div class="col-md-5">
+                <div >
+                    <h4 class="list-group-item-heading">Edición de Puntos de venta</h4>
+                </div>
+
+            </div>
+            <div class="col-md-7 ">
+                <div class="pull-right">
+                    <!--<div class="btn-toolbar" role="toolbar">-->
+                    Buscar: <input type="text" ng-placeholder="Buscar..." data-ng-change="search(data)" data-ng-model="data" />
+                    <div class="btn-group  btn-group-sm">
+                        <!--<a ng-href="" class="btn btn-default" tooltip="Regresar" ng-click="regresar()" ng-disabled="grdPoints.edit.isEditing"><span class="glyphicon glyphicon-chevron-left"></span></a>-->
+                        <a ng-href="" class="btn btn-default btn18px" tooltip="{{route.close==0?'Cerrar ruta':'Abrir ruta'}}" ng-click="route.close == 0 ? closeRoute() : openRoute()" ng-disabled="grdPoints.edit.isEditing"><span class="{{route.close==0?'pers-btn icono-cerrar-ruta tam-normal':'pers-btn icono-abrir-ruta tam-normal'}}"></span></a>                       
+                    </div>
+
+                    <div class="btn-group  btn-group-sm" ng-show="route.close == 0">
+                        <button class="btn btn-default btn18px" tooltip-append-to-body="true" tooltip="Nuevo" ng-click="grdPoints.edit.addRow()" ng-disabled="grdPoints.edit.isEditing"><span class="pers-btn icono-agregar-fila icono-tam-tabla" role="group"></span></button>
+                        <a ng-href="" class="btn btn-default btn18px" ng-click="grdPoints.edit.delRow()" tooltip="Eliminar" ng-disabled="!grdPoints.edit.selRow || grdPoints.edit.isEditing"><span class="pers-btn icono-eliminar-fila icono-tam-tabla"></span></a>
+                        <a ng-href="" class="btn btn-default btn18px" ng-click="grdPoints.edit.editRow()" tooltip="Editar" ng-disabled="!grdPoints.edit.selRow || grdPoints.edit.isEditing"><span class="pers-btn icono-editar-fila icono-tam-tabla"></span></a>    
+                        <a ng-href="" class="btn btn-default btn18px" ng-click="grdPoints.edit.saveRow()"tooltip="Guardar" ng-disabled="!grdPoints.edit.isEditing"><span class="pers-btn icono-guardar-fila icono-tam-tabla"></span></a>
+                        <a ng-href="" class="btn btn-default tacha" title="Cancelar" tooltip="Cancelar" ng-click="grdPoints.edit.cancel()" ng-disabled="!grdPoints.edit.isEditing"><span class="pers-btn icono-tacha tam-normal"></span></a>
+                        <a ng-href="" class="btn btn-default btn18px" tooltip="Mover" ng-click="grdPoints.edit.movRow()" ng-disabled="!grdPoints.edit.selRow||grdPoints.edit.isEditing"><span class="pers-btn icono-arriba tam-normal"></span></a>						<a ng-href="" class="btn btn-default btn18px" tooltip="Ubicaci&oacute;n" ng-click="grdPoints.edit.mapsUrl()" ng-disabled="!grdPoints.edit.selRow||grdPoints.edit.isEditing"><span class="pers-btn icono-posicion tam-normal"></span></a>                        
+                        <!-- a ng-href="" class="btn btn-default btn18px" title="Arriba"  tooltip="Arriba" ng-click="grdPoints.edit.upRow()" ng-disabled="!grdPoints.edit.selRow || grdPoints.edit.isEditing"><span class="pers-btn icono-arriba tam-normal"></span></a>
+                        <a ng-href="" class="btn btn-default btn18px" title="Abajo" tooltip="Abajo" ng-click="grdPoints.edit.downRow()" ng-disabled="!grdPoints.edit.selRow || grdPoints.edit.isEditing"><span class="pers-btn icono-abajo tam-normal"></span></a-->
+                        <a ng-href="" class="btn btn-default btn18px" tooltip="Refrescar" ng-click="grdPoints.edit.refresh()" ng-disabled="grdPoints.edit.isEditing"><span class="pers-btn icono-refrescar-fila icono-tam-tabla"></span></a>
+                    </div>
+
+                    <!--</div>-->
+                </div>                
+            </div>
+        </div>
+        <br>
+        <div class="panel panel-default">           
+            <div class="panel-body">
+                <div class="row">                
+                    <div class="col-md-9" id="listRoutePoints">
+                        <ng-jqgrid vapi="grdPoints.apicall" config="grdPoints.config" api="grdPoints.api" gridid="grdRoutePoints" pagerid="routePointsPager"></ng-jqgrid>
+                    </div>
+                    <div class="col-md-3">
+                        <accordion close-others="oneAtATime">
+                            <accordion-group is-open="accordion.status.open">
+                                <accordion-heading>
+                                    {{routeSummary.name}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': accordion.status.open, 'glyphicon-chevron-right': !accordion.status.open}"></i>                                    
+                                </accordion-heading>
+                                <ul class="list-group">
+                                    <li class="list-group-item"><span class="badge">{{routeSummary.cantPoints}}</span>Total de PV y CI</li>
+                                    <li class="list-group-item"><span class="badge">{{routeSummary.pointSales}}</span>Puntos de venta</li>
+                                    <li class="list-group-item"><span class="badge">{{routeSummary.exchangeCenters}}</span>Centros de intercambio</li>
+                                    <li class="list-group-item"><span class="badge">{{routeSummary.required}}</span>Puntos de visita obligatoria</li>
+                                    <li class="list-group-item"><span class="badge">{{toltime}}</span>Minutos totales de la ruta</li>
+                                    <li class="list-group-item"><span class="badge">{{routeSummary.estatus}}</span>Estatus de la ruta</li>
+                                </ul>
+                            </accordion-group>
+                        </accordion>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

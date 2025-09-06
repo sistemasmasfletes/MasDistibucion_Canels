@@ -1,0 +1,12 @@
+/* 
+    Document   : points
+    Created on : 31/07/2012, 04:08:08 PM
+    Author     : drackor
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.blockInner h1>span
+{
+    font-size: 25px;
+}

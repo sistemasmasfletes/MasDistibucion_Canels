@@ -1,0 +1,57 @@
+<ol class="breadcrumb">
+        <li class="active">Administración</li>
+        <li class="active actualpg">Configuración</li>
+    </ol>
+<progressbar class="progress-striped active" value="100" type="info" ng-show="progressbar.loading"></progressbar>  
+<div class="toolbar">
+    <div class="pull-right">
+        <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group  btn-group-sm">                
+                <button class="btn btn-default sin-padding" ng-click="save()" ng-disabled="sc.frmConfiguration.$invalid"><span class="pers-btn icono-guardar tam-normal"></span></button>                
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Configuraci&oacute;n
+    </div> 
+    <div class="panel-body">
+        <div class="panel panel-default">                    
+            <div class="panel-body">
+                <form role="form" novalidate name="sc.frmConfiguration">
+                    <div class="row">
+                        <div class="col-md-3">                               
+                            <input type="hidden" class="form-control" ng-model="configuration.id">
+                            <div class="form-group" ng-class="getFormFieldCssClass(sc.frmConfiguration.minutesPerPoint)">
+                                <label for="minutesPerPoint">Tolerancia por punto de venta</label>
+                                <input type="text" class="form-control" id="minutesPerPoint" name="minutesPerPoint" placeholder="" ng-pattern="/^[0-9]{1,7}$/" ng-model="configuration.minutesPerPoint">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group" ng-class="getFormFieldCssClass(sc.frmConfiguration.basePackageSize)">
+                                <label for="basePackageSize">Tamaño base de paquete</label>
+                                <input type="text" class="form-control" id="basePackageSize" name="basePackageSize" placeholder="" ng-pattern="/^\s*-?\d{1,5}$/" required ng-model="configuration.basePackageSize">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group" ng-class="getFormFieldCssClass(sc.frmConfiguration.powerFactor)">
+                                <label for="powerFactor">Factor de potencia</label>
+                                <input type="text" class="form-control" id="powerFactor" name="powerFactor" placeholder="" required ng-pattern="/^\s*-?(\d+(\.\d{1,2})?|\.\d{1,2})\s*$/" ng-model="configuration.powerFactor">
+                            </div>
+                        </div>
+                    </div>
+                    
+                   
+                </form>
+            </div>
+        </div>          
+    </div>
+</div> 
+    <!--img  src="../../public/images/Logo_1.png" alt="logo" class="pie"--> 

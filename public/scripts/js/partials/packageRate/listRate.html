@@ -1,0 +1,32 @@
+<div class="pull-right">                         
+    <div class="btn-group  btn-group-sm">
+        <button class="btn btn-default btn18px" tooltip="Regresar" ng-click="back()"><span class="pers-btn icono-atras icono-tam-tabla"></span></button>
+        <button class="btn btn-default btn18px" ng-click="tableParams.reload()" tooltip="Recargar"><span class="pers-btn icono-refrescar-fila icono-tam-tabla"></span></button>
+    </div>       
+</div>
+<p>&nbsp;&nbsp;</p>
+<div loading-container="tableParams.settings().$loading">                
+    <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable table-responsive">
+    <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">
+        <span class="ui-ngt-title">{{headerData.name}} - Hist&oacute;rico de Tarifas</span>
+    </div>
+        <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover table-striped ">
+            <tbody>
+                <tr ng-repeat="rate in $data" ng-click="rate.$selected = !rate.$selected; changeSelection(rate)" ng-class="{'ngactive': rate.$selected}" >
+                    <td data-title="'N°'" class="col-md-1">
+                        {{rate.id}}
+                    </td>
+                    <td data-title="'Fecha'" class="text-center">                        
+                        {{rate.date|stringToDate|date :"dd-MM-yyyy"}}
+                    </td>
+                    <td data-title="'T. Cliente'" class="text-center">
+                        {{rate.client_rate | currency : '$' : 2}}
+                    </td>
+                    <td data-title="'C. Proveedor'" class="text-center">
+                        {{rate.provider_fee | currency : '$' : 2}}
+                    </td>                
+                </tr>
+            </tbody>
+        </table>            
+    </div>        
+</div>

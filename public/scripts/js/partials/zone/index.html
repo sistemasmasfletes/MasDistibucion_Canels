@@ -1,0 +1,43 @@
+<div ng-show="state.current.name==='zone'">
+    <ol class="breadcrumb">
+        <li class="active">Catálogos</li>
+        <li class="active actualpg">Zonas</li>
+    </ol>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="pull-right">
+                    <div class="btn-group btn-group-sm">
+                        <button zd-filter custom-filter="customFilter" ng-click="openFilter()" is-open="filterOpen" apply-filter="appFilter(filter)" class="btn btn-default sin-padding"><span class="pers-btn icono-filtrar tam-normal"></span></button>
+                        <button  class="btn btn-default sin-padding" ng-click="goAdd()"><span class="pers-btn icono-nuevo tam-normal"></span></button>
+                        <button  class="btn btn-default sin-padding" ng-click="goEdit(selRow)"><span class="pers-btn icono-editar tam-normal"></span></button>
+                        <button  class="btn btn-default sin-padding" ng-click="delete(selRow)"><span class="pers-btn icono-eliminar tam-normal"></span> </button>
+                        <button class="btn btn-default sin-padding" ng-click="tableParams.reload()" ><span class="pers-btn icono-refrescar tam-normal"></span></button>
+                    </div>
+                </div>
+                 <p>&nbsp;&nbsp;</p>
+                <div loading-container="tableParams.settings().$loading">                
+                    <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable table-responsive">
+                    <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">
+                        <span class="ui-ngt-title">Catálogo de Zonas</span>
+                    </div>
+                        <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover table-striped ">
+                            <tbody>
+                                <tr ng-repeat="zone in $data" ng-click="updateSelection(zone)"
+                                    ng-class="{'ngactive': zone.$selected}">
+                                    <input type="hidden" class="form-control" ng-model="zone.id">                  
+                                    <td data-title="'Zona'" sortable="'name'">
+                                        {{zone.name}}
+                                    </td>                     
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>        
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<div ui-view="edit"></div>
+<!--img  src="../images/Logo_1.png" alt="logo" class="pie"--> 

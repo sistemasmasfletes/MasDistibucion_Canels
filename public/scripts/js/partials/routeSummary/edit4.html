@@ -1,0 +1,55 @@
+    <div ng-show="state.current.name==='routeSummary.info'">
+        <ol class="breadcrumb">
+        <li class="active">Sistema</li>
+        <li class="active"><a ui-sref="routeSummary">Rutas</a></li>
+        <li class="active">Iniciar Ruta</li>
+        <li class="active">Punto de venta</li>
+        <li class="active actualpg"><a ng-click="regresar()">Capturar evidencia</a></li>
+        <li class="active actualpg">Información del paquete</li>
+    </ol>
+    <div class="toolbar">
+        <div class="pull-right">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group btn-group-lg">
+                    <!--<button class="btn btn-default" tooltip="Regresar" ng-click="regresar()"><span class="glyphicon glyphicon-chevron-left"></span></button>-->
+                    <button class="btn btn-default btn18px" ng-click="tableParams.reload()" tooltip="Recargar"><span class="pers-btn icono-refrescar-fila icono-tam-tabla"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    
+    <div class="container-fluid">
+        <div class="row col-md-6">
+            <div>
+                <p>&nbsp;</p>
+                <div loading-container="tableParams.settings().$loading">
+                    <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable table-responsive">
+                        <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">
+                            <span class="ui-ngt-title">Informacion del paquete</span>
+                        </div>
+                        <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover">
+                            <tbody>
+                                <tr ng-repeat="info in $data" ng-click="info.$selected = !info.$selected; changeSelection(info)"
+                                    ng-class="{'ngactive': schedule.$selected}">
+                                    <td data-title="'Comentarios'" class="text-center">
+                                        {{info.comentarios}}
+                                    </td>
+                                    <td data-title="'Punto de venta'">
+                                        {{info.puntoVenta}}
+                                    </td>                   
+                                </tr>
+                            </tbody>
+                        </table>            
+                    </div>        
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="thumbnail">
+                <p>Fotografía del paquete</p>
+                <img ng-src="../images/evidencias/{{tableParams.data[0]['evidence']}}">
+            </div>
+        </div>
+    </div>
+</div>

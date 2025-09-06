@@ -1,0 +1,68 @@
+<div>
+    <!--<div class="modal-header">
+        <h3>Filtrar</h3>
+    </div> -->
+    <div class="modal-body">
+        <!-- <table class="table">
+            <tbody>
+                <tr ng-repeat="filter in customFilter">
+                    <td>{{filter.label}}</td>
+                    <td ng-switch="filter.type">
+                        <input ng-switch-when="text" type="text" ng-model="filter.value">
+                        <input ng-switch-when="radio" type="radio" ng-model="filter.value" >
+                        <div ng-switch-when="date" class="row">
+                            <div class="col-md-4">
+                                <p class="input-group">
+                                    <input type="text" class="form-control input-sm"
+                                    ng-model="filter.value" is-open="customFilter[$index].dateOptions.opened" datepicker-options="customFilter[$index].dateOptions"
+                                    datepicker-popup="{{customFilter[$index].dateOptions.format}}" 
+                                    current-text="Hoy" 
+                                    clear-text="limpiar" 
+                                    show-button-bar="false" 
+                                    append-to-body="true" 
+                                    ng-required="true"/>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="popupDatepicker($event,$index)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <zd-monthpicker ng-switch-when="month" ng-model="filter.value"></zd-monthpicker>
+                    </td>
+                </tr>
+            </tbody>
+        </table> -->
+        <form class="form-horizontal" role="form" >
+            <div class="row" >
+                <div class="form-group" ng-repeat="filter in customFilter" >
+                    <label for="ctrl{{$index}}" class="col-md-3 control-label">{{filter.label}}</label>
+                    <div class="col-md-4" ng-switch="filter.type" >
+                        <input id="ctrl{{$index}}" class="form-control input-sm" ng-switch-when="text" type="text" ng-model="filter.value">
+                        <input ng-switch-when="radio" type="radio" ng-model="filter.value" >
+                        
+                        <p class="input-group cust-datepicker" ng-switch-when="date">
+                            <input type="text" class="form-control input-sm" id="ctrl{{$index}}" name="ctrl{{$index}}" 
+                            ng-model="filter.value" is-open="customFilter[$index].dateOptions.opened" datepicker-options="customFilter[$index].dateOptions"
+                            datepicker-popup="{{customFilter[$index].dateOptions.format}}" 
+                            current-text="Hoy" 
+                            clear-text="limpiar" 
+                            show-button-bar="false" 
+                            append-to-body="true" 
+                            ng-required="true"/>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="popupDatepicker($event,$index)"><i class="glyphicon glyphicon-calendar" style="padding-top:2px; padding-bottom:0px"></i></button>
+                            </span>
+                        </p>
+                      
+                        <zd-monthpicker ng-switch-when="month" ng-model="filter.value"></zd-monthpicker>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-warning" data-ng-click="modalOptions.close()">Cancelar</button>
+        <button type="button" class="btn btn-warning" data-ng-click="modalOptions.clearFilter()">Quitar Filtro</button>
+        <button type="button" class="btn btn-primary" data-ng-click="modalOptions.ok();">Aplicar Filtro</button>
+    </div>
+</div>

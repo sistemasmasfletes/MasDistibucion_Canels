@@ -1,0 +1,82 @@
+<div ng-show="state.current.name==='points.contact.edit'||state.current.name==='points.contact.add'">
+    <ol class="breadcrumb">
+        <li class="active">Catálogos</li>
+        <li class="active"><a ui-sref="points">Puntos de venta</a></li>
+        <li class="active"><a ui-sref="points.contact">Contacto</a></li>
+        <li class="active actualpg" ng-show="state.current.name === 'points.contact.add'">Agregar Contacto</li>
+        <li class="active actualpg" ng-show="state.current.name === 'points.contact.edit'">Editar Contacto</li>
+    </ol>
+<div class="toolbar">
+    <div class="pull-right">
+        <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group  btn-group-sm">
+                <!--<button tooltip="Regresar" class="btn btn-default" ng-click="back()"><span class="glyphicon glyphicon-chevron-left"></span></button>-->
+                <button class="btn btn-default sin-padding" ng-click="save()" ng-disabled="frmContact.$invalid"><span class="pers-btn icono-guardar tam-normal"></span></button>                
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Salvar contacto
+    </div> 
+    <div class="panel-body">
+        <div class="panel panel-default">                    
+            <div class="panel-body">
+                <form role="form" novalidate name="frmContact">
+                    <div class="row">
+                        <div class="col-md-3">                               
+                            <input type="hidden" disabled class="form-control" ng-model="contact.id">
+                            <div class="form-group" ng-class="getFormFieldCssClass(frmContact.name)">
+                                <label for="name">Nombre</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Nombre del contacto" required ng-model="contact.name">
+                            </div>
+
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group" ng-class="getFormFieldCssClass(frmContact.job)">
+                                <label for="job">Puesto</label>
+                                <input type="text" class="form-control" id="job" name="job" placeholder="Puesto del contacto" required ng-model="contact.job">
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <div class="form-group" ng-class="getFormFieldCssClass(frmContact.email)">
+                                <label for="email">E-mail</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Email del contacto" required ng-model="contact.email">
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <div class="form-group" ng-class="getFormFieldCssClass(frmContact.phone_number)">
+                                <label for="phone_number">Telefono</label>
+                                <input type="text" class="form-control" id="phone_number" name="phone_number" ng-pattern="phoneNumberPattern" placeholder="Telefono" ng-model="contact.phone_number">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">                       
+                        <div class="col-md-3">
+                            <div class="form-group" ng-class="getFormFieldCssClass(frmContact.status)">
+                                <label for="status">Estatus</label>
+                                <select id="status" name="status" class="form-control" required ng-model="contact.status"
+                                        ng-options="opt.id as opt.status for opt in pointStatus">
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!--<div class="col-md-3">
+                            <div class="form-group" ng-class="getFormFieldCssClass(frmContact.point_id)">
+                                <label for="point_id">Point Id</label>
+                                <input type="text" disabled class="form-control" id="point_id" name="point_id" ng-model="contact.point_id">
+                            </div>
+                        </div>-->
+                    </div>
+                </form>
+            </div>
+        </div>          
+    </div>
+</div>
+</div>

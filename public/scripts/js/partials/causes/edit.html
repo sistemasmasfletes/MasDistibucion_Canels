@@ -1,0 +1,46 @@
+<div ng-show="state.current.name==='causes.edit'||state.current.name==='causes.add'">
+    <ol class="breadcrumb">
+        <li class="active">Catálogos</li>
+        <li class="active "><a ui-sref="causes">Causas</a></li>
+        <li class="active actualpg" ng-show="state.current.name === 'causes.add'">Agregar Causa</li>
+        <li class="active actualpg" ng-show="state.current.name === 'causes.edit'">Editar Causa</li>
+    </ol>
+    <progressbar class="progress-striped active" value="100" type="info" ng-show="loading"></progressbar>
+    <div class="toolbar">
+        <div class="pull-right">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group  btn-group-sm">
+                    <!--<button class="btn btn-default" tooltip="Regresar" ng-click="back()"><span class="glyphicon glyphicon-chevron-left"></span></button>-->
+                    <button class="btn btn-default guardar"  ng-click="save()" ng-disabled="frmCauses.$invalid"><span class="pers-btn icono-guardar tam-normal"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">Catálogo de Causas</div>
+
+        <div class="panel-body">
+            <form  role="form" novalidate name="frmCauses">
+                <div class="row">
+                    <div class="col-md-3">
+                        <input type="hidden" class="form-control" ng-model="causes.id">
+                        
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmCauses.name)">
+                            <label for="name">Nombre</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Nombre de la causa" required ng-model="cause.name">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="hidden" class="form-control" ng-model="causes.description">
+                        <div class="form-group" ng-class="getFormFieldCssClass(frmCauses.description)">
+                            <label for="description">Descripción</label>
+                            <textarea type="text" class="form-control" id="economicNumber" name="description" placeholder="Descripción de la causa" required ng-model="cause.description" rows="5" cols="33"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </form>        
+        </div>
+    </div>
+</div>

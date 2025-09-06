@@ -1,0 +1,61 @@
+<div ng-show="state.current.name==='scheduledRoute.schedule.activities.routePoint'">
+    <div class="pull-right">
+        <div class="btn-group  btn-group-sm">
+            <button title="Detener paquete" class="btn btn-default sin-padding" ng-click="stopPackage()"><span class="pers-btn icono-detener-paquete tam-normal"></span></button>
+            <button zd-filter custom-filter="customFilter" ng-click="openFilter()" is-open="filterOpen" apply-filter="appFilter(filter)" class="btn btn-default filtrar"><span class="pers-btn icono-filtrar tam-normal"></span></button>            
+        </div>
+    </div>
+    <p>&nbsp;</p>    
+    <div loading-container="tableParams.settings().$loading">
+        <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable">
+            <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">                
+                <span class="ui-ngt-title">{{currentData.data[2][0].pointName}}</span>
+            </div>
+            <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover table-condensed">            
+                <tbody ng-repeat="group in $groups">
+                    <tr class="ng-table-group">
+                        <td colspan="{{$columns.length}}">
+                            <a href="" ng-click="group.$hideRows = !group.$hideRows">
+                                <span class="glyphicon" ng-class="{ 'glyphicon-chevron-right': group.$hideRows, 'glyphicon-chevron-down': !group.$hideRows }"></span>
+                                <strong>{{ group.value }}</strong>
+                            </a> 
+                        </td>
+                    </tr>
+                    <tr ng-hide="group.$hideRows" ng-repeat="order in group.data" ng-click="order.$selected = !order.$selected; changeSelection(order)"
+                        ng-class="{'ngactive': order.$selected}">
+                        <td data-title="'ID'" sortable="'tr.transaction_id'" class="col-md-1 text-right" >
+                            <a ng-if="order.transactionType_id==1" ui-sref="packages({orderId:order.order_id})">{{order.order_id}}</a>
+                            <span ng-if="order.transactionType_id==2">{{order.order_id}}</span>
+                        </td>
+                        <td data-title="'QR'" sortable="'tr.transaction_id'" class="col-md-1 text-right" >
+                            <a ng-if="order.transactionType_id==1" href="https://masdistribucion.com/public/User/Dompdf/index/id/{{order.order_id}}">                            <span tooltip={{order.namePackage}} class="glyphicon glyphicon-qrcode" ></span></a>                        </td>                                                <td class="col-md-1 text-center">
+                            <span tooltip={{order.namePackage}} ng-if="(order.transactionType_id==1)" class="glyphicon glyphicon-briefcase" ></span>
+                            <br ng-if="(order.transactionType_id==1 && order.orderPromotion>0)"/>
+                            <span tooltip={{order.promotionPackage}} ng-if="(order.transactionType_id==1 && order.orderPromotion>0)" class="glyphicon glyphicon-bell" ></span>
+                            <span tooltip={{order.namePackage}} ng-if="(order.transactionType_id==2)" class="glyphicon glyphicon-bell" ></span>
+                        </td>                                       
+                        <td data-title="'Transacción'" sortable="'namePackage'" class="col-md-3">
+                            {{order.namePackage}}
+                            <br ng-if="(order.transactionType_id==1 && order.orderPromotion>0)"/>
+                            <span ng-if="(order.transactionType_id==1 && order.orderPromotion>0)">{{order.promotionPackage}}</span>
+                        </td>              
+                        <td data-title="'Tipo Actividad'" sortable="'activityType'" class="col-md-2  text-center">                            
+                            <span tooltip={{order.activityType}} ng-if="(order.activityType_id==1 && order.isTransactionActive==1)" class="pers-btn icono-recolectar icono-tam-tabla" ></span>
+                            <span tooltip={{order.activityType}} ng-if="(order.activityType_id==1 && order.isTransactionActive==0)" class="pers-btn icono-recolectar deshabilitado icono-tam-tabla" ></span>
+                            <span tooltip={{order.activityType}} ng-if="(order.activityType_id==2 && order.isTransactionActive==1)" class="pers-btn icono-entregar icono-tam-tabla" ></span>
+                            <span tooltip={{order.activityType}} ng-if="(order.activityType_id==2 && order.isTransactionActive==0)" class="pers-btn icono-entregar deshabilitado icono-tam-tabla" ></span>
+                            <br ng-if="(order.transactionType_id==1 && order.orderPromotion>0)"/>
+                            <span style="font-size:1.3em" tooltip={{order.activityType}} ng-if="(order.activityType_id==6)" class="glyphicon glyphicon-bullhorn" ></span>
+                            <span style="font-size:1.3em" tooltip={{"Promocionar"}} ng-if="(order.transactionType_id==1 && order.orderPromotion>0 && order.curpoint==order.endpoint)" class="glyphicon glyphicon-bullhorn" ></span> 
+                        </td>
+                        <td data-title="'Status'" class="col-md-1 text-center"> 
+                            <span tooltip="Estatus Ok" ng-if="(order.isTransactionActive==1)" class="pers-btn icono-palomita icono-tam-tabla" ></span> 
+                            <span tooltip="Detenido" ng-if="(order.isTransactionActive==0)" class="pers-btn icono-tacha icono-tam-tabla"  ></span> 
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+        </div>        
+    </div>
+</div>

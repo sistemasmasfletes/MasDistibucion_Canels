@@ -1,0 +1,33 @@
+<div ng-show="state.current.name==='report'">
+<div class="panel panel-default">
+    <div class="panel-heading">Reporte de actividades</div>
+    <div loading-container="tableParams.settings().$loading">
+        <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable">
+            <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover">
+                <tbody>
+                    <tr ng-repeat="schedule in $data" ng-click="schedule.$selected = !schedule.$selected; changeSelection(schedule)"
+                        ng-class="{'ngactive': schedule.$selected}">
+                        <td data-title="'Punto'" sortable="'Punto'">
+                            {{schedule.Nombre}}
+                        </td>
+                        <td data-title="'Hora programada'"  sortable="'Hora Programada'">
+                            {{((schedule.HoraProgramada).substring(0,19)).replace(' ','')|date:'dd-MM-yyyy hh:mm a'}}
+                        </td>
+                        <td data-title="'Hora real'"  sortable="'Hora Real'">
+                            {{((schedule.HoraReal).substring(0,19)).replace(' ','')|date:'dd-MM-yyyy hh:mm a'}}
+                        </td>
+                        <!--<td data-title="'Calificación'"  sortable="'Calificación'">
+                            <!--{{report.Nombre}}
+                        </td>-->
+                        <td data-title="'Comentarios'" sortable="'Comentarios'">
+                            {{schedule.Comentarios}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</div>
+<div ui-view="edit"></div>

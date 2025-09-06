@@ -1,0 +1,33 @@
+(function(){
+angular.module('masDistribucion.scheduledRoute',[
+    'ui.router',
+    'ngTable'
+])
+.config(['$stateProvider', '$urlRouterProvider','$locationProvider','CONFIG',ScheduledRouteConfig])
+.controller('ScheduledRouteIndexController',
+            ['$rootScope','$scope','$timeout','$state','$stateParams','ngTableParams',
+            'ModalService','ScheduledRouteDataService','UtilsService','CONFIG',
+            ScheduledRouteIndexController
+            ])
+.controller('ScheduledRouteSchedulesController',
+            ['$scope','$timeout','$state','$stateParams','ngTableParams',
+            'ModalService','ScheduledRouteDataService','UtilsService','CONFIG',
+            'schedules','$injector'
+            ,ScheduledRouteSchedulesController
+            ])
+.controller('ScheduledRouteActivitiesController',
+            ['$scope','$location','$anchorScroll','$timeout','$state','$stateParams','ngTableParams',
+            'ModalService','ScheduledRouteDataService','UtilsService','CONFIG',
+            ScheduledRouteActivitiesController
+            ])
+.controller('RoutePointActivitiesController',
+            ['$scope','$timeout','$state','$stateParams','ngTableParams',
+            'ModalService','ScheduledRouteDataService','UtilsService','CONFIG',
+            RoutePointActivitiesController
+            ])
+.controller('srPackagesController',
+            ['$scope','$timeout','$state','$stateParams','ngTableParams',
+            'ModalService','ScheduledRouteDataService','UtilsService','CONFIG',
+            srPackagesController
+            ])
+})();

@@ -1,0 +1,64 @@
+<div ng-show="state.current.name === 'routeSummary.activity'">
+
+    <br>
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <div  align="center" class="col-md-9">
+                    <h4 align="left">Punto de venta: {{tableParams.data[0]["name"]}}</h4>
+                <div class="pull-right">
+                    <div class="btn-toolbar" role="toolbar">
+                        <div class="btn-group btn-group-lg">
+                            <!--<button class="btn btn-default" tooltip="Regresar" ng-click="regresar()"><span class="glyphicon glyphicon-chevron-left"></span></button>-->
+                            <button class="btn btn-default sin-padding" ng-click="tableParams.reload()" tooltip="Recargar"><span class="pers-btn icono-refrescar tam-normal"></span></button>                
+                            <button zd-filter custom-filter="customFilter" ng-click="openFilter()" is-open="filterOpen" apply-filter="appFilter(filter)" class="btn btn-default filtrar"><span class="pers-btn icono-filtrar tam-normal"></span></button>
+
+                        </div>
+                    </div>
+                </div>
+                <p>&nbsp;</p>
+                <div loading-container="tableParams.settings().$loading">
+                    <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable table-responsive">
+                        <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">
+                            <span class="ui-ngt-title">Paquetes</span>
+                        </div>
+                        <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover">
+                            <tbody>
+                                <tr ng-repeat="schedule in $data" ng-click="schedule.$selected = !schedule.$selected;
+                                        changeSelection(schedule)"
+                                    ng-class="{'ngactive': schedule.$selected}" ng-mouseover="hoverTrIn()" ng-mouseleave="hoverTrOut()">
+                                    <td data-title="'OC'" class="col-md-1 text-center" >
+                                        {{schedule.id}}            
+                                    </td>
+                                    <td data-title="'Paquete'" class="text-center" >
+                                        {{schedule.Paquete}}            
+                                    </td>
+                                    <td data-title="'Actividad'" class="text-center" >
+                                        {{schedule.Actividad}}            
+                                    </td>
+                                    <td data-title="'Hora'" class="text-center" >
+                                        {{schedule.horaReal}}            
+                                    </td>
+                                    <td data-title="'Estado del paquete'" class="text-center" >
+                                        <span tooltip="Sin acción" ng-if="(schedule.Estado == null)" class="glyphicon glyphicon-minus-sign" style="color:#D3D3D3"></span>
+                                        <span tooltip="Recibido" ng-if="(schedule.Estado == 1)" class="glyphicon glyphicon-ok-sign" style="color:#52CA22;font-size:1.1em"></span>
+                                        <span tooltip="Entregado" ng-if="(schedule.Estado == 3)" class="glyphicon glyphicon-ok-sign" style="color:#52CA22;font-size:1.1em"></span>
+                                        <span tooltip="Rechazado" ng-if="(schedule.Estado == 6)" class="glyphicon glyphicon-remove-sign" style="color:#F52A2A;font-size:1.1em"></span>
+                                    </td>   
+                                    <td data-title="'Comentarios enviador'">
+                                        {{schedule.comments1}}
+                                    </td>
+                                    <td data-title="'Comentarios receptor'">
+                                        {{schedule.comments2}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>            
+                    </div>        
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div ui-view="edit"></div>-->

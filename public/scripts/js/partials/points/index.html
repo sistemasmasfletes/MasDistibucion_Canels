@@ -1,0 +1,81 @@
+<div ng-show="state.current.name==='points'" >
+    <ol class="breadcrumb">
+        <li class="active">Catálogos</li>
+        <li class="active actualpg">Puntos de venta</li>
+    </ol>
+    <div class="container-fluid" ng-init="foo='here comes qr!'">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="pull-right">    
+                    Buscar: <input type="text" data-ng-change="search(data)" data-ng-model="data" ng-placeholder="Buscar..."/>
+                    <div class="btn-group btn-group-sm">
+                        <button  class="btn btn-default sin-padding" ng-click="add()"><span class="pers-btn icono-nuevo tam-normal"></span></button>
+                        <button  class="btn btn-default sin-padding" ng-click="grid.edit()"><span class="pers-btn icono-editar tam-normal"></span></button>
+                        <button  class="btn btn-default sin-padding" ng-click="grid.delete()"><span class="pers-btn icono-eliminar tam-normal"></span> </button>
+                        <button class="btn btn-default sin-padding" ng-click="tableParams.reload()" ><span class="pers-btn icono-refrescar tam-normal"></span></button>
+                        
+                    </div>       
+                </div>
+                <p>&nbsp;</p>
+                
+                <div loading-container="tableParams.settings().$loading">
+                    <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable table-responsive">
+                        <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">
+                            &nbsp;Puntos de venta
+                        </div>
+                        <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover">
+                            <tbody>
+                                <tr ng-repeat="schedule in $data | filter:buscador" ng-click="schedule.$selected = !schedule.$selected; changeSelection(schedule)"
+                                    ng-class="{'ngactive': schedule.$selected}">
+                                    <td data-title="'Código'" class="text-center" sortable="'code'">
+                                        {{schedule.code}}
+                                    </td>
+                                    <td data-title="'Nombre comercial'" sortable="'name'">
+                                        {{schedule.name}}
+                                    </td>
+                                    <td data-title="'Dirección'" sortable="'address'">
+                                        {{schedule.address}}
+                                    </td>
+                                    <td data-title="'Categor&iacute;a'" sortable="'category'">
+                                        {{schedule.category}}
+                                    </td>
+                                    <td data-title="'Rutas'" sortable="'routes'">
+                                        {{schedule.routes}}
+                                    </td>
+                                    <td data-title="'Horario'" sortable="'workTime'">
+                                        {{schedule.workTime}}
+                                    </td>
+                                    <td data-title="'Tiempo'" sortable="'actime'">
+                                        {{schedule.actime}}
+                                    </td>
+                                    <td data-title="'Tipo'" sortable="'type'">
+                                        {{schedule.type == 1 ? "Punto de venta" : "Centro de intercambio"}}
+                                    </td>
+                                    <td data-title="'Status'" sortable="'status'">
+                                        <span tooltip="Ok" ng-if="(schedule.status==1)" class="pers-btn icono-palomita icono-tam-tabla" style="color:#52CA22;font-size:1.1em"></span>
+                                        <span tooltip="Pausado" ng-if="(schedule.status==2)" class="pers-btn icono-sin-accion icono-tam-tabla" style="color:#F8A41C"></span>
+                                        <span tooltip="Cancelado" ng-if="(schedule.status==3)" class="pers-btn icono-tacha icono-tam-tabla" style="color:#F52A2A;font-size:1.1em"></span>
+                                    </td>
+                                    <td data-title="'Acciones'">
+                                        <!--<a class="glyphicon glyphicon-qrcode" name="idPoint" href="http://127.0.0.1:81/masdist_v8/public/OperationController/Points/generatePDF/?id=11" style="color: #000000;" tooltip="Generar código QR"></a>
+                                        -->
+                                        <span class="pers-btn icono-editar-fila icono-tam-tabla" tooltip="Editar" ng-click="editinline(schedule)"></span>                                        
+										<span class="pers-btn icono-qr icono-tam-tabla" tooltip="Generar código QR" ng-click="qrcode(schedule)"></span>
+                                        <span class="pers-btn icono-contacto-lista icono-tam-tabla" tooltip="Contacto" ng-click="contact(schedule)"></span>
+                                        <span class="pers-btn icono-clasificacion icono-tam-tabla" tooltip="Clasificación" ng-click="classification(schedule)"></span>
+                                    </td>
+                                    
+                                </tr>
+                                <!--<qrcode version="{{v}}" error-correction-level="{{e}}" size="274" data="{{schedule.code}}" download></qrcode>-->
+                            </tbody>
+                        </table>
+                    </div>        
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ui-view="edit"></div>
+<div ui-view="contact"></div>
+<div ui-view="classification"></div>
+    <!--img  src="../../public/images/Logo_1.png" alt="logo" class="pie"--> 

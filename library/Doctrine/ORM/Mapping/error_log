@@ -1,0 +1,155 @@
+[21-Feb-2024 19:24:00 UTC] PHP Fatal error:  Interface 'Doctrine\Common\Persistence\Mapping\ClassMetadata' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/ClassMetadataInfo.php on line 44
+[22-Mar-2024 17:56:47 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/PreUpdate.php on line 26
+[14-Apr-2024 23:28:41 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/Entity.php on line 26
+[16-Apr-2024 04:18:26 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/SequenceGenerator.php on line 26
+[17-Apr-2024 13:25:16 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/NamedQuery.php on line 26
+[28-Apr-2024 17:57:00 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/InheritanceType.php on line 26
+[30-Apr-2024 05:44:52 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/PreRemove.php on line 26
+[01-May-2024 14:37:35 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/UniqueConstraint.php on line 26
+[14-May-2024 18:09:09 UTC] PHP Fatal error:  Interface 'Doctrine\Common\Persistence\Mapping\ClassMetadataFactory' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/ClassMetadataFactory.php on line 42
+[16-May-2024 03:23:40 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/JoinTable.php on line 26
+[16-May-2024 05:14:19 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/ManyToMany.php on line 26
+[17-May-2024 10:07:48 UTC] PHP Fatal error:  Uncaught Error: Class 'Doctrine\ORM\ORMException' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/MappingException.php:27
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/MappingException.php on line 27
+[20-May-2024 10:47:06 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/PrePersist.php on line 26
+[20-May-2024 23:35:17 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/DiscriminatorColumn.php on line 26
+[24-May-2024 19:11:24 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/Column.php on line 26
+[27-May-2024 02:18:34 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/Table.php on line 26
+[31-May-2024 20:50:41 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/Version.php on line 26
+[06-Jun-2024 21:51:10 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/Entity.php on line 26
+[11-Jun-2024 23:38:48 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/ManyToMany.php on line 26
+[17-Jun-2024 00:36:08 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/PreUpdate.php on line 26
+[20-Jun-2024 00:18:27 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/SequenceGenerator.php on line 26
+[24-Jun-2024 05:46:25 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/NamedQuery.php on line 26
+[02-Jul-2024 12:40:33 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/NamedQueries.php on line 26
+[18-Jul-2024 00:06:00 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/SequenceGenerator.php on line 26
+[20-Jul-2024 05:07:08 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/NamedQuery.php on line 26
+[24-Jul-2024 03:29:37 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/InheritanceType.php on line 26
+[24-Jul-2024 11:13:08 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/GeneratedValue.php on line 26
+[28-Jul-2024 04:43:20 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/DiscriminatorMap.php on line 26
+[28-Jul-2024 15:09:09 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/UniqueConstraint.php on line 26
+[07-Aug-2024 05:32:26 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/OrderBy.php on line 26
+[07-Aug-2024 21:01:05 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/Entity.php on line 26
+[09-Aug-2024 06:58:42 UTC] PHP Fatal error:  Interface 'Doctrine\Common\Persistence\Mapping\ClassMetadataFactory' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/ClassMetadataFactory.php on line 42
+[10-Aug-2024 06:41:42 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/JoinTable.php on line 26
+[12-Aug-2024 08:16:15 UTC] PHP Fatal error:  Uncaught Error: Class 'Doctrine\ORM\ORMException' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/MappingException.php:27
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/MappingException.php on line 27
+[15-Aug-2024 23:52:16 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/PrePersist.php on line 26
+[16-Aug-2024 10:08:21 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/PreFlush.php on line 26
+[17-Aug-2024 07:20:01 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/DiscriminatorColumn.php on line 26
+[22-Aug-2024 00:45:38 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/Column.php on line 26
+[23-Aug-2024 11:20:35 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/Table.php on line 26
+[29-Aug-2024 05:51:45 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/NamedQueries.php on line 26
+[03-Sep-2024 15:36:33 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/Index.php on line 26
+[07-Sep-2024 00:09:39 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/ElementCollection.php on line 27
+[18-Sep-2024 11:53:48 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/MappedSuperclass.php on line 26
+[21-Sep-2024 00:13:45 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/Table.php on line 26
+[01-Oct-2024 09:22:14 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/OrderBy.php on line 26
+[01-Oct-2024 16:11:03 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/JoinColumn.php on line 26
+[01-Oct-2024 22:22:00 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/Entity.php on line 26
+[05-Oct-2024 10:58:26 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/ManyToMany.php on line 26
+[16-Oct-2024 04:20:12 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/GeneratedValue.php on line 26
+[19-Oct-2024 09:10:05 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/DiscriminatorMap.php on line 26
+[27-Oct-2024 22:16:44 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/Index.php on line 26
+[30-Oct-2024 21:08:18 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/ElementCollection.php on line 27
+[07-Nov-2024 17:18:30 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/NamedQuery.php on line 26
+[18-Nov-2024 01:08:01 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/NamedQueries.php on line 26
+[29-Nov-2024 05:44:29 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/ManyToMany.php on line 26
+[01-Dec-2024 11:16:12 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/PreUpdate.php on line 26
+[03-Dec-2024 13:04:50 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/PreFlush.php on line 26
+[05-Dec-2024 08:05:24 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/NamedQuery.php on line 26
+[09-Dec-2024 16:17:20 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/Column.php on line 26
+[15-Dec-2024 08:09:57 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/UniqueConstraint.php on line 26
+[18-Dec-2024 07:34:11 UTC] PHP Fatal error:  Uncaught Error: Class 'Doctrine\ORM\Mapping\ClassMetadataInfo' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/ClassMetadata.php:42
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/ClassMetadata.php on line 42
+[21-Dec-2024 15:53:43 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/PreRemove.php on line 26
+[31-Dec-2024 14:50:14 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/JoinColumn.php on line 26
+[22-Jan-2025 12:34:50 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/Id.php on line 26
+[22-Jan-2025 15:49:57 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/Version.php on line 26
+[29-Jan-2025 10:03:48 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/Index.php on line 26
+[01-Feb-2025 20:18:35 UTC] PHP Fatal error:  Interface 'Doctrine\Common\Persistence\Mapping\ClassMetadataFactory' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/ClassMetadataFactory.php on line 42
+[03-Feb-2025 02:50:58 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/JoinTable.php on line 26
+[05-Feb-2025 10:25:57 UTC] PHP Fatal error:  Uncaught Error: Class 'Doctrine\ORM\ORMException' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/MappingException.php:27
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/MappingException.php on line 27
+[09-Feb-2025 22:29:42 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/PrePersist.php on line 26
+[10-Feb-2025 12:26:13 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/PreFlush.php on line 26
+[11-Feb-2025 00:25:20 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/DiscriminatorColumn.php on line 26
+[20-Feb-2025 17:01:37 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/Table.php on line 26
+[21-Mar-2025 10:44:35 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/Column.php on line 26
+[25-Mar-2025 07:43:27 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/Table.php on line 26
+[26-Mar-2025 23:02:53 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/UniqueConstraint.php on line 26
+[28-Mar-2025 05:40:37 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Mapping\ClassMetadataInfo' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/ClassMetadata.php on line 42
+[29-Mar-2025 22:01:06 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/PreRemove.php on line 26
+[03-Apr-2025 23:48:34 UTC] PHP Fatal error:  Interface 'Doctrine\Common\Persistence\Mapping\ClassMetadata' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/ClassMetadataInfo.php on line 44
+[05-Apr-2025 20:56:07 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/JoinTable.php on line 26
+[07-Apr-2025 21:25:44 UTC] PHP Fatal error:  Class 'Doctrine\ORM\ORMException' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/MappingException.php on line 27
+[11-Apr-2025 01:27:21 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/PreFlush.php on line 26
+[12-Apr-2025 02:29:47 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/DiscriminatorColumn.php on line 26
+[13-Apr-2025 01:23:57 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/NamedQuery.php on line 26
+[21-Apr-2025 23:54:58 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/OneToOne.php on line 26
+[22-Apr-2025 00:40:02 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/ElementCollection.php on line 27
+[22-Apr-2025 02:11:09 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/MappedSuperclass.php on line 26
+[24-Apr-2025 03:06:34 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/UniqueConstraint.php on line 26
+[24-Apr-2025 05:01:35 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/Id.php on line 26
+[24-Apr-2025 12:01:31 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/Version.php on line 26
+[24-Apr-2025 13:27:11 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/PreRemove.php on line 26
+[24-Apr-2025 16:44:34 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/DiscriminatorMap.php on line 26
+[24-Apr-2025 17:30:35 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/HasLifecycleCallbacks.php on line 26
+[24-Apr-2025 18:16:04 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/Index.php on line 26
+[24-Apr-2025 19:16:00 UTC] PHP Fatal error:  Class 'Doctrine\ORM\ORMException' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/MappingException.php on line 27
+[24-Apr-2025 22:14:25 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/NamedQueries.php on line 26
+[24-Apr-2025 22:59:20 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/PostRemove.php on line 26
+[25-Apr-2025 03:45:15 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/JoinColumn.php on line 26
+[25-Apr-2025 05:14:45 UTC] PHP Fatal error:  Interface 'Doctrine\Common\Persistence\Mapping\ClassMetadata' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/ClassMetadataInfo.php on line 44
+[25-Apr-2025 05:14:47 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/DiscriminatorColumn.php on line 26
+[25-Apr-2025 11:28:06 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/JoinTable.php on line 26
+[25-Apr-2025 12:57:56 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/SequenceGenerator.php on line 26
+[25-Apr-2025 13:42:13 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/InheritanceType.php on line 26
+[25-Apr-2025 14:29:03 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/ManyToMany.php on line 26
+[25-Apr-2025 15:14:36 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/PreUpdate.php on line 26
+[25-Apr-2025 15:59:45 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/Id.php on line 26
+[25-Apr-2025 16:46:07 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/OrderBy.php on line 26
+[25-Apr-2025 19:13:37 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/Column.php on line 26
+[25-Apr-2025 21:31:08 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/PostUpdate.php on line 26
+[25-Apr-2025 23:13:57 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/ChangeTrackingPolicy.php on line 26
+[26-Apr-2025 00:45:09 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/PostPersist.php on line 26
+[26-Apr-2025 00:45:10 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/PrePersist.php on line 26
+[26-Apr-2025 01:31:10 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/PostLoad.php on line 26
+[26-Apr-2025 08:34:38 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/Version.php on line 26
+[26-Apr-2025 09:20:44 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/JoinColumns.php on line 26
+[26-Apr-2025 10:07:15 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/NamedQuery.php on line 26
+[26-Apr-2025 10:52:45 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/Entity.php on line 26
+[26-Apr-2025 14:09:11 UTC] PHP Fatal error:  Interface 'Doctrine\Common\Persistence\Mapping\ClassMetadataFactory' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/ClassMetadataFactory.php on line 42
+[26-Apr-2025 15:41:07 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/ManyToOne.php on line 26
+[26-Apr-2025 17:13:32 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/GeneratedValue.php on line 26
+[26-Apr-2025 17:13:33 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/OneToMany.php on line 26
+[26-Apr-2025 20:31:55 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/Table.php on line 26
+[27-Apr-2025 03:54:41 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/PreFlush.php on line 26
+[27-Apr-2025 21:25:36 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Mapping\ClassMetadataInfo' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/ClassMetadata.php on line 42
+[29-Apr-2025 07:13:33 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/PostPersist.php on line 26
+[29-Apr-2025 07:13:34 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/PrePersist.php on line 26
+[29-Apr-2025 08:00:06 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/PostLoad.php on line 26
+[29-Apr-2025 15:22:43 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/Version.php on line 26
+[29-Apr-2025 16:07:29 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/JoinColumns.php on line 26
+[29-Apr-2025 16:52:42 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/NamedQuery.php on line 26
+[29-Apr-2025 17:37:31 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/Entity.php on line 26
+[29-Apr-2025 20:44:08 UTC] PHP Fatal error:  Interface 'Doctrine\Common\Persistence\Mapping\ClassMetadataFactory' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/ClassMetadataFactory.php on line 42
+[08-May-2025 12:57:38 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/PreFlush.php on line 26
+[09-May-2025 16:13:55 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/DiscriminatorColumn.php on line 26
+[10-May-2025 16:40:30 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/NamedQuery.php on line 26
+[19-May-2025 18:39:58 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/UniqueConstraint.php on line 26
+[28-May-2025 01:28:00 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/JoinColumn.php on line 26
+[30-May-2025 01:50:06 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/JoinTable.php on line 26
+[01-Jun-2025 19:37:17 UTC] PHP Fatal error:  Class 'Doctrine\ORM\ORMException' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/MappingException.php on line 27
+[04-Jun-2025 19:54:14 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/PreFlush.php on line 26
+[06-Jun-2025 00:18:48 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/DiscriminatorColumn.php on line 26
+[16-Jun-2025 03:50:12 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/Id.php on line 26
+[16-Jun-2025 06:47:53 UTC] PHP Fatal error:  Interface 'Doctrine\ORM\Mapping\Annotation' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Mapping/Version.php on line 26

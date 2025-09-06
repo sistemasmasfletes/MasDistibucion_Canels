@@ -1,0 +1,18 @@
+.red,
+.red .fc-event-skin,
+.red a
+{
+    background-color: #3366CC;
+    border-color:  green;
+    color:white;
+}
+
+.green,
+.green .fc-event-skin,
+.green a
+{
+    background-color: green;
+    border-color:  green;
+    color:white;
+}
+

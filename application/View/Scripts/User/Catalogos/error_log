@@ -1,0 +1,4 @@
+[26-Apr-2025 17:13:49 UTC] PHP Fatal error:  Uncaught Error: Call to a member function url() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/User/Catalogos/index.php:44
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/User/Catalogos/index.php on line 44

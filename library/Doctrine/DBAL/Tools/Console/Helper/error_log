@@ -1,0 +1,2 @@
+[26-Apr-2025 02:17:28 UTC] PHP Fatal error:  Class 'Symfony\Component\Console\Helper\Helper' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Tools/Console/Helper/ConnectionHelper.php on line 39
+[29-Apr-2025 08:47:43 UTC] PHP Fatal error:  Class 'Symfony\Component\Console\Helper\Helper' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Tools/Console/Helper/ConnectionHelper.php on line 39

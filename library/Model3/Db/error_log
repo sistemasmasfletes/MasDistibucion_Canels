@@ -1,0 +1,37 @@
+[12-Feb-2024 17:09:12 UTC] PHP Fatal error:  Uncaught Error: Class 'Model3_Db_Adapter' not found in /home/masdistr/public_html/masdistribucion.com/library/Model3/Db/Paginator.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/library/Model3/Db/Paginator.php on line 10
+[03-Apr-2024 20:15:32 UTC] PHP Fatal error:  Uncaught Error: Class 'Model3_Db_Adapter' not found in /home/masdistr/public_html/masdistribucion.com/library/Model3/Db/Paginator.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/library/Model3/Db/Paginator.php on line 10
+[29-May-2024 21:41:19 UTC] PHP Fatal error:  Uncaught Error: Class 'Model3_Db_Adapter' not found in /home/masdistr/public_html/masdistribucion.com/library/Model3/Db/Paginator.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/library/Model3/Db/Paginator.php on line 10
+[26-Jul-2024 21:13:47 UTC] PHP Fatal error:  Uncaught Error: Class 'Model3_Db_Paginator' not found in /home/masdistr/public_html/masdistribucion.com/library/Model3/Db/Table.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/library/Model3/Db/Table.php on line 8
+[17-Oct-2024 23:12:23 UTC] PHP Fatal error:  Uncaught Error: Class 'Model3_Db_Paginator' not found in /home/masdistr/public_html/masdistribucion.com/library/Model3/Db/Table.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/library/Model3/Db/Table.php on line 8
+[13-Nov-2024 21:13:22 UTC] PHP Fatal error:  Uncaught Error: Class 'Model3_Db_Paginator' not found in /home/masdistr/public_html/masdistribucion.com/library/Model3/Db/Table.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/library/Model3/Db/Table.php on line 8
+[20-Dec-2024 08:28:41 UTC] PHP Fatal error:  Uncaught Error: Class 'Model3_Db_Adapter' not found in /home/masdistr/public_html/masdistribucion.com/library/Model3/Db/Paginator.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/library/Model3/Db/Paginator.php on line 10
+[23-Mar-2025 20:48:15 UTC] PHP Fatal error:  Uncaught Error: Class 'Model3_Db_Paginator' not found in /home/masdistr/public_html/masdistribucion.com/library/Model3/Db/Table.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/library/Model3/Db/Table.php on line 8
+[25-Mar-2025 20:19:18 UTC] PHP Fatal error:  Class 'Model3_Db_Paginator' not found in /home/masdistr/public_html/masdistribucion.com/library/Model3/Db/Table.php on line 8
+[28-Mar-2025 16:06:16 UTC] PHP Fatal error:  Class 'Model3_Db_Adapter' not found in /home/masdistr/public_html/masdistribucion.com/library/Model3/Db/Paginator.php on line 10
+[20-Apr-2025 17:38:43 UTC] PHP Fatal error:  Class 'Model3_Db_Paginator' not found in /home/masdistr/public_html/masdistribucion.com/library/Model3/Db/Table.php on line 8
+[21-Apr-2025 22:57:26 UTC] PHP Fatal error:  Class 'Model3_Db_Paginator' not found in /home/masdistr/public_html/masdistribucion.com/library/Model3/Db/Table.php on line 8
+[25-Apr-2025 17:43:08 UTC] PHP Fatal error:  Class 'Model3_Db_Adapter' not found in /home/masdistr/public_html/masdistribucion.com/library/Model3/Db/Paginator.php on line 10

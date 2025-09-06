@@ -1,0 +1,4 @@
+[21-Apr-2025 23:54:55 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Id\AbstractIdGenerator' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Id/SequenceGenerator.php on line 30
+[24-Apr-2025 10:26:18 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Id\AbstractIdGenerator' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Id/IdentityGenerator.php on line 29
+[25-Apr-2025 13:42:11 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Id\AbstractIdGenerator' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Id/AssignedGenerator.php on line 35
+[25-Apr-2025 21:31:05 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Id\AbstractIdGenerator' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Id/TableGenerator.php on line 33

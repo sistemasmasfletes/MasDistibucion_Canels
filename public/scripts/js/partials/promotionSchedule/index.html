@@ -1,0 +1,112 @@
+<div ng-show="state.current.name==='promotionSchedule'">  
+    <ol class="breadcrumb">
+        <li class="active">Panel</li>
+        <li class="active actualpg">Programaciones</li>
+    </ol>
+    <div class="container-fluid">
+        <div class="row">
+            
+            <div class="col-md-12">
+                <div class="pull-right">                         
+                    <div class="btn-group  btn-group-sm">
+                        <button class="btn btn-default sin-padding" ng-click="tableParams.reload()" ><span class="pers-btn icono-refrescar tam-normal"></span></button>
+                    </div>       
+                </div>
+                <p>&nbsp;&nbsp;</p>
+                <div loading-container="tableParams.settings().$loading">                
+                    <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable table-responsive">
+                    <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">
+                        <span class="ui-ngt-title">Promociones Programadas</span>
+                    </div>
+                        <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover table-striped ">
+                            <tbody>
+                                <tr ng-repeat="promotions in $data" ng-click="promotions.$selected = !promotions.$selected; changeSelection(promotions)"
+                                    ng-class="{'ngactive': promotions.$selected}">
+                                    <td data-title="'N°'" sortable="'id'"  class="col-md-1">
+                                        {{promotions.id}}
+                                    </td>
+                                    <td data-title="'Cliente'">
+                                        {{promotions.client}}
+                                    </td>                     
+                                    <td data-title="'Promoción'" sortable="'promotionName'">
+                                        {{promotions.promotionName}}
+                                    </td>                                    
+                                    <td data-title="'Paquete'">
+                                        {{promotions.package}}
+                                    </td>
+                                    <td data-title="'Fecha programada'">
+                                        {{promotions.dateshipping|stringToDate|date :"dd MM yyyy H:mm"}}
+                                    </td>                                    
+                                    <td data-title="'Estatus'">
+                                        <span ng-if="promotions.paymentStatus==1">Pagada</span>
+                                        <span ng-if="promotions.paymentStatus!=1">Pendiente</span>
+                                    </td>
+                                    <td data-title="''">
+                                        <span tooltip="Rechazado" ng-if="(promotions.shippingStatus == 6)" class="pers-btn icono-tacha icono-tam-tabla"  ></span>
+                                        <span tooltip="Promocionada" ng-if="(promotions.shippingStatus == 3)" class="pers-btn icono-palomita icono-tam-tabla"  ></span>
+                                        <span tooltip="No promocionada" ng-if="(promotions.shippingStatus == 0)" class="pers-btn icono-sin-accion icono-tam-tabla"  ></span>
+                                    </td>
+                                    <td data-title="'Interés'">
+                                        <span title="{{UtilsService.findById(getInterestLevel,promotions.interestLevel)['name']}}" zd-rating rating-value="promotions.interestLevel" max="getInterestLevel.length" readonly="true" ng-click="openSurveyDesc(promotions)"></span>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>            
+                    </div>        
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="templateShowSurvey.html">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">{{promotion.client}} - {{promotion.promotionName}}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">                
+                <div style="border-bottom:1px dotted #ccc; margin-bottom:5px;margin-top:5px">
+                    <h5 style="font-weight:bold; font-size:300">Tipo de consumidor</h5>
+                    <span zd-rating rating-value="promotion.consumerType" max="getConsumerType.length" readonly="true" ></span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{UtilsService.findById(getConsumerType,promotion.consumerType)['name']}}
+                </div>                    
+                
+                <div style="border-bottom:1px dotted #ccc; padding-top:5px; margin-bottom:5px;margin-top:5px">
+                    <h5 style="font-weight:bold; font-size:300">Interés Mostrado</h5>
+                    <span zd-rating rating-value="promotion.interestLevel" max="getInterestLevel.length" readonly="true" ></span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{UtilsService.findById(getInterestLevel,promotion.interestLevel)['name']}}
+                </div>
+                
+                <div style="border-bottom:1px dotted #ccc; padding-top:5px; margin-bottom:5px;margin-top:5px">
+                    <h5 style="font-weight:bold; font-size:300">¿Solicitó algo?</h5>
+                    <span zd-rating rating-value="promotion.request" max="getRequest.length" readonly="true" ></span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{UtilsService.findById(getRequest,promotion.request)['name']}}
+                </div>
+                <br/>
+                <div style="border-bottom:1px dotted #ccc; padding-top:5px; margin-bottom:5px;margin-top:5px">
+                    <h5 style="font-weight:bold; font-size:300">Usuario que recibió</h5>
+                    {{promotion.receivingUser}}
+                </div>
+                
+                <div style="border-bottom:1px dotted #ccc; padding-top:5px; margin-bottom:5px;margin-top:5px">
+                    <h5 style="font-weight:bold; font-size:300">Teléfono proporcionado</h5>
+                    {{promotion.telephone}}
+                </div>
+                
+                
+                <div style="border-bottom:1px dotted #ccc; padding-top:5px; margin-bottom:5px;margin-top:5px">
+                    <h5 style="font-weight:bold; font-size:300">Comentarios adicionales</h5>
+                    {{promotion.comments}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-ng-click="ok();">Cerrar</button>
+    </div>    
+</script>
+
+<div ui-view="edit"></div>
+    <!--img  src="../../public/images/Logo_1.png" alt="logo" class="pie"--> 

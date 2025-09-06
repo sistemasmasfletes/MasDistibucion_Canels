@@ -1,0 +1,33 @@
+[general]
+app_name = MasDistribucion
+debug = TRUE
+error_controller = NotFound
+error_action = index
+layout = Smart
+
+[m3_internationalization]
+inter_multilang = FALSE
+inter_default_lang = es
+inter_dir_lang = ../application/Languages/
+
+[m3_public_settings]
+css_dir = /css/
+js_dir = /scripts/js/
+
+[m3_general_db]
+engine = Doctrine2
+base_dir = ../application/Model/
+
+[db_default]
+db_host = localhost
+db_user = root
+db_pass = VM2007.123
+db_name = logistic_masfletes
+cnx_name = DefaultDb
+
+[user_data]
+table = DefaultDb_Entities_User
+id = id
+user = username
+pass = password
+cnx = DefaultDb

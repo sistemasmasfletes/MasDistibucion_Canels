@@ -1,0 +1,8 @@
+[25-Mar-2025 18:27:02 UTC] PHP Fatal error:  Uncaught Error: Call to a member function url() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Admin/index.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Admin/index.php on line 3
+[24-Apr-2025 23:44:15 UTC] PHP Fatal error:  Uncaught Error: Call to a member function url() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Admin/index.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/Admin/index.php on line 3

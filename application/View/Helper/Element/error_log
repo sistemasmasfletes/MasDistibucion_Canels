@@ -1,0 +1,2 @@
+[24-Apr-2025 22:59:17 UTC] PHP Fatal error:  Class 'Model3_View_Helper' not found in /home/masdistr/public_html/masdistribucion.com/application/View/Helper/Element/ElementCatalog.php on line 12
+[25-Apr-2025 19:58:37 UTC] PHP Fatal error:  Class 'Model3_View_Helper' not found in /home/masdistr/public_html/masdistribucion.com/application/View/Helper/Element/ElementProducto.php on line 13

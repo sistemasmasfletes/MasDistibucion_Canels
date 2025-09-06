@@ -1,0 +1,3 @@
+[24-Apr-2025 06:26:54 UTC] PHP Fatal error:  Interface 'Doctrine\DBAL\Driver\Connection' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Driver/OCI8/OCI8Connection.php on line 27
+[24-Apr-2025 20:44:29 UTC] PHP Fatal error:  Interface 'Doctrine\DBAL\Driver\Statement' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Driver/OCI8/OCI8Statement.php on line 32
+[25-Apr-2025 15:14:43 UTC] PHP Fatal error:  Interface 'Doctrine\DBAL\Driver' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Driver/OCI8/Driver.php on line 32

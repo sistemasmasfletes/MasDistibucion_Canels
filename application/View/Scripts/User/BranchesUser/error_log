@@ -1,0 +1,20 @@
+[23-Apr-2025 22:59:23 UTC] PHP Fatal error:  Uncaught Error: Call to a member function url() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/User/BranchesUser/add.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/User/BranchesUser/add.php on line 5
+[26-Apr-2025 13:22:04 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getBaseUrl() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/User/BranchesUser/_default.php:51
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/User/BranchesUser/_default.php on line 51
+[26-Apr-2025 15:41:22 UTC] PHP Fatal error:  Uncaught Error: Call to a member function url() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/User/BranchesUser/edit.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/User/BranchesUser/edit.php on line 5
+[27-Apr-2025 03:10:26 UTC] PHP Fatal error:  Uncaught Error: Call to a member function url() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/User/BranchesUser/delete.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/User/BranchesUser/delete.php on line 5
+[29-Apr-2025 19:56:39 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getBaseUrl() on null in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/User/BranchesUser/_default.php:51
+Stack trace:
+#0 {main}
+  thrown in /home/masdistr/public_html/masdistribucion.com/application/View/Scripts/User/BranchesUser/_default.php on line 51

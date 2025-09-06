@@ -1,0 +1,60 @@
+<div ng-show="state.current.name==='packages'">    
+    <ol class="breadcrumb">
+        <li class="active">Rutas</li>
+        <li class="active "><a ui-sref="scheduledRoute">Reportes de actividades</a></li>
+        <li class="active actualpg">Paquetes</li>
+    </ol>
+    <h4>Rastreo por Paquete</h4>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-11">
+                <div class="pull-right">                         
+                    <div class="btn-group  btn-group-sm">                        
+                        <!--<button class="btn btn-default editar" tooltip="Editar" ><span class="pers-btn icono-editar tam-normal"></span></button>-->
+                        <button zd-filter custom-filter="customFilter" ng-click="openFilter()" is-open="filterOpen" apply-filter="appFilter(filter)" class="btn btn-default filtrar"><span class="pers-btn icono-filtrar tam-normal"></span></button>
+                    </div>       
+                </div>
+                <p>&nbsp;&nbsp;</p>
+                <div loading-container="tableParams.settings().$loading">
+                    <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable table-responsive">
+                        <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover">
+                            <tbody class='text-center'>
+                                <tr ng-repeat="routePoint in $data" ng-click="routePoint.$selected = !routePoint.$selected; changeSelection(routePoint)"
+                                    ng-class="{'ngactive': routePoint.$selected}">                        
+                                    <td data-title="'Ruta'" sortable="'routeName'">
+                                        {{routePoint.routeName}}
+                                    </td>
+                                    <td data-title="'PV'">
+                                        {{routePoint.pointName}}
+                                    </td>                                    
+                                    <td data-title="'Fecha'">
+                                        {{getDateFromString(routePoint.date)|date:"dd-MM-yyyy hh:mm a"}}
+                                    </td>
+                                     <td data-title="'Actividad'" class="text-center">
+                                          
+                                         <span tooltip="Recolectar" ng-if="(routePoint.activityType_id==1 && routePoint.isTransactionActive==1)" class="pers-btn icono-recolectar icono-tam-tabla"></span>
+                                        <span tooltip="Recolectar" ng-if="(routePoint.activityType_id==1 && routePoint.isTransactionActive==0)" class="pers-btn icono-recolectar icono-tam-tabla deshabilitado" ></span> 
+                                        <span tooltip="Entrega" ng-if="(routePoint.activityType_id==2 && routePoint.isTransactionActive==1)" class="pers-btn icono-entregar icono-tam-tabla" ></span>
+                                        <span tooltip="Entrega"  ng-if="(routePoint.activityType_id==2 && routePoint.isTransactionActive==0)" class="pers-btn icono-entregar icono-tam-tabla deshabilitado" ></span> 
+                                    </td>
+                                    <td data-title="'Fecha de la transacción'">
+                                        {{getDateFromString(routePoint.hora_actual)|date:"dd-MM-yyyy hh:mm a"}}
+                                    </td>
+                                    <td data-title="'Status'" class="col-md-1 text-center"> 
+                                        <span tooltip="Estatus Ok" ng-if="(routePoint.isTransactionActive==1)" class="pers-btn icono-palomita icono-tam-tabla"  ></span> 
+                                        <span tooltip="Detenido" ng-if="(routePoint.isTransactionActive==0)" class="pers-btn icono-tacha icono-tam-tabla"  ></span> 
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>            
+                    </div>        
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div ui-view="schedules"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ui-view="activities"></div>
+<!--img  src="../images/Logo_1.png" alt="logo" class="pie"--> 

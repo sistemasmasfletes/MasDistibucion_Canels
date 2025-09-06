@@ -1,0 +1,2095 @@
+<?php
+
+class User_BackStoreController extends Model3_Controller
+{
+
+    public function init()
+    {
+        if (!Model3_Auth::isAuth())
+        {
+            $this->redirect('Index/index');
+        }
+    } 
+    public function indexAction()
+    {
+        
+    }
+
+    public function ordersAction()
+    {
+
+        $em = $this->getEntityManager('DefaultDb');
+        
+        $this->checkPermission('UserBackStore','orders');
+
+        if(Model3_Auth::getCredentials('type') == DefaultDb_Entities_User::USER_DRIVER)
+        {
+            $viewUser = new Model3_Session_Namespace('viewUser');
+            $sellerId = $viewUser->id;
+            
+            //Se inserta como usuario recolectado al log
+            $logUserVisitedRepos = $em->getRepository('DefaultDb_Entities_LogUsersVisited');
+            $driverId = Model3_Auth::getCredentials('id');
+            $clientId = $viewUser->id;
+            
+            $logUserVisitedRepos->addLog($driverId, $clientId, DefaultDb_Entities_LogUsersVisited::ACTION_GARNER);
+        }
+        else
+        {
+                $sellerId = Model3_Auth::getCredentials('id');
+        }
+       
+        $this->view->_em = $em;
+        
+        $user = $em->find('DefaultDb_Entities_User', $sellerId);
+        $this->view->orders = $user->getOrdersReceived();
+        $this->view->recurrentsFlag = false;
+        if($this->view->orders)
+        {
+            foreach ($this->view->orders as $o)
+            {
+                if($o->getRecurrent())
+                    $this->view->recurrentsFlag = true;
+            }
+        }
+        
+        $branchRepo = $em->getRepository('DefaultDb_Entities_BranchesUser');
+        $branchStatus = $branchRepo->getBranchStatusPerUser($sellerId);
+        $this->view->branchStatus = $branchStatus;
+        
+    }
+
+    public function viewOrderAction()
+    {
+        $em = $this->getEntityManager('DefaultDb');
+        $orderId = $this->getRequest()->getParam('id');
+        $packagesAdapter = $em->getRepository('DefaultDb_Entities_PackageToOrder');
+
+        $order = $em->find('DefaultDb_Entities_M3CommerceOrder', $orderId);
+        //$packages = $em->find('DefaultDb_Entities_M3CommerceOrder', $orderId);
+
+                
+        
+        if(Model3_Auth::getCredentials('type') == DefaultDb_Entities_User::USER_DRIVER)
+        {
+            $viewUser = new Model3_Session_Namespace('viewUser');
+            $sellerId = $viewUser->id;
+        }
+        else
+        {
+            $sellerId = Model3_Auth::getCredentials('id');
+        }
+        
+           
+        if($order->getSeller()->getId() == $sellerId || $order->getBuyer()->getId() == $sellerId)
+        {
+            $packs = $packagesAdapter->findBy(array('order' => $order));
+            $this->view->order = $order;
+            $this->view->packs = $packs;
+        }
+        
+        $url = $this->view->url(array('action' => 'ajax_updateStatusPaid'), true);
+        $this->view->getJsManager()->addJsVar('urlUpdateStatusPaid', json_encode($url));
+        $this->view->getJsManager()->addJsVar('urlChangeStatusShipping', json_encode($url));
+        $this->view->getJsManager()->addJsVar('urlChangeStatusOrder','\''.$this->view->url(array('module' => 'Ajax','controller' => 'OrderRecurrents','action' => 'chageOrderStatus')).'\'' );
+        $this->view->getJsManager()->addJsVar('orderId', $order->getId());
+        $this->view->getJsManager()->addJsVar('newStatus', DefaultDb_Entities_M3CommerceOrder::SHIPPING_STATUS_SHIPPED);
+        
+        $this->view->getJsManager()->addJs('view/scripts/User/BackStore/action' . VERSION_JS . '.js');
+        $this->view->getJsManager()->addJs('view/scripts/User/BackStore/viewOrder' . VERSION_JS . '.js');
+        $this->view->getCssManager()->addCss('view/scripts/User/BackStore/viewOrder' . VERSION_CSS . '.css');
+      }
+        
+
+    public function shoppingAction()
+    {
+        $em = $this->getEntityManager('DefaultDb');
+        $credentials = Model3_Auth::getCredentials();
+        
+        //vaR_dump(Model3_Auth::getCredentials('type'));
+        if(Model3_Auth::getCredentials('type') == DefaultDb_Entities_User::USER_DRIVER)
+        {
+            $viewUser = new Model3_Session_Namespace('viewUser');
+            $m3CommerceOrdersRepos = $em->getRepository('DefaultDb_Entities_M3CommerceOrder');
+            $orders = $m3CommerceOrdersRepos->getOrdersByStatusShipping($viewUser->id, DefaultDb_Entities_M3CommerceOrder::SHIPPING_STATUS_SHIPPED);
+            
+            //Se inserta como usuario entregado al log
+            $logUserVisitedRepos = $em->getRepository('DefaultDb_Entities_LogUsersVisited');
+            $driverId = Model3_Auth::getCredentials('id');
+            $clientId = $viewUser->id;
+            $logUserVisitedRepos->addLog($driverId, $clientId, DefaultDb_Entities_LogUsersVisited::ACTION_DELIVERED);
+        }
+        else
+        {
+            $user = $em->find('DefaultDb_Entities_User', $credentials['id']);
+            $orders = $user->getOrdersGenerated();
+        }
+        $this->view->_em = $em;
+        $this->view->orders = $orders;
+        $this->view->recurrentsFlag = false;
+        foreach ($this->view->orders as $order)
+            if($order->getRecurrent())
+                $this->view->recurrentsFlag = true;
+
+        $branchRepo = $em->getRepository('DefaultDb_Entities_BranchesUser');
+        $branchStatus = $branchRepo->getBranchStatusPerUser($credentials['id']);
+        $this->view->branchStatus = $branchStatus;
+        
+        $this->view->getJsManager()->addJs('dist/pdfmake.min.js');
+        $this->view->getJsManager()->addJs('dist/vfs_fonts.js');
+        $this->view->getJsManager()->addJs('dist/moment.js');
+        $this->view->getJsManager()->addJsVar('urlGenerateQr','\''.$this->view->url(array('action' => 'generateQr')).'\'' );
+        $this->view->getJsManager()->addJsVar('qrcodePath','\''.$this->view->getBaseUrlPublic().'/qrcode/'.'\'' );
+        $this->view->getJsManager()->addJs('application/User/BackStore/shopping'.VERSION_JS.'.js');
+    }
+    
+    public function generateQrAction(){
+        $post = $this->getRequest()->getPost();
+
+        $id = $post['id'];
+        
+         include '../library/phpqrcode/phpqrcode.php';
+        try {
+            $PNG_TEMP_DIR = dirname('..\public\images') . DIRECTORY_SEPARATOR . 'qrcode' . DIRECTORY_SEPARATOR;
+            $PNG_WEB_DIR = '../public/qrcode/'; //html PNG location prefix
+            if (!file_exists($PNG_TEMP_DIR)) {
+                mkdir($PNG_TEMP_DIR);
+            }
+ 
+
+            $shoppingOrder = $id;
+            $filename = $PNG_TEMP_DIR . $shoppingOrder . '.png';
+                
+            $errorCorrectionLevel = 'M';
+            $matrixPointSize = 10;
+
+            QRcode::png($shoppingOrder, $filename, $errorCorrectionLevel, $matrixPointSize, 2);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public function viewOrderShoppingAction()
+    {
+        $em = $this->getEntityManager('DefaultDb');
+        $orderId = $this->getRequest()->getParam('id');
+        $packagesAdapter = $em->getRepository('DefaultDb_Entities_PackageToOrder');
+
+        $order = $em->find('DefaultDb_Entities_M3CommerceOrder', $orderId);
+        
+        if(Model3_Auth::getCredentials('type') == DefaultDb_Entities_User::USER_DRIVER)
+        {
+            $viewUser = new Model3_Session_Namespace('viewUser');
+            $sellerId = $viewUser->id;
+        }
+        else
+        {
+            $sellerId = Model3_Auth::getCredentials('id');
+        }
+        
+        if($order->getBuyer()->getId() == $sellerId)
+        {
+            $packs = $packagesAdapter->findBy(array('order'=>$order));
+            $this->view->order = $order;
+            $this->view->packs = $packs;
+        }
+
+        $url = $this->view->url(array('action' => 'ajax_updateStatusShipping'), true);
+        $this->view->getJsManager()->addJsVar('urlChangeStatusShipping', json_encode($url));
+        $this->view->getJsManager()->addJsVar('orderId', $order->getId());
+        $this->view->getJsManager()->addJsVar('newStatus', DefaultDb_Entities_M3CommerceOrder::SHIPPING_STATUS_DELIVERED);
+        
+        $this->view->getJsManager()->addJs('view/scripts/User/BackStore/action' . VERSION_JS . '.js');
+        $this->view->getJsManager()->addJs('view/scripts/User/BackStore/viewOrder' . VERSION_JS . '.js');
+        $this->view->getCssManager()->addCss('view/scripts/User/BackStore/viewOrder' . VERSION_CSS . '.css');
+    }
+    public function pagarAction()
+    {
+        print_r($_POST);
+    }
+    
+    public function viewEfectuarPagoAction()
+    {
+        $em = $this->getEntityManager('DefaultDb');
+        $orderId = $this->getRequest()->getParam('id');
+        
+        $post = $this->getRequest()->getPost();
+
+        $packagesAdapter = $em->getRepository('DefaultDb_Entities_PackageToOrder');
+        
+        $order = $em->find('DefaultDb_Entities_M3CommerceOrder', $orderId);
+
+        if(Model3_Auth::getCredentials('type') == DefaultDb_Entities_User::USER_DRIVER)
+        {
+            $viewUser = new Model3_Session_Namespace('viewUser');
+            $sellerId = $viewUser->id;
+        }
+        else
+        {
+            $sellerId = Model3_Auth::getCredentials('id');
+        }
+        if($order->getBuyer()->getId() == $sellerId || $order->getSeller()->getId() == $sellerId)
+        {
+            $packs = $packagesAdapter->findBy(array('order'=>$order));
+            $this->view->order = $order;
+            $this->view->packs = $packs;
+            $this->view->tipo = ($order->getSeller()->getId() == $sellerId) ? TRUE : FALSE;
+            $this->view->pago = $post['slcTipoPago'];
+        }
+        $url = $this->view->url(array('action' => 'ajax_updateStatusShipping'), true);
+        $this->view->getJsManager()->addJsVar('urlChangeStatusShipping', json_encode($url));
+        $this->view->getJsManager()->addJsVar('orderId', $order->getId());
+        $this->view->getJsManager()->addJsVar('newStatus', DefaultDb_Entities_M3CommerceOrder::SHIPPING_STATUS_DELIVERED);
+        
+        $this->view->getJsManager()->addJs('view/scripts/User/BackStore/action' . VERSION_JS . '.js');
+        $this->view->getJsManager()->addJs('view/scripts/User/BackStore/viewOrder' . VERSION_JS . '.js');
+        $this->view->getCssManager()->addCss('view/scripts/User/BackStore/viewOrder' . VERSION_CSS . '.css');
+        $this->view->getJsManager()->addJs('view/scripts/User/BackStore/viewEfectuarPago' . VERSION_JS . '.js');
+    }
+
+    private function prepareView()
+    {
+        $action = $this->view->action;
+        $this->view->idUsuario = $this->view->showCart = false;
+
+        foreach($widgets as $widget)
+        {
+            if($widget['tipo'] == WIDGET_CATALOGS)
+            {
+                $this->view->getCssManager()->addCss('tienda' . CSS_POSFIX . '.css');
+            }
+
+            if($widget['tipo'] == TRADUCTOR)
+                $this->view->loadGoogleTranslateAPI = true;
+        }
+
+        $paginasAdapter = new Model_VistaPaginas();
+        $page = $paginasAdapter->getPageByNameBySitio($this->_nomFixPage, $this->_sitio['id']);
+        if($page && $page->categoria == PAGINA_TIENDA)
+        {
+            $this->view->linkNav = '/' . $page->nombre_fix;
+            $this->view->showCart = true;
+            $idSitio = $this->_sitio['id'];
+            $this->view->idSitio = $idSitio;
+            $this->view->nomFix = $this->_sitio['nombre_fix'];
+            $this->view->nomPageFix = $this->_nomFixPage;
+            $this->view->tipo_template = $this->_sitio['tipo_template'];
+            $this->view->template = $this->_sitio['template'];
+
+            //consultar productos para imprimirlos
+            $this->getProductsInitials($idSitio);
+            //$this->view->productos = $productos;
+            //var_dump($productos);
+
+
+            $tagsGroups = array();
+            //var_dump($productos);
+            $exceptTagsName = '';
+
+            switch($tienda->fuente_productos_iniciales)
+            {
+                case Data_Catalogos::INICIO_CATALOGO:
+                    $tagsGroups = $this->getTagGroupNames($idSitio); //Da todos los grupos
+                    $tagsGroups = $this->cleanGroups($tagsGroups, Data_Catalogos::INICIO_CATALOGO, $idSitio); //limpia dependiendo del catalogo
+                    break;
+                case Data_Catalogos::INICIO_ETIQUETAS:
+                    $exceptTagsName = $this->getInitTagsName($tienda);
+                    $this->view->tagsIni = $tienda->valor_productos_iniciales;
+
+                    $tagsGroups = $this->getTagGroupNamesSelected($idSitio, $exceptTagsName); //debe poder tomar todos execto los que ya tomo y quitando los que ya
+                    $tagsGroups = $this->cleanGroups($tagsGroups, Data_Catalogos::INICIO_ETIQUETAS, $idSitio, $exceptTagsName);
+
+                    break;
+                case Data_Catalogos::INICIO_DESTACADOS:
+                    $tagsGroups = $this->getTagGroupsDestacados($idSitio);
+                    $tagsGroups = $this->cleanGroups($tagsGroups, Data_Catalogos::INICIO_DESTACADOS, $idSitio);
+                    break;
+            }
+            ////obtener las etiquetas de cada grupo y almacenarlas en un arreglo
+
+            $this->view->tagsNameSelected = $exceptTagsName;
+            $this->view->tagsGroups = $tagsGroups;
+            $this->view->getCssManager()->addCss('tienda' . CSS_POSFIX . '.css');
+        }
+
+        //se inicializan los valores para el template Avanzado
+        if($this->_sitio['tipo_template'] == 2)
+        {
+            $templateHelper = new Helper_TemplateAvanzado();
+            $layout = '';
+            if($action != 'viewroomcart' && $action != 'viewcart' && $action != 'confirmorder' && $action != 'review' && $action != 'confirmDmOrder')
+            {
+                //if( $this->view->pagina['categoria'] != PAGINA_TIENDA )
+                $layout = $this->view->pagina['layout'];
+            }
+
+            $toInclude = $templateHelper->initAdvancedTemplate($this->_sitio, $layout);
+            $this->view->css = $toInclude['css'];
+            $this->view->js = $toInclude['js'];
+
+            //Estilos para los sitios de template con plantilla propia,
+            //se agregan los estilos de contacto y de comentarios y otros...
+            $this->cssTemplateAvanzado($toInclude);
+        }
+        else
+        {
+            /**
+             * Esta seccion se agrega para poder agregar los archivos css y js del modo avanzado al modo personalizado
+             */
+            $templateHelper = new Helper_TemplateAvanzado();
+            $toInclude = $templateHelper->initAdvancedTemplate($this->_sitio, '');
+            $this->view->css = $toInclude['css'];
+            $this->view->js = $toInclude['js'];
+
+            $this->setLayoutToTemplate();
+        }
+
+        //Si es una accion de tienda no se llaman los elementos
+        if($action != 'viewroomcart' && $action != 'viewcart' && $action != 'confirmorder' && $action != 'confirmDmOrder' /* && $action != 'billing' */ && $action != 'review')
+        {
+            if($this->view->pagina)
+            {
+                //obtenemos los elementos
+                if(!$this->view->elementMode)
+                    $this->getElements();
+                else
+                    $this->getSingleElement();
+            }
+        }
+    }
+
+    /**
+     * Crea un elemento temporal con id de elemento = -1
+     * @param int $idSitio
+     * @param int $tipoElemento
+     * @param string $contenido Para el elemento catalogo es el tipo de vista del catalogo(lista, o 
+     * @param int $id
+     * @return array Arreglo asociativo con los campos 'contenido', 'id'=>-1
+     */
+    protected function createTemporalElement($idSitio, $tipoElemento, $contenido, $id)
+    {
+        return Helper_Sites::createTemporalElement($idSitio, $tipoElemento, $contenido, $id);
+    }
+
+    /**
+     * Regresa los productos que seran mostrados al inicio de la tienda
+     * segun la confoguracion definida por el usuario
+     * @param int $idSitio
+     * @return array|false
+     */
+    private function getProductsInitials($idSitio)
+    {
+        $tiendasAdapter = new Data_Tiendas();
+        $catalogosAdapter = new Data_Catalogos();
+        $productosAdapter = new Data_Productos();
+        $tienda = $tiendasAdapter->getStoreForASite($idSitio);
+        $numCatalog = $catalogosAdapter->getNumCatalogbySitioId($idSitio);
+        $numProducts = $productosAdapter->getNumProductsBySitioId($idSitio, 1);
+
+        if(is_array($tienda) && count($tienda) > 0 && $numCatalog > 0 && $numProducts > 0)
+        {
+            $tienda = $tienda[0];
+            $productosAdapter = new Data_Productos();
+            $this->view->vistaCatalogo = false;
+            $this->view->idCatalogo = false;
+
+            switch($tienda->fuente_productos_iniciales)
+            {
+                case Data_Catalogos::INICIO_CATALOGO:
+                    $idCatalogo = $tienda->valor_productos_iniciales;
+                    $this->view->vistaCatalogo = true;
+                    $contenido = array('tipo_vista' => 1, 'num_renglones' => '', 'num_columnas' => '', 'num_productos_lista' => '', 'num_productos_slide' => '');
+                    $this->view->catalogElement = $this->createTemporalElement($idSitio, ETIPO_CATALOGO, $contenido, $idCatalogo);
+                    $this->view->idCatalogo = $idCatalogo;
+                    break;
+                case Data_Catalogos::INICIO_ETIQUETAS:
+                    if(isset($post['edicion']) && $post['edicion'] == 1)
+                    {
+                        $this->view->edicion = true;
+                    }
+                    $this->view->vistaCatalogo = true;
+                    $contenido = array('tipo_vista' => 1, 'num_renglones' => '', 'num_columnas' => '', 'num_productos_lista' => '', 'num_productos_slide' => '');
+                    $this->view->catalogElement = $this->createTemporalElement($idSitio, ETIPO_CATALOGO, $contenido, Data_Catalogos::INICIO_ETIQUETAS);
+                    break;
+                case Data_Catalogos::INICIO_DESTACADOS:
+                    $this->view->vistaCatalogo = true;
+                    $contenido = array('tipo_vista' => 1, 'num_renglones' => '', 'num_columnas' => '', 'num_productos_lista' => '', 'num_productos_slide' => '');
+                    $this->view->catalogElement = $this->createTemporalElement($idSitio, ETIPO_CATALOGO, $contenido, Data_Catalogos::CATALOGO_DESTACADOS);
+                    break;
+            }
+        }
+    }
+
+    public function getInitTagsName($tienda)
+    {
+        $exceptTagsName = $tienda->valor_productos_iniciales;
+        $exceptTagsName = explode(',', $exceptTagsName);
+        foreach($exceptTagsName as $k => $tagName)
+        {
+            if(strlen($tagName) <= 0)
+                unset($exceptTagsName[$k]);
+            else
+                $exceptTagsName[$k] = '"' . $tagName . '"';
+        }
+        return $exceptTagsName;
+    }
+
+    private function cleanGroups($tagsGroups, $tipoCatalogo, $idSitio, $exceptTagsName = '')
+    {
+        if($tipoCatalogo == Data_Catalogos::INICIO_ETIQUETAS)
+        {
+            $productosAdapter = new Data_Productos();
+            $where = '';
+            if(is_array($exceptTagsName) && count($exceptTagsName) > 0)
+                $where .= ' t.valor IN ( ' . implode(',', $exceptTagsName) . ' )';
+            $productos = $productosAdapter->getProductsByTagsValue($idSitio, $where);
+        }
+        foreach($tagsGroups as $key => $tagGroup)
+        {
+            $tagsAdapter = new Data_Tags();
+            $idGrupo = $tagGroup['id'];
+            switch($tipoCatalogo)
+            {
+                case Data_Catalogos::INICIO_CATALOGO:
+                    $tags = $tagsAdapter->getTagsByGroupIdAndCatalogId($idGrupo, $this->view->idCatalogo, array(), FETCH_ASSOC);
+                    break;
+                case Data_Catalogos::INICIO_ETIQUETAS:
+
+                    $namesProductos = array();
+                    foreach($productos as $i => $producto)
+                        $namesProductos[$i] = '"' . $producto->nombre . '"';
+                    $tags = $tagsAdapter->getTagsByGroupExceptTagsNames($idGrupo, $exceptTagsName, $namesProductos, FETCH_ASSOC);
+                    break;
+                case Data_Catalogos::INICIO_DESTACADOS:
+                    $tags = $tagsAdapter->getTagsByGroupDestacados($idGrupo, FETCH_ASSOC);
+                    break;
+            }
+            if(is_array($tags) && count($tags) > 0)
+            {
+                $tagsGroups[$key]['tags'] = $tags;
+            }
+            else
+            {
+                unset($tagsGroups[$key]);
+            }
+        }
+        return $tagsGroups;
+    }
+
+    private function getTagGroupNames($idSitio)
+    {
+        $groupsTagsAdapter = new Data_TagsGroups();
+        $tagsGroups = $groupsTagsAdapter->getNombreGrupo($idSitio, null, FETCH_ASSOC);
+        return $tagsGroups;
+    }
+
+    private function getTagGroupsDestacados($idSitio)
+    {
+        $groupsTagsAdapter = new Data_TagsGroups();
+        $tagsGroups = $groupsTagsAdapter->getGroupsDestacados($idSitio, FETCH_ASSOC);
+        //$tagsGroups=$tagAdapter->getGroupsSelectedByTags($exceptTagsName,$idSitio);
+        return $tagsGroups;
+    }
+
+    private function getTagGroupNamesSelected($idSitio, $tagsIni)
+    {
+        //$exceptTagsName=$tagsExcept;
+        $tagAdapter = new Data_Tags();
+        $tagsGroups = $tagAdapter->getGroupsSelectedByTags($tagsIni, $idSitio);
+        return $tagsGroups;
+    }
+
+    public function viewProductAction()
+    {
+        $this->view->product = false;
+        $idProducto = $this->getRequest()->getParam('id');
+        if($idProducto)
+        {
+            $em = $this->getEntityManager('DefaultDb');
+            $product = $em->find('DefaultDb_Entities_Product', $idProducto);
+            if($product)
+            {
+                $this->view->product = $product;
+                $catalog = $product->getCatalog();
+                $this->view->aditional_title = $product->getname() . ' :: ' . $catalog->getTitle();
+                $this->view->alternative_description = htmlentities(strip_tags($product->getDescription()));
+                $this->view->catalog = $catalog;
+                $this->view->user = $catalog->getClient();
+                $this->view->category = $this->view->user->getCategory();
+            }
+        }
+    }
+
+    private function cssTemplateAvanzado($toInclude)
+    {
+        $this->view->getCssManager()->addCss('styleTemplate2' . CSS_POSFIX . '.css');
+        $this->view->htmlLayout = $toInclude['html'];
+        $this->view->setTemplate('TemplateAvanzado');
+    }
+
+    public function getCatalog($idSitio, $index)
+    {
+        $idCatalog = $this->getParam($index);
+
+        /**
+         * Esta validacion es temporal, arreglar el .htaccess para formar correctamente las url's
+         * en este momento genera /viewCatalog/nomfix/viewCatalog/idProducto
+         */
+        if($idCatalog == 'viewCatalog')
+            $idCatalog = $this->getParam($index + 1);
+        //verificar que existe el catalogo
+        $catalog = false;
+        if($idCatalog)
+        {
+            $CatalogAdapter = new Data_Catalogos();
+            $catalog = $CatalogAdapter->getCatalogByIdSitioAndCatalog($idSitio, $idCatalog);
+
+            if($catalog)
+            {
+                $contenido = array('tipo_vista' => 1, 'num_renglones' => '', 'num_columnas' => '', 'num_productos_lista' => '', 'num_productos_slide' => '');
+                $this->view->catalogElement = $this->createTemporalElement($idSitio, ETIPO_CATALOGO, $contenido, $idCatalog);
+            }
+            else
+            {
+                $this->view->catalogElement = false;
+            }
+        }
+        return $catalog;
+    }
+
+    /**
+     * Inicializa las variables ocupadas en la vista con valores predeterminados.
+     * Posteriormente se dan valores dependiendo de la accion en la que nos encontremos.
+     */
+    protected function setViewVars()
+    {
+        $helper = new Helper_DisplayHelper();
+        //definimos la accion por la que ingresamos, en produccion no será visible por las reglas del htaccess (index o customDomain)
+        $this->view->action = $this->_request->getAction();
+        //Indica que no permitiremos la edicion al llamar a los elementos
+        $this->view->edition = 0;
+        // indica si desplegaremos unicamente un elemento dado
+        $this->view->elementMode = $helper->isElementMode($this->getParam(2));
+        //Indicará si en la pagina hay elementos galeria
+        $this->view->galeria = 0;
+        //indica si desplegamos la tienda
+        $this->view->tienda = false;
+        //Indica si debemos mostrar el carrito de compra
+        $this->view->viewCart = false;
+        //Indica si desplegaremos los detalles del carrito de compra
+        $this->view->reviewCart = false;
+        //Indica si estamos en el paso de confirmacion de ordenes
+        $this->view->confirmorder = false;
+        //Indica si la pagina inicial es de tipo tienda
+        $this->view->inicialPageIsStore = false;
+        //Si no tiene pagina para los catalogos
+        $this->view->nameFixStore = "";
+        //define si se muestra o no el menu de cnofiguracion
+        $this->view->menuConfig = false;
+        //variable para los permisos de edicion
+        $this->view->permisos = 0;
+        //contendrá los widgets
+        $this->view->widgets = array();
+        //indica si existe un elemento mapa
+        $this->view->addMap = false;
+        //ancho default
+        $this->view->width1 = '700px';
+        //clase default
+        $this->view->clase1 = '';
+        //indica si estamos en modo preview
+        $this->view->preview = false;
+        //title complementario para productos o catalogos
+        $this->view->aditional_title = false;
+        //descripcion alternativa para las vistas de productos
+        $this->view->alternative_description = false;
+    }
+
+    /**
+     * Añade los css necesarios
+     */
+    protected function setCssFiles()
+    {
+        $this->view->getCssManager()->addCss('cssgallery/css/galleriffic-2.css');
+        $this->view->getCssManager()->addCss('cssgallery/css/galleriffic-5.css');
+
+        $this->view->getJsManager()->addJs('jquery.opacityrollover.js');
+        //los siguientes se encontraban en la funcion initialize llamada multiples veces
+        $this->view->getCssManager()->addCss('fullcalendar.css');
+        $this->view->getCssManager()->addCss('style-1.css');
+        $this->view->getCssManager()->addCss('twitter.css');
+        $this->view->getCssManager()->addCss('sexylightbox.css');
+        $this->view->getCssManager()->addCss('menu-1.css');
+        $this->view->getCssManager()->addCss(JQUERY_UI_CSS);
+        $this->view->getCssManager()->addCss('widgets-1.css');
+        $this->view->getCssManager()->addCss('captify.css');
+        $this->view->getCssManager()->addCss('styleSocial-1.css');
+        $this->view->getCssManager()->addCss('catalog-1.css');
+        $this->view->getCssManager()->addCss('productsviews-1.css');
+        $this->view->getCssManager()->addCss('cloudZoom/cloud-zoom.css');
+        $this->view->getCssManager()->addCss('agilecarousel/agile_carousel.css');
+        $this->view->getCssManager()->addCss('reservations/reservations.css');
+    }
+
+    /**
+     * Añade los js necesarios. Previamente llamados desde la function initialize
+     */
+    protected function setJsFiles($element = '')
+    {
+        switch($element)
+        {
+            case '':
+                $this->view->getJsManager()->addJs(JQUERY_UI_SCRIPT);
+                $this->view->getJsManager()->addJs('captify.js');
+                $this->view->getJsManager()->addJs('jquery.tools.min.js');
+                $this->view->getJsManager()->addJs('jquery.timers-1.1.2.js');
+                $this->view->getJsManager()->addJs('templates/display' . JS_POSFIX . '.js');
+                $this->view->getJsManager()->addJs('jquery.validate.js');
+                $this->view->getJsManager()->addJs('templates/comentarios' . JS_POSFIX . '.js');
+                $this->view->getJsManager()->addJs('templates/widgets' . JS_POSFIX . '.js');
+                $this->view->getJsManager()->addJs('fullcalendar.js');
+                $this->view->getJsManager()->addJs('sexylightbox.v2.3.jquery.js');
+                $this->view->getJsManager()->addJs('jquery.tooltip.js');
+                $this->view->getJsManager()->addJs('templates/ecommerce' . JS_POSFIX . '.js');
+                $this->view->getJsManager()->addJs('cloudZoom/cloud-zoom.1.0.2.js');
+                $this->view->getJsManager()->addJs('templates/productsviews' . JS_POSFIX . '.js');
+                $this->view->getJsManager()->addJs('jquery.form.js');
+
+                $siteAdapter = new Model_Sitios();
+                $site = $siteAdapter->getSiteById($this->_sitio['id']);
+                if($site['categoria'] == HOTEL)
+                {
+                    $this->view->getJsManager()->addJs('Reservaciones/datepicker.js');
+                    $this->view->getJsManager()->addJs('Reservaciones/validateDatesReservations.js');
+                }
+                break;
+            case ETIPO_MAP:
+            case ETIPO_PRODUCTO:
+                $this->view->getJsManager()->addJs('googleMaps.js');
+                break;
+            case ETIPO_GALLERY:
+                $this->view->getJsManager()->addJs('jquery.galleriffic.js');
+                break;
+            case ElementsController::ETIPO_SLIDE:
+                $this->view->getJsManager()->addJs('agilecarousel/agile_carousel.alpha.js');
+                break;
+        }
+    }
+
+    /**
+     * En caso de no tener el nombre de la pagina,
+     * se infiere que la pagina que se muestra es la de inicio                     
+     */
+    protected function setInitialPageData()
+    {
+        $siteAdapter = new Model_Sitios();
+
+        if(strlen($this->_nomFixPage) <= 0)
+        {
+            $this->view->pagina = $siteAdapter->getPage($this->_sitio['id'], $this->_sitio['id_pagina_inicio'], SELECTOR);
+            $this->_nomFixPage = $this->view->pagina['nombre_fix'];
+        }
+        else
+        {
+            $this->view->pagina = $siteAdapter->getPageByName($this->_sitio['id'], $this->_nomFixPage);
+        }
+
+        if($this->view->pagina && $this->view->pagina['categoria'] == PAGINA_TIENDA)
+        {
+            $this->view->inicialPageIsStore = true;
+        }
+
+        //Obteniendo opciones de la pagina                
+        $this->view->currentPag = $this->view->pagina;
+
+        $namePagTienda = $siteAdapter->getPageTiendaByIdSitio($this->_sitio['id'], SELECTOR);
+
+        if($namePagTienda)
+            $this->view->nameFixStore = $namePagTienda->nombre_fix;
+
+        $this->view->idSitio = $this->_sitio['id'];
+        $this->view->moderacion = $this->_sitio['moderacion'];
+        $this->view->template = $this->_sitio['template'];
+        $this->view->datos = $this->_sitio;
+        $this->view->comentariosDefault = (int) $this->_sitio['comentarios'];
+    }
+
+    /**
+     * Pone en uno o cero la bandera que define si se carga o no blueprint
+     * @param int $tipo_template 
+     */
+    protected function needBlueprint($tipo_template)
+    {
+        if($tipo_template != 2)
+        {
+            //$this->initialize();
+            $templateSiteHelper = new Helper_TemplateSites();
+            $this->view->loadBlueprint = $tipo_template == 0 ? $templateSiteHelper->blueprint(true) : $templateSiteHelper->blueprint();
+        }
+    }
+
+    /**
+     * Define las clases y variables que dan el ancho de los elementos
+     * @param array $sitio 
+     */
+    protected function setWidthVars($sitio)
+    {
+        $templateSiteHelper = new Helper_TemplateSites();
+        $templateSiteHelper->InitTemplate($sitio);
+        $this->view->clase1 = $templateSiteHelper->siteClass();
+        $this->view->width1 = $templateSiteHelper->width();
+    }
+
+    /**
+     * Obtiene las páginas y subpáginas del sitio
+     */
+    protected function setSitePages()
+    {
+        $siteAdapter = new Model_Sitios();
+        $this->view->paginas = $siteAdapter->getPages($this->_sitio['id'], SELECTOR);
+
+        if($this->view->pagina)
+        {
+            $this->view->hijos = $siteAdapter->getSons($this->_sitio['id'], $this->view->pagina['id'], SELECTOR);
+            $this->view->hermanos = $siteAdapter->getBrothers($this->view->pagina['id_padre'], $this->_sitio['id'], SELECTOR);
+            $this->view->idPagina = $this->view->pagina['id'];
+        }
+    }
+
+    private function setLayoutToTemplate()
+    {
+        $this->iniTemplate('');
+        $paginasAdapter = new Model_VistaPaginas();
+        $page = $paginasAdapter->getPageByNameBySitio($this->_nomFixPage, $this->_sitio['id']);
+        if(($page && $page->categoria == PAGINA_TIENDA ) || $this->_request->getAction() == 'viewproduct' || $this->_request->getAction() == 'viewCatalog')
+        {
+            $useOwnBase = false;
+
+            if($this->_sitio['tipo_template'] == 1)
+            {
+                $t = $this->_sitio['template'];
+
+                if(($t >= 13 && $t <= 22) || $t == 7 || $t == 24 || ($t >= 26 && $t <= 31))
+                {
+                    $useOwnBase = true;
+                }
+            }
+
+            if((($this->_sitio['tipo_template'] == 1) && $useOwnBase == false))
+                $this->view->setTemplate('TemplateTiendaStores');
+            else if((($this->_sitio['tipo_template'] == 0) && ($this->_sitio['template'] == 4)))
+                $this->view->setTemplate('TemplateTienda');
+        }
+    }
+
+    public function checkPassWordPageAjaxAction()
+    {
+        $this->view->setUseTemplate(false);
+        $siteAdapter = new Model_Sitios();
+        $correct = false;
+
+        if($this->isPost())
+        {
+            $post = $this->getPost();
+            $typedPassword = $post['typedPass'];
+            $pageId = $post['idPage'];
+            $siteId = $post['idSite'];
+            $this->view->pagina = $siteAdapter->getPage($siteId, $pageId, SELECTOR);
+
+            if($typedPassword != '')
+            {
+                $password = base64_decode($this->view->pagina['password']);
+                if($password == $typedPassword)
+                {
+                    $correct = true;
+                    $this->getElements(); /* Se obtienen los elementos */
+                }
+            }
+
+            $this->view->correct = $correct;
+        }
+    }
+
+    public function viewRoomAction()
+    {
+//        $this->view->elementView = 1;
+//        $this->view->useGPlusButton = true;
+//        $this->view->useTwitterWidgets = true;
+        $sesion = new Model3_Session_Namespace('reservaciones');
+        $siteAdapter = new Model_Sitios();
+        $fechaInicio = $sesion->fechaInicio;
+        $fechaSalida = $sesion->fechaSalida;
+
+        $imagesRoomsAvaliablesAdapter = new Model_Reservaciones_ImagenesHabitaciones();
+        $roomsAvaliableAdapter = new Helper_Reservaciones_Reservations();
+        $roomsAdapter = new Model_Reservaciones_Habitaciones();
+
+        $imagesRoomsAvaliables = $imagesRoomsAvaliablesAdapter->getImageByIdSitio($this->_sitio['id']);
+        $roomsAvailable = $roomsAdapter->getRoomsByIdSitio($this->_sitio['id']);
+
+        //var_dump($imagesRoomsAvaliables);
+        $this->view->imagesRoomAvaliable = $imagesRoomsAvaliables;
+        $this->view->roomAvaliable = $roomsAvailable;
+        $this->setWidthVars($this->_sitio);
+        //$this->view->loadBlueprint = true;
+        $this->needBlueprint($this->_sitio['tipo_template']);
+        $this->view->getJsManager()->addJs('googleMaps.js');
+
+        if($this->isPost())
+        {
+            $post = $this->getPost();
+            $fechaInicio = $post['txtStartDate'];
+            $fechaSalida = $post['txtEndDate'];
+
+
+            $sesion->fechaInicio = $fechaInicio;
+            $sesion->fechaSalida = $fechaSalida;
+            $this->view->roomReserved = $roomReserved = $roomsAdapter->getRoomsReservedByIdSitio($this->_sitio['id'], $fechaInicio, $fechaSalida);
+
+            //   var_dump($roomReserved);
+        }
+        else if($fechaInicio != null && $fechaSalida != null)
+        {
+            $this->view->roomReserved = $roomReserved = $roomsAdapter->getRoomsReservedByIdSitio($this->_sitio['id'], $fechaInicio, $fechaSalida);
+        }
+        else
+        {
+            //var_dump('hol');
+            $newUrl = 'Display/index/' . $this->view->nomFix . '/' . $this->_nomFixPage;
+            $this->redirect($newUrl);
+        }
+
+        $this->prepareViewRoom();
+    }
+
+    public function prepareViewRoom()
+    {
+        $this->view->idUsuario = $this->view->showCart = false;
+        $siteAdapter = new Model_Sitios();
+        $tiendasAdapter = new Model_Reservaciones();
+        $helper = new Helper_DisplayHelper();
+
+        $this->view->getCssManager()->addCss('tienda' . CSS_POSFIX . '.css');
+        $tienda = $tiendasAdapter->findOne('id_sitio', $this->_sitio['id']);
+        $this->view->tienda = $tienda;
+        $this->view->idUsuario = $this->_sitio['id_usuario'];
+        $this->setLinks($this->_sitio);
+        $this->view->showCart = true;
+        $this->getSingleProduct($this->_sitio['id'], $this->_baseIndex);
+        //obtenemos el contenido de la pag
+        $this->getPageContent($this->_nomFixPage, $this->_sitio);
+        //Obtenemos las paginas del sitio
+        $this->setSitePages();
+
+        $paginasAdapter = new Model_VistaPaginas();
+        $idSitio = $this->_sitio['id'];
+        $this->view->tipo_template = $this->_sitio['tipo_template'];
+
+        if($this->_sitio['tipo_template'] == 2)
+        {
+            $templateHelper = new Helper_TemplateAvanzado();
+            $layout = '';
+            $toInclude = $templateHelper->initAdvancedTemplate($this->_sitio, $layout);
+            $this->view->css = $toInclude['css'];
+            $this->view->js = $toInclude['js'];
+            //Estilos para los sitios de template con plantilla propia,
+            //se agregan los estilos de contacto y de comentarios y otros...
+            $this->cssTemplateAvanzado($toInclude);
+        }
+        else
+        {
+            $this->setLayoutToTemplate();
+        }
+    }
+
+    public function confirmRoomAction()
+    {
+        $siteAdapter = new Model_Sitios();
+        $this->setWidthVars($this->_sitio);
+        //$this->view->loadBlueprint = true;
+        if($this->isPost())
+        {
+            $post = $this->getPost();
+            $idRoom = $post['idRoom'];
+        }
+        else
+        {
+            $idRoom = $this->getParam(1);
+        }
+        $roomsAdapter = new Helper_Reservaciones_Reservations();
+        $room = $roomsAdapter->getRoomByIdRoom($idRoom);
+        $this->view->room = $room;
+        $this->view->item = null;
+        if($this->getParams() > 1)
+        {
+            $this->view->item = $this->getParam(2);
+        }
+        $this->needBlueprint($this->_sitio['tipo_template']);
+        $this->view->getJsManager()->addJs('googleMaps.js');
+        $this->prepareConfirmRoom();
+    }
+
+    public function prepareConfirmRoom()
+    {
+        $this->view->idUsuario = $this->view->showCart = false;
+        $siteAdapter = new Model_Sitios();
+        $helper = new Helper_DisplayHelper();
+
+        $this->view->getCssManager()->addCss('tienda' . CSS_POSFIX . '.css');
+        $this->view->idUsuario = $this->_sitio['id_usuario'];
+        $this->setLinks($this->_sitio);
+        $this->view->showCart = true;
+        $this->getSingleProduct($this->_sitio['id'], $this->_baseIndex);
+        //obtenemos el contenido de la pag
+        $this->getPageContent($this->_nomFixPage, $this->_sitio);
+        //Obtenemos las paginas del sitio
+        $this->setSitePages();
+
+        $paginasAdapter = new Model_VistaPaginas();
+        $idSitio = $this->_sitio['id'];
+        $this->view->tipo_template = $this->_sitio['tipo_template'];
+
+        if($this->_sitio['tipo_template'] == 2)
+        {
+            $templateHelper = new Helper_TemplateAvanzado();
+            $layout = '';
+            $toInclude = $templateHelper->initAdvancedTemplate($this->_sitio, $layout);
+            $this->view->css = $toInclude['css'];
+            $this->view->js = $toInclude['js'];
+            //Estilos para los sitios de template con plantilla propia,
+            //se agregan los estilos de contacto y de comentarios y otros...
+            $this->cssTemplateAvanzado($toInclude);
+        }
+        else
+        {
+            $this->setLayoutToTemplate();
+        }
+    }
+
+    public function carReservationRoomAction()
+    {
+        $siteAdapter = new Model_Sitios();
+        $this->setWidthVars($this->_sitio);
+        //$this->view->loadBlueprint = true;
+        $roomsAdapter = new Helper_Reservaciones_Reservations();
+        $this->needBlueprint($this->_sitio['tipo_template']);
+        $this->view->getJsManager()->addJs('googleMaps.js');
+        $this->prepareCarReservationRoom();
+    }
+
+    public function prepareCarReservationRoom()
+    {
+        $this->view->idUsuario = $this->view->showCart = false;
+        $siteAdapter = new Model_Sitios();
+        $tiendasAdapter = new Data_Tiendas();
+        $helper = new Helper_DisplayHelper();
+
+        $this->view->getCssManager()->addCss('tienda' . CSS_POSFIX . '.css');
+        $tienda = $tiendasAdapter->findOne('id_sitio', $this->_sitio['id']);
+        $this->view->idUsuario = $this->_sitio['id_usuario'];
+        $this->setLinks($this->_sitio);
+        $this->view->showCart = true;
+        $this->getSingleProduct($this->_sitio['id'], $this->_baseIndex);
+        //obtenemos el contenido de la pag
+        $this->getPageContent($this->_nomFixPage, $this->_sitio);
+        //Obtenemos las paginas del sitio
+        $this->setSitePages();
+
+        $paginasAdapter = new Model_VistaPaginas();
+        $idSitio = $this->_sitio['id'];
+        $this->view->tipo_template = $this->_sitio['tipo_template'];
+
+        if($this->_sitio['tipo_template'] == 2)
+        {
+            $templateHelper = new Helper_TemplateAvanzado();
+            $layout = '';
+            $toInclude = $templateHelper->initAdvancedTemplate($this->_sitio, $layout);
+            $this->view->css = $toInclude['css'];
+            $this->view->js = $toInclude['js'];
+            //Estilos para los sitios de template con plantilla propia,
+            //se agregan los estilos de contacto y de comentarios y otros...
+            $this->cssTemplateAvanzado($toInclude);
+        }
+        else
+        {
+            $this->setLayoutToTemplate();
+        }
+    }
+
+    public function categoryAction()
+    {
+        $categoryId = $this->getRequest()->getParam('id');
+
+        $em = $this->getEntityManager('DefaultDb');
+        $this->view->category = $em->find('DefaultDb_Entities_Category', $categoryId);
+    }
+
+    public function userAction()
+    {
+        $userId = $this->getRequest()->getParam('id');
+
+        $em = $this->getEntityManager('DefaultDb');
+        $this->view->user = $em->find('DefaultDb_Entities_User', $userId);
+        $this->view->category = $this->view->user->getCategory();
+    }
+
+    public function ajax_updateStatusPaidAction()
+    {
+        $id = $this->getRequest()->getParam('id');
+        $post = $this->getRequest()->getPost();
+        $em = $this->getEntityManager('DefaultDb');
+        $order = $em->find('DefaultDb_Entities_M3CommerceOrder', $id);
+
+        if(isset($post['status']))
+        {
+            $order->SetPaymentStatus($post['status']);
+            $em->flush();
+        }
+
+        $this->view->setUseTemplate(false);
+    }
+
+    public function ajax_updateStatusShippingAction()
+    {
+        $post = $this->getRequest()->getPost();
+        $em = $this->getEntityManager('DefaultDb');
+        $res = false;
+        if(isset($post['status']) && isset($post['id']))
+        {
+            $id = $post['id'];
+            $status = $post['status'];
+            
+            $order = $em->find('DefaultDb_Entities_M3CommerceOrder', $id);
+            $order->setShippingStatus($status);
+            $em->flush();
+            $res = true;
+        }
+        $this->view->res = $res;
+        $this->view->setUseTemplate(false);
+    }
+
+    public function creteShippingAction()
+    {
+        $this->view->getJsManager()->addJs('jquery/jquery.form.js');
+        $this->view->getJsManager()->addJs('jquery/jquery.number.min.js');
+        $this->view->getJsManager()->addJs('application/User/BackStore/creteShipping.js');
+        $this->view->getJsManager()->addJsVar('urlConsultPackage','\''.$this->view->url(array('module'=>'Ajax','controller'=>'BackStore','action'=>'getPackageUser')).'\'');
+        $this->view->getJsManager()->addJsVar('urlSavePackage','\''.$this->view->url(array('module'=>'Ajax','controller'=>'BackStore','action'=>'addPackage')).'\'');
+        $this->view->getJsManager()->addJsVar('urlDeletePackage','\''.$this->view->url(array('module'=>'Ajax','controller'=>'BackStore','action'=>'deletePackage')).'\'');
+        $this->view->getJsManager()->addJsVar('urlSearchPackage', json_encode($this->view->url(array('module'=>'Ajax','controller'=>'BackStore','action'=>'getUserPackages'))));
+        $this->view->getJsManager()->addJsVar('urlSearchProducts', json_encode($this->view->url(array('module'=>'Ajax','controller'=>'BackStore','action'=>'getProductsToOrder'))));
+        $this->view->getJsManager()->addJsVar('urlSearchPromotion', json_encode($this->view->url(array('module'=>'User','controller'=>'Promotion','action'=>'getPromotion'))));
+        $this->view->getCssManager()->addCss('view/scripts/User/BackStore/listSearch' . VERSION_CSS . '.css');
+        
+
+        $em = $this->getEntityManager('DefaultDb');
+        $clientPackageCatalogAdapter = $em->getRepository('DefaultDb_Entities_ClientPackageCatalog');
+        $productAdapter = $em->getRepository('DefaultDb_Entities_Product');
+        $packagesAdapter = $em->getRepository('DefaultDb_Entities_PackageToOrder');
+        $scheduleAdapter = $em->getRepository('DefaultDb_Entities_Schedule');
+        $branchesAdapter =  $em->getRepository('DefaultDb_Entities_BranchesUser');
+        $clienteId = $this->usuario = $_SESSION['__M3']['MasDistribucion']['Credentials']['id']; 
+        $cliente = $em->getRepository('DefaultDb_Entities_User')->find($clienteId);
+        $creditos = $cliente->getCredito();
+        
+        $credentials = Model3_Auth::getCredentials();
+        $orderId = $this->getRequest()->getParam('id');
+        $this->view->getJsManager()->addJsVar('orderId',$orderId);
+        $order = $em->find('DefaultDb_Entities_M3CommerceOrder', $orderId);
+        $this->view->order = $order;
+        
+        //buscamos las proximas salidas en la ruta
+        $user = $em->find('DefaultDb_Entities_User', $credentials['id']);
+        if($user->getId() !== $order->getSeller()->getId())
+        {
+            $user = $order->getSeller(); //Cambiamos el usuario ya que el que hace el pedido es el comprador
+        }
+                
+        $branchesSeller = $branchesAdapter->getBrachesPerUser($order->getSeller()->getId());
+        $branchesBuyer = $branchesAdapter->getBrachesPerUser($order->getBuyer()->getId());
+
+        $this->view->branchesBuyer = $branchesBuyer;
+        $this->view->branchesSeller = $branchesSeller;
+   
+        
+        $scheduleHelper = new Helper_Schedule();
+        //$this->view->schedules = $scheduleHelper->getNextDatesValid($this->view->schedules);
+        if($this->getRequest()->isPost() && $order instanceof DefaultDb_Entities_M3CommerceOrder)
+        {
+            $resp = new stdClass();
+            $resp->success = false;
+
+            $post = $this->getRequest()->getPost();
+                
+            $scheduleCurrent = $scheduleAdapter->find($post['boxSchedules']);
+            $pointSeller = $branchesAdapter->find($post['pointSeller']);
+            $pointBuyer = $branchesAdapter->find($post['pointBuyer']);
+            $shippingDate = new DateTime($post['shippingDate']);
+            
+            $routePointActivitiRepo = $em->getRepository('DefaultDb_Entities_RoutePointActivity');
+            $sequentialActivitiesRepo = $em->getRepository('DefaultDb_Entities_SequentialActivities');
+
+            $agregados = 0;
+            $date = new DateTime();
+            $arrayNewOrders = array();
+            $arrayOrdersPackages = array();
+            $arraySequentialActivities = array();
+            $arrayPromotionSchedule = array();
+
+            //Obtener las actividades secuenciales de la orden de compra original (puntos de ruta)
+            $sequentialActivities = $sequentialActivitiesRepo->findBy(array('order'=>$order->getId()));
+            
+            //Separar los Ids de puntos de ruta(routepoints) en un Array aparte
+            $rpIds = array();
+            foreach ($sequentialActivities as $sa)
+                $rpIds[]=$sa->getRoutePoint()->getId();
+
+
+            // Obtenter configuración de costeo
+            $obConf = $em->find('DefaultDb_Entities_Configuration',1 /*Configuración 1*/);
+            
+            //Obtener la configuración de costeo dados los puntos de ruta.            
+            $ratesConfig = $routePointActivitiRepo->getSumRatesByRoutePoint($order->getId());
+
+            //Comparar la configuración previa que se envió al cliente y la configuración en tiempo real.
+            //Esto se hace para mantener la integridad del cálculo.
+            $basePackageSize = (int)$obConf->getBasePackageSize();
+            $powerFactor = (float)$obConf->getPowerFactor();
+            $totalAmount = (float)$ratesConfig["totalAmount"];
+            $totalRoutePoint = (int)$ratesConfig["totalRoutePoint"];
+            $promotionCosting = $obConf->getPromotionCost();
+
+            if(      (int)$post["basePackageSize"]!= $basePackageSize
+                || (float)$post["powerFactor"]    != $powerFactor
+                //|| (float)$post["totalAmount"]    != $totalAmount
+                ||   (int)$post["totalRoutePoint"]!= $totalRoutePoint)                
+            {   
+                $resp->numTypeResponse = 1;
+                $resp->message = 'La orden de compra no se ha guardado. Han cambiado los parámetros que determinan el cálculo del flete; se actualizarán los importes.';
+                $resp->costingConfig =  new stdClass();
+                $resp->costingConfig->basePackageSize = $basePackageSize;
+                $resp->costingConfig->powerFactor = $powerFactor;
+                $resp->costingConfig->hasFullRatesCaptured = $ratesConfig["hasFullRatesCaptured"];
+                $resp->costingConfig->totalAmount = $totalAmount;
+                $resp->costingConfig->totalRoutePoint = $totalRoutePoint;
+                $resp->costingConfig->hasDeliveryDate = true;
+                echo json_encode($resp);
+                exit;
+            }        
+            
+            $productUnits = $post['unity'];
+            
+            $width = 0.00;
+            $height = 0.00;
+            $depth = 0.00;
+            $packSize = 0;
+            $promotionid = 0;
+            $hasPromotion=false;
+            $obPromotion=null;
+            $em->getConnection()->beginTransaction();
+            try{
+                
+                foreach($post['unity'] as $key => $value)
+                {
+                    $cantidad = $post['unity'][$key];
+                    $idPackage = $post['idPackage'][$key];
+                    $promotionid = (int)($post['promotionid'][$key]);
+                    $hasPromotion = ($promotionid>0);
+
+                    if($cantidad != 0)
+                    {                     
+                        if($idPackage>0){
+                            $package = $clientPackageCatalogAdapter->find($idPackage);                        
+                        }
+                        else{
+                            $idPackage = $idPackage*-1;
+                            $package = $productAdapter->find($idPackage);
+                        }
+
+                        $width = $package->getWidth();
+                        $height = $package->getHeight();
+                        $depth = $package->getDepth();
+                        $packSize = $width*$height*$depth;
+                                                
+                        $total =  $this->calculateCostingFormula($packSize,$basePackageSize,0.9,$powerFactor,$totalRoutePoint,$totalAmount,$cantidad);
+                        $packagePrice =  $this->calculateCostingFormula($packSize,$basePackageSize,0.9,$powerFactor,$totalRoutePoint,$totalAmount,1);
+                      
+                        //Descuenta el numero de créditos del cliente
+                        $this->fncDescontarCreditos($total);
+                        
+                        if($hasPromotion)
+                            $obPromotion = $em->find('DefaultDb_Entities_Promotion',$promotionid);
+                        else
+                            $obPromotion = null;
+
+                        //Agregar el 1er paquete a la orden de compra actual
+                        if($agregados<=0){
+                           
+                            $ptorder = $packagesAdapter->addPackage($order, $package, $cantidad, $packagePrice, $total, $date,$user,null,$obPromotion);
+                            
+
+                            $order->setShippingDate($shippingDate);
+                            $order->setShippingStatus(DefaultDb_Entities_M3CommerceOrder::SHIPPING_STATUS_TO_SHIPPED);
+                            $order->setSchedule($scheduleCurrent);
+                            $order->setPointSeller($pointSeller->getPoint());
+                            $order->setPointBuyer($pointBuyer->getPoint());
+                            
+                            //Generar la actividad por punto de venta para la orden de compra original
+                            foreach ($sequentialActivities as $sa) {
+                                $arraySequentialActivities[]=array( "routePointId"=>$sa->getRoutePoint()->getId()
+                                                                    ,"shippingDate"=>$sa->getShippingDate()
+                                                                    ,"routeId"=>$sa->getRoutePoint()->getRoute()->getId()
+                                                                    ,"orderId"=>$sa->getOrder()->getId()
+                                                                    ,"activityType"=>$sa->getType()
+                                                                    );                           
+                            }                           
+                       
+                            //Crear actividades por punto de venta para la orden inicial.
+                            $arrayActivityPoint=$routePointActivitiRepo->createRoutePointActivites($arraySequentialActivities,1);
+                            $this->addPagos($order, $total);
+
+                            //Si el paquete tiene promoción, generar registro de programación de promoción
+                            if($hasPromotion){
+                                $countActivity = count($arrayActivityPoint);
+                                $lastActivity = null;
+                                $hasActivity = ($countActivity>0);
+                                if($hasActivity) $lastActivity = $arrayActivityPoint[$countActivity-1];
+                                $promotionSchedule = new DefaultDb_Entities_PromotionSchedule();
+                                $promotionSchedule->setPromotion($obPromotion);
+                                $promotionSchedule->setCreationDate($date);
+                                $promotionSchedule->setPromotionDate($hasActivity ? $lastActivity->getDate() :null);
+                                $promotionSchedule->setUser($order->getSeller());
+                                $promotionSchedule->setClient($order->getBuyer());
+                                $promotionSchedule->setPoint($hasActivity ? $lastActivity->getRoutePoint()->getPoint(): null);
+                                $promotionSchedule->setPackageOrder($ptorder);
+                                $promotionSchedule->setActivityPoint($hasActivity ? $lastActivity : null);
+                                $em->persist($promotionSchedule);
+                                
+                                //Guardar las programaciones en un array para posteriormente generar los pagos.
+                                $promotionCost = ($promotionCosting ? ($promotionCosting * $obPromotion->getNumResources()) : 0);
+                                $arrayPromotionSchedule[] = array("promotionSchedule"=>$promotionSchedule,"promotionCost"=>$promotionCost);
+                            }
+                        }else
+                        //Crear una nueva orden de compra por cada paquete adicional
+                        {                             
+                            $newOrderByPackage = new DefaultDb_Entities_M3CommerceOrder();
+                            $newOrderByPackage->setBuyer($order->getBuyer());
+                            $newOrderByPackage->setSeller($order->getSeller());
+                            $newOrderByPackage->setSchedule($order->getSchedule());
+                            $newOrderByPackage->setCreationDate($order->getCreationDate());
+                            $newOrderByPackage->setShippingDate($order->getShippingDate());
+                            $newOrderByPackage->SetPaymentStatus($order->getPaymentStatus());
+                            $newOrderByPackage->setShippingStatus($order->getShippingStatus());
+                            $newOrderByPackage->setComments($order->getComments());
+                            $newOrderByPackage->setWeek($order->getWeek());
+                            $newOrderByPackage->setMonday($order->getMonday());
+                            $newOrderByPackage->setTuesday($order->getTuesday());
+                            $newOrderByPackage->setWednesday($order->getWednesday());
+                            $newOrderByPackage->setThursday($order->getThursday());
+                            $newOrderByPackage->setFriday($order->getFriday());
+                            $newOrderByPackage->setSaturday($order->getSaturday());
+                            $newOrderByPackage->setSunday($order->getSunday());
+                            $newOrderByPackage->setRecurrent($order->getRecurrent());
+                            $newOrderByPackage->setOrderStatus($order->getOrderStatus());
+                            $newOrderByPackage->setPointBuyer($order->getPointBuyer());
+                            $newOrderByPackage->setPointSeller($order->getPointSeller());
+                            //$newOrderByPackage->setOrderParent(($order->getOrderParent() !== NULL )?$order->getOrderParent():$order);
+                            $newOrderByPackage->setOrderParent($order->getOrderParent());
+                            $em->persist($newOrderByPackage);
+
+                            //Agregar el paquete a la orden de compra recién creada
+                            $ptorder = $packagesAdapter->addPackage($newOrderByPackage, $package, $cantidad, $packagePrice, $total, $date,$user,$order,$obPromotion);
+                            
+                            $arrayNewOrders[] = array("newOrderByPackage"=>$newOrderByPackage,"package"=>$ptorder,"promotion"=>$obPromotion);
+                            $arrayOrdersPackages[] = array("orden"=>$newOrderByPackage,
+                                                        "cantidad"=>$cantidad,
+                                                        "paquete"=>$package->getName(),
+                                                        "punitario"=>$packagePrice,
+                                                        "importe"=>$total);
+                        }
+                        $agregados++;
+                    }
+                }
+
+                if($agregados > 0){
+                    $action = ($order->getBuyer()->getId() == $credentials['id'])?'viewOrderShopping':'viewOrder';
+                    $em->flush();
+                }
+
+                //Generar la actividad por punto de venta para cada orden creada
+                //Se generan en este punto debido a que las ordenes ya están guardadas                
+                foreach ($arrayNewOrders as $regOrden) {
+                    $orden = $regOrden["newOrderByPackage"];
+                    $this->addPagos($orden, $total);
+                    $hasPromotion = $regOrden["promotion"]!=null;
+                   
+                    $rpActivities = null;
+                    foreach ($arraySequentialActivities as $activity) {
+                        $activity["orderId"] = $orden->getId();
+                        $rpActivities[] = $activity;
+                    }
+                    $arrayActivityPoint = $routePointActivitiRepo->createRoutePointActivites($rpActivities,1);
+
+                    //Si el paquete tiene promoción, generar registro de programación de promoción
+                    if($hasPromotion){
+                        $countActivity = count($arrayActivityPoint);
+                        $lastActivity = null;
+                        $hasActivity = ($countActivity>0);
+                        if($hasActivity) $lastActivity = $arrayActivityPoint[$countActivity-1];
+
+                        $obPromotion = $regOrden["promotion"];
+                        $ptorder = $regOrden["package"];
+                        $promotionSchedule = new DefaultDb_Entities_PromotionSchedule();
+                        $promotionSchedule->setPromotion($obPromotion);
+                        $promotionSchedule->setCreationDate($date);
+                        $promotionSchedule->setPromotionDate($hasActivity ? $lastActivity->getDate() :null);
+                        $promotionSchedule->setUser($orden->getSeller());
+                        $promotionSchedule->setClient($orden->getBuyer());
+                        $promotionSchedule->setPoint($hasActivity ? $lastActivity->getRoutePoint()->getPoint(): null);
+                        $promotionSchedule->setPackageOrder($ptorder);
+                        $promotionSchedule->setActivityPoint($hasActivity ? $lastActivity : null);
+                        $em->persist($promotionSchedule);
+
+                        //Guardar las programaciones en un array para posteriormente generar los pagos.
+                        $promotionCost = ($promotionCosting ? ($promotionCosting * $obPromotion->getNumResources()) : 0);
+                        $arrayPromotionSchedule[] = array("promotionSchedule"=>$promotionSchedule,"promotionCost"=>$promotionCost);
+                    }
+                }
+
+                //Setear al array a devolver, los ids de las ordenes generadas
+                foreach ($arrayOrdersPackages as $key => $value) {
+                    $orden = $value["orden"];
+                    $arrayOrdersPackages[$key]["orden"] = $orden->getId();
+                    $arrayOrdersPackages[$key]["viewOrder"] = $this->view->getBaseUrl().'/User/BackStore/'.$action.'/id/'.$orden->getId();
+                }
+
+                //El flush es para persistir las actividades por punto de venta
+                if(count($arrayNewOrders)>0)
+                    $em->flush();
+
+                //Generar pago de promoción. Se guardan en este punto debido a que el pago depende de las programaciones de promoción.
+                foreach ($arrayPromotionSchedule as $rowPromotionSchedule) {
+                    $schedule = $rowPromotionSchedule["promotionSchedule"];
+                    $promotionCost = $rowPromotionSchedule["promotionCost"];
+                    $this->payPromotion($em,$schedule,$promotionCost);
+                }
+
+                if(count($arrayPromotionSchedule)>0)
+                    $em->flush();
+
+                $em->getConnection()->commit();
+
+                //if($agregados > 0) $this->addPagos($order, $total);
+                
+                if($action == 'viewOrderShopping'){
+                	$redirect = $this->view->getBaseUrl().'/User/BackStore/shopping/';
+                }else{
+                	$redirect = $this->view->getBaseUrl().'/User/BackStore/orders/';
+                }
+
+                if($agregados>1) 
+                {                    
+                    $resp->success=true;
+                    $resp->numTypeResponse = 2;
+                    $resp->newOrders = $arrayOrdersPackages;
+                    $resp->redirect = $redirect;
+                }else{
+                    $resp->success=true;
+                    $resp->numTypeResponse = 0;
+                    $resp->redirect = $redirect;
+                }
+
+                echo json_encode($resp);
+                exit;
+
+            }catch(Exception $ex){
+                $em->getConnection()->rollback();
+                throw $ex;
+            }
+        }
+
+        $this->view->getJsManager()->addJsVar('urlGetSchedules', '\'' . $this->view->url(array('module' => '', 'controller' => 'Ajax_UserShipping', 'action' => 'getSchedulesByOrigin')) . '\'');
+        $url = $this->view->url(array('module' => false, 'controller' => 'Ajax_UserShipping', 'action' => 'calculateShippingPerRoute'));
+        $this->view->getJsManager()->addJsVar('urlCalculateShippingTime', json_encode($url));
+        $this->view->getJsManager()->addJsVar('buyerId',$order->getBuyer()->getId());
+        $this->view->packages = $em->getRepository('DefaultDb_Entities_ClientPackageCatalog')->findBy(array('user' => $credentials['id']));
+        $this->view->idClient = $credentials['id'];
+        $this->view->ClientCreditos = number_format($cliente->getCredito(),2);
+        $this->view->urlBase = $this->view->getBaseUrl();
+        //$this->view->urlCrete = 'User/BackStore/creteShipping/id/'.$order->getId();
+        $this->view->getJsManager()->addJsVar('currentUser',$credentials['id']);
+        $this->view->getJsManager()->addJsVar('baseUrl','\''.$this->view->getBaseUrl().'\'');        
+    }
+
+    public function calculateCostingFormula($lpackageSize,$lbasePackageSize,$lsubsract,$lpower,$lTotalRoutePoint,$lTotalAmount,$lQuantity){        
+        if($lbasePackageSize!=null && $lbasePackageSize>0 && $lpower!=null){
+            if($lpackageSize<=$lbasePackageSize)
+                return $lTotalAmount*$lQuantity;
+            else
+                return  (($lTotalRoutePoint * round(pow((round(($lpackageSize/$lbasePackageSize)/5,2)),$lpower),2))+$lTotalAmount)*$lQuantity;
+        }else
+            return 0.00;
+    }
+    
+    public function fncDescontarCreditos($total)
+    {
+        
+        $em = $this->getEntityManager('DefaultDb');
+        
+        $credentials = Model3_Auth::getCredentials();
+        
+        $user = $em->find('DefaultDb_Entities_User', $credentials['id']);
+        
+        $user->setCredito($user->getCredito()-$total); 
+
+        $em->persist($user);
+        
+        $em->flush(); 
+        
+    }
+    
+    public function addBalance($orden, $total, $creditos)
+    {
+        $em = $this->getEntityManager('DefaultDb'); 
+              
+        $balanceGeneralRepo = $em->getRepository('DefaultDb_Entities_BalanceGeneral');
+
+        $balanceGeneralRepo->guardarBalance($orden, $total, $creditos);
+        
+    }
+    public function addPagos($orden, $total)
+    {
+        $em = $this->getEntityManager('DefaultDb'); 
+              
+        $PagosRepo = $em->getRepository('DefaultDb_Entities_Pagos');
+
+        $PagosRepo->fncGuardarPagoFlete($orden, $total);
+        
+    }
+    
+    function payPromotion($em,$promotionSchedule,$totalCost){
+        $ESTATUS_PENDIENTE = 2;
+        $CONGELAR_CREDITOS = 1;
+        $NEGAR_CREDITOS = 2;
+        $TIPO_CONCEPTO_COMPRA_PROMOCION = 7;
+        $MONEDA_DEFAULT="MXN";
+
+        $user = $promotionSchedule->getUser();
+        $pagosRepo = $em->getRepository('DefaultDb_Entities_Pagos');
+        $tipoConcepto = $em->getRepository('DefaultDb_Entities_TipoConcepto')->find($TIPO_CONCEPTO_COMPRA_PROMOCION);
+        $esSaldoNegativo = ($totalCost > $user->getCredito());
+        $tipoDebitar = $esSaldoNegativo ? $NEGAR_CREDITOS : $CONGELAR_CREDITOS;
+        $tipoDebito = $em->getRepository('DefaultDb_Entities_TipoDebito')->find($tipoDebitar);
+        $userMoneda = $user->getMoneda(); 
+        $monedaMXN = $em->getRepository('DefaultDb_Entities_TipoMonedas')->findBy(array("currencyCode"=>$MONEDA_DEFAULT));
+        $moneda = $userMoneda ? $userMoneda : ($monedaMXN ? $monedaMXN[0] : null);
+        $totalMoneda = $pagosRepo->fncCalculaCreditos($moneda->getId(), $totalCost);
+
+        $pagosJSON = array();
+        $pagosJSON["usuario"] = $promotionSchedule->getUser(); 
+        $pagosJSON["cliente"] = null; //No hay cliente ya que se está comprando una promoción
+        $pagosJSON["orden"] = $promotionSchedule->getId();
+        $pagosJSON["montoCompra"] = $totalMoneda;
+        $pagosJSON["montoCreditos"] =$totalCost;
+        $pagosJSON["fecha"] = new DateTime( );
+        $pagosJSON["estatus"] = $ESTATUS_PENDIENTE;
+        $pagosJSON["compraCreditos"] = null;
+        $pagosJSON["compraVenta"] = null;
+        $pagosJSON["promocion"] = $promotionSchedule;
+        $pagosJSON["tipoConcepto"] = $tipoConcepto;
+        $pagosJSON["tipoDebito"] = $tipoDebito;
+        $pagosJSON["descripcion"] = "Compra de promoción";
+        
+        $pago = $pagosRepo->fncAgregarPagoPromocion($pagosJSON);
+    }
+
+    public function createOrderAction()
+    {
+        $this->checkPermission('UserBackStore','createOrder');
+        
+        $this->view->producto =  $this->getRequest()->getParam('productoId');
+
+        $this->view->isCreateOrder = true;
+        $this->view->getJsManager()->addJs('application/User/BackStore/ordersRecurrent'.VERSION_JS.'.js');
+        $this->view->getJsManager()->addJsVar('urlOrderRecurrent', '\''.$this->view->url(array('module' => 'Ajax','controller' => 'BackStore', 'action' => 'getDataOrder')).'\'');
+        $this->view->getJsManager()->addJsVar('urlGetPointsByCategory', json_encode($this->view->url(array('module'=>'Ajax','controller'=>'BackStore','action'=>'getPointsByCategory'))));
+        $this->view->getJsManager()->addJsVar('urlSearch', json_encode($this->view->url(array('module'=>'Ajax','controller'=>'BackStore','action'=>'searchClients'))));
+        $this->view->getCssManager()->addCss('view/scripts/User/BackStore/listSearch' . VERSION_CSS . '.css');
+        $result=false;
+        $em = $this->getEntityManager('DefaultDb');
+        $users = $em->getRepository('DefaultDb_Entities_User')->findByType(array(DefaultDb_Entities_User::USER_CLIENT,  DefaultDb_Entities_User::USER_CLIENT_MAS_DISTRIBUCION));
+        $isBuyer = false;
+        if(count($this->getRequest()->getParams()) > 0)
+            $isBuyer = $this->getRequest()->getParam('buyer');
+
+        /*Obtenemos los favoritos*/
+        $favoriteUsersRepos = $em->getRepository('DefaultDb_Entities_FavoriteUsers');
+        $user = $em->getRepository('DefaultDb_Entities_User')->find(Model3_Auth::getCredentials('id'));
+        $branchesRepository = $em->getRepository('DefaultDb_Entities_BranchesUser');        
+        $favoriteUsers = $favoriteUsersRepos->findBy(array('client'=>$user, 'type' => 1));
+        $this->view->favoriteUsersClient = $favoriteUsers;
+        
+        /*Obtenemos las categorias*/
+        $categoryRepos = $em->getRepository('DefaultDb_Entities_Category');
+        $categories = $categoryRepos->getCategoryWithClients();
+        //$categories = $categoryRepos->findAll();
+        $this->view->categories = $categories;
+        
+        $statesRepos = $em->getRepository('DefaultDb_Entities_State');
+        $this->view->states = $statesRepos->findAll();
+                      
+        if($this->getRequest()->isPost())
+        {
+            $post= $this->getRequest()->getPost();
+            $order = new DefaultDb_Entities_M3CommerceOrder();
+            if ($post['div_selected'] == 3 && isset ($post['client_id']))
+            {
+                $client_id = $post['client_id'];
+            }
+            else if( $post['div_selected'] == 1 && isset($post['client_favorites_id']))
+            {
+                $client_id = $post['client_favorites_id'];
+            }
+            else
+            {
+            	$pointSeller = $branchesRepository->findBy(array('point' => $post['hiddenBranch']),array('id' => 'DESC'),1);
+            	$client_id = $pointSeller[0]->getClient()->getId();
+            	
+                //$client_id = $em->getRepository('DefaultDb_Entities_User')->findOneByType(DefaultDb_Entities_User::USER_CLIENT_MAS_DISTRIBUCION);
+                //$client_id = $client_id->getId();
+                //Guardar en la orden el punto donde estara 
+                //solo hacerlo para el caso de que el usuario es este genando una venta si es una compra 
+                // entonces el punto debe ser el del comprador
+                //$point = $em->getRepository('DefaultDb_Entities_Point')->find($post['hiddenBranch']);
+                //$pointSeller = $branchesRepository->findOneBy(array('point'=>$point,'client'=>$client_id));
+//                var_dump($pointSeller);
+                //$order->setPointBuyer($pointSeller->getPoint());
+            	$order->setPointBuyer($pointSeller[0]->getPoint());
+//                $order->setPointBuyer($pointBuyer->getPoint());
+            }
+            
+            if($isBuyer)
+            {
+                $seller = $em->getRepository('DefaultDb_Entities_User')->find($client_id);
+                $buyer = $em->getRepository('DefaultDb_Entities_User')->find(Model3_Auth::getCredentials('id'));
+            }
+            else
+            {
+                $buyer = $em->getRepository('DefaultDb_Entities_User')->find($client_id);
+                $seller = $em->getRepository('DefaultDb_Entities_User')->find(Model3_Auth::getCredentials('id'));
+            }
+            $order->setBuyer($buyer);
+            $order->setSeller($seller);
+            $order->setOrderStatus(DefaultDb_Entities_M3CommerceOrder::ORDER_STATUS_INTACTIVE);
+            if(isset($post['comments']))
+            {
+                $order->setComments($post['comments']);
+            }
+            if(isset($post['orderR']) && $post['orderR'] == DefaultDb_Entities_M3CommerceOrder::RECURRENT_ACTIVE)
+            {
+                $orderR = $post['orderR'];
+                $week = 0;
+                if(isset($post['week']) && $post['week'] == 'on')
+                    $week = 1;
+                $monday = 0;
+                if(isset($post['lu']) && $post['lu'] == 'on')
+                    $monday = 1;
+                $tuesday = 0;
+                if(isset($post['ma']) && $post['ma'] == 'on')
+                    $tuesday = 1;
+                $wednesday = 0;
+                if(isset($post['mi']) && $post['mi'] == 'on')
+                    $wednesday = 1;
+                $thursday = 0;
+                if(isset($post['ju']) && $post['ju'] == 'on')
+                    $thursday = 1;
+                $friday = 0;
+                if(isset($post['vi']) && $post['vi'] == 'on')
+                    $friday = 1;
+                $saturday = 0;
+                if(isset($post['sa']) && $post['sa'] == 'on')
+                    $saturday = 1;
+                $sunday = 0;
+                if(isset($post['do']) && $post['do'] == 'on')
+                    $sunday = 1;
+
+                $order->setWeek($week);
+                $order->setMonday($monday);
+                $order->setTuesday($tuesday);
+                $order->setWednesday($wednesday);
+                $order->setThursday($thursday);
+                $order->setFriday($friday);
+                $order->setSaturday($saturday);
+                $order->setSunday($sunday);
+                $order->setRecurrent(DefaultDb_Entities_M3CommerceOrder::RECURRENT_ACTIVE);
+                $order->setOrderStatus(DefaultDb_Entities_M3CommerceOrder::ORDER_STATUS_ACTIVE);
+                
+            }
+            
+            if(isset($post['productoId']) ){
+                $id = $post['productoId'];
+                $CANTIDAD = 1;
+                $product = $em->find('DefaultDb_Entities_Product', $id);
+                 if ($product && $product->getStock() >= $CANTIDAD) {
+                    
+                    $productToOrder = new DefaultDb_Entities_M3CommerceProductToOrder();
+                    $productToOrder->setProduct($product);
+                    $product->setStock($product->getStock() - $CANTIDAD);
+                    $productToOrder->setQuantity($CANTIDAD);
+                    $productToOrder->setPrice($product->getPrice() * $CANTIDAD);
+                    $order->addProduct($productToOrder);
+                }
+            }
+
+            $order->setCreationDate(new DateTime());
+            $em->persist($order);
+            $em->flush();
+            $result=true;
+            $this->view->result = $result;
+            
+            //Agregamos a Favoritos
+            if (isset($post['productoId'])) {
+                $id = $post['productoId'];
+                $product = $em->find('DefaultDb_Entities_Product', $id);
+                if ($product) {
+                    $helperFavoriteUsers = new Helper_FavoriteUsers($this->getEntityManager('DefaultDb'));
+                    $helperFavoriteUsers->addFavorite($buyer->getId(), $seller->getId(), DefaultDb_Entities_FavoriteUsers::FAVORITE_SELLER, $id);
+                    //Agregamos como cliente favorito al provedor 
+                    $helperFavoriteUsers->addFavorite($seller->getId(), $buyer->getId(), DefaultDb_Entities_FavoriteUsers::FAVORITE_BUYER, $id);
+                }
+            } else {
+                $helperFavoriteUsers = new Helper_FavoriteUsers($this->getEntityManager('DefaultDb'));
+                $helperFavoriteUsers->addFavorite($buyer->getId(), $seller->getId(), DefaultDb_Entities_FavoriteUsers::FAVORITE_SELLER, NULL);
+                //Agregamos como cliente favorito al provedor 
+                $helperFavoriteUsers->addFavorite($seller->getId(), $buyer->getId(), DefaultDb_Entities_FavoriteUsers::FAVORITE_BUYER, NULL);
+            }
+
+            // Redireccion para que el cliente vaya directamente a la orden -> se cambio para que redireccione a el listadp 
+            if($isBuyer){
+                //$this->redirect('User/BackStore/viewOrderShopping/id/'.$order->getId());
+                $this->redirect('User/BackStore/shopping/');
+            }else {
+                //$this->redirect('/User/BackStore/viewOrder/id/'.$order->getId());
+                $this->redirect('User/BackStore/orders/');
+            }
+        }
+        
+        $this->view->getJsManager()->addJsVar('urlGetDataUser','\''.$this->view->url(array('module'=>'Ajax','controller'=>'Users','action'=>'getDataUser')).'\'');
+        $this->view->getJsManager()->addJs('view/scripts/User/BackStore/createOrder' . VERSION_JS . '.js');
+        $this->view->users=$users;
+        $this->view->isBuyer = $isBuyer;
+    }
+    
+    public function CancelOrdSAction(){/////////////////////CANCELACION DE OREDENES NO PROGRAMADAS//////////////////////////////////////////////
+    
+    	$this->view->setUseTemplate(false);
+    	$post = (int)$this->getRequest()->getParams()['param'];
+    	
+    	$em = $this->getEntityManager('DefaultDb');
+    	$M3Order = $em->getRepository('DefaultDb_Entities_M3CommerceOrder')->findOneBy(array('id' => $post));
+    	$SecAct = $em->getRepository('DefaultDb_Entities_SequentialActivities')->findBy(array('order' => $post));
+
+    	if(sizeof($SecAct) > 0){
+    	 foreach ($SecAct as $b) {
+    		$em->remove($b);
+    		$em->flush();
+    		}
+    	}
+    	 
+    	$em->remove($M3Order);
+    	$em->flush();
+    	
+    	$this->redirect('User/BackStore/orders');
+    	 
+    }
+    
+    public function CancelOrdCAction(){
+		$this->view->setUseTemplate(false);
+	    $post = (int)$this->getRequest()->getParams()['param'];
+	    	 
+	    $em = $this->getEntityManager('DefaultDb');
+	    
+	    $credentials = Model3_Auth::getCredentials();
+	    
+	    $user = $em->find('DefaultDb_Entities_User', $credentials['id']);
+	    	
+	    $M3Order = $em->getRepository('DefaultDb_Entities_M3CommerceOrder')->findOneBy(array('id' => $post));
+	
+	    if($M3Order->getSeller()->getId() == $user->getId()){//COMPRUEBA QUE LA ORDEN PERTENECE AL USUARIO QUE INTENTA ELIMINARLA
+	    	
+	    	$TrnsId = $em->getRepository('DefaultDb_Entities_Transactions')->findOneBy(array('transactionId' => $post, 'transactionType' => 1));
+	    	/*$transaction = $em->getRepository('DefaultDb_Entities_Transactions');
+	    	$TrnsId = $transaction->createQueryBuilder('f')
+	    	->where("f.transactionId = :transactionId AND f.transactionType IS NOT NULL")
+	    	->setParameter('transactionId',$post)
+	    	->setMaxResults(1)
+	    	->getQuery()->getSingleResult();*/
+	    	
+	    	$SecAct = $em->getRepository('DefaultDb_Entities_SequentialActivities')->findBy(array('order' => $post));
+	    	$RPAct = $em->getRepository('DefaultDb_Entities_RoutePointActivity')->findBy(array('transaction' => $TrnsId->getId()));
+	    	$PtOrd = $em->getRepository('DefaultDb_Entities_PackageToOrder')->findBy(array('order' => $post));
+	    	$Pgs = $em->getRepository('DefaultDb_Entities_Pagos')->findBy(array('compraVenta' => $post));
+	    	
+	    	$tcreditos = 0;
+	    	
+	    	$em->getConnection()->beginTransaction();
+	    	try{
+
+		    	foreach ($RPAct as $a) {
+		    		$em->remove($a);
+		    	}
+		    	
+		    	foreach ($SecAct as $b) {
+		    		$em->remove($b);
+		    	}
+		    	
+		    	foreach ($PtOrd as $c) {
+		    		$em->remove($c);
+		    	}
+		    	 
+		    	foreach ($Pgs as $d) {
+		    		
+		    		$BlPgs = $em->getRepository('DefaultDb_Entities_BalanceGeneral')->findBy(array('pagos' => $d->getId()));
+		    		 
+		    		foreach ($BlPgs as $e) {
+	
+		    			if((int)$e->getEstatus() == 1){//Si el monto fue pagado se suma a la variable para el reembolos de los creditos
+		    				$tcreditos = $tcreditos + (int)$e->getMonto();
+		    			}
+		    			$em->remove($e);
+		    		}
+		    		
+		    		$em->remove($d);
+		    	}
+		    	 
+		    	$em->flush();
+		    	
+		    	$em->remove($TrnsId);
+		    	$em->remove($M3Order);
+		    	
+		    	$user->setCredito($user->getCredito() + $tcreditos);//Se devuelven los creditos referentes a los pagos hechos a la orden cancelada
+		    	$em->persist($user);
+		    	
+		    	$em->flush();
+		    	
+		    	$em->getConnection()->commit();
+		    	$this->redirect('User/BackStore/orders');
+	    	
+	    	}  catch (Exception $ex){
+	    	
+	    		$em->getConnection()->rollback();
+	    		throw $ex;
+	    	}
+	    }else{//LA ORDEN NO PERTENECE AL USUARIO QUE INTENTA ELIMINARLA
+	    	$this->redirect('User/BackStore/orders');
+	    }    
+	}
+	
+	public function RefreshArrAction(){
+		$this->view->setUseTemplate(false);
+		$post = (int)$this->getRequest()->getParams()['param'];
+		 
+		$em = $this->getEntityManager('DefaultDb');
+		$credentials = Model3_Auth::getCredentials();
+		$user = $em->find('DefaultDb_Entities_User', $credentials['id']);
+		$M3Order = $em->getRepository('DefaultDb_Entities_M3CommerceOrder')->findOneBy(array('id' => $post));
+		
+		$TrnsId = $em->getRepository('DefaultDb_Entities_Transactions')->findOneBy(array('transactionId' => $post, 'transactionType' => 1));
+		/*$transaction = $em->getRepository('DefaultDb_Entities_Transactions');
+		$TrnsId = $transaction->createQueryBuilder('f')
+		->where("f.transactionId = :transactionId AND f.transactionType IS NOT NULL")
+		->setParameter('transactionId',$post)
+		->setMaxResults(1)
+		->getQuery()->getSingleResult();*/
+		 
+		$RPActv = $em->getRepository('DefaultDb_Entities_RoutePointActivity');
+		$RPonit = $em->getRepository('DefaultDb_Entities_RoutePoint');
+		$SecAct = $em->getRepository('DefaultDb_Entities_SequentialActivities');///APARTIR DE AQUI SE ACTUALIZA LA HORA DE ENTREGA
+		
+		$lrpAct = $RPActv->createQueryBuilder('t')///OBTENER LOS DATOS DE LA ACTIVIDAD EN EL ULTIMO PUNTO PROGRAMADO
+		->where("t.transaction = :tid")
+		->setMaxResults(1)
+		->orderBy('t.id', 'DESC')
+		->setParameter('tid',$TrnsId->getId())
+		->getQuery()->getSingleResult();
+		
+		$allrpAct = $RPActv->findBy(array('transaction' => $TrnsId->getId()));
+		
+		$ids = array();
+		foreach ($allrpAct as $key) {///GUARADAR LOS ID DE LAS SCHEDULED 
+			$a = (int)$key->getScheduledRoute()->getId();
+			$ids[] = array('i' => $a);
+		}
+		
+		$i = 0;
+		
+		foreach ($allrpAct as $key){///COMPARAR SI EXISTEN DIFERENTES SCHEDULED PARA SABER SI EL PAQUETE PASARA POR MAS DE UNA RUTA
+			foreach ($ids as $flag){
+				if($key->getScheduledRoute()->getId() != $flag['i']){
+					$i++;
+				}
+			}
+			if($i > 0){
+				break;
+			}
+		}
+		
+		/*$Routeid = $RPonit->findOneBy(array('id' => $lrpAct->getRoutePoint()->getId()));///OBTENER LOS DATOS DE EL PUNTO DE ENTREGA EN LA RUTA (route_point)
+		$lOrder = $Routeid->getOrder();///OBTENER LA POSICION DEL PUNTO DE ENTREGA EN LA RUTA  DEL PAQUETE*/
+		$lOrder = $lrpAct->getRoutePoint()->getOrder();
+		
+		//$RPActvl = $RPActv->findBy(array('scheduledRoute' => $lrpAct->getScheduledRoute()->getId(), 'activityType' => 1));///OBTIENE TODAS LAS ACTIVIDADES DE UNA RUTA POR SU PROGRAMACION Y ACTIVIDAD
+		//$RPActvl = $RPActv->findBy(array('scheduledRoute' => $lrpAct->getScheduledRoute()->getId()));///OBTIENE TODAS LAS ACTIVIDADES DE UNA RUTA POR SU PROGRAMACION Y ACTIVIDAD
+		
+		$RPActvl = $RPActv->createQueryBuilder('f')///OBTIENE TODAS LAS ACTIVIDADES DE UNA RUTA
+		->where("f.scheduledRoute = :scid")
+		->setParameter('scid',$lrpAct->getScheduledRoute()->getId())
+		->groupBy("f.routePoint")
+		->getQuery();
+		
+		
+		$Rpvist = FALSE;//VARIABLE PARA SABER SI LA RUTA YA INICIO
+		
+		$arrpoints = array();
+		foreach ($RPActvl->getResult() as $item){
+		//foreach ($RPActvl as $item){
+			$arrpoints[] = array(
+								'id' => $item->getRoutePoint()->getId(),
+								'time' => $item->getRoutePoint()->getPoint()->getAcTime()
+								);
+		}
+
+		//$SchRl = $em->getRepository('DefaultDb_Entities_ScheduledRoute')->findOneBy(array('id' =>$lrpAct->getScheduledRoute()->getId()));///DATOS DE LA PROGRAMACION FINAL POR DONDE PASA EL PAQUETE
+		//if($SchRl->getStartDate() != NULL){///SI LA RUTA YA COMENZO SE HACE EL CALCULO EN TIEMPO REAL
+		if($lrpAct->getScheduledRoute()->getStartDate() != NULL){///SI LA RUTA YA COMENZO SE HACE EL CALCULO EN TIEMPO REAL
+			$RPld = $RPActv->createQueryBuilder('t')///OBTENER LOS DATOS DE LA ULTIMA ACTIVIDAD REGISTRADA POR EL CHOFER
+				->where("t.scheduledRoute = :scid")
+				->setMaxResults(1)
+				->orderBy('t.horaActual', 'DESC')
+				->setParameter('scid',$lrpAct->getScheduledRoute()->getId())
+				->getQuery()->getSingleResult();
+			
+			if($RPld->getHoraActual() != NULL){
+				$Rpvist = TRUE;
+				//$Routef = $RPonit->findOneBy(array('id' => $RPld->getRoutePoint()->getId()));///OBTENER EL ID DE LA ULTIMA RUTA DONDE PASARA EL PAQUETE
+				//$fOrder = $Routef->getOrder();///OBTENER LA POSICION DEL PUNTO DE ENTREGA DEL PAQUETE
+				$fOrder = (int)$RPActv->getOrderPoints($RPld->getRoutePoint()->getId())[0]["order_number"];//se usa esta consulta directa ya que el metodo de arriba presenta problemas particularmente cuando se busca la posicion del route_point con id 2151
+				
+			}else{
+				$fOrder = 1;
+			}
+		}else{
+			if($i > 0){////EL PAQUETE PASA POR MAS DE UNA RUTA
+				$fOrder = 1;
+			}else{////EL PAQUETE PASA POR UNA RUTA
+				$frpAct = $RPActv->createQueryBuilder('t')///OBTENER LOS DATOS DE LA ACTIVIDAD EN EL PRIMER PUNTO PROGRAMADO
+				->where("t.transaction = :tid")
+				->setMaxResults(1)
+				->orderBy('t.id', 'ASC')
+				->setParameter('tid',$TrnsId->getId())
+				->getQuery()->getSingleResult();
+			
+				//$Routef = $RPonit->findOneBy(array('id' => $frpAct->getRoutePoint()->getId()));///OBTENER EL ID DE LA ULTIMA RUTA DONDE PASARA EL PAQUETE
+				//$fOrder = $Routef->getOrder();///OBTENER LA POSICION DEL PUNTO DE ENTREGA DEL PAQUETE
+				$fOrder = (int)$RPActv->getOrderPoints($frpAct->getRoutePoint()->getId())[0]["order_number"];//se usa esta consulta directa ya que el metodo de arriba presenta problemas particularmente cuando se busca la posicion del route_point con id 2151
+			}
+		}
+		
+		$h=0;
+		$m=0;
+		$s=0;
+		$Routeall = $RPonit->createQueryBuilder('f')///OBTIENE LOS PUNTOS ENTRE RECOLECCION Y ENTREGA DEL PAQUETE
+		->where("f.route = :rid AND f.order BETWEEN :colpoint AND :delpoint")
+		->orderBy('f.order', 'ASC')
+		//->setParameter('rid',$Routeid->getRoute()->getId())
+		->setParameter('rid',$lrpAct->getRoutePoint()->getRoute()->getId())
+		//->setParameter('colpoint',$fOrder)
+		->setParameter('colpoint',1)
+		->setParameter('delpoint',$lOrder)
+		->getQuery();
+		
+		$SecActf = $SecAct->createQueryBuilder('t')///OBTENER LOS DATOS DE LA ACTIVIDAD EN EL PUNTO INICIAL PROGRAMADO
+		->where("t.order = :tid")
+		->setMaxResults(1)
+		->orderBy('t.id', 'ASC')
+		->setParameter('tid',$post)
+		->getQuery()->getSingleResult();
+		
+		$SecActl = $SecAct->createQueryBuilder('t')///OBTENER LOS DATOS DE LA ACTIVIDAD EN EL PUNTO INICIAL PROGRAMADO
+		->where("t.order = :tid")
+		->setMaxResults(1)
+		->orderBy('t.id', 'DESC')
+		->setParameter('tid',$post)
+		->getQuery()->getSingleResult();
+		
+		if($Rpvist == TRUE){
+			$tiempo = $RPld->getHoraActual()->format('Y-m-d H:i:s');
+		}else{
+			//$tiempo = $SecActf->getShippingDate()->format('Y-m-d H:i:s');
+			//$tiempo = $SchRl->getScheduledDate()->format('Y-m-d H:i:s');
+			$tiempo = $lrpAct->getScheduledRoute()->getScheduledDate()->format('Y-m-d H:i:s');
+		}
+		
+		foreach ($Routeall->getResult() as $Rp){
+			//if($Rpvist == TRUE){//SE SUMA EL TIEMPO DE LLEGADA ENTRE PUNTOS
+				$h= $h + (int)$Rp->getArrivalTime()->format('H');
+				$m= $m + (int)$Rp->getArrivalTime()->format('i');
+				$s= $s + (int)$Rp->getArrivalTime()->format('s');
+			//}
+			
+			foreach ($arrpoints as $flag){
+				if($Rp->getId() == $flag["id"]){
+					//echo $flag["time"]->format('H:i:s')."<br />";
+					$h= $h + (int)$flag["time"]->format('H');
+					$m= $m + (int)$flag["time"]->format('i');
+					$s= $s + (int)$flag["time"]->format('s');
+					//$m= $m + 5;
+				}
+			}
+		}
+		
+		$nuevafecha = date('Y-m-d H:i:s', strtotime($tiempo.'+'.$h.' hour'));
+		$nuevafecha = date('Y-m-d H:i:s', strtotime($nuevafecha.'+'.$m.' minute'));
+		$nuevafecha = date('Y-m-d H:i:s', strtotime($nuevafecha.'+'.$s.' second'));
+		
+		$SecActl->setShippingDateAct(new DateTime($nuevafecha));//SE ALMACENA LA FECHA ACTUALIZADA EN EL CAMPO DE ACTUALIZACION DE FECHA
+ 		$em->persist($SecActl);
+		$em->flush();
+		
+		if($M3Order->getSeller()->getId() == $user->getId()){
+			$this->redirect('User/BackStore/orders');
+		}
+		if($M3Order->getBuyer()->getId() == $user->getId()){
+			$this->redirect('User/BackStore/shopping');
+		}
+	}	
+	
+	public function RefreshDelAction(){
+
+		$this->view->setUseTemplate(false);
+		$post = (int)$this->getRequest()->getParams()['param'];
+		 
+		$em = $this->getEntityManager('DefaultDb');
+		$credentials = Model3_Auth::getCredentials();
+		$user = $em->find('DefaultDb_Entities_User', $credentials['id']);
+		$M3Order = $em->getRepository('DefaultDb_Entities_M3CommerceOrder')->findOneBy(array('id' => $post));
+		
+		$TrnsId = $em->getRepository('DefaultDb_Entities_Transactions')->findOneBy(array('transactionId' => $post, 'transactionType' => 1));
+		/*$transaction = $em->getRepository('DefaultDb_Entities_Transactions');
+		$TrnsId = $transaction->createQueryBuilder('f')
+		->where("f.transactionId = :transactionId AND f.transactionType IS NOT NULL")
+		->setParameter('transactionId',$post)
+		->setMaxResults(1)
+		->getQuery()->getSingleResult();*/
+		
+		$RPActv = $em->getRepository('DefaultDb_Entities_RoutePointActivity');
+		$RPonit = $em->getRepository('DefaultDb_Entities_RoutePoint');
+		$SecAct = $em->getRepository('DefaultDb_Entities_SequentialActivities');///APARTIR DE AQUI SE ACTUALIZA LA HORA DE ENTREGA
+		
+		$Rpvist = FALSE;//VARIABLE PARA SABER SI LA RUTA YA INICIO
+		
+		$frpAct = $RPActv->createQueryBuilder('t')///OBTENER LOS DATOS DE LA ACTIVIDAD EN EL PRIMER PUNTO PROGRAMADO
+		->where("t.transaction = :tid")
+		->setMaxResults(1)
+		->orderBy('t.id', 'ASC')
+		->setParameter('tid',$TrnsId->getId())
+		->getQuery()->getSingleResult();
+		
+		//echo "esquedula1: ". $frpAct->getScheduledRoute()->getId()."<br />";
+		//echo "ruta1: ". $frpAct->getScheduledRoute()->getRoute()->getId()."<br />";
+		//echo "punto en la ruta: ". $frpAct->getRoutePoint()->getId()."<br />";
+		//echo "punto de venta: ". $frpAct->getRoutePoint()->getPoint()->getId()."<br />";
+		//echo "posicion del punto en la ruta: ". $frpAct->getRoutePoint()->getOrder()."<br />";
+		
+		//$RPActvl = $RPActv->findBy(array('scheduledRoute' => $frpAct->getScheduledRoute()->getId()));///OBTIENE TODAS LAS ACTIVIDADES DE UNA RUTA 
+		
+		$RPActvl = $RPActv->createQueryBuilder('f')///OBTIENE TODAS LAS ACTIVIDADES DE UNA RUTA
+		->where("f.scheduledRoute = :scid")
+		->setParameter('scid',$frpAct->getScheduledRoute()->getId())
+		->groupBy("f.routePoint")
+		->getQuery();
+				
+		$arrpoints = array();
+		foreach ($RPActvl->getResult() as $item){
+			$arrpoints[] = array(
+								'id' => $item->getRoutePoint()->getId(),
+								'time' => $item->getRoutePoint()->getPoint()->getAcTime()
+								);
+		}
+		
+		$fOrder = 1;
+		$tiempo = $frpAct->getScheduledRoute()->getScheduledDate()->format('Y-m-d H:i:s');
+		
+		if($frpAct->getScheduledRoute()->getStartDate() != NULL){///SI LA RUTA YA COMENZO SE HACE EL CALCULO EN TIEMPO REAL
+
+			$RPld = $RPActv->createQueryBuilder('t')///OBTENER LOS DATOS DE LA ULTIMA ACTIVIDAD REGISTRADA POR EL CHOFER
+			->where("t.scheduledRoute = :scid")
+			->setMaxResults(1)
+			->orderBy('t.horaActual', 'DESC')
+			->setParameter('scid',$frpAct->getScheduledRoute()->getId())
+			->getQuery()->getSingleResult();
+			
+			if($RPld->getHoraActual() != NULL){///SI EL CHOFER YA REGISTRO UNA ACTIVIDAD SE TOMA LA HORA PARA CALCULAR EL TIEMPO
+				$tiempo = $RPld->getHoraActual()->format('Y-m-d H:i:s');
+				$fOrder = $RPActv->getOrderPoints($RPld->getRoutePoint()->getId());//se usa esta consulta directa ya que el metodo de arriba presenta problemas particularmente cuando se busca la posicion del route_point con id 2151
+			}/*else{
+			}*/
+		}/*else{
+			$tiempo = $frpAct->getScheduledRoute()->getScheduledDate()->format('Y-m-d H:i:s');
+		}*/		
+	
+		$h=0;
+		$m=0;
+		$s=0;
+		$Routeall = $RPonit->createQueryBuilder('f')///OBTIENE LOS PUNTOS ANTERIORES A LA RECOLECCION DEL PAQUETE
+		->where("f.route = :rid AND f.order BETWEEN :colpoint AND :delpoint")
+		->orderBy('f.order', 'ASC')
+		->setParameter('rid',$frpAct->getScheduledRoute()->getRoute()->getId())
+		->setParameter('colpoint',1)
+		->setParameter('delpoint',$frpAct->getRoutePoint()->getOrder())
+		->getQuery();
+		
+		foreach ($Routeall->getResult() as $Rp){
+			//if($Rpvist == TRUE){///SE SUMA EL TIEMPO DE LLEGADA ENTRE PUNTOS
+			$h= $h + (int)$Rp->getArrivalTime()->format('H');
+			$m= $m + (int)$Rp->getArrivalTime()->format('i');
+			$s= $s + (int)$Rp->getArrivalTime()->format('s');
+			//}
+				
+			foreach ($arrpoints as $flag){///SE VALIDA SI EXISTEN ACTIVIDADES EN EL PUNTO DE LA RUTA
+				if($Rp->getId() == $flag["id"]){
+					$h= $h + (int)$flag["time"]->format('H');
+					$m= $m + (int)$flag["time"]->format('i');
+					$s= $s + (int)$flag["time"]->format('s');
+					//$m= $m + 5;
+				}
+			}
+		}
+		
+		/*echo "tiempo : ".$tiempo."<br />";
+		echo "horas : ".$h."<br />";
+		echo "minutos: ".$m."<br />";
+		echo "segundos: ".$s."<br />";*/
+		
+		$nuevafecha = date('Y-m-d H:i:s', strtotime($tiempo.'+'.$h.' hour'));
+		$nuevafecha = date('Y-m-d H:i:s', strtotime($nuevafecha.'+'.$m.' minute'));
+		$nuevafecha = date('Y-m-d H:i:s', strtotime($nuevafecha.'+'.$s.' second'));
+		
+		$SecActf = $SecAct->createQueryBuilder('t')///OBTENER LOS DATOS DE LA ACTIVIDAD EN EL PUNTO INICIAL PROGRAMADO
+		->where("t.order = :tid")
+		->setMaxResults(1)
+		->orderBy('t.id', 'ASC')
+		->setParameter('tid',$post)
+		->getQuery()->getSingleResult();
+		
+		$SecActf->setShippingDateAct(new DateTime($nuevafecha));//SE ALMACENA LA FECHA ACTUALIZADA EN EL CAMPO DE ACTUALIZACION DE FECHA
+		$em->persist($SecActf);
+		$em->flush();
+		
+		if($M3Order->getSeller()->getId() == $user->getId()){
+			$this->redirect('User/BackStore/orders');
+		}
+		if($M3Order->getBuyer()->getId() == $user->getId()){
+			$this->redirect('User/BackStore/shopping');
+		}
+	}	
+}

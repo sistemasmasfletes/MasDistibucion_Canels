@@ -1,0 +1,88 @@
+<div ng-show="state.current.name === 'ciudades.edit' || state.current.name === 'ciudades.add'">
+    <ol class="breadcrumb">
+        <li class="active">Catálogos</li>
+        <li class="active"><a ui-sref="ciudades">Ciudades</a></li>
+        <li class="active actualpg" ng-show="state.current.name === 'ciudades.add'">Agregar Ciudad</li>
+        <li class="active actualpg" ng-show="state.current.name === 'ciudades.edit'">Editar Ciudad</li>
+    </ol>
+    <progressbar class="progress-striped active" value="100" type="info" ng-show="loading"></progressbar>  
+    <div class="toolbar">
+        <div class="pull-right">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group  btn-group-sm">
+                    <!--<button tooltip="Regresar" class="btn btn-default" ng-click="back()"><span class="glyphicon glyphicon-chevron-left"></span></button>-->
+                    <button class="btn btn-default sin-padding" ng-click="save()" ng-disabled="sc.frmCiudad.$invalid"><span class="pers-btn icono-guardar tam-normal"></span></button>                
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="panel panel-default">
+        <div class="panel-heading" ng-show="state.current.name === 'ciudades.add'">
+            Agregar Ciudad
+        </div>    
+        <div class="panel-heading" ng-show="state.current.name === 'ciudades.edit'">
+            Editar Ciudad
+        </div>    
+        <div class="panel-body">
+            <div class="panel panel-default">                    
+                <div class="panel-body">                
+                    <form role="form" novalidate name="sc.frmCiudad">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input type="hidden" class="form-control" ng-model="ciudad.id">
+                                <div class="form-group" ng-class="getFormFieldCssClass(sc.frmCiudad.countryId)">
+                                    <label for="country">Pa&iacute;s</label>
+                                    <select ng-model="ciudad.countryId"
+                                            ng-options="option.name for option in getCountry track by option.id"
+                                            ng-change="populateStates()"
+                                            class="form-control"
+                                            ng-required="true"
+                                            id="country"
+                                            name="country">
+                                        <option value="">Seleccionar pais</option>
+                                    </select>
+                                </div>
+                            </div>       
+                            <div class="col-md-4">
+                                <div class="form-group" ng-class="getFormFieldCssClass(sc.frmCiudad.stateId)">
+                                    <label for="state">Estado</label>
+                                    <select ng-model="ciudad.stateId"
+                                            ng-options="option.name for option in getState track by option.id"
+                                            class="form-control"
+                                            ng-required="true"
+                                            id="state"
+                                            name="state">
+                                        <option value="">Seleccionar estado</option>
+                                    </select>
+                                </div>
+                            </div>       
+                            <div class="col-md-4">                               
+                                <div class="form-group" ng-class="getFormFieldCssClass(sc.frmCiudad.name)">
+                                    <label for="name">Nombre</label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Nombre" required  ng-model="ciudad.name">
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="checkbox">
+                                    <label for="estatus">
+                                        <input type="checkbox" 
+                                               id="estatus" 
+                                               name="estatus" 
+                                               ng-model="ciudad.chrEstatus"
+                                               ng-checked="ciudad.chrEstatus == '1'"
+                                               >Activar/Desactivar
+                                    </label>
+                                </div>
+                            </div>
+                        </div> 
+                    </form>
+
+                </div>
+            </div>          
+        </div>
+    </div> 
+</div> 

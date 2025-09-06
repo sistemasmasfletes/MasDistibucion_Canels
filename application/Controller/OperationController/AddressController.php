@@ -1,0 +1,217 @@
+<?php
+use com\masfletes\db\DBUtil;
+
+class OperationController_AddressController extends JController{
+    
+    const ADMIN_CODE = 1;
+
+    
+    public function init() {
+        parent::init();
+        if (!Model3_Auth::isAuth())
+            $this->createResponse401();
+    }
+    
+    public function indexAction() {}
+    
+    public function getAddInformationAction(){
+        $params = $this->getRequest()->getPostJson();
+ 
+        $page = $this->getArrayValue('page', $params);
+        $rowsPerPage = $this->getArrayValue('rowsPerPage', $params);
+        $sortField = $this->getArrayValue('sortField', $params);
+        $sortDir = $this->getArrayValue('sortDir', $params);
+        $filter= $this->getArrayValue('filter',$params);
+        $sidx = $this->getArrayValue('sortField', $params);
+        $srch = $this->getArrayValue('srch', $params);
+        
+        $Pais = $this->getArrayValue('Pais', $filter);
+        $Estado = $this->getArrayValue('Estado', $filter);
+        $Ciudad = $this->getArrayValue('Ciudad', $filter);
+        $Calle = $this->getArrayValue('Calle', $filter);
+        $CP = $this->getArrayValue('CP', $filter);
+        
+        if (!$sidx)
+            $sidx = 1;
+        
+        try{
+            $this->hasPermission($this->getUserSessionId(), 'Direcciones', 'listar');
+            
+            $em = $this->getEntityManager('DefaultDb');
+            $addInformationRepo = $em->getRepository('DefaultDb_Entities_Address');
+
+            $addInfo = $addInformationRepo->getAdditionalInformationListDQL($page,$rowsPerPage,$sortField,$sortDir,$sidx, $this->currentUserId, $Pais, $Estado, $Ciudad, $Calle, $CP, $srch);
+            
+            echo json_encode($addInfo);
+        } catch (Exception $e) {
+            $params = compact('page', 'rowsPerPage', 'sortField', 'sortDir', 'sidx');
+            $this->logAndResolveException($e,$params);
+        }
+    }
+    
+    public function saveAction(){
+        $params = $this->getRequest()->getPostJson();
+
+        $id = $this->getArrayValue('id', $params);
+        $state= $this->getArrayValue('state_id', $params);
+        $city = $this->getArrayValue('city_id', $params);
+        $country = $this->getArrayValue('country_id', $params);
+        $address = $this->getArrayValue('address', $params);
+        $neighborhood = $this->getArrayValue('neighborhood', $params);
+        $zipcode = $this->getArrayValue('zipcode', $params);
+        $user_id = $this->getArrayValue('user_id', $params);
+        $zoneId = $this->getArrayValue('zone_id', $params);
+        $authorized = $this->getArrayValue('authorized', $params) ? $this->getArrayValue('authorized', $params) : null;
+        try {
+            if(Model3_Auth::getCredentials('role') == self::ADMIN_CODE){
+                $this->hasPermission($this->getUserSessionId(), 'Direcciones', ($id==null) ? 'agregar' : 'editar');
+            } else {
+                $this->hasPermission($this->getUserSessionId(), 'rutas', ($id==null) ? 'agregar' : 'editar');
+            }
+            
+            
+            $em = $this->getEntityManager('DefaultDb');
+            $addressRepo = $em->getRepository('DefaultDb_Entities_Address');
+
+
+            $addressEntity = $addressRepo->addAddress(
+                    $id,$state,$city,$country,$address,$neighborhood,$zipcode,is_null($id) ? $this->currentUserId : $user_id, is_null($authorized) ? 0 : $authorized, $zoneId['id']);
+
+            echo json_encode($addressEntity);
+        } catch (Exception $ex){
+            $params = compact('id', 'state', 'city', 'country', 'address',
+                    'extNum', 'intNum', 'neighborhood', 'zipcode', 'user_id', 'authorized');
+            $this->logAndResolveException($ex, $params);
+        }
+    }
+    
+    public function getAddressByIdAction(){
+        $params = $this->getRequest()->getPostJson();
+        $id = $this->getArrayValue('id', $params);
+        
+        try{
+            $this->hasPermission($this->getUserSessionId(), 'Direcciones', 'listar');
+            
+            $em = $this->getEntityManager('DefaultDb');
+            $addressIdRepo = $em->getRepository('DefaultDb_Entities_Address');
+            $addressId = $addressIdRepo->getAddressByIdDQL($id);
+            
+            echo json_encode($addressId);
+        }  catch (Exception $e){
+            $params = compact('id');
+            $this->logAndResolveException($e,$params);
+        }
+    }
+    
+    public function deleteAction(){
+        $params = $this->getRequest()->getPostJson();
+        $id = $this->getArrayValue('id', $params);
+        
+        try {
+             if(Model3_Auth::getCredentials('role') == self::ADMIN_CODE){
+                $this->hasPermission($this->getUserSessionId(), 'Direcciones',  'eliminar');
+            } else {
+                $this->hasPermission($this->getUserSessionId(), 'Direcciones', 'ELIMINAR');
+            }
+            $em = $this->getEntityManager('DefaultDb');
+            $addressRepo = $em->getRepository('DefaultDb_Entities_Address');
+            $address = $addressRepo->delete($id);
+
+            echo json_encode($address);
+        } catch (Exception $ex) {
+            $params = compact('id');
+            $this->logAndResolveException($ex, $params);
+        }
+        
+    }
+    
+    public function getCityAction(){
+        $params = $this->getRequest()->getPostJson();
+        $id = $this->getArrayValue('id', $params);
+        try {
+            $this->hasPermission($this->getUserSessionId(), 'Direcciones', 'listar');
+            $ACTIVO = 1;
+            $em = $this->getEntityManager('DefaultDb');
+            $dql = $em->createQueryBuilder();
+            $dql->select('c')
+                ->from('DefaultDb_Entities_City', 'c')
+                ->where('c.state ='.$id)
+                ->andWhere('c.estatus ='.$ACTIVO);
+            //se agrego->andWhere('c.estatus ='.$ACTIVO)
+            
+            $query = $em->createQuery($dql);
+            $cities = $query->getResult();
+            
+            $arrCities = array();
+            foreach ($cities as $city){
+                $arrCities[] = array(
+                    "id"=>$city->getId(),
+                    "name"=>$city->getName());
+            }
+            
+            echo json_encode($arrCities);
+        } catch (Exception $ex) {
+            $params = array();
+            $this->logAndResolveException($ex,$params);
+        }
+    }
+    
+    public function getStateAction(){
+        $params = $this->getRequest()->getPostJson();
+        $id = $this->getArrayValue('id', $params);    
+        try {
+            $this->hasPermission($this->getUserSessionId(), 'Direcciones', 'listar');
+            $ACTIVO =1;
+            $em = $this->getEntityManager('DefaultDb');
+            $dql = $em->createQueryBuilder();
+            $dql->select('s')
+                ->from('DefaultDb_Entities_State', 's')      
+                ->where('s.country ='.$id)
+               ->andWhere('s.estatus ='.$ACTIVO);
+            // se aumento ->andWhere('s.estatus ='.$ACTIVO);
+            $query = $em->createQuery($dql);
+            $states = $query->getResult();
+            
+            $arrStates = array();
+            foreach ($states as $state){
+                $arrStates[] = array(
+                    "id"=>$state->getId(),
+                    "name"=>$state->getName());
+            }
+            
+            echo json_encode($arrStates);
+        } catch (Exception $ex){
+            $params = array();
+            $this->logAndResolveException($ex,$params);
+        }
+    }
+    
+    public function getCountryAction(){
+        $ACTIVO=1;
+        try {    
+            $this->hasPermission($this->getUserSessionId(), 'Direcciones', 'listar');
+            
+            $em = $this->getEntityManager('DefaultDb');
+          //  $dql = $em->createQueryBuilder();
+           // $dql->select('p')
+           //     ->from('DefaultDb_Entities_Paises', 'p');
+            
+          //  $query = $em->createQuery($dql);
+           // $countries = $query->getResult();
+          
+            $countries = $em->getRepository('DefaultDb_Entities_Paises')->findBy(array('estado' => $ACTIVO));            
+            $arrCountry = array();
+            foreach ($countries as $country){
+                $arrCountry[] = array(
+                    "id"=>$country->getId(),
+                    "name"=>$country->getNombre());
+            }
+            
+            echo json_encode($arrCountry);
+        } catch (Exception $ex){
+            $params = array();
+            $this->logAndResolveException($ex,$params);
+        }
+    }
+
+}

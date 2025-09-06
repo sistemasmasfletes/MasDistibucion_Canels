@@ -1,0 +1,3 @@
+[25-Apr-2025 15:14:36 UTC] PHP Fatal error:  Class 'Doctrine\ORM\Mapping\ClassMetadataFactory' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Tools/DisconnectedClassMetadataFactory.php on line 39
+[29-Apr-2025 04:41:49 UTC] PHP Fatal error:  Class 'Doctrine\ORM\ORMException' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Tools/ToolsException.php on line 29
+[02-May-2025 10:43:55 UTC] PHP Fatal error:  Class 'Doctrine\ORM\ORMException' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/ORM/Tools/ToolsException.php on line 29

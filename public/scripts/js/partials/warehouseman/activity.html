@@ -1,0 +1,179 @@
+<style type="text/css">
+#qr-canvas{
+    display:none;
+}
+#qrfile{
+    width:320px;
+    height:240px;
+}
+#mp1{
+    text-align:center;
+    font-size:35px;
+}
+#imghelp{
+    position:relative;
+    left:0px;
+    top:-160px;
+    z-index:100;
+    font:18px arial,sans-serif;
+    background:#f0f0f0;
+	margin-left:35px;
+	margin-right:35px;
+	padding-top:10px;
+	padding-bottom:10px;
+	border-radius:20px;
+}
+.selector{
+    margin:0;
+    padding:0;
+    cursor:pointer;
+    margin-bottom:-5px;
+}
+#outdiv
+{
+    width:320px;
+    height:240px;
+	border: solid;
+	border-width: 3px 3px 3px 3px;
+}
+#result{
+    border: solid;
+	border-width: 1px 1px 1px 1px;
+	padding:20px;
+	width:70%;
+}
+
+.tsel{
+    padding:0;
+}
+
+</style>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-24451557-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+<div ng-show="state.current.name==='warehouseman.activity'">   
+    <ol class="breadcrumb">
+        <li class="active">Sistema</li>
+        <li class="active "> <a ui-sref="warehouseman">Actividades</a></li>
+        <li class="active actualpg">Actividad</li>
+    </ol>
+    <h1 class="text-center">Almac&eacute;n: {{tableParams.data[0]["warehouse"]}} | Ruta: {{tableParams.data[0]["routeName"]}}</h1>
+    
+    <div class="main container">
+        <p><label>Orden de compra:</label> {{code}}</p>
+        <!-- qr-scanner class="text-center" width="700" height="700" ng-success="onSuccess(data)" ng-error="onError(error)"/-->
+        
+<div id="mainbody">
+<table class="tsel" border="0" width="100%">
+<tr>
+<td valign="top" align="center" width="50%">
+<table class="tsel" border="0">
+<tr>
+<td><img style="display:none;" class="selector" id="webcamimg" src="vid.png" onclick="setwebcam()" align="left" /></td>
+<td><img style="display:none;" class="selector" id="qrimg" src="cam.png" onclick="setimg()" align="right"/></td>
+</tr>
+<tr><td colspan="2" align="center">
+<div id="outdiv">
+</div></td></tr>
+</table>
+</td>
+</tr>
+<tr><td colspan="3" align="center">
+</td></tr>
+<tr><td colspan="3" align="center">
+<div id="result"></div>
+<input id="mivalor" placeholder="Search" type="text" ng-click="onSuccess()">
+<!-- input id="mivalor" type="text" ng-click="onSuccess()" ng-model="my.Value" /-->
+</td></tr>
+</table>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- webqr_2016 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-8418802408648518"
+     data-ad-slot="2527990541"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>&nbsp;
+
+<canvas id="qr-canvas" width="800" height="600"></canvas>
+<script type="text/javascript">load();</script>
+        
+        
+    </div>
+    
+    <!--<div id="result_strip">
+        <ul class="thumbnails"></ul>
+        <ul class="collector"></ul>
+    </div>    
+    <div id="interactive" class="viewport text-center"></div>-->
+    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="pull-right">                         
+                    <div class="btn-group"> 
+                        <!--<button tooltip="Regresar" class="btn btn-default" ng-click="back()"><span class="glyphicon glyphicon-chevron-left"></span></button>-->
+                        <button class="btn btn-default sin-padding"   ng-click="grid.edit()"><span class="pers-btn icono-realizar-transferencia tam-normal"></span></button>
+                        <button class="btn btn-default sin-padding" ng-click="tableParams.reload()"  ><span class="pers-btn icono-refrescar tam-normal"></span></button>
+                    </div>       
+                </div>
+                <p>&nbsp;</p>
+                <div loading-container="tableParams.settings().$loading">
+                    <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable table-responsive">
+                        <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">
+                            <span class="ui-ngt-title">Paquetes es aqui</span>
+                        </div>
+                        <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover">
+                            <tbody>
+                                <tr ng-repeat="schedule in $data" ng-click="schedule.$selected = !schedule.$selected; changeSelection(schedule)"
+                                    ng-class="{'ngactive': schedule.$selected}">
+                                    <td data-title="'OC'" class="text-center">
+                                        {{schedule.orderId}}
+                                    </td>
+                                    <td data-title="'Paquete'">
+                                        {{schedule.packName}}
+                                    </td>
+                                    <td data-title="'Hora real'">
+                                        {{schedule.activityHour|stringToDate|date:"hh:mm a"}}
+                                    </td>
+                                    <td data-title="'Actividad'" class="text-center">
+                                        <span tooltip="Recolectar" ng-if="(schedule.activityWarehouseman=='Recolectar')" class="pers-btn icono-recolectar icono-tam-tabla" ></span>
+                                        <span tooltip="Entregar" ng-if="(schedule.activityWarehouseman=='Entregar')" class="pers-btn icono-entregar icono-tam-tabla"></span>
+                                    </td>
+                                    <td data-title="'Estado de transferencia'" class="text-center">
+                                        <span tooltip="Sin acción" ng-if="(schedule.status==null)" class="pers-btn icono-estado-sin-accion icono-tam-tabla" ></span>
+                                        <span tooltip="Transferencia exitosa" ng-if="(schedule.status==1)" class="pers-btn icono-estado-aceptado icono-tam-tabla" ></span>
+                                        <span tooltip="Transferencia fallida" ng-if="(schedule.status==2)" class="pers-btn icono-estado-rechazado icono-tam-tabla"></span>
+                                    </td>
+                                    <td data-title="'Estado del paquete'" class="text-center">
+                                        <span tooltip="Sin acción" ng-if="(schedule.packageStatus==null)" class="pers-btn icono-sin-accion icono-tam-tabla" ></span>
+                                        <span tooltip="Recibido" ng-if="(schedule.packageStatus==1)" class="pers-btn icono-palomita icono-tam-tabla" ></span>
+                                        <span tooltip="Entregado" ng-if="(schedule.packageStatus==3)" class="pers-btn icono-palomita icono-tam-tabla" ></span>
+                                        <span tooltip="Rechazado" ng-if="(schedule.packageStatus==6)" class="pers-btn icono-tacha icono-tam-tabla" ></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>            
+                    </div>        
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ui-view="edit"></div>

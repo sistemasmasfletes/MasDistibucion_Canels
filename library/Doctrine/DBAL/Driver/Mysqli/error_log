@@ -1,0 +1,3 @@
+[24-Apr-2025 22:59:28 UTC] PHP Fatal error:  Interface 'Doctrine\DBAL\Driver' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Driver/Mysqli/Driver.php on line 27
+[25-Apr-2025 18:29:21 UTC] PHP Fatal error:  Interface 'Doctrine\DBAL\Driver\Connection' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Driver/Mysqli/MysqliConnection.php on line 27
+[27-Apr-2025 04:43:25 UTC] PHP Fatal error:  Interface 'Doctrine\DBAL\Driver\Statement' not found in /home/masdistr/public_html/masdistribucion.com/library/Doctrine/DBAL/Driver/Mysqli/MysqliStatement.php on line 28
