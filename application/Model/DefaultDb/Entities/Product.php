@@ -162,6 +162,21 @@ class DefaultDb_Entities_Product
      * @OrderBy({"id" = "ASC"})
      **/
     private $variants;
+    /**
+     * @Column(type="string", length=100, nullable=true)
+     */
+    protected $last_name;
+
+    /**
+     * @Column(type="string", length=20, nullable=true)
+     */
+    protected $cell;
+
+    /**
+     * @Column(type="string", length=50, nullable=true)
+     */
+    protected $id_payroll;
+
     
     
     public function setImages($images)
@@ -447,6 +462,35 @@ class DefaultDb_Entities_Product
     public function setVariants($variants)
     {
         $this->variants = $variants;
+    }
+    public function getLastName()
+    {
+        return $this->last_name;
+    }
+
+    public function setLastName($lastName)
+    {
+        $this->last_name = $lastName;
+    }
+
+    public function getCell()
+    {
+        return $this->cell;
+    }
+
+    public function setCell($cell)
+    {
+        $this->cell = $cell;
+    }
+
+    public function getIdPayroll()
+    {
+        return $this->id_payroll;
+    }
+
+    public function setIdPayroll($idPayroll)
+    {
+        $this->id_payroll = $idPayroll;
     }
 
 

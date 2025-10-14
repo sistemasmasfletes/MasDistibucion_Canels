@@ -32,6 +32,7 @@
         $view->getJsManager()->loadJsFile('application/exit.js');
         $view->getJsManager()->loadJsFile('bootstrap/bootstrap.js');
         $view->getJsManager()->loadJsFile('application/masdistribucion.js');
+        $view->getJsManager()->loadJsFile('application/qrcode.js');
         $view->getJsManager()->loadJs();
         ?>
 

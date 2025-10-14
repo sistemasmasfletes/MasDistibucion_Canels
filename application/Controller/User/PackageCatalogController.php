@@ -34,9 +34,12 @@ class User_PackageCatalogController extends JController {
             
             $packagesRepo = $em->getRepository('DefaultDb_Entities_ClientPackageCatalog');
             $resultsets = $packagesRepo->getPackages($page,$limit,$sidx,$sord,$clientId,$packageId);
+			
 
             echo json_encode($resultsets);
         } catch (Exception $ex) {
+			
+			var_dump($ex);
             $params = compact('page','limit','sidx','sord','clientId');
             $this->logAndResolveException($ex,$params);
         }

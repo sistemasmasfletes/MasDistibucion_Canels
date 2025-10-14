@@ -20,10 +20,50 @@ class View_Helper_Products extends Model3_View_Helper
         </div>
         <form method="post" id="productForm" class="productForm" action="<?php echo $formAction;?>">
         <!--<form method="post" id="productForm" class="well" action="<?php // echo $formAction;?>">-->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Campos que siempre deben valer 1 y estar ocultos
+    const forceFields = ['price','priceList','priceCreditos','stock','width','height','depth','weight','size'];
+    forceFields.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.value = 1;
+            el.type = "hidden";
+            const span = el.previousElementSibling;
+            if (span && span.tagName.toLowerCase() === "span") {
+                span.style.display = "none";
+            }
+        }
+    });
+
+    // Ocultar completamente campos y sus etiquetas
+    const hideFields = ['priceList','priceCreditos','order'];
+    hideFields.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.style.display = "none";
+            const span = el.previousElementSibling;
+            if (span && span.tagName.toLowerCase() === "span") {
+                span.style.display = "none";
+            }
+        }
+    });
+
+    // Ocultar la pestaña "Embalaje" y su contenido
+    const embalajeTab = document.querySelector('a[href="#embalaje"]');
+    const embalajeContent = document.getElementById('embalaje');
+    if (embalajeTab) embalajeTab.parentElement.style.display = 'none';
+    if (embalajeContent) embalajeContent.style.display = 'none';
+
+    // Ocultar pestaña de "Imágenes"
+    const imgTab = document.querySelector('a[data-toggle="myModal"]');
+    if (imgTab) imgTab.parentElement.style.display = 'none';
+});
+</script>
 
         
             <ul class="nav nav-tabs" id="myTab">
-              <li class="active primero"><a href="#area1">Producto</a></li>
+              <li class="active primero"><a href="#area1">Pasajero</a></li>
               <li><a href="#area2">Detalles</a></li>
               <li><a href="#embalaje">Embalaje</a></li>
               <li class="ultimo">
@@ -48,17 +88,35 @@ class View_Helper_Products extends Model3_View_Helper
                     <div class="row">
                         <div class="span5">
                             <input type="hidden" id="idProducto1" name="idProducto1" value="<?php echo $this->getProductValue($product,'id');?>" />
+                                    <span>ID <small>*</small></span>
+                                    <input type="text" required="required"
+                                            title="Id del pasajero"
+                                            maxlength="80"
+                                             name="id_payroll" id="id_payroll"
+                                        >
                                     <span>Nombre <small>*</small></span>
                                     <input type="text" required="required"
-                                           title="Nombre del producto"
+                                           title="Nombre del pasajero"
                                            data-content="Este sera el titulo del producto que aparecera en la tienda"
                                            name="name" id="name"
                                            value="<?php echo $this->getProductValue($product, 'name'); ?>"
                                            maxlength="80"
                                            >
+                                           <span>Apellidos <small>*</small></span>
+                                           <input type="text" required="required"
+                                                   title="Apellidos del pasajero"
+                                                   maxlength="80"
+                                                    name="last_name" id="last_name"
+                                                  >
+                                           <span>Cel <small>*</small></span>
+                                           <input type="text" required="required"
+                                                   title="Celular del pasajero"
+                                                   maxlength="80"
+                                                    name="cell" id="cell"
+                                                  >
 
-                                    <span>Precio <small>*</small></span>
-                                    <input type="text"
+                                           <span>Precio <small>*</small></span>
+                                           <input type="text"
                                            title="Precio"
                                            data-content="Solo puede agregar enteros o decimales, si el precio es 0 no se podra comprar"
                                            name="price" id="price"
@@ -130,6 +188,22 @@ class View_Helper_Products extends Model3_View_Helper
                                            name="order" id="order"
                                            value="<?php echo $this->getProductValue($product, 'order'); ?>"
                                            >
+                                    <span>Prioridad <small>*</small></span>
+                                           <input type="text" required="required"
+                                                   title="Prioridad"
+                                                   maxlength="80"
+                                                    
+                                            >
+                                    <span>GENERO<small>*</small></span>
+                                           <input type="text" required="required"
+                                                   title="Genero"
+                                                   maxlength="80"
+                                                  >
+                                    <span>DISCAPACIDAD<small>*</small></span>
+                                           <input type="text" required="required"
+                                                   title="discapacidad"
+                                                   maxlength="80"
+                                                  >
                                 </div>
                     </div>
                     <div class="row">

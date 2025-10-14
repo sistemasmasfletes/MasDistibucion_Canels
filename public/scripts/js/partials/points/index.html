@@ -1,7 +1,7 @@
 <div ng-show="state.current.name==='points'" >
     <ol class="breadcrumb">
         <li class="active">Catálogos</li>
-        <li class="active actualpg">Puntos de venta</li>
+        <li class="active actualpg">Puntos de reunión</li>
     </ol>
     <div class="container-fluid" ng-init="foo='here comes qr!'">
         <div class="row">
@@ -21,7 +21,7 @@
                 <div loading-container="tableParams.settings().$loading">
                     <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable table-responsive">
                         <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">
-                            &nbsp;Puntos de venta
+                            &nbsp;Puntos de reunión
                         </div>
                         <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover">
                             <tbody>
@@ -30,7 +30,7 @@
                                     <td data-title="'Código'" class="text-center" sortable="'code'">
                                         {{schedule.code}}
                                     </td>
-                                    <td data-title="'Nombre comercial'" sortable="'name'">
+                                    <td data-title="'Punto de reunión'" sortable="'name'">
                                         {{schedule.name}}
                                     </td>
                                     <td data-title="'Dirección'" sortable="'address'">

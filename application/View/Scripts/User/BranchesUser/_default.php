@@ -19,7 +19,7 @@ var firstlog = <?php echo $view->fistlog; ?>
     <li class="active actualpg ">Sucursales</li>
 </ol>
 </div>
-<!--  Login form -->
+<!--  Login form >
 <div class="modal hide fade in" id="loginForm" tabindex="-1" aria-hidden="false">
  	<div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -27,17 +27,12 @@ var firstlog = <?php echo $view->fistlog; ?>
               	<div class="modal-headertitle">VER VIDEO TUTORIAL</div>
 					<div style="display: flex; width100%; justify-content:center; align-items: center;	">
 						<button class="allbuttons" style=" background-color:#d94e19; border: none;" onclick="showvideo()">Aceptar</button>
-						<!--button class="btn btn-success redonded" onclick="showvideo()">Aceptar</button-->
 						<button data-dismiss="modal" aria-hidden="false" onclick="hidevideo()" class="allbuttons" style="background-color:#000; border: none;  margin-left: auto;">Omitir</button>
-						<!--button data-dismiss="modal" aria-hidden="false"  onclick="hidevideo()" class="btn btn-danger redonded" style="float: right;">Omitir</button-->
 					</div>
 				</div>
-            <!--Modal Body-->
             <div class="modal-body">
             	<div id="player" style="display:none;"></div>
-            	<!-- iframe id="video1" src="https://www.youtube.com/embed/cv2zQFkrumo" frameborder="0"></iframe><br /-->	
             </div>
-            <!--/Modal Body-->
     	</div>
 	</div>
 </div>
@@ -48,12 +43,12 @@ var firstlog = <?php echo $view->fistlog; ?>
             <?php 
             //echo $view->is_mobile;
             //echo '<a class="allbuttons btngreen btnleft" href="' . $view->url(array('action' => 'add')) . '" ><img src="'.$view->getBaseUrl('/images/iconos/login-tienda.png').'" style="margin-right:1em;" />Agregar Sucursal</a>'; 
-    		echo '<a class="allbuttons btngreen btnright" href="https://masdistribucion.com/public/app/MasDistribucion1.4.apk" target="_blank">Descarga la app <img src="'.$view->getBaseUrl('/images/iconos/logo-android.png').'" style="margin-left:1em;" /></a>';
+    		//echo '<a class="allbuttons btngreen btnright" href="https://masdistribucion.com/public/app/MasDistribucion1.4.apk" target="_blank">Descarga la app <img src="'.$view->getBaseUrl('/images/iconos/logo-android.png').'" style="margin-left:1em;" /></a>';
     		?>
         <br />
         
             <div class="blockInner" style="margin-top:1.5em;">
-                <h1> Direcciones de Entrega y Recolecci&oacute;n: <br /> <?php echo $view->credentials['firstName']." ".$view->credentials['lastName']; ?></h1>
+                <h1> Puntos de Reuni&oacute;n: <br /> <?php echo $view->credentials['firstName']." ".$view->credentials['lastName']; ?></h1>
             <?php
             echo '<div style="padding-bottom:1.5em;margin:1.5em;">';
             /*echo '<button class="allbuttons buttonhref"
@@ -75,12 +70,12 @@ var firstlog = <?php echo $view->fistlog; ?>
                  	Tiendas Productos</button>';*/
             
             
-            if($view->sales > 0){
-            	echo '<button class="allbuttons buttonhref"
+            if($view->sales > 0){//se oculta este boton para transporte de personal
+            	/*echo '<button class="allbuttons buttonhref"
 	                      onclick="new_window(this.name)" name="'.
             	                      $view->url(array('controller' => 'BackStore', 'action' => 'orders')).
             	                      '" title="Mis ordenes"><img src="'.$view->getBaseUrl('/images/iconos/truckwhite.png').'" style="margin-right:1em;" />
-	                 	Ver mis embarques</button>';
+	                 	Ver mis embarques</button>';*/
             }
             
             if($view->purchases > 0){
@@ -88,12 +83,12 @@ var firstlog = <?php echo $view->fistlog; ?>
 	                       onclick="new_window(this.name)" name="'.
             	                       $view->url(array('controller' => 'BackStore', 'action' => 'shopping')).
             	                       '"><img src="'.$view->getBaseUrl('/images/iconos/boxwhite.png').'" style="margin-right:1em;" />
-	                 	Ver mis pedidos</button>';
+	                 	Programa de pasajeros</button>';
             }
             
             echo '<button class="allbuttons buttonhref"
                       onclick="new_window(this.name)" name="'.$view->getBaseUrl('/Index/searchProduct/').'"><img src="'.$view->getBaseUrl('/images/iconos/icon-search.png').'" style="margin-right:1em; max-width:15px;" />
-                 	Buscar Productos</button>';
+                 	Buscar Pasajero</button>';
 
             echo '</div>';
             echo '<a href="'. $view->url(array('action' => 'add')) .'" >Agregar Sucursal</a><br >';
@@ -197,7 +192,10 @@ var firstlog = <?php echo $view->fistlog; ?>
                     echo '</div>';
                 }
                 
-                echo '<div class="contable" style="padding-top:1.5em;">';
+				
+				//se oculta esta seccion para transporte de personal
+                /******************************************************/
+				echo '<div class="contable" style="padding-top:1.5em;">';
                 echo '<table id="favoriteUsersSellers"  class="table table-striped table-bordered table-condensed display tableresp" cellspacing="0" width="100%" >';
                 echo '<thead>';
                 echo '<tr>';
@@ -206,20 +204,88 @@ var firstlog = <?php echo $view->fistlog; ?>
                 echo '</tr>';
                 echo '</thead>';
                 foreach ($view->stores as $store) {
-                    echo '<tr>';
-                    echo '<td>'.$store->getClient()->getCommercialName().'</td>';
-	                echo '<td><a href="' . $view->getBaseUrl() . '/User/Store/viewAllProducts/id/' . $store->getClient()->getId() . '/"><img src="'.$view->getBaseUrl('/'.$store->getClient()->getCategory()->getImagePath()).'"></a></td>';
-                    //echo '<td><a href="' . $view->getBaseUrl() . '/User/Store/viewAllProducts/id/' . $store->getClient()->getId() . '/">Ir a cat&aacute;logos</a></td>';
-                    echo '</tr>';
+					if($store->getClient()->getId() === 1614){//esto es para solo mostrar el catalogo de personas para el transporte de personal
+						echo '<tr>';
+						echo '<td>'.$store->getClient()->getCommercialName().'</td>';
+						echo '<td><a href="' . $view->getBaseUrl() . '/User/Store/viewAllProducts/id/' . $store->getClient()->getId() . '/"><img src="'.$view->getBaseUrl('/'.$store->getClient()->getCategory()->getImagePath()).'"></a></td>';
+						//echo '<td><a href="' . $view->getBaseUrl() . '/User/Store/viewAllProducts/id/' . $store->getClient()->getId() . '/">Ir a cat&aacute;logos</a></td>';
+						echo '</tr>';
+					}
 	            }
                 echo '</table>';
                 echo '</div>';
+				
+				
+				
+				//SE AGREGA ESTO PARA FUNCIONAMIENTO DE TRANSPORTE DE PERSONAL//////////////////////////////////////////////////////////////
+				//echo '<br/><label for="kwd_search">Buscar:</label> <input type="text" id="kwd_search" value=""/>';
+				/*
+				echo '<table id="my-table" class="table table-inverse" >';
+				echo '<tbody id="myTable">';
+				echo '<tr class="ui-row-ltr"><td class="tabla-pers">';
+                echo '<td class="tabla-pers" colspan="6" style="color: blue; font-size:15px;">COMERCIOS REGISTRADOS </td>';
+                echo'</tr>';
+				
+                foreach ($view->category->getUsers() as $user){
+					
+                    if($view->userId!==$user->getId() && $user->getStatus() == DefaultDb_Entities_User::STATUS_ACTIVE && count($user->getBranches())){
+                        
+						$commercialName = "";
+                        
+						if($user->getCommercialName() != ""){
+                            $commercialName = $user->getCommercialName();
+                        } else {
+                            $commercialName = $user->getFirstName(). ' ' . $user->getLastName();
+                        }
+                        echo '<tr class="ui-row-ltr"><td class="tabla-pers">';					
+
+						if($user->getVisible() != '0'){
+                            echo '<td class="tabla-pers"><a onclick="fiscalDat('.$user->getId().',1)" href="#" title="Informaci&oacute;n" ><span style="width:18px;height:18px" class="pers-btn icono-ver-actividad tam-normal"></span></a></td>';
+                        }else{echo '<td class="tabla-pers"></td>'; }
+                        echo '<td class="tabla-pers">'.$commercialName.'</td>';
+                        echo '<td class="tabla-pers">';
+                        $i=1;
+                        foreach ($user->getBranches() as $branch){
+                        	if($branch->getPoint() != NULL){
+                        	if($branch->getPoint()->getUrlGoogleMaps() != ""){
+                                echo '<a href="';
+                                echo $branch->getPoint()->getUrlGoogleMaps();
+                                echo '" target="_blank" title="Ubicaci&oacute;n '.$i.'">';
+                                echo '<span class="pers-btn icono-posicion tam-normal"></span>';
+                                echo '</a>';
+                                $i++;
+                            }}
+                        }
+                        echo '</td>';
+                        echo '<td class="tabla-pers"><a style="color:green;" onclick="goToPage('.$user->getId().',null,true)" title="Ver cat&aacute;logo">';
+                        echo 'Ver Cat&aacute;logos';
+                        echo '</a></td>';
+						
+						/*
+						echo '<td class="tabla-pers"><a class=" pull-right" title="Ir a carrito" href="'.$view->url(array('controller' => 'Store', 'action' => 'viewCart', 'id' => $user->getId())).'">';
+                        echo '<span class="pers-btn icono-carrito tam-normal"></span>';
+                        echo '</a></td>';
+                        echo '<td class="tabla-pers"><a title="Enviar promoci&oacute;n" ng-click="schedulePromotion('.$user->getId().',null,true)" href="#"><span style="width:18px;height:18px" class="pers-btn icono-calendario tam-normal"></span></a></td>';
+                        */
+				/*
+						echo'</tr>';
+                    }					
+				}					
+				
+                echo '<tbody></table>';
+                echo '<ul class="pagination pagination-lg pager" id="myPager"></ul>';				
+				*/
+				////////////////////////////////////////////////////////////////////////////////////////////////
+				
+				
+				
                 
-                echo '<div style="margin-top:1.5em; display: inline-block; justify-content:left; align-items: center; color:blue;">
+				//se oculta esta seccion para transporte de personal
+                /*echo '<div style="margin-top:1.5em; display: inline-block; justify-content:left; align-items: center; color:blue;">
 						<div style="width: 100%; text-align:right; text-size:1.5em; margin-bottom:1em;">Videos de Ayuda</div>
 	                    <a href="#loginForm" id="clickmodal" data-toggle="modal" data-placement="" title="video tutorial primera vez"><img src="'.$view->getBaseUrl('/images/iconos/logo-youtube.png').'" /></a>
 	                    <a href="https://www.youtube.com/watch?v=ChAmLBBR5yE" style="margin:1em;" title="video tutorial 2"  target="_blank"><img src="'.$view->getBaseUrl('/images/iconos/logo-youtube.png').'" /></a>
-	               	</div>';
+	               	</div>';*/
                 ?>
             </div><br /><br /> 
         <!--</div>-->

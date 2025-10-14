@@ -20,7 +20,7 @@ function RoutesIndexController($scope,$timeout,$state,$stateParams,PATH,PARTIALP
     $scope.grid.config = JQGridService.config({
     datatype:'json',
     url: PATH.routes + 'getRoutes',
-    colNames: ["id", "Clave", "Nombre","Franquisiatario", "Estatus", "Capacidad", "Factor", "Estado"],
+    colNames: ["id", "Clave", "Nombre","Transportista", "Estatus", "Capacidad", "Factor", "Estado"],
     colModel: [
         {name: "id", width: 0, align: "right", hidden: true},
         {name: "code", index: "code", width: 80},

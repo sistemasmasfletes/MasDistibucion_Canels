@@ -2,7 +2,7 @@
 function RouteSummaryEditPointsController($scope,$timeout,$state,$stateParams,ngTableParams,PARTIALPATH,ModalService,MessageBox,CatalogService,RouteSummaryDataService,routeSummary,CONFIG,routePointActivity){
     
     $scope.routeSummaries=routeSummary;
-    $scope.routeSummaries.Image=raw_image_data;
+    $scope.routeSummaries.Image=raw_image_data;//para recoleccion de personal este dato siempre sera indefinido
     
     $scope.save=save;
     $scope.back=function(){$state.go('^',$stateParams)};
@@ -37,7 +37,8 @@ function RouteSummaryEditPointsController($scope,$timeout,$state,$stateParams,ng
     $scope.routeSummariesStatus = CatalogService.getRouteSummaryStatus($acname);
     $scope.routeSummaries.status = routePointActivity.status;
     $scope.routeSummaries.comentarios = actividadComentarios + " de la Orden #"+routePointActivity.id + " en " + routePointActivity.name;
-    $scope.routeSummaries.receptor = (routePointActivity.status==ACTIVDAD_RECOLECTAR ? routePointActivity.chofer : null);
+    //$scope.routeSummaries.receptor = (routePointActivity.status==ACTIVDAD_RECOLECTAR ? routePointActivity.chofer : null);
+	$scope.routeSummaries.receptor = "Chofer de la unidad";//para recoleccion de personal este dato es el mismo siempre
     CatalogService.getCatalogCauses().then(function(response){$scope.getCausesEvidence = response.data;});
                  
     $scope.info=function(){
@@ -45,18 +46,26 @@ function RouteSummaryEditPointsController($scope,$timeout,$state,$stateParams,ng
     }
     
     function save(){
+		//alert("se guardara la informacion")
         var $fileName="";
         if($scope.routeSummaries){
             $scope.routeSummaries.routePointActivityId=$rpa_Id;
             $scope.routeSummaries.transactionid=$ocId;
             $scope.routeSummaries.ttype = TRANSACTION_TYPE_ORDER;
+			
+            $scope.loading=true;
+
+			//console.log("Datos para enviar a guardar: ",$scope.routeSummaries);
+
             var imgdata = angular.element('#imagen').val();
-            if(!imgdata){
-                MessageBox.show('Para poder guardar debe capturar la evidencia.');
+            //ESTO SE OMITE PARA TRANSPORTE DE PERSONAL
+			/*if(!imgdata){
+                MessageBox.show('Para poder guardar debe capturar la evidencia modificandolo.');
                 return;
             }
-            
-            $scope.loading=true;
+			
+			return; */
+			
             if($scope.routeSummaries.causeId==='') $scope.routeSummaries.causeId=null;
             RouteSummaryDataService.save($scope.routeSummaries, {})
                 .success(function(data, status, headers, config){
@@ -387,4 +396,7 @@ function RouteSummaryEditPointsController($scope,$timeout,$state,$stateParams,ng
             
         };
     }
+	
+	//SE LLAMA A LA FUNCION DE GUARDADO PARA BRINCARSE LA CAPTURA DE EVIDENCIAS ESTO ES PARA EL TRANSPORTE DE PERSONAL
+	save();
 }

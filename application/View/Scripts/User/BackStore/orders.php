@@ -2,14 +2,14 @@
 <div class="contiene-bread">
     <ol class="breadcrumb">
     <li class="active">Panel</li>
-    <li class="active actualpg ">Embarques</li>
+    <li class="active actualpg ">Pasajeros de salida</li>
 </ol>
 </div>
 <div class="container">
     <div class="row" >
         <!--<div class="span12 blockGray">-->
             <div class="blockInner">
-	                <h1>Estatus de mis embarques</h1>
+	                <h1>Estatus de pasajeros en ruta de salida</h1>
 	                <?php
 	                    $totalBranches = (int)$view->branchStatus['totalBranches'];
 	                    $branchesPending = (int)$view->branchStatus['branchesPending'];
@@ -18,7 +18,7 @@
 	
 	               if($contractsValidated ===1 ){
 		                if($totalBranches>0 && $branchesValidated>0){
-		                	echo '<a class="allbuttons btngreen btnright" href="' . $view->url(array('controller'=>'BackStore','action'=>'createOrder','module'=>'User')) . '" ><img src="'.$view->getBaseUrl('/images/iconos/pluswhite.png').'" style="margin-right:1em;" />Generar embarque</a>';
+		                	echo '<a class="allbuttons btngreen btnright" href="' . $view->url(array('controller'=>'BackStore','action'=>'createOrder','module'=>'User')) . '" ><img src="'.$view->getBaseUrl('/images/iconos/pluswhite.png').'" style="margin-right:1em;" />Programar pasajeros</a>';
 	 					?>
 		                	<!-- a class="btn-default sin-padding " href="<?php //echo $view->url(array('controller'=>'BackStore','action'=>'createOrder','module'=>'User'));?>" title="Agrega una orden manualmente"><span class="pers-btn icono-agregagar-orden tam-normal" style="float: right; box-shadow:-19px 12px 17px -7px rgba(13,12,12,0.58); border: none;"></span></a-->
 						
@@ -72,14 +72,14 @@
 	                            <tr>
 	                                <th>Folio</th>
 	                                <!-- th>Recurrente</th-->
-	                                <th>Comprador</th>
+	                                <th>Ubicación de llegada</th>
 	                                <th>M&eacute;todo de pago</th>
 	                                <!-- th>Pagado</th-->
-	                                <th>Estado del paquete</th>
+	                                <th>Estado de pasajeros</th>
 	                                <!-- th>Commentarios</th-->
 	                                <th>Fecha de pedido</th>
 	                                <th>Fecha de recoleccion estimada</th>
-	                                <th>Fecha y hora de entrega estimada</th>
+	                                <th>Fecha y hora de llegada estimada</th>
 	                                <th>Detalles</th>
 	                                <th>Opciones</th>
 	                            </tr>
@@ -175,7 +175,7 @@
 	                                        	//echo '<a href="'.$view->url(array('controller' => 'BackStore', 'action' => 'CancelOrdS', 'param' => $order->getId())).'">Generar pedido</a><br />';
 	                                        	if($order->getShippingStatus() == 0){
 													echo '<a class="allbuttons buttonin" style="float:left;background-color:#008a00;" href="' . $view->url(array('action' => 'creteShipping', 'id' => $order->getId()), true) . '" ><img src="'.$view->getBaseUrl('/images/iconos/trucktimerwhite.png').'" style="margin-right:0.5em;" />Programar envio</a>';
-													echo '<a class="allbuttons buttonin" style="float:left;background-color:#e54545;" href="' . $view->url(array('controller' => 'BackStore', 'action' => 'CancelOrdS', 'param' => $order->getId(), 'frm' => 'orders'), true) . '" ><img src="'.$view->getBaseUrl('/images/iconos/tachawhite.png').'" style="margin-right:0.5em;" />Detener paquete</a>';
+													echo '<a class="allbuttons buttonin" style="float:left;background-color:#e54545;" href="' . $view->url(array('controller' => 'BackStore', 'action' => 'CancelOrdS', 'param' => $order->getId(), 'frm' => 'orders'), true) . '" ><img src="'.$view->getBaseUrl('/images/iconos/tachawhite.png').'" style="margin-right:0.5em;" />Detener pasajeros</a>';
 													//echo '<a class=" btn-default sin-padding" href="'.$view->url(array('action' => 'creteShipping', 'id' => $order->getId()), true).'" ><span class="pers-btn icono-generar-pedido tam-normal"></span></a>';
 													//echo '<a class=" btn-default sin-padding" href="'.$view->url(array('controller' => 'BackStore', 'action' => 'CancelOrdS', 'param' => $order->getId(), 'frm' => 'orders'), true).'" ><span class="pers-btn icono-detener-paquete tam-normal"></span></a>';
 													//echo '<a href="'.$view->url(array('controller' => 'BackStore', 'action' => 'CancelOrdS', 'param' => $order->getId())).'">Cancelar</a>';
@@ -183,7 +183,7 @@
 													$dnow =  new DateTime("now");
 													$dif = $dnow->diff($order->getShippingDate());
 													if(strpos($dif->format('%R%a'), '-') === FALSE && (int)$dif->format('%d') > 1 && $order->getShippingStatus() == 1){
-														echo '<a class="allbuttons buttonin" style="float:left;background-color:#e54545;" href="' . $view->url(array('controller' => 'BackStore', 'action' => 'CancelOrdC', 'param' => $order->getId(), 'frm' => 'orders'), true) . '" ><img src="'.$view->getBaseUrl('/images/iconos/tachawhite.png').'" style="margin-right:0.5em;" />Detener paquete</a>';
+														echo '<a class="allbuttons buttonin" style="float:left;background-color:#e54545;" href="' . $view->url(array('controller' => 'BackStore', 'action' => 'CancelOrdC', 'param' => $order->getId(), 'frm' => 'orders'), true) . '" ><img src="'.$view->getBaseUrl('/images/iconos/tachawhite.png').'" style="margin-right:0.5em;" />Detener pasajeros</a>';
 														//echo '<a href="'.$view->url(array('controller' => 'BackStore', 'action' => 'CancelOrdC', 'param' => $order->getId())).'">Cancelar</a>';
 														//echo '<a class=" btn-default sin-padding" href="'.$view->url(array('controller' => 'BackStore', 'action' => 'CancelOrdC', 'param' => $order->getId(), 'frm' => 'orders'), true).'" ><span class="pers-btn icono-detener-paquete tam-normal"></span></a>';
 													}
@@ -207,7 +207,7 @@
 	                        <thead>
 	                            <tr>
 	                                <th>Folio</th>
-	                                <th>Comprador</th>
+	                                <th>Ubicación de llegada</th>
 	                                <th>Pagado</th>
 	                                <th>Entregado</th>
 	                                <th>Fecha de pedido</th>

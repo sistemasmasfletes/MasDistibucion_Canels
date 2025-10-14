@@ -145,6 +145,11 @@ angular.module('masDistribucion.clientPackage',[
                 $scope.goAdd = function(){
                     $state.go('clientPackage.add');
                 }
+				
+                $scope.goQr=function(package){
+					window.open("https://8c7885096405.ngrok-free.app/masdistribucion/public/User/BranchesUser/generateQR/id/"+package);
+               }				
+				
 
             }
             ])

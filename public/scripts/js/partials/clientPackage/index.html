@@ -1,7 +1,7 @@
 <div ng-show="state.current.name==='clientPackage'">  
     <ol class="breadcrumb">
         <li class="active">Panel</li>
-        <li class="active actualpg">Paquetes</li>
+        <li class="active actualpg">Pasajeros</li>
     </ol>
     <div class="container-fluid">
         <div class="row">
@@ -20,7 +20,7 @@
                 <div loading-container="tableParams.settings().$loading">                
                     <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable table-responsive">
                     <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">
-                        <span class="ui-ngt-title">Catálogo de paquetes</span>
+                        <span class="ui-ngt-title">Catálogo de pasajeros</span>
                     </div>
                         <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover table-striped ">
                             <tbody>
@@ -29,11 +29,16 @@
                                     <!-- td data-title="'N°'" sortable="'id'"  class="col-md-2">
                                         {{packages.id}}
                                     </td-->                      
-                                    <td data-title="'Paquete'" sortable="'name'" ng-style="packages.user_id == 58 ? {'color': 'green'} : {'color' : '#000'}">
+                                    <td data-title="'Pasajero'" sortable="'name'" ng-style="packages.user_id == 58 ? {'color': 'green'} : {'color' : '#000'}">
                                         {{packages.name}}
                                     </td> 
                                     <td data-title="'Medidas'">
                                         {{packages.width}}x{{packages.height}}x{{packages.depth}}
+                                    </td>
+                                    <td data-title="'Qr'">
+										<a class="btn btn-default btn18px" name="" ng-click="goQr(packages.id)"  value=""  title="Generar c&oacute;digo QR">
+	                                        <span class="pers-btn icono-qr icono-tam-tabla"></span>
+	                                    </a>
                                     </td>
                                     <!-- td data-title="'Precio Vta.'">
                                         {{packages.price}}

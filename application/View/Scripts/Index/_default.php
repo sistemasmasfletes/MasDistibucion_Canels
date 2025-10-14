@@ -1,7 +1,7 @@
 <?php
 if (!Model3_Auth::isAuth()) {
     ?>
-<!--  Login form -->
+<!--  Login form >
 <div class="modal hide fade in" id="loginForm" tabindex="-1" aria-hidden="false">
  	<div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -12,12 +12,9 @@ if (!Model3_Auth::isAuth()) {
                    	<button data-dismiss="modal" aria-hidden="false" onclick="hidevideo()" class="allbuttons" style="background-color:#000; border: none;  margin-left: auto;">Omitir</button>
 				</div>
 				</div>
-            <!--Modal Body-->
             <div class="modal-body">
             	<div id="player" style="display:none;"></div>
-				<!-- iframe id="video0" src="//www.youtube.com/embed/7noWFAEOFNM?rel=0" frameborder="0"></iframe><br /-->	
             </div>
-            <!--/Modal Body-->
     	</div>
 	</div>
 </div>

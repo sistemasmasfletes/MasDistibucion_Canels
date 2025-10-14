@@ -1,0 +1,27 @@
+# -----------------------------------------------------
+# HTACCESS para entorno local XAMPP con PHP 5.6
+# Ubicación: /MasDistibucion_Canels/public/
+# -----------------------------------------------------
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Si el proyecto está en localhost/MasDistibucion_Canels/public
+    RewriteBase /MasDistibucion_Canels/public/
+
+    # Redirige todo a index.php
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php?$1 [L,QSA]
+</IfModule>
+
+Options -Indexes
+
+<IfModule mod_php5.c>
+    php_value upload_max_filesize 64M
+    php_value post_max_size 64M
+    php_value memory_limit 256M
+    php_value max_execution_time 300
+</IfModule>
+
+AddDefaultCharset UTF-8

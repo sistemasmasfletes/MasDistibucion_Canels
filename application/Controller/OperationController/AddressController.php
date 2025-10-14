@@ -49,7 +49,7 @@ class OperationController_AddressController extends JController{
         }
     }
     
-    public function saveAction(){
+public function saveAction(){
         $params = $this->getRequest()->getPostJson();
 
         $id = $this->getArrayValue('id', $params);

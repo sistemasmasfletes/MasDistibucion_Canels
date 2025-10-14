@@ -1530,13 +1530,30 @@ class User_StoreController extends Model3_Controller {
     }
     
     public function viewAllProductsAction() {
+		
     	$em = $this->getEntityManager('DefaultDb');
     	$this->view->getJsManager()->addJsVar('urlAddToCart', '\'' . $this->view->url(array('module' => 'User', 'controller' => 'AjaxCart', 'action' => 'addToCart')) . '\'');
     	$this->view->getJsManager()->addJsVar('urlcatalogall', '\'' . $this->view->url(array('module' => 'User', 'controller' => 'Store', 'action' => 'allproductGallery')) . '\'');
     	 
-    	$seller = $em->getRepository('DefaultDb_Entities_User')->findOneBy(array('id' => $this->getRequest()->getParam('id')));
+    	//$seller = $em->getRepository('DefaultDb_Entities_User')->findOneBy(array('id' => $this->getRequest()->getParam('id')));
+		//SE USA EL ID DEL USUARIO LOGEADO PARA CARGAR SUS CATALOGOS ESTO ES PARA TRANSPORTE DE PERSONAL
+        $sessionUserId = Model3_Auth::getCredentials('id');
+    	$seller = $em->getRepository('DefaultDb_Entities_User')->findOneBy(array('id' => $sessionUserId));
     	$catalogs = $em->getRepository('DefaultDb_Entities_Catalog')->findBy(array('client' => $seller));
+		
+		$allproducts = "";
+		foreach($catalogs as $catalog){
+			foreach ($catalog->getProducts() as $product){
+				if($product->getStatus() === 1){				
+					$allproducts .=	$product->getId().":".$product->getName()."-";
+				}
+			}		
+		}
+		
+		$this->view->getJsManager()->addJsVar('arrayAllproducts', '\'' . $allproducts. '\'');
+		
     	$this->view->catalogs = $catalogs;
+		$this->view->allproducts = $allproducts;
     	$this->view->user = $seller;
     }
     
@@ -1570,9 +1587,10 @@ class User_StoreController extends Model3_Controller {
 			if($contimgs == 0){
 					$div .=  " >";
 			}
+
 	
-    		$checked = "";
-    		if(is_array($predoduct)){
+			$checked = "";
+			if(is_array($predoduct)){
     			foreach ($predoduct as $precheck){
     				if(intval($precheck) == intval($product->getId())){
     					$checked = "checked";
@@ -1580,12 +1598,12 @@ class User_StoreController extends Model3_Controller {
     				}
     			}
     		}
-    		 
+			
     		$div .= '<div style="width:80%; box-shadow:none;margin-top:1em;">
 	   			<input type="checkbox" class="boxcheck" '.$checked.' id="bck'.$product->getId().'" name="productlist[]" title="'.$product->getName().'" value="'.$product->getId().'">
 	   			<span >'.$product->getName().'</span><br />
-	   			<span >Precio: $'.$product->getPrice().'</span><br />
-	   			<span style="color:green;">Cr&eacute;ditos: $'.$product->getPriceCreditos().'</span>
+	   			<span >'/*.$product->getPrice()*/.'</span><br />
+	   			<span style="color:green;">'/*.$product->getPriceCreditos()*/.'</span>
 	   			</div>';
     
     		$div .= '</span>';

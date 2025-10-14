@@ -255,7 +255,10 @@ class DefaultDb_Repositories_RouteSummaryRepository extends EntityRepository
             routePoint_id,
 
             id,
+			prod_id,
+			prod_name,
             Paquete,
+            PaqueteId,
             Actividad,
             horaReal,
             Estado,
@@ -284,8 +287,11 @@ class DefaultDb_Repositories_RouteSummaryRepository extends EntityRepository
                     rp.id as routePoint_id,
 
                     ord.id,
+					prod.id as prod_id,
+					prod.name as prod_name,
                     p.namePackage as Paquete,
-                    typ.name as Actividad,
+                    p.package_id AS PaqueteId,
+					typ.name as Actividad,
                     DATE_FORMAT(ad.date,'%H:%i:%s') as horaReal,
                     ad.status as Estado,
                     po.name as name,
@@ -314,6 +320,8 @@ class DefaultDb_Repositories_RouteSummaryRepository extends EntityRepository
                     LEFT JOIN points po ON rp.point_id=po.id
                     LEFT JOIN users u ON po.id=u.point_id
                     LEFT JOIN points ptseller on ord.pointSeller_id = ptseller.id
+					LEFT JOIN m3_commerce_products_to_orders prodord on prodord.order_id = ord.id
+                    LEFT JOIN product prod on prodord.product_id = prod.id
                 WHERE 
                 (:routePointActivityId IS NULL OR r.id = :routePointActivityId)
                 AND (:schedulerouteid  IS NULL OR r.scheduledRoute_id=:schedulerouteid )
@@ -330,7 +338,10 @@ class DefaultDb_Repositories_RouteSummaryRepository extends EntityRepository
                     rp.id as routePoint_id,
 
                     ord.id,
-                    p.namePackage as Paquete,
+					prod.id as prod_id,
+                    prod.name as prod_name,
+					p.namePackage as Paquete,
+					p.package_id AS PaqueteId,
                     typ.name as Actividad,
                     DATE_FORMAT(ad.date,'%H:%i:%s') as horaReal,
                     ad.status as Estado,
@@ -363,7 +374,8 @@ class DefaultDb_Repositories_RouteSummaryRepository extends EntityRepository
                     LEFT JOIN promotion promoOrder on p.promotion_id=promoOrder.id
                     LEFT JOIN points ptbuyer on ord.pointBuyer_id = ptbuyer.id
                     LEFT JOIN points ptseller on ord.pointSeller_id = ptseller.id
-
+                    LEFT JOIN m3_commerce_products_to_orders prodord on prodord.order_id = ord.id
+                    LEFT JOIN product prod on prodord.product_id = prod.id
                 WHERE 
                 (:routePointActivityId IS NULL OR r.id = :routePointActivityId)
                 AND (:schedulerouteid  IS NULL OR r.scheduledRoute_id=:schedulerouteid )
@@ -380,7 +392,10 @@ class DefaultDb_Repositories_RouteSummaryRepository extends EntityRepository
                     rp.id as routePoint_id,
 
                     ps.id,
-                    p.name as Paquete,
+					NULL as prod_id,
+                    NULL as prod_name,
+					p.name as Paquete,
+					NULL AS PaqueteId,
                     typ.name as Actividad,
                     DATE_FORMAT(ad.date,'%H:%i:%s') as horaReal,
                     ad.status as Estado,

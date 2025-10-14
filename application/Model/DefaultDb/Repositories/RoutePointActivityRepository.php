@@ -115,7 +115,7 @@ class DefaultDb_Repositories_RoutePointActivityRepository extends EntityReposito
             (   
                 select rpactivities.id element_id,rpactivities.element_type,lastRates.client_rate/*/IFNULL(rpactivities.cant,1)*/ client_rate,rpactivities.cant factorCount FROM (
                     SELECT pr.id,pr.element_id, pr.element_type,pr.date,pr.client_rate,pr.provider_fee,
-                    @num := if(@groupElement = element_id AND @groupElementType = element_type, @num + 1, 1) row_number,
+                    @num := if(@groupElement = element_id AND @groupElementType = element_type, @num + 1, 1) row_n,
                     @groupElement := element_id gpName,
                     @groupElementType := element_type gpname2
                     FROM package_rate pr 
@@ -139,7 +139,7 @@ class DefaultDb_Repositories_RoutePointActivityRepository extends EntityReposito
                 GROUP BY r.id
                 ) rpactivities
                 ON lastRates.element_id = rpactivities.id and lastRates.element_type=rpactivities.element_type
-                WHERE lastRates.row_number=1    
+                WHERE lastRates.row_n=1    
             )rates            
             ON elements.element_id=rates.element_id AND elements.element_type = rates.element_type
             LEFT JOIN points p ON elements.element_id=p.id and elements.element_type=2
@@ -169,34 +169,34 @@ class DefaultDb_Repositories_RoutePointActivityRepository extends EntityReposito
                 FROM sequential_activities sa 
                 INNER JOIN route_points rp on sa.routePoint_id=rp.id    
                 INNER JOIN routes r on rp.route_id=r.id
-                WHERE sa.order_id=:orderId AND sa.type=2                
+                WHERE sa.order_id=".$orderId." AND sa.type=2                
                 UNION ALL
                 SELECT DISTINCT p.id element_id,2 element_type,p.type ptype
                 FROM sequential_activities sa 
                 INNER JOIN route_points rp on sa.routePoint_id=rp.id
                 INNER JOIN points p on rp.point_id = p.id
                 INNER JOIN routes r on rp.route_id=r.id
-                WHERE sa.order_id=:orderId
+                WHERE sa.order_id=".$orderId."
             ) rpactivities
             LEFT JOIN
             (   
                 select lastRates.* FROM (
                     SELECT pr.id,pr.element_id, pr.element_type,pr.client_rate,pr.provider_fee,
-                    @num := if(@groupElement = element_id AND @groupElementType = element_type, @num + 1, 1) row_number,
+                    @num := if(@groupElement = element_id AND @groupElementType = element_type, @num + 1, 1) row_n,
                     @groupElement := element_id gpName,
                     @groupElementType := element_type gpname2
                     FROM package_rate pr 
                     WHERE pr.element_type in (1,2)
                     ORDER BY pr.element_id,pr.element_type,pr.date DESC
-                )lastRates  WHERE row_number=1  
+                )lastRates  WHERE row_n=1  
                 )rates
                 ON rpactivities.element_id=rates.element_id AND rpactivities.element_type = rates.element_type   
             ORDER BY rpactivities.element_type
         ";
-
+		
         $conn = $em->getConnection()->getWrappedConnection();
         $stmt = $conn->prepare($query);
-        $stmt->bindValue("orderId",$orderId);
+        //$stmt->bindValue("orderId",$orderId);
 
         $stmt->execute();
         $result = DBUtil::getResultsetFromStatement($stmt, \PDO::FETCH_NAMED);

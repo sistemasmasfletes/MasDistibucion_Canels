@@ -1,26 +1,26 @@
 <?php 
     $_SESSION["idcomercio"] = $view->user->getId();
+	
+	//var_dump($view->allproducts);
 ?>
 <div class="contiene-bread" id="contiene-bread">
     <ol class="breadcrumb">
-        <li class="active">Clientes</li>
+        <!--li class="active">Clientes</li-->
         <li class="active "> <?php
-            echo '<a href="' . $view->linkTo("/User/FavoriteUsers/") . '" >Comercios</a>';
+            echo '<a href="' . $view->linkTo("/User/FavoriteUsers/") . '" >Puntos de reunión</a>';
             ?></li>
         <li class="active actualpg"><?php echo $view->user->getCommercialName() ? $view->user->getCommercialName() : $view->user->getFirstName() . ' ' . $view->user->getLastName(); ?></li>
     </ol>
 </div>
-<!--  Login form -->
+<!--  Login form>
 <div class="modal hide fade in" id="loginForm" tabindex="-1" aria-hidden="false">
  	<div class="modal-dialog" role="document">
         <div class="modal-content">
         	<div class="modal-header">
               	<div class="modal-headertitle">VER VIDEO TUTORIAL</div>
 			</div>
-            <!--Modal Body-->
             <div class="modal-body">
             </div>
-            <!--/Modal Body-->
     	</div>
 	</div>
 </div>
@@ -32,9 +32,11 @@
     echo '<span style="float:right;background-color:#08A4DA;width:30%;border-radius:5%;text-align:center;color:#fff;padding:.5em; box-shadow:-19px 12px 17px -7px rgba(13,12,12,0.58);">
           << TIENDA: '.$view->user->getCommercialName().'</span></a><br /<br /<br />';*/
     ?>
-	<div class="infostore">
+	
+	<!----------------------------------INICIA SE COMENTA TODA ESTA SECCION PARA TRANSPORTE DE PERSONAL--------------------------------->
+	<!--div class="infostore">
 		Contactanos:<br> 
-    	<?php echo $view->user->getPhone() . ', ' . $view->user->getCellPhone().'<br >'.$view->user->getMail(); ?><br />            
+    	<?php /*echo $view->user->getPhone() . ', ' . $view->user->getCellPhone().'<br >'.$view->user->getMail(); ?><br />            
 		<div class="contentsearch">
 
 			<?php 
@@ -69,10 +71,12 @@
 					}
 				}
 				
-			?>
+			*/?>
 		</div>
 
-   	</div>
+   	</div-->
+	<!----------------------------------FIN SE COMENTA TODA ESTA SECCION PARA TRANSPORTE DE PERSONAL--------------------------------->
+	
     <div class="row" >
         <div class="blockInner">                
 			<div class="contcatalog">
@@ -89,11 +93,11 @@
 			<div class="form3" style="width: 80%; display:flex; min-height: 6em !important;">
 				<div class="listpantry" style="min-width:60% !important;">
 					<div id="patrylist" style="text-align: left;">
-						<div style="background-color:#000;color:#FFF; border-radius:5px; ">Llevas <span style="margin-right:0.5em;" id="totalist">0</span> Productos<br /></div>
+						<div style="background-color:#000;color:#FFF; border-radius:5px; ">Llevas <span style="margin-right:0.5em;" id="totalist">0</span> Pasajeros<br /></div>
 					</div>
 		  		</div>
 		  		<div style="min-width:40%; max-width:40%; margin-left:0.5em;">		
-		    		<button type="submit" class="allbuttons buttoninlog btngreen" style="display:none;" id="addallcar">Agregar a carrito</button>
+		    		<button type="submit" class="allbuttons buttoninlog btngreen" style="display:none;" id="addallcar">Aceptar lista</button>
 		    		<span id="messages"></span>
 		    		<a href="<?php echo $view->linkTo("/User/Store/viewCart/") ?>" class="allbuttons buttoninlog btngreen" style="background-color:blue; max-width:75%; display:none;" id="viewcar">Ver carrito</a>
 		    	</div>
@@ -106,6 +110,38 @@ var cont = 0;
 var arrayprod = [];
 
 $(document).ready(function() {
+
+	//console.log("todos los productos de los catalogos",arrayAllproducts)
+    var arrayAllprodsplit = arrayAllproducts.split("-");
+
+	if(arrayAllprodsplit.length > 0){
+		$('#addallcar').fadeIn('slow');
+	}
+	
+	for(let i=0;i<arrayAllprodsplit.length;i++){
+		if (i === (arrayAllprodsplit.length - 1)) {
+			break; 
+		}
+		console.log("id del producot: ",arrayAllprodsplit[i]);
+		
+		let prodsplit = arrayAllprodsplit[i].split(":");		
+		
+		arrayprod.push(prodsplit[0]);
+	    $( '<div id="'+prodsplit[0]+'">&bull;'+prodsplit[1]+'</div>' ).appendTo($("#patrylist"));
+        cont++		
+	}
+
+	$( '#totalist').html(cont);
+
+	/*
+	setTimeout(function(){
+		let botones = $('.buttoncat');
+		for(let i=0;i<botones.length;i++){
+			botones[i].click(); // Ejecuta un clic en cada botón
+		}
+	},1500);
+	*/
+	
 
 	if ( document.getElementById( "condicion" )) {
 		$("#condicion").click(function(){
@@ -135,6 +171,8 @@ $(document).ready(function() {
 	});
 
 	$('.buttoncat').click(function(){
+		
+		console.log("pasajeros incluidos",arrayprod);
 
 		if ( document.getElementById( "condicion" )) {
 			if($("#condicion").prop('checked') == false) {

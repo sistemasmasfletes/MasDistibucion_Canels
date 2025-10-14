@@ -112,12 +112,16 @@ function RouteSummaryEditPackageController($rootScope,$scope,$timeout,$state,$st
 	        var data = $scope.tableParams.data;
 	        var hasPromotion = false;
 	        for(var i=0;i<data.length;i++){
+				
+				console.log(data[i]);
 	            var $scheduleId = data[i].scheduleId;
 	            var $routePointId = data[i].routePoint_id;
 	            var $id = data[i].id; //Orden de compra
 	            var $rpa_id = data[i].routePointActivityId
 	            var $hour = data[i].horaReal;
-	            var packcode = data[i].id; //Orden de compra
+	            //var packcode = data[i].id; //Orden de compra
+				//var packcode = data[i].PaqueteId;// id del paquete o pasajero
+				var packcode = data[i].prod_id;//id del producto o pasajero
 	            var $pointType = data[i].pointType;
 	            var $status = data[i].Estado;
 	            var flag = false;

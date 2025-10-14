@@ -21,7 +21,6 @@ class User_BranchesUserController extends Model3_Scaffold_Controller
         $em = $this->getEntityManager('DefaultDb');
         $branchesUserRepos = $em->getRepository('DefaultDb_Entities_BranchesUser');
         $branches = $branchesUserRepos->findBy(array('client' => $credentials['id']));
-        
         $routepoint = $em->getRepository('DefaultDb_Entities_RoutePoint');
         $schedules = $em->getRepository('DefaultDb_Entities_Schedule');
         
@@ -46,6 +45,16 @@ class User_BranchesUserController extends Model3_Scaffold_Controller
         $this->view->branches = $branches;
         $this->view->routepoint = $routepoint;
         $this->view->is_mobile = $this->is_mobile();
+		
+		//SE AGREGA ESTO PARA FUNCIONAMIENTO DE TRANSPORTE DE PERSONAL
+		$sessionUserId = Model3_Auth::getCredentials('id');
+        $categoryRepos = $em->getRepository('DefaultDb_Entities_Category');
+        //$branchesRepos = $em->getRepository('DefaultDb_Entities_BranchesUser');
+        //$pointRepos = $em->getRepository('DefaultDb_Entities_Point');
+        $this->view->category = $categoryRepos->find(174/*$categoryId*/);//el ID de la categoria en este caso queda estatico para uso de TRANSPORTE DE PERSONAL
+        $this->view->userId = $sessionUserId;		
+		///////////////////////////////////////////////////////////////////////////////////////////
+		
         
         if($_SESSION['firstlog'] == 1){
         	$this->view->fistlog = true;
@@ -173,6 +182,56 @@ class User_BranchesUserController extends Model3_Scaffold_Controller
     	echo $e->getMessage();
     	}
     }
+	
+    public function generateQRAction() {
+    	
+    	$this->view->setUseTemplate(false);
+		
+    	$id = (int)$this->getRequest()->getParam('id');
+    	 
+    	$content = '
+		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+		<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+		<head>
+		<title>QRCode generator</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+		';
+
+		$this->view->getJsManager()->loadJsFile('application/qrcode.js');
+		$this->view->getJsManager()->loadJs();
+
+		$content .= '
+
+			<!--script type="text/javascript" src="jquery.min.js"></script-->
+			<!--script type="text/javascript" src="qrcode.js"></script-->
+			</head>
+			<body>
+			<input id="text" type="text" value="'.$id.'" style="width:80%; display:none;" /><br />
+			<div id="qrcode" style="width:100px; height:100px; margin-top:15px;"></div-->
+
+			<script type="text/javascript">
+			var qrcode = new QRCode(document.getElementById("qrcode"), {
+				width : 100,
+				height : 100
+			});
+
+			function makeCode () {		
+				var elText = document.getElementById("text");
+				qrcode.makeCode(elText.value);
+			}
+
+			makeCode();
+			</script>
+			</body>
+		';    	
+    	echo $content;
+    	/*$dompdf = new DOMPDF();
+    	$dompdf->load_html($content);
+    	$dompdf->render();
+    	$dompdf->stream("QrPunto.pdf");*/
+    }	
+	
     
     
     

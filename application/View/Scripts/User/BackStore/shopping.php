@@ -2,14 +2,14 @@
 <div class="contiene-bread">
     <ol class="breadcrumb">
     <li class="active">Panel</li>
-    <li class="active actualpg ">Pedidos</li>
+    <li class="active actualpg ">Pasajeros de llegada</li>
 </ol>
 </div>
 <div class="container">
     <div class="row" >
         <!--<div class="span12 blockGray">-->
             <div class="blockInner">
-                <h1>Estatus de mis pedidos</h1>
+                <h1>Estatus de pasajeros en ruta</h1>
                 <?php
                     $totalBranches = (int)$view->branchStatus['totalBranches'];
                     $branchesPending = (int)$view->branchStatus['branchesPending'];
@@ -18,7 +18,7 @@
                     
                	if($contractsValidated ===1 ){
 	                    if($totalBranches>0 && $branchesValidated>0){
-							echo '<a class="allbuttons" style="float:right;background-color:#d74710;" href="' . $view->url(array('controller'=>'BackStore','action'=>'createOrder','module'=>'User', 'buyer' => '1')) . '" ><img src="'.$view->getBaseUrl('/images/iconos/pluswhite.png').'" style="margin-right:1em;" />Generar pedido</a>';
+							echo '<a class="allbuttons" style="float:right;background-color:#d74710;" href="' . $view->url(array('controller'=>'BackStore','action'=>'createOrder','module'=>'User', 'buyer' => '1')) . '" ><img src="'.$view->getBaseUrl('/images/iconos/pluswhite.png').'" style="margin-right:1em;" />Programar pasajeros</a>';
 	                ?>
 		            	<!-- a class="btn-default sin-padding" href="" title="Agrega una orden" >
 		            		<span class="pers-btn icono-agregagar-orden tam-normal" style="float: right;  box-shadow:-19px 12px 17px -7px rgba(13,12,12,0.58); border: none;"></span>
@@ -41,13 +41,13 @@
 	                        	    <tr>
 	                                <th>Folio</th>
 	                                <!-- th>Recurrente</th-->
-	                                <th>Vendedor</th>
+	                                <th>Ubicación de salida</th>
 	                                <!-- th>Pagado</th-->
-	                                <th>Estado del paquete</th>
+	                                <th>Estado de pasajeros</th>
 	                                <th>M&eacute;todo de pago</th>
 	                                <th>Fecha de pedido</th>
 	                                <th>Fecha de recolección estimada</th>
-	                                <th>Fecha y hora de entrega estimada</th>
+	                                <th>Fecha y hora de llegada estimada</th>
 	                                <th>Detalles</th>
 	                                <th>C&oacute;digo QR</th>
 	                                <th>Opciones</th>
@@ -121,7 +121,7 @@
 		                                    <?php 
 		                                        	if($order->getShippingStatus() == 0){
 														echo '<a class="allbuttons buttonin" style="float:left;background-color:#212121;" href="' . $view->url(array('action' => 'creteShipping', 'id' => $order->getId()), true) . '" ><img src="'.$view->getBaseUrl('/images/iconos/trucktimerwhite.png').'" style="margin-right:0.5em;" />Programar envio</a>';
-														echo '<a class="allbuttons buttonin" style="float:left;background-color:#ff6e36;" href="' . $view->url(array('controller' => 'BackStore', 'action' => 'CancelOrdS', 'param' => $order->getId(), 'frm' => 'shopping'), true) . '" ><img src="'.$view->getBaseUrl('/images/iconos/tachawhite.png').'" style="margin-right:0.5em;" />Detener paquete</a>';
+														echo '<a class="allbuttons buttonin" style="float:left;background-color:#ff6e36;" href="' . $view->url(array('controller' => 'BackStore', 'action' => 'CancelOrdS', 'param' => $order->getId(), 'frm' => 'shopping'), true) . '" ><img src="'.$view->getBaseUrl('/images/iconos/tachawhite.png').'" style="margin-right:0.5em;" />Detener pasajeros</a>';
 														/*echo '<a class=" btn-default sin-padding" href="'.$view->url(array('action' => 'creteShipping', 'id' => $order->getId()), true).'" ><span class="pers-btn icono-generar-pedido tam-normal"></span></a>';
 														echo '<a class=" btn-default sin-padding" href="'.$view->url(array('controller' => 'BackStore', 'action' => 'CancelOrdS', 'param' => $order->getId()), true).'" ><span class="pers-btn icono-detener-paquete tam-normal"></span></a>';*/
 															
@@ -129,7 +129,7 @@
 														$dnow =  new DateTime("now");
 														$dif = $dnow->diff($dshp);
 														if(strpos($dif->format('%R%a'), '-') === FALSE && (int)$dif->format('%d') > 1 && $order->getShippingStatus() == 1){
-															echo '<a class="allbuttons buttonin" style="float:left;background-color:#ff6e36;" href="' . $view->url(array('controller' => 'BackStore', 'action' => 'CancelOrdC', 'param' => $order->getId(), 'frm' => 'shopping'), true) . '" ><img src="'.$view->getBaseUrl('/images/iconos/tachawhite.png').'" style="margin-right:0.5em;" />Detener paquete</a>';
+															echo '<a class="allbuttons buttonin" style="float:left;background-color:#ff6e36;" href="' . $view->url(array('controller' => 'BackStore', 'action' => 'CancelOrdC', 'param' => $order->getId(), 'frm' => 'shopping'), true) . '" ><img src="'.$view->getBaseUrl('/images/iconos/tachawhite.png').'" style="margin-right:0.5em;" />Detener pasajeros</a>';
 															//echo '<a class=" btn-default sin-padding" href="'.$view->url(array('controller' => 'BackStore', 'action' => 'CancelOrdC', 'param' => $order->getId()), true).'" ><span class="pers-btn icono-detener-paquete tam-normal"></span></a>';
 														}
 														echo '<a class="allbuttons buttonin" style="float:left;background-color:#b83909;" href="' . $view->url(array('module' => 'User', 'controller' => 'Dompdf', 'action' => 'index', 'id' => $order->getId())) . '" ><img src="'.$view->getBaseUrl('/images/iconos/documentpdfwhite.png').'" style="margin-right:0.5em;" />Generar etiqueta</a>';

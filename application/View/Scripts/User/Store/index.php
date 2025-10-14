@@ -79,11 +79,13 @@
                 echo '<div class="contenedor-categorias">';
                 if($view->filterone ==  TRUE){
 	                foreach ($view->categories as $cat) {
-	                    /*echo '<a class="btn  square-bordered" href="' . $view->url(array('controller' => 'Store', 'action' => 'category', 'id' => $cat->getCategoryId()->getId())) . '">';
-	                    echo '<div class="contenido-categoria"><img style="" src="' . $view->getBaseUrl() . '/' . $cat->getCategoryId()->getImagePath() . '" class="icono-categoria"/><label>' . $cat->getCategoryId()->getName() . '</labek></div>';*/
-	                    echo '<a class="btn  square-bordered" href="' . $view->url(array('controller' => 'Store', 'action' => 'category', 'id' => $cat->getId())) . '">';
-	                    echo '<div class="contenido-categoria"><img style="" src="' . $view->getBaseUrl() . '/' . $cat->getImagePath() . '" class="icono-categoria"/><label>' . $cat->getName() . '</labek></div>';
-	                    echo '</a>';
+						if($cat->getId() === 174){//esto es para transporte de personal
+							/*echo '<a class="btn  square-bordered" href="' . $view->url(array('controller' => 'Store', 'action' => 'category', 'id' => $cat->getCategoryId()->getId())) . '">';
+							echo '<div class="contenido-categoria"><img style="" src="' . $view->getBaseUrl() . '/' . $cat->getCategoryId()->getImagePath() . '" class="icono-categoria"/><label>' . $cat->getCategoryId()->getName() . '</labek></div>';*/
+							echo '<a class="btn  square-bordered" href="' . $view->url(array('controller' => 'Store', 'action' => 'category', 'id' => $cat->getId())) . '">';
+							echo '<div class="contenido-categoria"><img style="" src="' . $view->getBaseUrl() . '/' . $cat->getImagePath() . '" class="icono-categoria"/><label>' . $cat->getName(). '</labek></div>';
+							echo '</a>';
+						}
 	                }
 				}else{
 	                /*foreach ($view->categories as $cat) {
@@ -94,10 +96,12 @@
 	                }*/
 					foreach ($view->categories as $cat) {
 						if($cat->getCategory()->getId() != 171){ /*ESTO SOLO ES PARA NO MOSTRAR LA CATEGORIA DE PUNTOS DE VENTA EN PROCESO*/
-							echo '<a class="btn  square-bordered" href="' . $view->url(array('controller' => 'Store', 'action' => 'category', 'id' => $cat->getCategory()->getId())) . '">';		
-							//echo '<a href="'.$view->url(array('controller' => 'Store', 'action' => 'category', 'id' => $cat->getId())).'">'.$cat->getName().'</a>';		
-							echo '<div class="contenido-categoria"><img style="" src="' . $view->getBaseUrl() . '/' . $cat->getCategory()->getImagePath() . '" class="icono-categoria"/><label>' . $cat->getCategory()->getName() . '</label></div>';		
-							echo '</a>';						
+							if($cat->getCategory()->getId() === 174){//esto es para transporte de personal							
+								echo '<a class="btn  square-bordered" href="' . $view->url(array('controller' => 'Store', 'action' => 'category', 'id' => $cat->getCategory()->getId())) . '">';		
+								//echo '<a href="'.$view->url(array('controller' => 'Store', 'action' => 'category', 'id' => $cat->getId())).'">'.$cat->getName().'</a>';		
+								echo '<div class="contenido-categoria"><img style="" src="' . $view->getBaseUrl() . '/' . $cat->getCategory()->getImagePath() . '" class="icono-categoria"/><label>' . $cat->getCategory()->getName(). '</label></div>';		
+								echo '</a>';	
+							}							
 						}
 					}
                 }

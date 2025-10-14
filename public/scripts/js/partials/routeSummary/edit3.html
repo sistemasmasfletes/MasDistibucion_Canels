@@ -16,7 +16,7 @@
         <li class="active actualpg">Capturar evidencia</li>
     </ol>
 <progressbar class="progress-striped active" value="100" type="info" ng-show="loading"></progressbar>
-    <div class="toolbar">
+    <div class="toolbar" style="display: none;">
         <div class="pull-right">
             <div class="btn-toolbar" role="toolbar">
                 <div class="btn-group btn-group-lg" style="width: 300px;">
@@ -28,7 +28,7 @@
         </div>
     </div>
     <br>
-    <div class="panel panel-default" style="margin-top: 5.2em;" >
+    <div class="panel panel-default" style="margin-top: 5.2em; display: none;" >
         <div class="panel-heading">Capturar evidencia</div>
             <div class="panel-body">
                 <form  role="form" novalidate name="frmRouteSummary" method="post" enctype="multipart/form-data">
@@ -37,7 +37,7 @@
                             <input type="hidden" class="form-control" ng-model="routeSummaries.id">
                             
                             <div class="form-group" ng-class="getFormFieldCssClass(routeSummaries.routePointActivityId)">
-                                <label class="label1" id=routePointActivityId">Orden de compra #{{oc}}</label>
+                                <label class="label1" id=routePointActivityId">Pasajero #{{oc}}</label>
                                 <input value="" disabled type="text" class="form-control" id="routePointActivityId" name="routePointActivityId" ng-model="routeSummaries.routePointActivityId">
                             </div>
                             
@@ -54,7 +54,7 @@
 
                         <div class="col-md-3">
                             <div class="form-group" ng-class="getFormFieldCssClass(frmRouteSummary.status)">
-                                <label  class="label2" for="status">Estado del paquete</label>
+                                <label  class="label2" for="status">Estado del pasajero</label>
                                 <select id="status" name="status" class="form-control" required ng-model="routeSummaries.status"
                                         ng-options="opt.id as opt.status for opt in routeSummariesStatus">
                                 </select>

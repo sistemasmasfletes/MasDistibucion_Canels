@@ -98,6 +98,7 @@
                 echo '<ul class="pagination pagination-lg pager" id="myPager"></ul>';
                 
 
+				/*SE OMITE TODA ESTA SECCION PARA EL TRANSPORTE DE PERSONAL
                 echo '<br/><label for="kwd_search1">Buscar:</label><input type="text" id="kwd_search1" value=""/><table id="my-table1" class="table table-inverse" ><tbody id="myTable1">';
                 echo '<tr class="ui-row-ltr"><td class="tabla-pers">';
                 echo '<td class="tabla-pers" colspan="6" style="color: blue; font-size:15px;">COMERCIOS NO REGISTRADOS</td>';
@@ -127,7 +128,8 @@
                 echo '<tbody></table>';
                 echo '<ul class="pagination pagination-lg pager" id="myPager1"></ul>';
                 echo '</div>';
-                echo '<div id="user" ; !important" style="width:45%"></div>'
+				*/
+                echo '<div id="user" ; !important" style="width:45%"></div>'				
                 ?>
             </div>
         <!--</div>-->

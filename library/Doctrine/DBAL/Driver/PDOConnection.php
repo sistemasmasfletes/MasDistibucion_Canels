@@ -33,8 +33,19 @@ class PDOConnection extends PDO implements Connection
 {
     public function __construct($dsn, $user = null, $password = null, array $options = null)
     {
-        parent::__construct($dsn, $user, $password, $options);
-        $this->setAttribute(PDO::ATTR_STATEMENT_CLASS, array('Doctrine\DBAL\Driver\PDOStatement', array()));
-        $this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		if ($options === null) {
+			$options = array();
+		}
+
+		// Forzar uso del charset utf8 y seteo del modo de conexión en PHP 5.6
+		$options[PDO::MYSQL_ATTR_INIT_COMMAND] = "SET NAMES utf8";
+
+		// Intentar construir la conexión PDO
+		parent::__construct($dsn, $user, $password, $options);
+
+		// Configurar atributos PDO estándar
+		$this->setAttribute(PDO::ATTR_STATEMENT_CLASS, array('Doctrine\DBAL\Driver\PDOStatement', array()));
+		$this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
     }
 }

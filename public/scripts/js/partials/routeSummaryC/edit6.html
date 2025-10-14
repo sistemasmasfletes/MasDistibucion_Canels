@@ -1,0 +1,63 @@
+<div ng-show="state.current.name==='routeSummary.routeActivity'">
+    <ol class="breadcrumb">
+    <li class="active">Sistema</li>
+    <li class="active"><a ui-sref="routeSummary">Rutas</a></li>
+    <li class="active actualpg">Estado de la Ruta</li>
+</ol>
+    <div class="pull-right">
+        <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group btn-group-lg">
+                <!--<button class="btn btn-default" tooltip="Regresar" ng-click="regresar()"><span class="glyphicon glyphicon-chevron-left"></span></button>-->
+                <button class="btn btn-default sin-padding" ng-click="tableParams.reload()"><span class="pers-btn icono-refrescar tam-normal"></span></button>
+                <button zd-filter custom-filter="customFilter" ng-click="openFilter()" is-open="filterOpen" apply-filter="appFilter(filter)" class="btn btn-default filtrar"><span class="pers-btn icono-filtrar tam-normal"></span></button>
+            </div>
+        </div>
+    </div>  
+    <br />
+    <div class="container-fluid">
+        <div class="row">
+            <div  align="center" class="col-md-10">
+                <p>&nbsp;</p>
+                <div loading-container="tableParams.settings().$loading">
+                    <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable table-responsive">
+                        <div class="ui-ngt-titlebar ui-ngtwidget-header ui-ngtcorner-top">
+                            <span class="ui-ngt-title">Estado de la ruta</span>
+                        </div>
+                        <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover">
+                            <tbody>
+                                <tr ng-repeat="schedule in $data" ng-click="schedule.$selected = !schedule.$selected; changeSelection(schedule)"
+                                    ng-class="{'ngactive': schedule.$selected}">
+                                    <td data-title="'OC'" class="text-center"  >
+                                        {{schedule.OC}}
+                                    </td>
+                                    <td data-title="'Paquete'"  >
+                                        {{schedule.Paquete}}
+                                    </td>
+                                    <td data-title="'Punto de venta'" >
+                                        {{schedule.ptoVenta}}
+                                    </td>       
+                                    <td data-title="'Comentarios'">
+                                        {{schedule.comentarios}}
+                                    </td>
+                                    <td data-title="'Hora programada'"  >
+                                        {{schedule.scheduleDate|stringToDate|date:"hh:mm a"}}
+                                    </td>
+                                    <td data-title="'Hora real'"  >
+                                        {{schedule.hourActivity|stringToDate|date:"hh:mm a"}}
+                                    </td>
+                                    <td data-title="'Estado'" class="text-center"  >
+                                        <span tooltip="Sin acción" ng-if="(schedule.Estado==null)" class="pers-btn icono-sin-accion icono-tam-tabla" style="color:#D3D3D3"></span>
+                                        <span tooltip="Recibido" ng-if="(schedule.Estado==1)" class="pers-btn icono-palomita icono-tam-tabla" style="color:#52CA22;font-size:1.1em"></span>
+                                        <span tooltip="Entregado" ng-if="(schedule.Estado==3)" class="pers-btn icono-abajo icono-tam-tabla" style="color:#52CA22;font-size:1.1em"></span>
+                                        <span tooltip="Rechazado" ng-if="(schedule.Estado==6)" class="pers-btn icono-tacha icono-tam-tabla" style="color:#F52A2A;font-size:1.1em"></span>
+                                    </td>  
+                                </tr>
+                            </tbody>
+                        </table>            
+                    </div>        
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ui-view="edit"></div>

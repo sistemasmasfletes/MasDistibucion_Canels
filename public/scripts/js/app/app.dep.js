@@ -164,6 +164,8 @@ var context = {path:path, pathJs:pathJs, pathCss:pathCss};
 
             routeSummary:   context.path + context.pathJs + 'partials/routeSummary/',
 
+            routeSummaryC:   context.path + context.pathJs + 'partials/routeSummaryC/',
+
             warehouseman:   context.path + context.pathJs + 'partials/warehouseman/',
 
             causes: context.path + context.pathJs + 'partials/causes/',

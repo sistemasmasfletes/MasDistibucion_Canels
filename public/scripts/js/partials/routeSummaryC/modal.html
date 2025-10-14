@@ -1,0 +1,9 @@
+<!--<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h1>Añadir nuevo miembro</h1>
+</div>-->
+
+<div class="modal-body">
+    <p><label hidden="true">Código:</label> {{code}}</p>
+        <qr-scanner class="text-center" width="400" height="300" ng-success="onSuccess(data)" ng-error="onError(error)"/>
+</div>

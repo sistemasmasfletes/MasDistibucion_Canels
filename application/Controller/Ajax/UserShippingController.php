@@ -183,7 +183,9 @@ class Ajax_UserShippingController extends Model3_Controller
 
                         // Preparación de detalle de actividades secuenciales                        
                         $tableRate =  $routePointActvityRepo->getRoutePointRatesByOrder($currentOrder->getId());
-                        $response->tableRateActivities = $tableRate;
+                        
+						//$tableRate =  array();          
+						$response->tableRateActivities = $tableRate;
                         // ==============================================================
                         
                         if($this->verifyCapacity($tableRate,$em,(int)$post['tvol'],(int)$post['tweight'])==FALSE){//CON ESTA FUNCION VERIFICAMOS VOLUMEN Y CAPACIDAD DE CARGA DE LAS UNIDADES QUE TRASLADARAN EL PAQUETE 

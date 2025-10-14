@@ -78,13 +78,13 @@
         <li class="active">Sistema</li>
         <li class="active"><a ui-sref="routeSummary">Rutas</a></li>
         <li class="active"><a ng-click="regresar()">Iniciar Ruta</a></li>
-        <li class="active actualpg">Punto de venta: {{tableParams.data[0]["name"]}}</li>
+        <li class="active actualpg">Punto de reunión: {{tableParams.data[0]["name"]}}</li>
     </ol>
-    <h1 align="center">Punto de venta: {{tableParams.data[0]["name"]}}</h1>
+    <h1 align="center">Punto de reunión: {{tableParams.data[0]["name"]}}</h1>
     <div class="main container" >
         <div class="row">
             <div class="col-md-3">
-                <p><label>Orden de compra:</label> {{code}}</p>
+                <p><label>Código de pasajero:</label> {{code}}</p>
                 <div id="mainbody">
                     <table class="tsel" border="0" width="100%">
                         <tr>
@@ -137,7 +137,7 @@
                     </div>
                 </div>
                 <div class="panel panel-default">  
-                    <div class="panel-heading ui-ngtwidget-header">Paquetes</div>
+                    <div class="panel-heading ui-ngtwidget-header">Pasajeros</div>
                     <div loading-container="tableParams.settings().$loading">
                         <div class="ui-ngtwidget-content ui-ngtcorner-all cust-ngtable">
                             <table ng-table="tableParams" show-filter="false" template-pagination="{{partials}}pager.html" class="table ng-table-rowselected table-hover">
@@ -145,13 +145,13 @@
                                     <tr ng-repeat="pack in $data" ng-click="pack.$selected = !pack.$selected; changeSelection(pack)"
                                         ng-class="{'ngactive': pack.$selected}">                        
                                         <td data-title="'ID'" class="col-md-1 text-center">
-                                            {{pack.id}}            
+                                            {{pack.prod_id}}            
                                         </td>
                                         <td data-title="'Envía'" class="text-center">
                                             {{pack.userSending}}            
                                         </td>
                                         <td data-title="'Transacción'" class="text-center">
-                                            {{pack.Paquete}}            
+                                            {{pack.prod_name}}            
                                         </td>
                                         <td data-title="'Actividad'" class="text-center">
                                             <span tooltip="Recolectar" ng-if="(pack.Actividad == 'Recolectar')" class="pers-btn icono-recolectar icono-tam-tabla"></span>

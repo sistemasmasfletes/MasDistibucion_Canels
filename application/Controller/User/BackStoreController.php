@@ -1485,7 +1485,7 @@ class User_BackStoreController extends JController
 	            		Puedes contactarlo al correo: ".$order->getSeller()->getMail()." y al Tel&eacute;fono: ".$order->getSeller()->getPhone()." </span><br />
 	            		</body></html>";
             	if($order->getBuyer()->getMail() != ""){
-            		$mailsend = $this->sendMail($correo,$order->getSeller()->getMail(),$order->getBuyer()->getMail(),"Aviso de envio");
+            		//$mailsend = $this->sendMail($correo,$order->getSeller()->getMail(),$order->getBuyer()->getMail(),"Aviso de envio");
             	}
             	 
             	$data = array(
@@ -1818,7 +1818,7 @@ class User_BackStoreController extends JController
 	            		Puedes contactarlo al correo: ".$buyer->getMail()." y al Tel&eacute;fono: ".$buyer->getPhone()." </span><br />
 	            		</body></html>";
             	if($seller->getMail() != ""){
-            		$mailsend = $this->sendMail($correo,$buyer->getMail(),$seller->getMail(),"Aviso de pedido");
+            		//$mailsend = $this->sendMail($correo,$buyer->getMail(),$seller->getMail(),"Aviso de pedido");
             	}
             	
             	$data = array(

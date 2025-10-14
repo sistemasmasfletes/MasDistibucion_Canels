@@ -185,15 +185,22 @@
                                 $view->getJsManager()->loadJsFile('app/controllers/vehicles/VehiclesIndexController.js');
                                 $view->getJsManager()->loadJsFile('app/controllers/vehicles/VehiclesEditController.js');
 								
-                               $view->getJsManager()->loadJsFile('app/controllers/causes/CausesIndexController.js');
-                               $view->getJsManager()->loadJsFile('app/controllers/causes/CausesEditController.js');
-                               $view->getJsManager()->loadJsFile('app/controllers/routeSummary/RouteSummaryIndexController.js');
+                                $view->getJsManager()->loadJsFile('app/controllers/causes/CausesIndexController.js');
+                                $view->getJsManager()->loadJsFile('app/controllers/causes/CausesEditController.js');
+                                $view->getJsManager()->loadJsFile('app/controllers/routeSummary/RouteSummaryIndexController.js');
                                 $view->getJsManager()->loadJsFile('app/controllers/routeSummary/RouteSummaryEditController.js');
                                 $view->getJsManager()->loadJsFile('app/controllers/routeSummary/RouteSummaryEditPackageController.js');
                                 $view->getJsManager()->loadJsFile('app/controllers/routeSummary/RouteSummaryEditPointsController.js');
                                 $view->getJsManager()->loadJsFile('app/controllers/routeSummary/RouteSummaryEvidenceController.js');
                                 $view->getJsManager()->loadJsFile('app/controllers/routeSummary/ActivityPackageController.js');
                                 $view->getJsManager()->loadJsFile('app/controllers/routeSummary/PacksRouteController.js');
+                                $view->getJsManager()->loadJsFile('app/controllers/routeSummaryC/RouteSummaryCIndexController.js');
+                                $view->getJsManager()->loadJsFile('app/controllers/routeSummaryC/RouteSummaryCEditController.js');
+                                $view->getJsManager()->loadJsFile('app/controllers/routeSummaryC/RouteSummaryCEditPackageController.js');
+                                $view->getJsManager()->loadJsFile('app/controllers/routeSummaryC/RouteSummaryCEditPointsController.js');
+                                $view->getJsManager()->loadJsFile('app/controllers/routeSummaryC/RouteSummaryCEvidenceController.js');
+                                //$view->getJsManager()->loadJsFile('app/controllers/routeSummaryC/ActivityPackageController.js');
+                                //$view->getJsManager()->loadJsFile('app/controllers/routeSummaryC/PacksRouteController.js');                                
                                 $view->getJsManager()->loadJsFile('app/controllers/activityType/ActivityTypeIndexController.js');
                                 $view->getJsManager()->loadJsFile('app/controllers/activityType/ActivityTypeEditController.js');
                                 $view->getJsManager()->loadJsFile('app/controllers/transactionType/TransactionTypeIndexController.js');
@@ -278,6 +285,8 @@
                                 $view->getJsManager()->loadJsFile('app/modules/causes/causes.js');
                                 $view->getJsManager()->loadJsFile('app/modules/routeSummary/RouteSummaryConfig.js');
                                 $view->getJsManager()->loadJsFile('app/modules/routeSummary/routeSummary.js');
+                                $view->getJsManager()->loadJsFile('app/modules/routeSummaryC/RouteSummaryCConfig.js');
+                                $view->getJsManager()->loadJsFile('app/modules/routeSummaryC/routeSummaryC.js');
                                 $view->getJsManager()->loadJsFile('app/modules/activityType/ActivityTypeConfig.js');
                                 $view->getJsManager()->loadJsFile('app/modules/activityType/activityType.js');
                                 $view->getJsManager()->loadJsFile('app/modules/transactionType/TransactionTypeConfig.js');

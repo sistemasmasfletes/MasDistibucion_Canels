@@ -35,7 +35,7 @@ class Scaffold_DefaultDb_Catalog extends Model3_Scaffold_Model
             'label' => 'Url del Catalogo'
         );
         
-        $this->_externalActions['Productos'] = array(
+        $this->_externalActions['Pasajeros'] = array(
             'module' => 'User',
             'controller' => 'Productos',
             'action' => 'index'

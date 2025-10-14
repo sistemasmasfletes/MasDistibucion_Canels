@@ -286,7 +286,7 @@ class DefaultDb_Repositories_RoutePointRepository extends EntityRepository
                 (SELECT COUNT(*) FROM points p INNER JOIN  route_points  rp ON p.id = rp.point_id WHERE rp.route_id = :routeId AND p.type = 1 AND rp.STATUS = 1 )pointSales,
                 (SELECT COUNT(*) FROM points p INNER JOIN  route_points  rp ON p.id = rp.point_id WHERE rp.route_id = :routeId AND p.type = 2 AND rp.required = 1 AND rp.STATUS = 1 )exchangeCenters,
                 (SELECT COUNT(*) FROM route_points WHERE route_id = :routeId AND required = 1  AND STATUS = 1 )required,
-                (SELECT SUM(DATE_FORMAT(arrival_time,'%s'))/60 FROM route_points WHERE route_id = :routeId AND STATUS = 1 )totalTime,
+                (SELECT SUM(TIME_TO_SEC(arrival_time))/60 FROM route_points WHERE route_id = :routeId AND STATUS = 1 )totalTime,
                 CASE CLOSE WHEN 0 THEN 'ABIERTA' WHEN 1 THEN 'CERRADA' END estatus
             FROM routes r 
             WHERE r.id = :routeId;";

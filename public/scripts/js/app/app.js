@@ -20,6 +20,8 @@
 
         'masDistribucion.routeSummary',
 
+        'masDistribucion.routeSummaryC',
+
         'masDistribucion.warehouseman',
 
         'masDistribucion.causes',

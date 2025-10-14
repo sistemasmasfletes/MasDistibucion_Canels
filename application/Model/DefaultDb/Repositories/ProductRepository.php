@@ -18,7 +18,9 @@ class DefaultDb_Repositories_ProductRepository extends EntityRepository {
                 $product->setCatalog($data['catalog']);
                 $product->setName($data['name']);
                 $product->setDescription($data['description']);
-
+                if (isset($data['last_name'])) $product->setLastName($data['last_name']);
+                if (isset($data['cell'])) $product->setCell($data['cell']);
+                if (isset($data['id_payroll'])) $product->setIdPayroll($data['id_payroll']);
                 $price = $data['price'];
                 $priceList = $data['priceList'];
                 $priceCreditos = $data['priceCreditos'];
@@ -60,6 +62,9 @@ class DefaultDb_Repositories_ProductRepository extends EntityRepository {
                     $product->setName($data['name']);
                     $product->setDescription($data['description']);
 
+                    if (isset($data['last_name'])) $product->setLastName($data['last_name']);
+                    if (isset($data['cell'])) $product->setCell($data['cell']);
+                    if (isset($data['id_payroll'])) $product->setIdPayroll($data['id_payroll']);
                     $price = $data['price'];
                     $priceList = $data['priceList'];
                     $priceCreditos = $data['priceCreditos'];

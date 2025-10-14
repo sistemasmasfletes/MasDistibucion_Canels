@@ -1,7 +1,7 @@
 <div class="contiene-bread">
     <ol class="breadcrumb">
         <li class="active">Catálogos</li>
-        <li class="active actualpg">Sucursales por Aprobar</li>
+        <li class="active actualpg">Ubicaciones por Aprobar</li>
     </ol>
 </div>
 <div class="container">
