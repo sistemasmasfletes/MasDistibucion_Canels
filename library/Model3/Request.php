@@ -39,8 +39,14 @@ class Model3_Request
 
     public function constructsFromGet()
     {
-		$path = isset($_GET['url']) ? $_GET['url'] : null;
-		$this->constructs($path);
+    if (isset($_GET['url'])) {
+            $path = $_GET['url'];
+        } else {
+            $pathKeys = array_keys($_GET);
+            $path = isset($pathKeys[0]) ? $pathKeys[0] : null;
+        }
+
+        $this->constructs($path);
     }
 
     public function initialize()
