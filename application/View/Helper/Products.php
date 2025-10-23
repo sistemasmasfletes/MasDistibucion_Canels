@@ -37,7 +37,10 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     // Ocultar completamente campos y sus etiquetas
-    const hideFields = ['priceList','priceCreditos','order'];
+    const hideFields = ['priceList','priceCreditos','order',
+        'maker','offer','provitionTime','newStartDate','sku',
+        'warranty','color','newEndDate'
+    ];
     hideFields.forEach(id => {
         const el = document.getElementById(id);
         if (el) {
@@ -88,32 +91,37 @@ document.addEventListener("DOMContentLoaded", function() {
                     <div class="row">
                         <div class="span5">
                             <input type="hidden" id="idProducto1" name="idProducto1" value="<?php echo $this->getProductValue($product,'id');?>" />
-                                    <span>ID <small>*</small></span>
+                                    <span>N° Nomina <small>*</small></span>
                                     <input type="text" required="required"
-                                            title="Id del pasajero"
+                                            title="ID de nomina"
+                                            data-content="Identificador unico del pasajero"
                                             maxlength="80"
-                                             name="id_payroll" id="id_payroll"
+                                            name="id_payroll" id="id_payroll"
+                                            value="<?php echo $this->getProductValue($product, 'idPayroll'); ?>"
                                         >
                                     <span>Nombre <small>*</small></span>
                                     <input type="text" required="required"
                                            title="Nombre del pasajero"
-                                           data-content="Este sera el titulo del producto que aparecera en la tienda"
+                                           data-content="Este sera el nombre que aparecera en el catalogo de pasajeros"
                                            name="name" id="name"
                                            value="<?php echo $this->getProductValue($product, 'name'); ?>"
                                            maxlength="80"
                                            >
                                            <span>Apellidos <small>*</small></span>
                                            <input type="text" required="required"
-                                                   title="Apellidos del pasajero"
-                                                   maxlength="80"
-                                                    name="last_name" id="last_name"
-                                                  >
-                                           <span>Cel <small>*</small></span>
-                                           <input type="text" required="required"
-                                                   title="Celular del pasajero"
-                                                   maxlength="80"
-                                                    name="cell" id="cell"
-                                                  >
+                                                title="Apellidos del pasajero"
+                                                data-cotent="Estos seran los apellidos que aparecera en el catalogo de pasajeros"
+                                                maxlength="80"
+                                                name="last_name" id="last_name"
+                                                value="<?php echo $this->getProductValue($product, 'LastName'); ?>"
+                                            >
+                                           <span>Cel</span>
+                                           <input type="text"
+                                                title="Celular del pasajero"
+                                                maxlength="80"
+                                                name="cell" id="cell"
+                                                value="<?php echo $this->getProductValue($product, 'cell'); ?>"
+                                                >
 
                                            <span>Precio <small>*</small></span>
                                            <input type="text"
@@ -142,21 +150,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                            value="<?php echo $this->getProductValue($product, 'priceCreditos'); ?>"
                                            maxlength="13"
                                            >
-                                    <span>Catalogo</span>
-                                    <select name="catalog" id="catalog" disabled="none">
-                                        <option value="0">Seleccione</option>
-                                        <?php
-                                        foreach ($catalogs as $c) {
-                                            $extra = '';
-                                            if ($c->getCatalogFather() != null) {
-                                                $extra = '&nbsp;&nbsp;|&nbsp;';
-                                            }
-
-                                            $seleccionado = $currentCatalog != null && $currentCatalog->getId() == $c->getId() ? 'selected="selected"' : '';
-                                            echo '<option value="' . $c->getId() . '" ' . $seleccionado . '>' . $extra . $c->getTitle() . '</option>';
-                                        }
-                                        ?>
-                                    </select>
+                                    
                                 </div>
                                 <div class="span5">
                                     <span>Existencia *</span>
@@ -172,11 +166,11 @@ document.addEventListener("DOMContentLoaded", function() {
                                            >
 
 
-                                    <span>Destacado</span>
-        <?php
-        $myFeatured = $this->getProductValue($product, 'featured');
-        ?>
-                                    <select id="featured" name="featured">                            
+                                    <spa style="display:none">Destacado</span>
+                                    <?php
+                                    $myFeatured = $this->getProductValue($product, 'featured');
+                                    ?>
+                                    <select  style="display:none" id="featured" name="featured">                            
                                         <option value="0" <?php echo $myFeatured == '0' ? 'selected="selected"' : ''; ?>>No destacar</option>
                                         <option value="1" <?php echo $myFeatured == '1' ? 'selected="selected"' : ''; ?>>Destacar</option>
                                     </select>
@@ -188,22 +182,68 @@ document.addEventListener("DOMContentLoaded", function() {
                                            name="order" id="order"
                                            value="<?php echo $this->getProductValue($product, 'order'); ?>"
                                            >
-                                    <span>Prioridad <small>*</small></span>
-                                           <input type="text" required="required"
-                                                   title="Prioridad"
-                                                   maxlength="80"
-                                                    
-                                            >
-                                    <span>GENERO<small>*</small></span>
-                                           <input type="text" required="required"
-                                                   title="Genero"
-                                                   maxlength="80"
-                                                  >
-                                    <span>DISCAPACIDAD<small>*</small></span>
-                                           <input type="text" required="required"
-                                                   title="discapacidad"
-                                                   maxlength="80"
-                                                  >
+
+                                    <?php
+                                    $currentPriority = (int) $this->getProductValue($product, 'priority'); 
+                                    $currentGender = (int) $this->getProductValue($product, 'gender');
+                                    $currentDisability = (int) $this->getProductValue($product, 'disability');
+                                    $currentStatus = (int) $this->getProductValue($product, 'status');
+                                    $currentMethod = $this->getProductValue($product, 'NotificationMethod');
+                                    $currentClassification = $this->getProductValue($product, 'Clasificacion1');
+                                    ?>
+
+                                    <span>Prioridad</span>
+                                    <select id="priority" name="priority" title="Prioridad">
+                                        <option value="0" <?php if ($currentPriority === 0) echo 'selected="selected"'; ?>>
+                                            Sin prioridad
+                                        </option>
+                                        <option value="1" <?php if ($currentPriority === 1) echo 'selected="selected"'; ?>>
+                                            Prioridad media
+                                        </option>
+                                        <option value="2" <?php if ($currentPriority === 2) echo 'selected="selected"'; ?>>
+                                            Máxima prioridad
+                                        </option>
+                                    </select>
+
+                                    <span>Género</span>
+                                    <select id="gender" name="gender" title="Género">
+                                        <option value="0" <?php if ($currentGender === 0) echo 'selected="selected"'; ?>>
+                                            Masculino
+                                        </option>
+                                        <option value="1" <?php if ($currentGender === 1) echo 'selected="selected"'; ?>>
+                                            Femenino
+                                        </option>
+                                    </select>
+                                    <span>Discapacidad</span>
+                                    <select id="disability" name="disability" title="Discapacidad">
+                                        <option value="0" <?php if ($currentDisability === 0) echo 'selected="selected"'; ?>>
+                                            Ninguna
+                                        </option>
+                                        <option value="1" <?php if ($currentDisability === 1) echo 'selected="selected"'; ?>>
+                                            Visual
+                                        </option>
+                                        <option value="2" <?php if ($currentDisability === 2) echo 'selected="selected"'; ?>>
+                                            Auditiva
+                                        </option>
+                                        <option value="3" <?php if ($currentDisability === 3) echo 'selected="selected"'; ?>>
+                                            Motriz
+                                        </option>
+                                        <option value="4" <?php if ($currentDisability === 4) echo 'selected="selected"'; ?>>
+                                            Intelectual
+                                        </option>
+                                        <option value="5" <?php if ($currentDisability === 5) echo 'selected="selected"'; ?>>
+                                            Psicosocial
+                                        </option>
+                                    </select>
+                                    <span>Estatus <small>*</small></span>
+                                    <select id="status" name="status" required title="status">
+                                        <option value="1" <?php if ($currentStatus === 1) echo 'selected="selected"'; ?>>
+                                            ✔️ Activo
+                                        </option>
+                                        <option value="0" <?php if ($currentStatus === 0) echo 'selected="selected"'; ?>>
+                                            ❌ Inactivo
+                                        </option>
+                                    </select>
                                 </div>
                     </div>
                     <div class="row">
@@ -251,6 +291,29 @@ document.addEventListener("DOMContentLoaded", function() {
                 </div>
                 <div class="tab-pane" id="area2">
                     <div class="span5">
+                        <span>Notificar por</span>
+                        <select id="notification_method" name="notification_method" required>
+                            <option value="" <?php if (empty($currentMethod)) echo 'selected="selected"'; ?>>
+                                Selecciona una opción
+                            </option>
+                            <option value="S" <?php if ($currentMethod === 'S') echo 'selected="selected"'; ?>>
+                                📱 SMS
+                            </option>
+                            <option value="W" <?php if ($currentMethod === 'W') echo 'selected="selected"'; ?>>
+                                💬 WhatsApp
+                            </option>
+                            <option value="E" <?php if ($currentMethod === 'E') echo 'selected="selected"'; ?>>
+                                ✉️ Correo electrónico
+                            </option>
+                        </select>
+
+                        <span>Contacto a notificar</span>
+                        <input type="text" id="notify_contact" name="notify_contact"
+                            placeholder="Ej. +5215551234567 o supervisor@empresa.com"
+                            maxlength="100" required
+                            value="<?php echo $this->getProductValue($product,'notifyContact');?>"
+                            >
+                            
                         <span>Oferta Especial</span>
                         <?php
                             $myOffer =  $this->getProductValue($product,'offer');
@@ -293,6 +356,47 @@ document.addEventListener("DOMContentLoaded", function() {
 
                     </div>
                     <div class="span5">
+                        <span>Clasificacion</span>
+                        <select id="Clasificacion1" name="Clasificacion1"> 
+                            <option value="Canels" <?php if ($currentClassification === 'Canels') echo 'selected="selected"'; ?>>
+                                Canels
+                            </option>
+                            <option value="Ultra" <?php if ($currentClassification === 'Ultra') echo 'selected="selected"'; ?>>
+                                Ultra
+                            </option>
+                        </select>
+                        <span>Clasificacion 2</span>
+                        <input type="text"
+                        title="CLASIFICACION 2"
+                        data-content="CLASIFICACION 2"
+                        placeholder="Clasificacion opcional"
+                        name="Clasificacion2" id="Clasificacion2"
+                        value="<?php echo $this->getProductValue($product,'Clasificacion2');?>"
+                        >
+                        <!-- <span>Ruta</span>
+                            <input type="text" 
+                            readonly 
+                            class="form-control"
+                            >
+                        -->
+                        <span>Parada</span>
+                            <select name="catalog" id="catalog" >
+                                <option value="0">Seleccione</option>
+                                <?php
+                                 foreach ($catalogs as $c) {
+                                     $extra = '';
+                                     if ($c->getCatalogFather() != null) {
+                                     $extra = '&nbsp;&nbsp;|&nbsp;';
+                                    }
+                                    $seleccionado = $currentCatalog != null && $currentCatalog->getId() == $c->getId() ? 'selected="selected"' : '';
+                                    echo '<option value="' . $c->getId() . '" ' . $seleccionado . '>' . $extra . $c->getTitle() . '</option>';
+                                 }
+                                ?>
+                            </select>
+                        <span>Biometría</span>
+                        <input type="text" id="biometric_data" name="biometric_data"
+                            placeholder="Esperando lectura..." readonly>
+                        <!-- <button type="button" id="capture_fingerprint">Capturar huella</button> -->
                         <span>Clave / SKU</span>
                         <input type="text"
                                title="Clave / SKU"

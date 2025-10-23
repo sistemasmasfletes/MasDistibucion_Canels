@@ -15,12 +15,31 @@ class DefaultDb_Repositories_ProductRepository extends EntityRepository {
             if ($productId == null) {
                 $product = new DefaultDb_Entities_Product();
                 $product->setClient($data['client']);
-                $product->setCatalog($data['catalog']);
+                // $product->setCatalog($data['catalog']);
+                if (isset($data['catalog'])) {
+                    $catalog = $data['catalog'];
+                    if ($catalog instanceof DefaultDb_Entities_Catalog) {
+                        $product->setCatalog($catalog);
+                    } else {
+                        $catalogEntity = $em->getRepository('DefaultDb_Entities_Catalog')->find($catalog);
+                        $product->setCatalog($catalogEntity);
+                    }
+                }
                 $product->setName($data['name']);
                 $product->setDescription($data['description']);
                 if (isset($data['last_name'])) $product->setLastName($data['last_name']);
                 if (isset($data['cell'])) $product->setCell($data['cell']);
                 if (isset($data['id_payroll'])) $product->setIdPayroll($data['id_payroll']);
+                if (isset($data['priority'])) $product->setPriority($data['priority']);      
+                if (isset($data['disability'])) $product->setDisability($data['disability']); 
+                if (isset($data['gender'])) $product->setGender($data['gender']);            
+                if (isset($data['status'])) $product->setStatus($data['status']);
+                if (isset($data['biometric'])) $product->setBiometric($data['biometric']);
+                if (isset($data['notification_method'])) $product->setNotificationMethod($data['notification_method']);
+                if (isset($data['notify_contact'])) $product->setNotifyContact($data['notify_contact']);
+                if (isset($data['Clasificacion1'])) $product->setClasificacion1($data['Clasificacion1']);
+                if (isset($data['Clasificacion2'])) $product->setClasificacion2($data['Clasificacion2']);
+
                 $price = $data['price'];
                 $priceList = $data['priceList'];
                 $priceCreditos = $data['priceCreditos'];
@@ -61,10 +80,29 @@ class DefaultDb_Repositories_ProductRepository extends EntityRepository {
                 if ($product !== false && $product instanceof DefaultDb_Entities_Product) {
                     $product->setName($data['name']);
                     $product->setDescription($data['description']);
-
+                    // $product->setCatalog($data['catalog']);
+                    if (isset($data['catalog'])) {
+                        $catalog = $data['catalog'];
+                        if ($catalog instanceof DefaultDb_Entities_Catalog) {
+                            $product->setCatalog($catalog);
+                        } else {
+                            $catalogEntity = $em->getRepository('DefaultDb_Entities_Catalog')->find($catalog);
+                            $product->setCatalog($catalogEntity);
+                        }
+                    }
                     if (isset($data['last_name'])) $product->setLastName($data['last_name']);
                     if (isset($data['cell'])) $product->setCell($data['cell']);
                     if (isset($data['id_payroll'])) $product->setIdPayroll($data['id_payroll']);
+                    if (isset($data['priority'])) $product->setPriority($data['priority']);       
+                    if (isset($data['disability'])) $product->setDisability($data['disability']); 
+                    if (isset($data['gender'])) $product->setGender($data['gender']);             
+                    if (isset($data['status'])) $product->setStatus($data['status']);             
+                    if (isset($data['biometric'])) $product->setBiometric($data['biometric']);
+                    if (isset($data['notification_method'])) $product->setNotificationMethod($data['notification_method']);
+                    if (isset($data['notify_contact'])) $product->setNotifyContact($data['notify_contact']);
+                    if (isset($data['Clasificacion1'])) $product->setClasificacion1($data['Clasificacion1']);
+                    if (isset($data['Clasificacion2'])) $product->setClasificacion2($data['Clasificacion2']);
+
                     $price = $data['price'];
                     $priceList = $data['priceList'];
                     $priceCreditos = $data['priceCreditos'];
@@ -93,7 +131,7 @@ class DefaultDb_Repositories_ProductRepository extends EntityRepository {
                     $product->setColor($data['color']);
                     $product->setSize($data['size']);
                     $product->setOffer($data['offer']);
-                    //$product->setStatus(DefaultDb_Entities_Product::STATUS_ACTIVE);
+                    $product->setStatus($data['status']);
                     //$product->setVariantsUse($data['variantsUse']);
                     //$product->setVisible(DefaultDb_Entities_Product::VISIBLE_YES);
                     $product->setNewStartDate($data['newStartDate']);
@@ -104,45 +142,6 @@ class DefaultDb_Repositories_ProductRepository extends EntityRepository {
             }
 
             $em->persist($product);
-
-
-            /*
-              //Asociar un empaquetado con el producto.
-              //Determinar si el producto ya tiene asociación previa con un paquete.
-              $packageProductRepo = $em->getRepository('DefaultDb_Entities_PackageProduct');
-              $packageProduct = $packageProductRepo->findOneBy(array('product'=>$product->getId(),'defaultPackage'=>1));
-
-              //Si no hay asociación con un paquete, se crea la asociación.
-              if($packageProduct==null){
-              $packageClient = new DefaultDb_Entities_ClientPackageCatalog();
-              $packageProduct = new DefaultDb_Entities_PackageProduct();
-
-              $packageClient->setUser($product->getClient());
-              $packageClient->setName($data['pkgName']);
-              $packageClient->setWeight($data['pkgWeight']);
-              $packageClient->setWidth($data['pkgWidth']);
-              $packageClient->setHeight($data['pkgHeight']);
-              $packageClient->setDepth($data['pkgDepth']);
-              $packageClient->setSize($data['pkgSize']);
-              $packageClient->setDescription($data['pkgDescription']);
-              $em->persist($packageClient);
-
-              $packageProduct->setPackage($packageClient);
-              $packageProduct->setProduct($product);
-              $packageProduct->setQuantity($data['pkgQuantity']);
-              $packageProduct->setDefaultPackage(1);
-              $em->persist($packageProduct);
-              }else{
-              $pkg = $packageProduct->getPackage();
-              $packageProduct->setQuantity($data['pkgQuantity']);
-              $pkg->setName($data['pkgName']);
-              $pkg->setWeight($data['pkgWeight']);
-              $pkg->setWidth($data['pkgWidth']);
-              $pkg->setHeight($data['pkgHeight']);
-              $pkg->setDepth($data['pkgDepth']);
-              $pkg->setSize($data['pkgSize']);
-              $pkg->setDescription($data['pkgDescription']);
-              } */
 
             $em->flush();
             $em->getConnection()->commit();
@@ -168,7 +167,8 @@ class DefaultDb_Repositories_ProductRepository extends EntityRepository {
 
             // algunos datos que no dejamos que controle el usuario
             //$product->setVariantsUse(DefaultDb_Entities_Product::VARIANTS_NOT_USE);
-            $product->setStatus(DefaultDb_Entities_Product::STATUS_ACTIVE);
+            //$product->setStatus(DefaultDb_Entities_Product::STATUS_ACTIVE);
+            
             $product->setVisible(DefaultDb_Entities_Product::VISIBLE_YES);
 
 //            $product->creation_date = date('Y-m-d H:i:s');

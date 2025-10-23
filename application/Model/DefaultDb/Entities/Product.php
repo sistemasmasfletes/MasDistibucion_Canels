@@ -177,6 +177,41 @@ class DefaultDb_Entities_Product
      */
     protected $id_payroll;
 
+    /**
+     * @Column(type="integer", nullable=true)
+     */
+    protected $priority;
+
+    /**
+     * @Column(type="integer", nullable=true)
+     */
+    protected $gender;
+
+    /**
+     * @Column(type="integer", nullable=true)
+     */
+    protected $disability;
+
+    /**
+     * @Column(type="string", length=100, nullable=true)
+     */
+    protected $biometric;
+    /**
+     * @Column(type="string", length=1, nullable=true)
+     */
+    protected $notification_method;
+    /**
+     * @Column(type="string", length=100, nullable=true)
+     */
+    protected $notify_contact;
+    /** 
+     * @Column(type="string", length=100, nullable=true) 
+     */
+    protected $clasificacion1;
+    /** 
+     * @Column(type="string", length=100, nullable=true) 
+     */
+    protected $clasificacion2;
     
     
     public function setImages($images)
@@ -492,7 +527,72 @@ class DefaultDb_Entities_Product
     {
         $this->id_payroll = $idPayroll;
     }
+    public function getPriority()
+    {
+        return $this->priority;
+    }
+    public function setPriority($priority)
+    {
+        $this->priority = $priority;
+    }
+    public function getGender()
+    {
+        return $this->gender;
+    }
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
+    }
+    public function getDisability()
+    {
+        return $this->disability;
+    }
+    public function setDisability($disability)
+    {
+        $this->disability = $disability;
+    }
+    public function setBiometric($biometric) 
+    { 
+        $this->biometric = $biometric; 
+    }
+    public function getBiometric() 
+    {
+         return $this->biometric; 
+    }
+    public function setNotificationMethod($method)
+    {
+        $this->notification_method = $method;
+    }
 
+    public function getNotificationMethod()
+    {
+        return $this->notification_method;
+    }
 
+    public function setNotifyContact($contact)
+    {
+        $this->notify_contact = $contact;
+    }
 
+    public function getNotifyContact()
+    {
+        return $this->notify_contact;
+    }
+    public function getClasificacion1() 
+    { 
+        return $this->clasificacion1; 
+    }
+    public function setClasificacion1($v) 
+    { 
+        $this->clasificacion1 = $v; 
+    }
+
+    public function getClasificacion2() 
+    { 
+        return $this->clasificacion2; 
+    }
+    public function setClasificacion2($v) 
+    { 
+        $this->clasificacion2 = $v; 
+    }
 }
