@@ -393,10 +393,118 @@ class DefaultDb_Entities_Product extends \DefaultDb_Entities_Product implements 
         return parent::setVariants($variants);
     }
 
+    public function getLastName()
+    {
+        $this->__load();
+        return parent::getLastName();
+    }
+
+    public function setLastName($lastName)
+    {
+        $this->__load();
+        return parent::setLastName($lastName);
+    }
+
+    public function getCell()
+    {
+        $this->__load();
+        return parent::getCell();
+    }
+
+    public function setCell($cell)
+    {
+        $this->__load();
+        return parent::setCell($cell);
+    }
+
+    public function getIdPayroll()
+    {
+        $this->__load();
+        return parent::getIdPayroll();
+    }
+
+    public function setIdPayroll($idPayroll)
+    {
+        $this->__load();
+        return parent::setIdPayroll($idPayroll);
+    }
+
+    public function getPriority()
+    {
+        $this->__load();
+        return parent::getPriority();
+    }
+
+    public function setPriority($priority)
+    {
+        $this->__load();
+        return parent::setPriority($priority);
+    }
+
+    public function getGender()
+    {
+        $this->__load();
+        return parent::getGender();
+    }
+
+    public function setGender($gender)
+    {
+        $this->__load();
+        return parent::setGender($gender);
+    }
+
+    public function getDisability()
+    {
+        $this->__load();
+        return parent::getDisability();
+    }
+
+    public function setDisability($disability)
+    {
+        $this->__load();
+        return parent::setDisability($disability);
+    }
+
+    public function setBiometric($biometric)
+    {
+        $this->__load();
+        return parent::setBiometric($biometric);
+    }
+
+    public function getBiometric()
+    {
+        $this->__load();
+        return parent::getBiometric();
+    }
+
+    public function setNotificationMethod($method)
+    {
+        $this->__load();
+        return parent::setNotificationMethod($method);
+    }
+
+    public function getNotificationMethod()
+    {
+        $this->__load();
+        return parent::getNotificationMethod();
+    }
+
+    public function setNotifyContact($contact)
+    {
+        $this->__load();
+        return parent::setNotifyContact($contact);
+    }
+
+    public function getNotifyContact()
+    {
+        $this->__load();
+        return parent::getNotifyContact();
+    }
+
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'id', 'name', 'description', 'price', 'priceList', 'priceCreditos', 'stock', 'provitionTime', 'maker', 'sku', 'warranty', 'weight', 'width', 'height', 'depth', 'color', 'size', 'offer', 'status', 'variantsUse', 'visible', 'newStartDate', 'newEndDate', 'order', 'featured', 'client', 'catalog', 'images', 'variants');
+        return array('__isInitialized__', 'id', 'name', 'description', 'price', 'priceList', 'priceCreditos', 'stock', 'provitionTime', 'maker', 'sku', 'warranty', 'weight', 'width', 'height', 'depth', 'color', 'size', 'offer', 'status', 'variantsUse', 'visible', 'newStartDate', 'newEndDate', 'order', 'featured', 'last_name', 'cell', 'id_payroll', 'priority', 'gender', 'disability', 'biometric', 'notification_method', 'notify_contact', 'client', 'catalog', 'images', 'variants');
     }
 
     public function __clone()

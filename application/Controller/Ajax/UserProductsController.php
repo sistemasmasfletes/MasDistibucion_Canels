@@ -137,47 +137,112 @@ class Ajax_UserProductsController extends Model3_Controller {
     }
 
     public function uploadImageAction() {
-        $info = array();
-        $this->view->setUseTemplate(false);
-        $em = $this->getEntityManager("DefaultDb");
-        $productsAdapter = $em->getRepository('DefaultDb_Entities_Product');
-        $userId = Model3_Auth::getCredentials('id');
+    $info = array();
+    $this->view->setUseTemplate(false);
+    $em = $this->getEntityManager("DefaultDb");
+    $productsAdapter = $em->getRepository('DefaultDb_Entities_Product');
+    $userId = Model3_Auth::getCredentials('id');
 
-        if ($this->getRequest()->isPost()) {
+    if ($this->getRequest()->isPost()) {
+        $post = $this->getRequest()->getPost();
+        
+        $idProducto = isset($post['idProducto']) ? $post['idProducto'] : null;
+        $numImgByProd = isset($post['numImgByProd']) ? $post['numImgByProd'] : null;
+        $imageData = isset($post['image_data']) ? $post['image_data'] : null;
+        $imageIdToReplace = isset($post['image_id']) ? $post['image_id'] : null;
+        $replaceExisting = isset($post['replace_existing']) ? $post['replace_existing'] : false;
 
-            $post = $this->getRequest()->getPost();
- 
-            $idProducto = $post['idProducto'];
-            $numImgByProd = $post['numImgByProd'];
-
-            $idUsuario = Model3_Auth::getCredentials('id');
-
-            if (!empty($_FILES)) {
-                $product = $productsAdapter->find($idProducto);
-                if ($product instanceof DefaultDb_Entities_Product) {
-
-                    $upload = $_FILES['archivos'];
-                    foreach ($upload['tmp_name'] as $index => $value) {
-                        //                    if (count($imagenes) < $numImgByProd)
-                        //                    {
-                        $info = $this->handle_file_upload(
-                                $upload['tmp_name'][$index], $upload['name'][$index], $upload['size'][$index], $upload['type'][$index], $upload['error'][$index], $userId, $idProducto, 0, // index
-                                $product
-                        );
-                        //                    }
-                        //                    else
-                        //                    {
-                        //                        $info['errorImg'] = 'La imagen ' . $upload['name'][$index] . ' no ha sido cargada. Fuera del limite de imagenes permitidas';
-                        //                    }
+        if ($imageData && !empty($imageData)) {
+            $product = $productsAdapter->find($idProducto);
+            if ($product instanceof DefaultDb_Entities_Product) {
+                
+                if ($replaceExisting && $imageIdToReplace) {
+                    $imageAdapter = $em->getRepository('DefaultDb_Entities_ProductImages');
+                    $existingImage = $imageAdapter->find($imageIdToReplace);
+                    
+                    if ($existingImage instanceof DefaultDb_Entities_ProductImages) {
+                        $oldPath = $existingImage->getPath();
+                        if (file_exists($oldPath)) {
+                            unlink($oldPath);
+                        }
+                        
+                        $imageData = str_replace('data:image/jpeg;base64,', '', $imageData);
+                        $imageData = str_replace(' ', '+', $imageData);
+                        $imageBinary = base64_decode($imageData);
+                        
+                        if ($imageBinary !== false) {
+                            $tempFileName = tempnam(sys_get_temp_dir(), 'cam_');
+                            file_put_contents($tempFileName, $imageBinary);
+                            
+                            $uploadData = array(
+                                'tmp_name' => $tempFileName,
+                                'name' => 'replaced_capture_' . date('Y-m-d_H-i-s') . '.jpg',
+                                'size' => filesize($tempFileName),
+                                'type' => 'image/jpeg',
+                                'error' => 0
+                            );
+                            
+                            $info = $this->handle_file_upload(
+                                $uploadData['tmp_name'],
+                                $uploadData['name'],
+                                $uploadData['size'],
+                                $uploadData['type'],
+                                $uploadData['error'],
+                                $userId,
+                                $idProducto,
+                                0,
+                                $product,
+                                $existingImage 
+                            );
+                            
+                            unlink($tempFileName);
+                        }
+                    } else {
+                        $info['errorImg'] = 'La imagen a reemplazar no existe';
                     }
                 } else {
-                    $info['errorImg'] = 'El producto no existe';
+                    $imageData = str_replace('data:image/jpeg;base64,', '', $imageData);
+                    $imageData = str_replace(' ', '+', $imageData);
+                    $imageBinary = base64_decode($imageData);
+                    
+                    if ($imageBinary !== false) {
+                        $tempFileName = tempnam(sys_get_temp_dir(), 'cam_');
+                        file_put_contents($tempFileName, $imageBinary);
+                        
+                        $uploadData = array(
+                            'tmp_name' => $tempFileName,
+                            'name' => 'camera_capture_' . date('Y-m-d_H-i-s') . '.jpg',
+                            'size' => filesize($tempFileName),
+                            'type' => 'image/jpeg',
+                            'error' => 0
+                        );
+                        
+                        $info = $this->handle_file_upload(
+                            $uploadData['tmp_name'],
+                            $uploadData['name'],
+                            $uploadData['size'],
+                            $uploadData['type'],
+                            $uploadData['error'],
+                            $userId,
+                            $idProducto,
+                            0,
+                            $product
+                        );
+                        
+                        unlink($tempFileName);
+                    }
                 }
+                
+            } else {
+                $info['errorImg'] = 'El producto no existe';
             }
+        } else {
+            $info['errorImg'] = 'No se recibió ninguna imagen';
         }
-
-        $this->view->info = json_encode($info);
     }
+
+    $this->view->info = json_encode($info);
+}
 
     private function handle_file_upload($uploaded_file, $name, $size, $type, $error, $idUsuario, $idProducto, $indexImagenes, $product) {
         $em = $this->getEntityManager("DefaultDb");
