@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function() {
               <li class="active primero"><a href="#area1">Pasajero</a></li>
               <li><a href="#area2">Detalles</a></li>
               <li><a href="#embalaje">Embalaje</a></li>
-              <li class="ultimo">
+              <li class="ultimo" style="display:none;">
                   <?php
                   $clase = 'disabled = "disabled"';
                   $dataToogle = '';
@@ -165,16 +165,16 @@ document.addEventListener("DOMContentLoaded", function() {
                                            value="<?php echo $this->getProductValue($product, 'stock'); ?>"
                                            >
 
-
-                                    <spa style="display:none">Destacado</span>
+                                <div style="display:none" >
+                                    <span>Destacado</span>
                                     <?php
                                     $myFeatured = $this->getProductValue($product, 'featured');
                                     ?>
-                                    <select  style="display:none" id="featured" name="featured">                            
+                                    <select id="featured" name="featured">                            
                                         <option value="0" <?php echo $myFeatured == '0' ? 'selected="selected"' : ''; ?>>No destacar</option>
                                         <option value="1" <?php echo $myFeatured == '1' ? 'selected="selected"' : ''; ?>>Destacar</option>
                                     </select>
-
+                                </div>
                                     <span>Orden</span>
                                     <input type="text"
                                            title="Orden"
@@ -235,6 +235,14 @@ document.addEventListener("DOMContentLoaded", function() {
                                             Psicosocial
                                         </option>
                                     </select>
+                                    <?php
+                                        if (isset($product) && $product instanceof DefaultDb_Entities_Product) {
+                                            $currentStatus = $product->getStatus();
+                                        } else {
+                                            // Si es nuevo o no está definido, ponemos 1 (activo por defecto)
+                                            $currentStatus = 1;
+                                        }
+                                    ?>
                                     <span>Estatus <small>*</small></span>
                                     <select id="status" name="status" required title="status">
                                         <option value="1" <?php if ($currentStatus === 1) echo 'selected="selected"'; ?>>
@@ -251,37 +259,48 @@ document.addEventListener("DOMContentLoaded", function() {
                         <span>Descripci&oacute;n</span>
                         <textarea name="description" id="description" maxlength="600" ><?php echo $this->getProductValue($product,'description');?></textarea>
                     </div>
-                         <div class="span3">
-                        
-                        <div id="defaultImgage">
-                            <?php
-                                $printables = 0;
-                                if($images != false)
-                                {
-                                    foreach($images  as $i)
+                        <div class="span3">
+                            <div id="defaultImgage">
+                                <?php
+                                    $printables = 0;
+                                    $firstImageId = null;
+                                    if($images != false)
                                     {
-                                        echo $this->_view->ManagerImages()->thumbImg(
-                                                $i->getPath(),
-                                                $product->getName(),
-                                                $product->getName(),
-                                                '',
-                                                '410',
-                                                '240'
-                                                );
-                                        $printables++;
-                                        break;
+                                        foreach($images as $i)
+                                        {
+                                            echo $this->_view->ManagerImages()->thumbImg(
+                                                    $i->getPath(),
+                                                    $product->getName(),
+                                                    $product->getName(),
+                                                    '',
+                                                    '410',
+                                                    '240'
+                                                    );
+                                            $printables++;
+                                            $firstImageId = $i->getId(); 
+                                            break;
+                                        }
                                     }
-                                }
 
-                                if($printables == 0)
-                                {
-                                    echo $this->_view->ManagerImages()->img('images/products/default.jpg');
-                                }
-                                
-                            ?>
+                                    if($printables == 0)
+                                    {
+                                        echo $this->_view->ManagerImages()->img('images/products/default.jpg');
+                                    }
+                                ?>
+                            </div>
+                            
+                            <div style="margin-top: 10px; text-align: center;">
+                                <?php if($printables > 0 && $firstImageId): ?>
+                                    <button class="btn btn-info btn-small" onclick="replaceImage(<?php echo $firstImageId; ?>, this)" title="Tomar nueva foto para reemplazar esta imagen">
+                                        <i class="bi bi-camera"></i> Editar/Reemplazar Foto
+                                    </button>
+                                <?php else: ?>
+                                    <button class="btn btn-success btn-small" onclick="openImageManager()" title="Tomar primera foto para este producto">
+                                        <i class="bi bi-camera"></i> Agregar Foto
+                                    </button>
+                                <?php endif; ?>
+                            </div>
                         </div>
-                        
-                    </div>
                     </div>
                     
 
@@ -292,7 +311,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div class="tab-pane" id="area2">
                     <div class="span5">
                         <span>Notificar por</span>
-                        <select id="notification_method" name="notification_method" required>
+                        <select id="notification_method" name="notification_method">
                             <option value="" <?php if (empty($currentMethod)) echo 'selected="selected"'; ?>>
                                 Selecciona una opción
                             </option>
@@ -310,7 +329,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         <span>Contacto a notificar</span>
                         <input type="text" id="notify_contact" name="notify_contact"
                             placeholder="Ej. +5215551234567 o supervisor@empresa.com"
-                            maxlength="100" required
+                            maxlength="100"
                             value="<?php echo $this->getProductValue($product,'notifyContact');?>"
                             >
                             
@@ -372,6 +391,14 @@ document.addEventListener("DOMContentLoaded", function() {
                         placeholder="Clasificacion opcional"
                         name="Clasificacion2" id="Clasificacion2"
                         value="<?php echo $this->getProductValue($product,'Clasificacion2');?>"
+                        >
+                        <span>Clasificacion 3</span>
+                        <input type="text"
+                        title="CLASIFICACION 2"
+                        data-content="CLASIFICACION 2"
+                        placeholder="Clasificacion opcional"
+                        name="Clasificacion3" id="Clasificacion3"
+                        value="<?php echo $this->getProductValue($product,'Clasificacion3');?>"
                         >
                         <!-- <span>Ruta</span>
                             <input type="text" 
@@ -515,105 +542,515 @@ document.addEventListener("DOMContentLoaded", function() {
         <?php
     }
 
-    private function printImageArea($idProduct,$images)
-    {
-        $srcNoImage = $this->_view->getBaseUrlPublic().'/FixImages/noImage/1/'.$this->_view->sitio['id'];
-        $opciones = $this->_view->opcionesSitios[$this->_view->sitio['categoria']];
-        ?>
-        <script type="text/javascript">
-            var urlSelectOneImageToProduct = '<?php echo $this->_view->url(array('controller'=>'Productos','action'=>'axGetFileFromPath'));?>'
-        </script>
-        <div id="myModal" class="modal hide" >
+private function printImageArea($idProduct,$images)
+{
+    $srcNoImage = $this->_view->getBaseUrlPublic().'/FixImages/noImage/1/'.$this->_view->sitio['id'];
+    $opciones = $this->_view->opcionesSitios[$this->_view->sitio['categoria']];
+    ?>
+    <script type="text/javascript">
+        var urlSelectOneImageToProduct = '<?php echo $this->_view->url(array('controller'=>'Productos','action'=>'axGetFileFromPath'));?>'
+        var urlDeleteImage = '<?php echo $this->_view->url(array('controller'=>'Ajax_UserProducts','action'=>'deleteImage'));?>';
+    </script>
+    <div id="myModal" class="modal hide" >
 
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">×</button>
-                <h3>Agregar im&aacute;genes al producto</h3>
-              </div>
-              <div class="modal-body">
-                   <div id="imageUpdate" style="display: none">
-                    <div id="notificacionesImagenes"  style="display: none;" class="error"></div>
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h3>Gestionar im&aacute;genes del producto</h3>
+          </div>
+          <div class="modal-body">
+               <div id="imageUpdate" style="display: none">
+                <div id="notificacionesImagenes" style="display: none;" class="error"></div>
+                
+                <!-- Sección para agregar nueva foto -->
+                <div style="margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 5px;">
+                    <h4>Agregar nueva foto</h4>
                     <table>
                         <tr id="sf-prod-src">
                             <td id="sf-prod-src-browser">
-                                <span style="float:left;margin:5px 5px 0 0;">Im&aacute;genes:</span><br>
-                                    <form style="display:inline-block;" id="file_upload"
-                                          class="form-horizontal"
-                                          action="<?php echo $this->_view->url(array('module'=> false, 'controller'=>'Ajax_UserProducts','action'=>'uploadImage'),true);?>"
-                                          method="POST" enctype="multipart/form-data">
-                                        <input type="file" name="archivos[]" id="archivos" multiple>
-                                        <!--<button class="btn" type="submit">Upload</button>-->
-
-                                        <input type="hidden" id="idProd" name="idProducto" value="<?php echo $idProduct;?>" />
-                                        <input type="hidden" id="numImgByProd" name="numImgByProd" value="1" />
-                                    </form>
-
-                                    <table id="files"></table>
-                                    <div id="loadingImage" style="display: none;">
-                                        <img alt="" src="<?php echo $this->_view->getBaseUrlPublic().'/images/loading.gif'?>"/>
+                                <form style="display:inline-block;" id="camera_form"
+                                      class="form-horizontal"
+                                      action="<?php echo $this->_view->url(array('module'=> false, 'controller'=>'Ajax_UserProducts','action'=>'uploadImage'),true);?>"
+                                      method="POST" enctype="multipart/form-data">
+                                    
+                                    <!-- Contenedor de la cámara -->
+                                    <div id="camera_container">
+                                        <video id="video" width="320" height="240" autoplay style="border: 1px solid #ccc;"></video>
+                                        <canvas id="canvas" width="320" height="240" style="display:none;"></canvas>
+                                        
+                                        <div style="margin: 10px 0;">
+                                            <button type="button" id="capture_btn" class="btn btn-primary">Tomar Foto</button>
+                                            <button type="button" id="retake_btn" class="btn" style="display:none;">Volver a Tomar</button>
+                                        </div>
+                                        
+                                        <!-- Vista previa de la imagen capturada -->
+                                        <div id="preview_container" style="display:none;">
+                                            <img id="preview" src="" alt="Vista previa" style="max-width: 320px; border: 1px solid #ccc;">
+                                            <div style="margin-top: 10px;">
+                                                <button type="submit" id="upload_btn" class="btn btn-success">Subir Nueva Foto</button>
+                                            </div>
+                                        </div>
                                     </div>
+                                    
+                                    <input type="hidden" id="image_data" name="image_data">
+                                    <input type="hidden" id="idProd" name="idProducto" value="<?php echo $idProduct;?>" />
+                                    <input type="hidden" id="numImgByProd" name="numImgByProd" value="1" />
+                                </form>
+
+                                <div id="loadingImage" style="display: none;">
+                                    <img alt="" src="<?php echo $this->_view->getBaseUrlPublic().'/images/loading.gif'?>"/>
+                                    <span>Subiendo imagen...</span>
+                                </div>
                             </td>
-                        </tr>
-                        <tr>
-                             <td colspan="2">
-                                 <hr/>
-                                 <!--<h3>Im&aacute;genes actualmente asociadas al producto : </h3>-->
-                                 <div id="galeryImages">
-                                     <?php
-                                        if($images != false)
-                                        {
-                                            echo "<table>";
-                                            foreach($images  as $i)
-                                            {
-                                                echo "<tr>";
-                                                echo "<td>";
-                                                echo $this->_view->ManagerImages()->thumbImg(
-                                                        $i->getPath(),
-                                                        '',
-                                                        '',
-                                                        '',
-                                                        '205',
-                                                        '120'
-                                                        );
-                                                echo "</td>";
-                                                echo "<td>";
-                                                echo "<button class=\"ui-state-default ui-corner-all\" title=\"Eliminar\" onclick=\"deleteImage(".$i->getId().")\">";
-                                                echo "<span class=\"ui-icon ui-icon-trash\">Eliminar<\/span>";
-                                                echo "<\/button>";
-                                                echo "</td>";
-                                                echo "</tr>";
-                                            }
-                                            echo "</table>";
-                                        }
-                                     ?>
-                                 </div>
-                                 <div></div>
-                             </td>
                         </tr>
                     </table>
                 </div>
 
-                  <div id="notImage">
-                      <h3>Para poder definir imagenes primero guarde el producto</h3>
-                  </div>
+                <!-- Sección de imágenes existentes -->
+                <div style="padding: 15px; border: 1px solid #ddd; border-radius: 5px;">
+                    <h4>Imágenes existentes</h4>
+                    <div id="galeryImages">
+                        <?php
+                        if($images != false)
+                        {
+                            echo "<div class='image-gallery'>";
+                            foreach($images as $index => $i)
+                            {
+                                echo "<div class='image-item'>";
+                                echo "<div class='image-container'>";
+                                echo $this->_view->ManagerImages()->thumbImg(
+                                        $i->getPath(),
+                                        '',
+                                        '',
+                                        '',
+                                        '205',
+                                        '120'
+                                        );
+                                echo "</div>";
+                                echo "<div class='image-buttons'>";
+                                echo "<button class=\"btn btn-danger btn-small delete-btn\" onclick=\"deleteImage(".$i->getId().", this)\">";
+                                echo "<i class=\"icon-trash icon-white\"></i> Eliminar";
+                                echo "</button>";
+                                echo "<button class=\"btn btn-info btn-small replace-btn\" onclick=\"replaceImage(".$i->getId().", this)\">";
+                                echo "<i class=\"icon-camera icon-white\"></i> Editar/Reemplazar";
+                                echo "</button>";
+                                echo "</div>";
+                                echo "</div>";
+                            }
+                            echo "</div>";
+                        }
+                        else
+                        {
+                            echo "<p>No hay imágenes para este producto.</p>";
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
 
+              <div id="notImage">
+                  <h3>Para poder definir imagenes primero guarde el producto</h3>
               </div>
-              <div class="modal-footer">
-                <a href="#" class="btn" data-dismiss="modal">Close</a>
-              </div>
 
+          </div>
+          <div class="modal-footer">
+            <a href="#" class="btn" data-dismiss="modal">Cerrar</a>
+          </div>
 
+        <div id="notificacionesAddProduct" style="display: none;"></div>
+        
+    </div>
 
-            <div id="notificacionesAddProduct" style="display: none;"></div>
-            
+    <!-- Modal para reemplazar imagen -->
+    <div id="replaceImageModal" class="modal hide">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h3>Editar/Reemplazar imagen</h3>
         </div>
-        <input type="hidden" id="urlNoImage" value="<?php echo $srcNoImage;?> "/>
-         <?php
-        //La documentacion para la carga de imagenes en 1 click menciona que estos archivos
-        //deben ser cargados en cualquier parte despues del form del selector
-        $this->_view->getJsManager()->loadJsFile('uploader_jquery/jquery.fileupload.js');
-        $this->_view->getJsManager()->loadJsFile('uploader_jquery/jquery.fileupload-ui.js');
-        $this->_view->getJsManager()->loadJsFile('uploader_jquery/application.js');
+        <div class="modal-body">
+            <p>Tomar una nueva foto para reemplazar la imagen existente:</p>
+            <form id="replace_camera_form" method="POST" enctype="multipart/form-data">
+                <div id="replace_camera_container">
+                    <video id="replace_video" width="320" height="240" autoplay style="border: 1px solid #ccc;"></video>
+                    <canvas id="replace_canvas" width="320" height="240" style="display:none;"></canvas>
+                    
+                    <div style="margin: 10px 0;">
+                        <button type="button" id="replace_capture_btn" class="btn btn-primary">Tomar Nueva Foto</button>
+                        <button type="button" id="replace_retake_btn" class="btn" style="display:none;">Volver a Tomar</button>
+                    </div>
+                    
+                    <div id="replace_preview_container" style="display:none;">
+                        <img id="replace_preview" src="" alt="Vista previa" style="max-width: 320px; border: 1px solid #ccc;">
+                        <div style="margin-top: 10px;">
+                            <button type="button" id="replace_upload_btn" class="btn btn-success">Reemplazar Imagen</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <input type="hidden" id="replace_image_data" name="image_data">
+                <input type="hidden" id="replace_idProd" name="idProducto" value="<?php echo $idProduct;?>" />
+                <input type="hidden" id="replace_image_id" name="image_id" value="" />
+            </form>
+            
+            <div id="replace_loadingImage" style="display: none;">
+                <img alt="" src="<?php echo $this->_view->getBaseUrlPublic().'/images/loading.gif'?>"/>
+                <span>Reemplazando imagen...</span>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn" data-dismiss="modal">Cancelar</a>
+        </div>
+    </div>
+
+    <input type="hidden" id="urlNoImage" value="<?php echo $srcNoImage;?> "/>
+    
+    <script type="text/javascript">
+    var stream = null;
+    var replaceStream = null;
+    var currentImageIdToReplace = null;
+
+    function replaceImage(imageId, buttonElement) {
+        currentImageIdToReplace = imageId;
+        $('#replace_image_id').val(imageId);
+        $('#replaceImageModal').modal('show');
     }
+
+    function openImageManager() {
+        $('#myModal').modal('show');
+    }
+
+    function startCamera(videoElement) {       
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            alert('Tu navegador no soporta el acceso a la cámara. Usa Chrome, Firefox o Edge.');
+            return;
+        }
+
+        navigator.mediaDevices.getUserMedia({ 
+            video: { 
+                width: 320, 
+                height: 240 
+            } 
+        })
+        .then(function(mediaStream) {
+            if (videoElement.id === 'video') {
+                stream = mediaStream;
+            } else {
+                replaceStream = mediaStream;
+            }
+            videoElement.srcObject = mediaStream;
+        })
+        .catch(function(err) {
+            console.error('Error al acceder a la cámara:', err);
+            alert('No se pudo acceder a la cámara. Asegúrate de permitir el acceso.');
+        });
+    }
+
+    function stopCamera(streamToStop) {
+        if (streamToStop) {
+            var tracks = streamToStop.getTracks();
+            for (var i = 0; i < tracks.length; i++) {
+                tracks[i].stop();
+            }
+        }
+    }
+
+    function capturePhoto(video, canvas, preview, previewContainer, captureBtn, retakeBtn, uploadBtn, imageDataInput) {
+        var context = canvas.getContext('2d');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        
+        var imageData = canvas.toDataURL('image/jpeg', 0.8);
+        
+        preview.src = imageData;
+        imageDataInput.value = imageData;
+        
+        previewContainer.style.display = 'block';
+        if (uploadBtn) uploadBtn.style.display = 'inline-block';
+        retakeBtn.style.display = 'inline-block';
+        captureBtn.style.display = 'none';
+    }
+
+    function deleteImage(imageId, buttonElement) {
+        if (!confirm('¿Estás seguro de que quieres eliminar esta imagen?')) {
+            return;
+        }
+
+        var imageItem = buttonElement.closest('.image-item');
+        imageItem.style.opacity = '0.5';
+        
+        var xhr = new XMLHttpRequest();
+        var formData = new FormData();
+        formData.append('imageId', imageId);
+        
+        xhr.open('POST', urlDeleteImage, true);
+        
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                try {
+                    var data = JSON.parse(xhr.responseText);
+                    if (data.success) {
+                        imageItem.remove();
+                        alert('Imagen eliminada correctamente');
+                        if (document.querySelectorAll('.image-item').length === 0) {
+                            location.reload();
+                        }
+                    } else {
+                        alert('Error: ' + data.error);
+                        imageItem.style.opacity = '1';
+                    }
+                } catch (e) {
+                    console.error('Error parsing response:', e);
+                    alert('Error al procesar la respuesta');
+                    imageItem.style.opacity = '1';
+                }
+            } else {
+                alert('Error de conexión');
+                imageItem.style.opacity = '1';
+            }
+        };
+        
+        xhr.onerror = function() {
+            alert('Error de conexión');
+            imageItem.style.opacity = '1';
+        };
+        
+        xhr.send(formData);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var video = document.getElementById('video');
+        var canvas = document.getElementById('canvas');
+        var captureBtn = document.getElementById('capture_btn');
+        var retakeBtn = document.getElementById('retake_btn');
+        var preview = document.getElementById('preview');
+        var previewContainer = document.getElementById('preview_container');
+        var uploadBtn = document.getElementById('upload_btn');
+        var imageDataInput = document.getElementById('image_data');
+        var loadingImage = document.getElementById('loadingImage');
+
+        var replaceVideo = document.getElementById('replace_video');
+        var replaceCanvas = document.getElementById('replace_canvas');
+        var replaceCaptureBtn = document.getElementById('replace_capture_btn');
+        var replaceRetakeBtn = document.getElementById('replace_retake_btn');
+        var replacePreview = document.getElementById('replace_preview');
+        var replacePreviewContainer = document.getElementById('replace_preview_container');
+        var replaceUploadBtn = document.getElementById('replace_upload_btn');
+        var replaceImageDataInput = document.getElementById('replace_image_data');
+        var replaceLoadingImage = document.getElementById('replace_loadingImage');
+
+        if (captureBtn) {
+            captureBtn.addEventListener('click', function() {
+                capturePhoto(video, canvas, preview, previewContainer, captureBtn, retakeBtn, uploadBtn, imageDataInput);
+                stopCamera(stream);
+            });
+        }
+
+        if (retakeBtn) {
+            retakeBtn.addEventListener('click', function() {
+                previewContainer.style.display = 'none';
+                if (uploadBtn) uploadBtn.style.display = 'none';
+                retakeBtn.style.display = 'none';
+                captureBtn.style.display = 'inline-block';
+                imageDataInput.value = '';
+                startCamera(video);
+            });
+        }
+
+        if (replaceCaptureBtn) {
+            replaceCaptureBtn.addEventListener('click', function() {
+                capturePhoto(replaceVideo, replaceCanvas, replacePreview, replacePreviewContainer, replaceCaptureBtn, replaceRetakeBtn, replaceUploadBtn, replaceImageDataInput);
+                stopCamera(replaceStream);
+            });
+        }
+
+        if (replaceRetakeBtn) {
+            replaceRetakeBtn.addEventListener('click', function() {
+                replacePreviewContainer.style.display = 'none';
+                if (replaceUploadBtn) replaceUploadBtn.style.display = 'none';
+                replaceRetakeBtn.style.display = 'none';
+                replaceCaptureBtn.style.display = 'inline-block';
+                replaceImageDataInput.value = '';
+                startCamera(replaceVideo);
+            });
+        }
+
+        var cameraForm = document.getElementById('camera_form');
+        if (cameraForm) {
+            cameraForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (!imageDataInput.value) {
+                    alert('Por favor, toma una foto primero.');
+                    return;
+                }
+
+                loadingImage.style.display = 'block';
+                if (uploadBtn) uploadBtn.disabled = true;
+                
+                var xhr = new XMLHttpRequest();
+                var formData = new FormData(this);
+                
+                xhr.open('POST', this.action, true);
+                
+                xhr.onload = function() {
+                    loadingImage.style.display = 'none';
+                    if (uploadBtn) uploadBtn.disabled = false;
+                    
+                    if (xhr.status === 200) {
+                        try {
+                            var data = JSON.parse(xhr.responseText);
+                            if (data.errorImg) {
+                                alert('Error: ' + data.errorImg);
+                            } else {
+                                alert('Imagen agregada correctamente');
+                                $('#myModal').modal('hide');
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 1000);
+                            }
+                        } catch (e) {
+                            alert('Error al procesar la respuesta del servidor');
+                        }
+                    } else {
+                        alert('Error en la conexión con el servidor');
+                    }
+                };
+                
+                xhr.onerror = function() {
+                    loadingImage.style.display = 'none';
+                    if (uploadBtn) uploadBtn.disabled = false;
+                    alert('Error de conexión');
+                };
+                
+                xhr.send(formData);
+            });
+        }
+
+        if (replaceUploadBtn) {
+            replaceUploadBtn.addEventListener('click', function() {
+                if (!replaceImageDataInput.value) {
+                    alert('Por favor, toma una foto primero.');
+                    return;
+                }
+
+                replaceLoadingImage.style.display = 'block';
+                replaceUploadBtn.disabled = true;
+                
+                var xhr = new XMLHttpRequest();
+                var formData = new FormData();
+                formData.append('image_data', replaceImageDataInput.value);
+                formData.append('idProducto', document.getElementById('replace_idProd').value);
+                formData.append('image_id', currentImageIdToReplace);
+                formData.append('replace_existing', 'true');
+                
+                xhr.open('POST', '<?php echo $this->_view->url(array('module'=> false, 'controller'=>'Ajax_UserProducts','action'=>'uploadImage'),true);?>', true);
+                
+                xhr.onload = function() {
+                    replaceLoadingImage.style.display = 'none';
+                    replaceUploadBtn.disabled = false;
+                    
+                    if (xhr.status === 200) {
+                        try {
+                            var data = JSON.parse(xhr.responseText);
+                            if (data.errorImg) {
+                                alert('Error: ' + data.errorImg);
+                            } else {
+                                alert('Imagen reemplazada correctamente');
+                                $('#replaceImageModal').modal('hide');
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 1000);
+                            }
+                        } catch (e) {
+                            alert('Error al procesar la respuesta del servidor');
+                        }
+                    } else {
+                        alert('Error en la conexión con el servidor');
+                    }
+                };
+                
+                xhr.onerror = function() {
+                    replaceLoadingImage.style.display = 'none';
+                    replaceUploadBtn.disabled = false;
+                    alert('Error de conexión');
+                };
+                
+                xhr.send(formData);
+            });
+        }
+
+        // Eventos de modal principal
+        $('#myModal').on('shown.bs.modal', function() {
+            if (video) startCamera(video);
+        });
+
+        $('#myModal').on('hidden.bs.modal', function() {
+            stopCamera(stream);
+        });
+
+        // Eventos de modal de reemplazo
+        $('#replaceImageModal').on('shown.bs.modal', function() {
+            if (replaceVideo) startCamera(replaceVideo);
+        });
+
+        $('#replaceImageModal').on('hidden.bs.modal', function() {
+            stopCamera(replaceStream);
+            // Reset del formulario de reemplazo
+            if (replacePreviewContainer) replacePreviewContainer.style.display = 'none';
+            if (replaceUploadBtn) replaceUploadBtn.style.display = 'none';
+            if (replaceRetakeBtn) replaceRetakeBtn.style.display = 'none';
+            if (replaceCaptureBtn) replaceCaptureBtn.style.display = 'inline-block';
+            if (replaceImageDataInput) replaceImageDataInput.value = '';
+        });
+    });
+    </script>
+
+    <style>
+    .image-gallery {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    .image-item {
+        background: #f9f9f9;
+        padding: 15px;
+        border-radius: 8px;
+        border: 1px solid #e0e0e0;
+        text-align: center;
+        width: 250px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .image-container {
+        margin-bottom: 10px;
+    }
+    .image-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .btn-small {
+        padding: 6px 12px;
+        font-size: 12px;
+        width: 100%;
+    }
+    .delete-btn {
+        background-color: #d9534f;
+        border-color: #d43f3a;
+    }
+    .replace-btn {
+        background-color: #5bc0de;
+        border-color: #46b8da;
+    }
+    .image-item:hover {
+        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        transition: box-shadow 0.3s ease;
+    }
+    </style>
+     <?php
+    $this->_view->getJsManager()->loadJsFile('uploader_jquery/jquery.fileupload.js');
+    $this->_view->getJsManager()->loadJsFile('uploader_jquery/jquery.fileupload-ui.js');
+    $this->_view->getJsManager()->loadJsFile('uploader_jquery/application.js');
+}
 
     private function getProductValue($product,$fielName)
     {

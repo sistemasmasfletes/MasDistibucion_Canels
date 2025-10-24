@@ -212,6 +212,10 @@ class DefaultDb_Entities_Product
      * @Column(type="string", length=100, nullable=true) 
      */
     protected $clasificacion2;
+    /** 
+     * @Column(type="string", length=100, nullable=true) 
+     */
+    protected $clasificacion3;
     
     
     public function setImages($images)
@@ -594,5 +598,13 @@ class DefaultDb_Entities_Product
     public function setClasificacion2($v) 
     { 
         $this->clasificacion2 = $v; 
+    }
+    public function getClasificacion3() 
+    { 
+        return $this->clasificacion3; 
+    }
+    public function setClasificacion3($v) 
+    { 
+        $this->clasificacion3 = $v; 
     }
 }

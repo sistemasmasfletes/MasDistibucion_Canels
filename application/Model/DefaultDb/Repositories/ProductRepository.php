@@ -39,6 +39,7 @@ class DefaultDb_Repositories_ProductRepository extends EntityRepository {
                 if (isset($data['notify_contact'])) $product->setNotifyContact($data['notify_contact']);
                 if (isset($data['Clasificacion1'])) $product->setClasificacion1($data['Clasificacion1']);
                 if (isset($data['Clasificacion2'])) $product->setClasificacion2($data['Clasificacion2']);
+                if (isset($data['Clasificacion3'])) $product->setClasificacion3($data['Clasificacion3']);
 
                 $price = $data['price'];
                 $priceList = $data['priceList'];
@@ -102,6 +103,7 @@ class DefaultDb_Repositories_ProductRepository extends EntityRepository {
                     if (isset($data['notify_contact'])) $product->setNotifyContact($data['notify_contact']);
                     if (isset($data['Clasificacion1'])) $product->setClasificacion1($data['Clasificacion1']);
                     if (isset($data['Clasificacion2'])) $product->setClasificacion2($data['Clasificacion2']);
+                    if (isset($data['Clasificacion3'])) $product->setClasificacion3($data['Clasificacion3']);
 
                     $price = $data['price'];
                     $priceList = $data['priceList'];

@@ -1549,3 +1549,138 @@ ul.rating {
 .rating .filled {
   color: #21568b;
 }
+
+.addbtn {
+    background-color: #007bff; 
+    color: white; 
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    padding: 8px 15px; 
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none; 
+    display: inline-flex;
+    align-items: center;
+    gap: 5px; 
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.addbtn:hover {
+    background-color: #0056b3; 
+    border-color: #0056b3;
+}
+
+.qr-btn {
+    background-color: #28a745;
+    color: white;
+    border: 1px solid #28a745;
+    border-radius: 5px;
+    padding: 6px 12px;
+    font-size: 12px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: background-color 0.3s;
+}
+
+.qr-btn:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+    color: white;
+}
+
+/* Modal para QR */
+.qr-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.qr-modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    max-width: 400px;
+    width: 90%;
+}
+
+#qrCode {
+    margin: 15px 0;
+    justify-content: center;
+    display: flex;
+
+}
+
+.download-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.download-btn:hover {
+    background-color: #0056b3;
+}
+
+.whatsapp-btn {
+    background-color: #25D366;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.whatsapp-btn:hover {
+    background-color: #128C7E;
+}
+
+.close-btn {
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.close-btn:hover {
+    background: #5a6268;
+}
+
+.phone-input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.phone-input:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+.whatsapp-section {
+    margin: 15px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 5px;
+    border-left: 4px solid #25D366;
+}
