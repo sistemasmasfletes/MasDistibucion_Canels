@@ -65,6 +65,9 @@ class OperationController_ScheduleController extends JController {
         try {
             
             $this->hasPermission($this->getUserSessionId(), 'rutas', 'listar');
+            if($vehicle_id == null) $this->generateUserError("Vehículo es un dato requerido");//DBUtil::generateUserExceptionWithMessage("Vehículo es un dato requerido");
+            if($user_id == null) $this->generateUserError("Conductor es un dato requerido");
+            
             
             $em = $this->getEntityManager('DefaultDb');
             $scheduleRepo = $em->getRepository('DefaultDb_Entities_Schedule');

@@ -1255,13 +1255,14 @@ class User_BackStoreController extends JController
 
 
             // Obtenter configuración de costeo
-            $obConf = $em->find('DefaultDb_Entities_Configuration',1 /*Configuración 1*/);
+            //$obConf = $em->find('DefaultDb_Entities_Configuration',1 /*Configuración 1*/);
             
             //Obtener la configuración de costeo dados los puntos de ruta.            
-            $ratesConfig = $routePointActivitiRepo->getSumRatesByRoutePoint($order->getId());
+            //$ratesConfig = $routePointActivitiRepo->getSumRatesByRoutePoint($order->getId());
 
             //Comparar la configuración previa que se envió al cliente y la configuración en tiempo real.
             //Esto se hace para mantener la integridad del cálculo.
+            /*
             $basePackageSize = (int)$obConf->getBasePackageSize();
             $powerFactor = (float)$obConf->getPowerFactor();
             $totalAmount = (float)$ratesConfig["totalAmount"];
@@ -1285,14 +1286,14 @@ class User_BackStoreController extends JController
                 echo json_encode($resp);
                 exit;
             }        
-            
-            $productUnits = $post['unity'];
+            */
+            //$productUnits = $post['unity'];
             
             $width = 0.00;
             $height = 0.00;
             $depth = 0.00;
             $packSize = 0;
-            $promotionid = 0;
+            //$promotionid = 0;
             $hasPromotion=false;
             $obPromotion=null;
             $em->getConnection()->beginTransaction();
@@ -1302,8 +1303,8 @@ class User_BackStoreController extends JController
                 {
                     $cantidad = $post['unity'][$key];
                     $idPackage = $post['idPackage'][$key];
-                    $promotionid = (int)($post['promotionid'][$key]);
-                    $hasPromotion = ($promotionid>0);
+                    //$promotionid = (int)($post['promotionid'][$key]);
+                    //$hasPromotion = ($promotionid>0);
 
                     if($cantidad != 0)
                     {                     
@@ -1320,15 +1321,15 @@ class User_BackStoreController extends JController
                         $depth = $package->getDepth();
                         $packSize = $width*$height*$depth;
                                                 
-                        $total =  $this->calculateCostingFormula($packSize,$basePackageSize,0.9,$powerFactor,$totalRoutePoint,$totalAmount,$cantidad);
-                        $packagePrice =  $this->calculateCostingFormula($packSize,$basePackageSize,0.9,$powerFactor,$totalRoutePoint,$totalAmount,1);
+                        $total =  0;//$this->calculateCostingFormula($packSize,$basePackageSize,0.9,$powerFactor,$totalRoutePoint,$totalAmount,$cantidad);
+                        $packagePrice =  0;//$this->calculateCostingFormula($packSize,$basePackageSize,0.9,$powerFactor,$totalRoutePoint,$totalAmount,1);
                       
                         //Descuenta el numero de créditos del cliente
-                        $this->fncDescontarCreditos($total);
+                        //$this->fncDescontarCreditos($total);
                         
-                        if($hasPromotion)
-                            $obPromotion = $em->find('DefaultDb_Entities_Promotion',$promotionid);
-                        else
+                        //if($hasPromotion)
+                        //    $obPromotion = $em->find('DefaultDb_Entities_Promotion',$promotionid);
+                        //else
                             $obPromotion = null;
 
                         //Agregar el 1er paquete a la orden de compra actual
@@ -1359,10 +1360,10 @@ class User_BackStoreController extends JController
                        
                             //Crear actividades por punto de venta para la orden inicial.
                             $arrayActivityPoint=$routePointActivitiRepo->createRoutePointActivites($arraySequentialActivities,1);
-                            $this->addPagos($order, $total);
+                            //$this->addPagos($order, $total);
 
                             //Si el paquete tiene promoción, generar registro de programación de promoción
-                            if($hasPromotion){
+                            /*if($hasPromotion){
                                 $countActivity = count($arrayActivityPoint);
                                 $lastActivity = null;
                                 $hasActivity = ($countActivity>0);
@@ -1381,7 +1382,7 @@ class User_BackStoreController extends JController
                                 //Guardar las programaciones en un array para posteriormente generar los pagos.
                                 $promotionCost = ($promotionCosting ? ($promotionCosting * $obPromotion->getNumResources()) : 0);
                                 $arrayPromotionSchedule[] = array("promotionSchedule"=>$promotionSchedule,"promotionCost"=>$promotionCost);
-                            }
+                            }*/
                         }else
                         //Crear una nueva orden de compra por cada paquete adicional
                         {                             
@@ -1449,7 +1450,7 @@ class User_BackStoreController extends JController
                     }
 
                     //Si el paquete tiene promoción, generar registro de programación de promoción
-                    if($hasPromotion){
+                    /*if($hasPromotion){
                         $countActivity = count($arrayActivityPoint);
                         $lastActivity = null;
                         $hasActivity = ($countActivity>0);
@@ -1471,7 +1472,7 @@ class User_BackStoreController extends JController
                         //Guardar las programaciones en un array para posteriormente generar los pagos.
                         $promotionCost = ($promotionCosting ? ($promotionCosting * $obPromotion->getNumResources()) : 0);
                         $arrayPromotionSchedule[] = array("promotionSchedule"=>$promotionSchedule,"promotionCost"=>$promotionCost);
-                    }
+                    }*/
                 }
 
 				/***********************NOTIFICACIONES POR MAIL Y APP A USUARIOS EAAL*******************************************/
@@ -1823,7 +1824,7 @@ class User_BackStoreController extends JController
             	
             	$data = array(
             			'title' => 'Nueva compra',
-            			'body' => 'Un cliente solicita una recolecci�n.',
+            			'body' => 'Un cliente solicita una recolecci�n.',
             	);
             	
             	if($seller->getToken() != ""){

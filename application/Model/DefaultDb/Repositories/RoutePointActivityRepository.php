@@ -30,9 +30,9 @@ class DefaultDb_Repositories_RoutePointActivityRepository extends EntityReposito
 
         $transaction = null;
         foreach ($sequentialActivities as $index=>$activity) {
-            $dql = "SELECT sr FROM DefaultDb_Entities_ScheduledRoute sr WHERE DATE(sr.scheduledDate) = DATE(:scheduledDate) and sr.route = :route ";
+            $dql = "SELECT sr FROM DefaultDb_Entities_ScheduledRoute sr WHERE sr.scheduledDate = :scheduledDate and sr.route = :route ";
             $query=$em->createQuery($dql);
-            $query->setParameter('scheduledDate',$activity["shippingDate"]);
+            $query->setParameter('scheduledDate',$activity["routeDate"]);
             $query->setParameter('route', $activity["routeId"]);
             $scheduledRoute = $query->getOneOrNullResult();
             

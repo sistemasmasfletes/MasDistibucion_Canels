@@ -9,7 +9,7 @@ function RouteSummaryIndexController($rootScope, $scope, $timeout, $state, $stat
             {page: 1,
                 count: 10,
                 sorting: {
-                    start_date: 'desc'
+                    scheduled_date: 'desc'
                 }
             },
     {

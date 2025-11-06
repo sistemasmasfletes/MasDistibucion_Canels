@@ -20,7 +20,7 @@
 
         'masDistribucion.routeSummary',
 
-        'masDistribucion.routeSummaryC',
+        //'masDistribucion.routeSummaryC',
 
         'masDistribucion.warehouseman',
 

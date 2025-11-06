@@ -1,8 +1,5 @@
 <?php
-/**
- * @Entity(repositoryClass="DefaultDb_Repositories_EstadosRepository")
- * @Table(name="states")
- */
+
 class DefaultDb_Entities_Estados
 {
     /**

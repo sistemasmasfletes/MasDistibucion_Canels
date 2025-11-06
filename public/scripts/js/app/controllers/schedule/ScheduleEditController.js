@@ -115,9 +115,14 @@ function ScheduleEditController($scope,$timeout,$state,$stateParams,$filter,PART
     function save(){
         if($scope.schedule){
             $scope.sc.loading=true;
+            if($scope.sc.dt)
+                $scope.sc.dt.setSeconds(0);
+            if($scope.sc.dtEnd)
+                $scope.sc.dtEnd.setSeconds(0);
             $scope.schedule.start_date = $filter('date')($scope.sc.dt, 'yyyy-MM-dd HH:mm:ss');
             $scope.schedule.end_date = $filter('date')($scope.sc.dtEnd, 'yyyy-MM-dd HH:mm:ss');
-            
+            $scope.schedule.turno_id = 1;
+                    
             if($scope.schedule.scheduleParent_id=='') $scope.schedule.scheduleParent_id=null;            
 
             config.alertOnSuccess=true;
@@ -154,5 +159,22 @@ function ScheduleEditController($scope,$timeout,$state,$stateParams,$filter,PART
         }else{
             $scope.sc.dtEnd = new Date();
         }
-    }    
+    }
+       
+    var updating = false;
+    
+    // Sincronizar solo la hora de fecha inicial a fecha final
+    $scope.syncTime1ToTime2 = function() {
+        if($scope.schedule.recurrent==0) return;
+        if (updating) return;
+        
+        updating = true;
+        
+        var newTime = new Date($scope.sc.dtEnd); // Mantiene fecha de time2
+        newTime.setHours($scope.sc.dt.getHours());
+        newTime.setMinutes($scope.sc.dt.getMinutes());
+        $scope.sc.dtEnd = newTime;
+        updating = false;
+    };
+    
 }
