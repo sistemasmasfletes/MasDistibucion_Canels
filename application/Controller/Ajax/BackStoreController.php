@@ -178,7 +178,7 @@ class Ajax_BackStoreController extends Model3_Controller
             if($orderId){
                 $em = $this->getEntityManager('DefaultDb');
                 $dql = "SELECT (pr.id*-1)id,pto.quantity unity, pto.price packagePrice,pr.weight,pr.width,pr.height,pr.depth,
-                        CONCAT(CONCAT('Embalaje para (',pr.name),')') name
+                        CONCAT(CONCAT('Pasajero (',pr.name),')') name
                         FROM DefaultDb_Entities_M3CommerceProductToOrder pto 
                             LEFT JOIN pto.product pr
                         WHERE pto.order = :orderId

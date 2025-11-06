@@ -18,7 +18,7 @@
 <div class="contiene-bread">
     <ol class="breadcrumb">
         <li class="active">Panel</li>
-        <li class="active "> <?php echo '<a href="' . $view->getBaseUrlPublic() . "/User/Catalogos" . '" >Catálogos</a>'; ?></li>
+        <li class="active "> <?php echo '<a href="' . $view->getBaseUrlPublic() . " " . '" >Catálogos</a>'; ?></li>
         <li class="active "> <?php echo '<a href="' . $view->url(array('action' => 'index'), true) . '" >Pasajeros</a>'; ?></li>
         <li class="active actualpg ">Agregar Pasajero</li>
     </ol>

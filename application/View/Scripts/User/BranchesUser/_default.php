@@ -48,7 +48,7 @@ var firstlog = <?php echo $view->fistlog; ?>
         <br />
         
             <div class="blockInner" style="margin-top:1.5em;">
-                <h1> Puntos de Reuni&oacute;n: <br /> <?php echo $view->credentials['firstName']." ".$view->credentials['lastName']; ?></h1>
+                <h1> PARADAS: <br /> <?php echo $view->credentials['firstName']." ".$view->credentials['lastName']; ?></h1>
             <?php
             echo '<div style="padding-bottom:1.5em;margin:1.5em;">';
             /*echo '<button class="allbuttons buttonhref"
@@ -91,7 +91,7 @@ var firstlog = <?php echo $view->fistlog; ?>
                  	Buscar Pasajero</button>';
 
             echo '</div>';
-            echo '<a href="'. $view->url(array('action' => 'add')) .'" >Agregar Sucursal</a><br >';
+            echo '<a href="'. $view->url(array('action' => 'add')) .'" >SOLICITAR NUEVA PARADA</a><br >';
                 if (is_array($view->branches) && count($view->branches) > 0){
                 	echo '<div style="margin-top:0.5em; margin-bottom:1em; display: inline-block; justify-content:rigth; align-items: center; color:red;">';
                 	echo '</div>';
