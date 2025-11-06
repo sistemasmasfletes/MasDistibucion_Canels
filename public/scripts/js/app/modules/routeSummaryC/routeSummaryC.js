@@ -1,4 +1,4 @@
-(function(){
+/*(function(){
     angular.module('masDistribucion.routeSummaryC',[
         "ui.router"
     ])
@@ -8,4 +8,4 @@
                 'PATH','PARTIALPATH','ModalService','JQGridService','RouteSumaryDataService',
                 '$http', RouteSumaryCIndexController
                 ]);
-    })();
+    })();*/

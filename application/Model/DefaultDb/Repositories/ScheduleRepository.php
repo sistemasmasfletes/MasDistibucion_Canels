@@ -47,13 +47,13 @@ class DefaultDb_Repositories_ScheduleRepository extends EntityRepository
                         INNER JOIN route_points rp ON rp.route_id = s.route_id
                         LEFT JOIN branches_user u ON u.point_id = rp.point_id
                         WHERE 
-                        ( s.start_date > :dateParam or :dateParam BETWEEN s.start_date and s.end_date)
+                        ( s.start_date >= :dateParam or :dateParam BETWEEN s.start_date and s.end_date)
                         AND (:clientId IS NULL OR u.client_id = :clientId)
                         AND rp.point_id = :pointId
                         AND rp.status = 1
                         AND s.status = 1
          )
-        AND s.scheduled_date >=:dateParam /*between :dateParam and DATE_ADD(:dateParam,INTERVAL 2 DAY)*/ /*CON ESTO SE LIMITA LA CANTIDAD DE DIAS VISIBLES EN LA LISTA DE FECHAS A ELEGIR PARA PORGRAMAR UN PAQUETE*/
+        AND s.scheduled_date BETWEEN :dateParam and DATE_ADD(:dateParam,INTERVAL 14 DAY) /*CON ESTO SE LIMITA LA CANTIDAD DE DIAS VISIBLES EN LA LISTA DE FECHAS A ELEGIR PARA PORGRAMAR UN PAQUETE*/
         AND s.statusRoute is null /* ESTO VERIFICA SI LA RUTA YA INICIO PARA LIMITAR EL LISTADO A MOSTRAR*/
         ORDER BY s.scheduled_date 
         ";
@@ -416,20 +416,32 @@ class DefaultDb_Repositories_ScheduleRepository extends EntityRepository
 
         $obSchedule = null;
         $generateScheduledDates = true;      
-
+        
+        //======================================================================
+        //Nuevo registro de Programación
+        //======================================================================
         if($id==null){
+            //======================================================================
+            //Programación periódica
+            //======================================================================
             //Verificar que no se traslapen fechas
             if($recurrent==1){
                 //Determinar que las fechas no se traslapen
-                $dql = "SELECT COUNT(s.id) cnt FROM DefaultDb_Entities_Schedule s 
-                                WHERE 
-                                    s.route = :route_id                        
-                                AND ((DATE(:start_date) BETWEEN DATE(s.startDate) AND DATE(s.endDate))
-                                OR (DATE(:end_date) BETWEEN DATE(s.startDate) AND DATE(s.endDate))
-                                )";
+                $dql = "SELECT COUNT(sr.id) cnt FROM DefaultDb_Entities_ScheduledRoute sr
+                        WHERE 
+                            sr.route = :route_id
+                            AND sr.vehicle = :vehicle_id
+                            AND sr.driver = :user_id
+                            AND (  
+                                DATE(sr.scheduledDate) between   DATE(:start_date) and DATE(:end_date) 
+                                AND TIME(sr.scheduledDate) = TIME(:start_date)
+                            )
+                        ";
                                 
                 $query = $em->createQuery($dql);
                 $query->setParameter("route_id", $route_id);
+                $query->setParameter("vehicle_id", $vehicle_id);
+                $query->setParameter("user_id", $user_id);
                 $query->setParameter("start_date", $start_date_dt);
                 $query->setParameter("end_date", $end_date_dt);
                 $count = $query->getSingleScalarResult();
@@ -439,12 +451,21 @@ class DefaultDb_Repositories_ScheduleRepository extends EntityRepository
                 }
                     
             }else{
+            //======================================================================
+            //Programación única
+            //======================================================================
                 //Verificar que la programación no esté repetida
                 $dql = "SELECT COUNT(sr.id) FROM  DefaultDb_Entities_ScheduledRoute sr 
-                        WHERE sr.route = :routeId AND DATE(sr.scheduledDate)=DATE(:scheduledDate)";
+                        WHERE 
+                            sr.route = :routeId 
+                            AND sr.vehicle = :vehicle_id
+                            AND sr.driver = :user_id
+                            AND sr.scheduledDate = :scheduledDate ";
 
                 $query = $em->createQuery($dql);
                 $query->setParameter("routeId", $route_id);
+                $query->setParameter("vehicle_id", $vehicle_id);
+                $query->setParameter("user_id", $user_id);
                 $query->setParameter("scheduledDate", $start_date_dt);
                 $count = $query->getSingleScalarResult();
                 if($count>0)
@@ -469,7 +490,7 @@ class DefaultDb_Repositories_ScheduleRepository extends EntityRepository
             $query->setParameter("user_id", $user_id);
             $arrUser = $query->getResult();
             $obUser = $arrUser ? $arrUser[0] : null;
-
+            
             $obSchedule = new DefaultDb_Entities_Schedule();
             $obSchedule->setRoute($obRoute);
             $obSchedule->setVehicle($obVehicle);
@@ -490,22 +511,32 @@ class DefaultDb_Repositories_ScheduleRepository extends EntityRepository
 
             $em->persist($obSchedule);
             $em->flush();          
-        }else{
-
+        }else{        
+        //======================================================================
+        //Edición de registro de Programación
+        //======================================================================
             $obSchedule = $this->find($id);
-
+            //======================================================================
+            //Edición de Programación periódica
+            //======================================================================
             if($recurrent==1){
                 //Determinar que las fechas no se traslapen
-                $dql = "SELECT COUNT(s.id) cnt FROM DefaultDb_Entities_Schedule s 
-                                WHERE 
-                                    s.route = :route_id
-                                AND s.id<>:scheduleId
-                                AND ((DATE(:start_date) BETWEEN DATE(s.startDate) AND DATE(s.endDate))
-                                OR (DATE(:end_date) BETWEEN DATE(s.startDate) AND DATE(s.endDate))
-                                )";
-                                
+                $dql = "SELECT COUNT(sr.id) cnt FROM DefaultDb_Entities_ScheduledRoute sr
+                        WHERE 
+                            sr.route = :route_id
+                            AND sr.vehicle = :vehicle_id
+                            AND sr.driver = :user_id
+                            AND sr.schedule != :scheduleId
+                            AND (  
+                                DATE(sr.scheduledDate) between   DATE(:start_date) and DATE(:end_date) 
+                                AND TIME(sr.scheduledDate) = TIME(:start_date)
+                            )
+                        ";
+
                 $query = $em->createQuery($dql);
-                $query->setParameter("route_id", $route_id);
+                $query->setParameter("route_id", $route_id);                
+                $query->setParameter("vehicle_id", $vehicle_id);
+                $query->setParameter("user_id", $user_id);
                 $query->setParameter("start_date", $start_date_dt);
                 $query->setParameter("end_date", $end_date_dt);
                 $query->setParameter("scheduleId", $id);
@@ -528,7 +559,7 @@ class DefaultDb_Repositories_ScheduleRepository extends EntityRepository
                     || ($obSchedule->getUser() &&  $obSchedule->getUser()->getId()!=$user_id)
                     || (!$obSchedule->getUser() && $user_id>0)
                     || ($obSchedule->getVehicle() && $obSchedule->getVehicle()->getId()!=$vehicle_id) 
-                    || (!$obSchedule->getVehicle() && $vehicle_id>0)
+                    || (!$obSchedule->getVehicle() && $vehicle_id>0)                    
                     ){
 
                     $schedulewithActivity = $this->getScheduledRouteWithActivity($id);
@@ -558,6 +589,9 @@ class DefaultDb_Repositories_ScheduleRepository extends EntityRepository
                     $generateScheduledDates = false;
                 }
             }else{
+            //======================================================================
+            //Edicion de Programación única
+            //======================================================================
                 if($obSchedule->getStartDate() != $start_date_dt
                     || ($obSchedule->getUser() &&  $obSchedule->getUser()->getId()!=$user_id)
                     || (!$obSchedule->getUser() && $user_id>0)
@@ -572,12 +606,19 @@ class DefaultDb_Repositories_ScheduleRepository extends EntityRepository
 
                     //Verificar que la programación no esté repetida
                     $dql = "SELECT COUNT(sr.id) FROM  DefaultDb_Entities_ScheduledRoute sr 
-                            WHERE sr.route = :routeId AND DATE(sr.scheduledDate)=DATE(:scheduledDate) AND sr.schedule<>:id";
+                            WHERE sr.route = :routeId
+                            AND sr.vehicle = :vehicle_id
+                            AND sr.driver = :user_id
+                            AND sr.scheduledDate = :scheduledDate 
+                            AND sr.schedule != :id";
 
                     $query = $em->createQuery($dql);
                     $query->setParameter("routeId", $route_id);
+                    $query->setParameter("vehicle_id", $vehicle_id);
+                    $query->setParameter("user_id", $user_id);
                     $query->setParameter("scheduledDate", $start_date_dt);
                     $query->setParameter("id", $id);
+                    
                     $count = $query->getSingleScalarResult();
 
                     if($count>0)
@@ -613,7 +654,7 @@ class DefaultDb_Repositories_ScheduleRepository extends EntityRepository
                 $query->setParameter("user_id", $user_id);
                 $arrUser = $query->getResult();
                 $obUser = $arrUser ? $arrUser[0] : null;
-
+                
                 $obSchedule->setRoute($obRoute);
                 $obSchedule->setVehicle($obVehicle);
                 $obSchedule->setUser($obUser);
@@ -656,7 +697,7 @@ class DefaultDb_Repositories_ScheduleRepository extends EntityRepository
                 WHERE (:id IS NULL OR :id=0 OR id=:id)
                 AND (:routeName IS NULL OR CONCAT('[',code,']',' ',name) LIKE :routeName)
                 AND  status=1 
-                AND r.zone_id IN  (SELECT zone_id FROM user_zone WHERE user_id = $userId)";
+                AND r.controller_id = $userId ";
 
         $queryCount = str_replace('[FIELDS]', ' COUNT(*) totalRecords ', $sql);
         $querySelect = str_replace('[FIELDS]', $selectFields, $sql);

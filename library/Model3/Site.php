@@ -60,7 +60,9 @@ class Model3_Site
                     'driver' => 'pdo_mysql',
                     'charset'=>'utf8'
                 );
+                
                 $config->addCustomStringFunction('DATE', 'Model3_Query_AST_MysqlDateFunction');
+                $config->addCustomStringFunction('TIME', 'Model3_Query_AST_MysqlTimeFunction');
 
                 $emanagers[$cnx] = EntityManager::create($connectionOptions, $config);
             }

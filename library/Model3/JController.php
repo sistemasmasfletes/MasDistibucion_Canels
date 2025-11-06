@@ -57,15 +57,16 @@ class JController extends Model3_Controller
             case 1451:
                 echo json_encode(array("error" => "Existen registros relacionados. No es posible eliminar el registro actual"));
                 break;
-            case 50000:
+            case 5000:
                 $infoError = 'EXCEPCION_USUARIO:';
                 $posError = strpos($errMsg, $infoError);
                 if($posError>0){
                     $errMsg = substr($errMsg, $posError+strlen($infoError)+1);
-                    echo json_encode(array("error" => $errMsg, "code" => $errorCode)); 
+                    echo json_encode(array("error" => $errMsg, "code" => $errorCode));
                 }
-                else
+                else{
                     $this->createResponse500();
+                }
                 break;            
             default:                
                 $this->createResponse500();
@@ -91,6 +92,10 @@ class JController extends Model3_Controller
 
     public function generateUserException($message){
         throw new Exception($message, 5000);
+    }
+    
+    public function generateUserError($message){
+        throw new Exception($message, 1457);
     }
 
     public function sendUserMessage($message){

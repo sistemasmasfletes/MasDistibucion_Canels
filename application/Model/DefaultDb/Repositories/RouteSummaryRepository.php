@@ -62,7 +62,7 @@ class DefaultDb_Repositories_RouteSummaryRepository extends EntityRepository
         $queryCount = str_replace('[LIMT]', " ", $queryCount);
 
         $querySelect = str_replace('[FIELDS]', $sqlSelect, $query);
-        $querySelect = str_replace('[ORDERBY]',($sortField && $sortDir) ? " ORDER BY ".$sortField." ".$sortDir : "", $querySelect);
+        $querySelect = str_replace('[ORDERBY]',($sortField && $sortDir) ? " ORDER BY ".$sortField." ".$sortDir : " s.scheduled_date DESC ", $querySelect);
         $querySelect = str_replace('[LIMT]', " LIMIT ".$rowsPerPage.' OFFSET '.$offset, $querySelect);
         
         

@@ -33,7 +33,6 @@ function ScheduleConfig($stateProvider, $urlRouterProvider,$locationProvider, PA
                 else{
                     return ScheduleDataService.getScheduleDetail({id: $stateParams.scheduleId})
                         .then(function(response){
-                            console.log(response);
                             if(response.data && response.data.data.length>0)                                
                                 return response.data.data[0];
                                 

@@ -112,7 +112,7 @@
                             </label>
                         </div>                
                     </div>
-
+                    
                     <div class="col-md-2" style="display:inline-block; vertical-align:middle; float:none">
                         <div class="form-group">
                             <label for="date1">Fecha Inicial</label>
@@ -129,9 +129,9 @@
                     <div class="col-md-1"  style="display:inline-block; vertical-align:middle; float:none;">
                         <div class="form-group">
                             <label for="time">Hora</label>
-                            <timepicker ng-model="sc.dt" id="time" class="time" name="time"  hour-step="1" minute-step="15" show-meridian="false" style="font-size:12px;"></timepicker>
+                            <timepicker ng-model="sc.dt" id="time" class="time" name="time"  hour-step="1" minute-step="15" show-meridian="false" style="font-size:12px;" ng-change="syncTime1ToTime2()" ></timepicker>
                         </div>
-                    </div>
+                    </div>                     
 
                     <div class="col-md-2" style="display:inline-block; vertical-align:middle; float:none;padding-left:20px"> 
                         <div class="form-group">
@@ -145,15 +145,16 @@
                             </div>
                         </div>
                     </div> 
+                    
                     <div class="col-md-1"  style="display:inline-block; vertical-align:middle; float:none;">
                         <div class="form-group">
-                            <label for="time2">Hora</label>
-                            <fieldset ng-disabled="schedule.recurrent==0">
+                            <label for="time2">Hora: {{sc.dtEnd | date:'HH:mm'}}</label>
+                            <fieldset ng-disabled="true" ng-hide="true">
                                 <timepicker ng-model="sc.dtEnd" id="time2" class="time" name="time2"  hour-step="1" minute-step="15" show-meridian="false" style="height:1em" ng-disabled="true"></timepicker>
                             </fieldset>
                         </div>
                     </div>
-
+                   
                 </div>
                 <div class="row">
                     

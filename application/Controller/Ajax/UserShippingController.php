@@ -33,7 +33,6 @@ class Ajax_UserShippingController extends Model3_Controller
             $idSchedule = $post['idRoute'];//? es idschedule
             $orderId = isset($post['orderId']) ? (int)$post['orderId'] : null;
             $selectedScheduledDate = isset($post['selectedScheduledDate']) ? DateTime::createFromFormat('Y-m-d H:i:s',$post['selectedScheduledDate']) : null;
-            if($selectedScheduledDate) $selectedScheduledDate->setTime ( 0, 0, 0 );
             if($orderId)
             {
                 $this->order = $em->getRepository('DefaultDb_Entities_M3CommerceOrder')->find($orderId);
