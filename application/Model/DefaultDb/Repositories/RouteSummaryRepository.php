@@ -255,7 +255,7 @@ class DefaultDb_Repositories_RouteSummaryRepository extends EntityRepository
             routePoint_id,
 
             id,
-			prod_id,
+			id_payroll,  -- CAMBIADO: prod_id por id_payroll
 			prod_name,
             Paquete,
             PaqueteId,
@@ -287,7 +287,7 @@ class DefaultDb_Repositories_RouteSummaryRepository extends EntityRepository
                     rp.id as routePoint_id,
 
                     ord.id,
-					prod.id as prod_id,
+					prod.id_payroll as id_payroll,  -- CAMBIADO: prod.id por prod.id_payroll
 					prod.name as prod_name,
                     p.namePackage as Paquete,
                     p.package_id AS PaqueteId,
@@ -338,7 +338,7 @@ class DefaultDb_Repositories_RouteSummaryRepository extends EntityRepository
                     rp.id as routePoint_id,
 
                     ord.id,
-					prod.id as prod_id,
+					prod.id_payroll as id_payroll,  -- CAMBIADO: prod.id por prod.id_payroll
                     prod.name as prod_name,
 					p.namePackage as Paquete,
 					p.package_id AS PaqueteId,
@@ -392,7 +392,7 @@ class DefaultDb_Repositories_RouteSummaryRepository extends EntityRepository
                     rp.id as routePoint_id,
 
                     ps.id,
-					NULL as prod_id,
+					NULL as id_payroll,  -- CAMBIADO: prod_id por id_payroll
                     NULL as prod_name,
 					p.name as Paquete,
 					NULL AS PaqueteId,

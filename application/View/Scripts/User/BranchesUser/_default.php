@@ -207,7 +207,7 @@ var firstlog = <?php echo $view->fistlog; ?>
 					if($store->getClient()->getId() === 1614){//esto es para solo mostrar el catalogo de personas para el transporte de personal
 						echo '<tr>';
 						echo '<td>'.$store->getClient()->getCommercialName().'</td>';
-						echo '<td><a href="' . $view->getBaseUrl() . '/User/Store/viewAllProducts/id/' . $store->getClient()->getId() . '/"><img src="'.$view->getBaseUrl('/'.$store->getClient()->getCategory()->getImagePath()).'"></a></td>';
+						echo '<td><a href="' . $view->getBaseUrl() . '/User/Store/viewAllProducts/id/' . $store->getClient()->getId() . '/"><i style="font-size: x-large;" class="bi bi-collection"></i></a></td>';
 						//echo '<td><a href="' . $view->getBaseUrl() . '/User/Store/viewAllProducts/id/' . $store->getClient()->getId() . '/">Ir a cat&aacute;logos</a></td>';
 						echo '</tr>';
 					}
