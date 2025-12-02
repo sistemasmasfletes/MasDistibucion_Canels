@@ -2,7 +2,7 @@
 /**
  *  Este helper nos ayuda a la edicion de los productos
  *
- * @author H4845
+ * @author Victor Marquez
  */
 class View_Helper_Products extends Model3_View_Helper
 {   
@@ -23,7 +23,7 @@ class View_Helper_Products extends Model3_View_Helper
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     // Campos que siempre deben valer 1 y estar ocultos
-    const forceFields = ['price','priceList','priceCreditos','stock','width','height','depth','weight','size'];
+    const forceFields = ['price','priceList','priceCreditos','width','height','depth','weight','size'];
     forceFields.forEach(id => {
         const el = document.getElementById(id);
         if (el) {
@@ -35,7 +35,16 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
     });
-
+    // Configurar stock específicamente a 99.99 millones
+    const stockField = document.getElementById('stock');
+    if (stockField) {
+        stockField.value = 99999999; 
+        stockField.type = "hidden";
+        const span = stockField.previousElementSibling;
+        if (span && span.tagName.toLowerCase() === "span") {
+            span.style.display = "none";
+        }
+    }
     // Ocultar completamente campos y sus etiquetas
     const hideFields = ['priceList','priceCreditos','order',
         'maker','offer','provitionTime','newStartDate','sku',
@@ -91,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     <div class="row">
                         <div class="span5">
                             <input type="hidden" id="idProducto1" name="idProducto1" value="<?php echo $this->getProductValue($product,'id');?>" />
-                                    <span>N° Nomina <small>*</small></span>
+                                    <span>N° Nomina<small>*</small></span>
                                     <input type="text" required="required"
                                             title="ID de nomina"
                                             data-content="Identificador unico del pasajero"

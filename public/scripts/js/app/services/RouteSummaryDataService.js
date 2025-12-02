@@ -181,4 +181,25 @@ function RouteSummaryDataService(DataService,PATH){
     this.updateStatusPromotion = function(params){
         return DataService.get(PATH.promotionSchedule + 'updateStatusPromotion',params,null);
     }
+
+    // Agregar este método al RouteSummaryDataService
+this.getInventory = function(paramsData){
+    var defaultParams = {page: 1, rowsPerPage: 10, sortField: 'shipping_date', sortDir: 'desc'};
+    if(!paramsData)
+        paramsData = defaultParams;
+
+    var params = angular.extend({}, defaultParams, paramsData);
+
+    return DataService.get(PATH.routeSummary + 'getInventory', params, null);
+}
+
+this.getInventoryPacks = function(paramsData){
+    var defaultParams = {page: 1, rowsPerPage: 10, sortField: 'name', sortDir: 'asc'};
+    if(!paramsData)
+        paramsData = defaultParams;
+
+    var params = angular.extend({}, defaultParams, paramsData);
+
+    return DataService.get(PATH.routeSummary + 'getInventoryPacks', params, null);
+}
 }

@@ -121,7 +121,7 @@ function RouteSummaryEditPackageController($rootScope,$scope,$timeout,$state,$st
 	            var $hour = data[i].horaReal;
 	            //var packcode = data[i].id; //Orden de compra
 				//var packcode = data[i].PaqueteId;// id del paquete o pasajero
-				var packcode = data[i].prod_id;//id del producto o pasajero
+				var packcode = data[i].id_payroll //prod_id;//id del producto o pasajero
 	            var $pointType = data[i].pointType;
 	            var $status = data[i].Estado;
 	            var flag = false;

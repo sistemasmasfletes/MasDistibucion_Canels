@@ -17,7 +17,7 @@ class Ajax_UserProductsController extends Model3_Controller {
                 $userId = Model3_Auth::getCredentials('id');
                 $em = $this->getEntityManager("DefaultDb");
                 $productsAdapter = $em->getRepository('DefaultDb_Entities_Product');
-                $catalogId = $this->getRequest()->getParam('id');
+                $catalogId = $this->getRequest()->getParam('catalog');
 				
                 $post['client'] = $em->find('DefaultDb_Entities_User', $userId);
                 $post['catalog'] = $em->find('DefaultDb_Entities_Catalog', $catalogId);

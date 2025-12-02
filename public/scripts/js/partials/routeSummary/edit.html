@@ -46,6 +46,65 @@
 .tsel{
     padding:0;
 }
+.btn-switch-camera {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: rgba(220,220,220,0.65);
+    backdrop-filter: blur(6px);
+    border: 2px solid rgba(255,255,255,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.18s;
+    position: absolute;
+    bottom: 20px; /* ajusta según tu diseño */
+    right: 35%;
+    z-index: 999;
+}
+
+.btn-switch-camera:hover {
+    background: rgba(220,220,220,0.65);
+    transform: scale(1.07);
+}
+
+.btn-switch-camera:active {
+    transform: scale(0.95);
+}
+
+.btn-switch-camera img {
+    width: 28px;
+    height: 28px;
+    filter: invert(100%); /* hace el icono blanco */
+    pointer-events: none;
+}
+
+#camera-status {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 5px;
+    text-align: center;
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    align-items: center;
+}
+
+.live-dot {
+    width: 10px;
+    height: 10px;
+    background: red;
+    border-radius: 50%;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.4; }
+    100% { opacity: 1; }
+}
+
 
 </style>
 
@@ -58,21 +117,93 @@ function reload_js(src) {
 
 var urloc = document.location.toString(); 
 var urlbasef = urloc.search("App");
-var urlbasei = urloc.slice(0,urlbasef);
+var urlbasei = urloc.slice(0, urlbasef);
 
 //reload_js(urlbasei +'scripts/js/dist/webqr.js');
-/*
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-24451557-1']);
-  _gaq.push(['_trackPageview']);
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-*/
+// --- CAMBIO DE CÁMARAS PARA WEBQR ----
+
+var videoDevices = [];
+var currentCam = 0;
+var stream = null;
+
+async function listCameras() {
+    try {
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        videoDevices = devices.filter(d => d.kind === "videoinput");
+
+        // console.log("Cámaras detectadas:", videoDevices);
+
+        if (!videoDevices.length) {
+            alert("No se detectaron cámaras");
+        }
+    } catch(e) {
+        console.error("Error detectando cámaras", e);
+    }
+}
+
+function updateCameraLabel(label) {
+    const camLabel = document.getElementById("camLabel");
+
+    if (label.toLowerCase().includes("front") || label.toLowerCase().includes("frontal")) {
+        camLabel.innerText = "Cámara frontal";
+    } else {
+        camLabel.innerText = "Cámara trasera";
+    }
+}
+
+async function startCamera(deviceId = null) {
+    if (stream) {
+        stream.getTracks().forEach(t => t.stop());
+    }
+
+    let constraints = {
+        video: deviceId ? { deviceId: { exact: deviceId } } : { facingMode: "environment" },
+        audio: false
+    };
+
+    try {
+        stream = await navigator.mediaDevices.getUserMedia(constraints);
+        v.srcObject = stream;
+        v.play();
+        gUM = true;
+
+        const label = videoDevices[currentCam]?.label || "";
+        updateCameraLabel(label);
+
+        setTimeout(captureToCanvas, 500);
+    } catch (err) {
+        console.error("Error iniciando cámara", err);
+    }
+}
+
+async function switchCamera() {
+    if (videoDevices.length <= 1) {
+        alert("Solo hay una cámara disponible");
+        return;
+    }
+
+    currentCam = (currentCam + 1) % videoDevices.length;
+
+    // console.log("Cambiando a:", videoDevices[currentCam].label);
+
+    await startCamera(videoDevices[currentCam].deviceId);
+}
+
+async function setwebcam() {
+    document.getElementById("result").innerHTML = "- scanning -";
+    document.getElementById("outdiv").innerHTML = vidhtml;
+
+    v = document.getElementById("v");
+
+    await listCameras();
+    await startCamera(videoDevices.length ? videoDevices[currentCam].deviceId : null);
+
+    stype = 1;
+}
+
 </script>
+
 
 <div ng-show="(state.current.name === 'routeSummary.edit'  || state.current.name === 'routeSummary.activity') || (state.current.name === 'routeSummary.edit'  && state.current.name === 'routeSummary.activity')">
     <ol class="breadcrumb">
@@ -95,8 +226,18 @@ var urlbasei = urloc.slice(0,urlbasef);
                                         <td><img style="display:none;" class="selector" id="qrimg" src="cam.png" onclick="setimg()" align="right"/></td>
                                     </tr>
                                     <tr><td colspan="2" align="center">
-                                            <div id="outdiv">
-                                            </div></td></tr>
+                                        <div id="camera-status">
+                                            <span class="live-dot"></span>
+                                            <span id="camLabel">Cámara trasera</span>
+                                        </div>
+
+                                        <div id="outdiv"></div>
+
+                                            <button onclick="switchCamera()" class="btn-switch-camera">
+                                                    <img src="../images/iconos/cameraswitch_24dp_CCCCCC_FILL0_wght400_GRAD0_opsz24.svg">
+                                            </button>
+
+                                        </td></tr>
                                 </table>
                             </td>
                         </tr>
@@ -226,7 +367,7 @@ var urlbasei = urloc.slice(0,urlbasef);
                                         {{schedule.horaReal}}            
                                     </td>
                                     <td data-title="'Estado del pasajero'" class="text-center" >
-                                        <span tooltip="Sin acci�n" ng-if="(schedule.Estado == null)" class="glyphicon glyphicon-minus-sign" style="color:#D3D3D3"></span>
+                                        <span tooltip="Sin acci�n" ng-if="(schedule.Estado == null)" class="glyphicon glyphicon-minus-sign" style="color:#D3D3D3"></span>
                                         <span tooltip="Recibido" ng-if="(schedule.Estado == 1)" class="glyphicon glyphicon-ok-sign" style="color:#52CA22;font-size:1.1em"></span>
                                         <span tooltip="Entregado" ng-if="(schedule.Estado == 3)" class="glyphicon glyphicon-ok-sign" style="color:#52CA22;font-size:1.1em"></span>
                                         <span tooltip="Rechazado" ng-if="(schedule.Estado == 6)" class="glyphicon glyphicon-remove-sign" style="color:#F52A2A;font-size:1.1em"></span>

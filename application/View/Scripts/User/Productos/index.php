@@ -36,7 +36,7 @@
 <div class="contiene-bread">
     <ol class="breadcrumb">
         <li class="active">Panel</li>
-        <li class="active "> <a href="/public/User/Catalogos">Catálogos</a></li>
+        <li class="active "> <?php echo '<a href="' . $view->getBaseUrlPublic() ."/User/Catalogos" .'" >Catálogos</a>';?></li>
         <li class="active actualpg ">Productos</li>
     </ol>
 </div>
@@ -121,7 +121,10 @@
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="<?php echo $view->url(array('module'=>'User','controller'=>'Productos','action'=>'delete','id'=>$view->catalog->getId(),'idProduct'=>$p->getId()));?>" class="delete-link">
+                                        <a href="<?php echo $view->url(array('module'=>'User','controller'=>'Productos','action'=>'delete','id'=>$view->catalog->getId(),'idProduct'=>$p->getId()));?>" 
+                                            class="delete-link"
+                                            onclick="return confirm('¿Estás seguro que quieres eliminar al pasajero?')"
+                                        >
                                             Eliminar
                                         </a>
                                     </td>
@@ -194,17 +197,38 @@ function sendToWhatsApp(phoneNumber) {
     if (!currentQR) return;
     var canvas = document.querySelector('#qrCode canvas');
     if (!canvas) return;
-    var qrImage = canvas.toDataURL('image/png');
+    
+    // Crear un canvas más grande para el marco (mismo código que downloadQR)
+    var margin = 20; // Tamaño del marco blanco en píxeles
+    var framedCanvas = document.createElement('canvas');
+    var ctx = framedCanvas.getContext('2d');
+    
+    // Establecer dimensiones del canvas con marco
+    framedCanvas.width = canvas.width + (margin * 2);
+    framedCanvas.height = canvas.height + (margin * 2);
+    
+    // Rellenar con fondo blanco (marco)
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(0, 0, framedCanvas.width, framedCanvas.height);
+    
+    // Dibujar el QR en el centro
+    ctx.drawImage(canvas, margin, margin);
+    
+    // Convertir a imagen
+    var qrImage = framedCanvas.toDataURL('image/png');
+    
     var message = "Código QR del pasajero:\n";
     message += "ID: " + currentIdPayroll + "\n";
     message += "Nombre: " + currentPassengerName + "\n";
     message += "Escanea este código QR para obtener la información.";
+    
     var link = document.createElement('a');
     link.href = qrImage;
     link.download = 'QR_' + currentIdPayroll + '.png';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    
     var whatsappUrl = 'https://wa.me/' + phoneNumber + '?text=' + encodeURIComponent(message);
     window.open(whatsappUrl, '_blank');
     alert('Se ha abierto WhatsApp. Por favor, adjunta la imagen del QR que se descargó automáticamente.');
@@ -214,7 +238,25 @@ function downloadQR() {
     if (!currentQR) return;
     var canvas = document.querySelector('#qrCode canvas');
     if (!canvas) return;
-    var image = canvas.toDataURL('image/png');
+    
+    // Crear un canvas más grande para el marco
+    var margin = 20; // Tamaño del marco blanco en píxeles
+    var framedCanvas = document.createElement('canvas');
+    var ctx = framedCanvas.getContext('2d');
+    
+    // Establecer dimensiones del canvas con marco
+    framedCanvas.width = canvas.width + (margin * 2);
+    framedCanvas.height = canvas.height + (margin * 2);
+    
+    // Rellenar con fondo blanco (marco)
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(0, 0, framedCanvas.width, framedCanvas.height);
+    
+    // Dibujar el QR en el centro
+    ctx.drawImage(canvas, margin, margin);
+    
+    // Convertir a imagen y descargar
+    var image = framedCanvas.toDataURL('image/png');
     var downloadLink = document.createElement('a');
     downloadLink.href = image;
     downloadLink.download = 'QR_' + currentIdPayroll + '.png';
