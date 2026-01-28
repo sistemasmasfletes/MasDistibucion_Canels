@@ -1,3 +1,19 @@
+
+<style>
+	dialog {
+		border: 1px solid #ccc;
+		border-radius: 8px;
+		padding: 20px;
+		width: 300px;
+		box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+		height: 18rem;
+		width: 50rem;
+	}
+	dialog::backdrop { /* Fondo oscuro */
+		background-color: rgba(0, 0, 0, 0.5);
+	}
+</style>
+
 <div ng-show="state.current.name==='scheduledRoute.schedule'">
     <div class="pull-right">
         <div class="btn-group  btn-group-sm">
@@ -35,10 +51,74 @@
                             <span ng-show="hoverGoSchedule" class="pers-btn icono-ir-punto-venta icono-tam-tabla" ng-click="go(schedule)" ></span>
                             <span ng-show="!hoverGoSchedule" class="pers-btn icono-ir-punto-venta icono-tam-tabla" title="Ir a puntos de venta" style="color:#ccc"></span>
                         </td>
+                        <td class="col-md-1">
+                            <a ng-show="schedule.activities!=null" href="/public/User/BackStore/exportActivities/scheduledRouteid/{{schedule.id}}" target="_blank" title="Descargar XML"><span class="pers-btn icono-historico icono-tam-tabla" ></span></a>
+                            <span ng-show="schedule.activities==null" class="pers-btn icono-enviar icono-tam-tabla" ng-click="modalImportActivities(schedule.id)" title="Subir XML"></span>						
+						</td>						
                     </tr>
                 </tbody>
             </table>
             
         </div>        
     </div>
+	
+	<dialog id="miModal">
+		<form id="uploadForm">
+			<input type="file" name="xmlFile" accept=".xml" required>
+			<input type="hidden" name="scheduletosend" id="scheduletosend" value=""/>
+			<br />
+			<button type="submit" id="upxmlbutton"><span class="">Subir archivo</span></button>
+		</form>
+		<br />
+		<div id="statusMessage"></div>	
+		<br />
+		<span class="" id="cerrarModal" ng-click="modalImportActivitiesCerrar()">Cerrar</span>
+	</dialog>	
+	
 </div> 
+<script>
+	document.getElementById('uploadForm').addEventListener('submit', function(event) {
+		// Prevenir la recarga de la página por defecto del formulario
+		event.preventDefault();
+
+		const form = event.target;
+		const formData = new FormData(form);
+		const statusDiv = document.getElementById('statusMessage');
+		statusDiv.innerText = "Subiendo...";
+		let upxmlbutton = document.getElementById('upxmlbutton');
+		upxmlbutton.disabled = true; 
+		upxmlbutton.style.display = "none";
+
+		fetch("/public/User/BackStore/importActivities/", { // Reemplaza con la URL de tu script de backend
+			method: 'POST',
+			body: formData
+		})
+		.then(response => response.json()) // Asumiendo que el servidor responde con JSON
+		.then(data => {
+			statusDiv.innerText = "Respuesta del servidor: " + data.message;
+			// Aquí puedes manejar la respuesta del servidor y actualizar la UI
+			let botones = document.querySelectorAll('.refrescar');
+			
+			botones.forEach(boton => {
+			  boton.click(); // Simula un clic en cada botón
+			});			
+			
+			let cerrarModal = document.getElementById('cerrarModal');
+			cerrarModal.click(); // Simula un clic
+			
+		})
+		.catch(error => {
+			console.error('Error:', error);
+			statusDiv.innerText = "Hubo un error al subir el archivo.";
+			let botones = document.querySelectorAll('.refrescar');
+			
+			botones.forEach(boton => {
+			  boton.click(); // Simula un clic en cada botón
+			});						
+			
+			let cerrarModal = document.getElementById('cerrarModal');
+			cerrarModal.click(); // Simula un clic
+			
+		});
+	});
+</script>

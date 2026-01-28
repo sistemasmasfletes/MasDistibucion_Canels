@@ -481,5 +481,36 @@ class DefaultDb_Repositories_RoutePointActivityRepository extends EntityReposito
    }
    
    /**********************************************ACTIVIDADES SECUENCIALES ADICIONALES******************/
+   
+   /**********************************************INFORAMCION PARA EXPORTACION DE ACTIVIDADES******************/
+   public function infoActivitiesExport($scheduledRouteid){
+   	   	
+	   	$em = $this->getEntityManager();
+	   	
+        $query="
+			SELECT 
+			sac.id as sacid,
+			rpa.id as rpaid, rpa.date, rpa.routePoint_id, rpa.activityType_id, rpa.transaction_id, 
+			tr.id, tr.transaction_id,
+			sac.order_id, sac.type, sac.shipping_date, sac.route_date, sac.shipping_dateact
+			FROM routepoint_activity rpa
+			left join transactions tr on tr.id = rpa.transaction_id  
+			left join sequential_activities sac on sac.order_id = tr.transaction_id and rpa.routePoint_id = sac.routePoint_id
+			where scheduledRoute_id =:scheduledRouteid
+        ";
+        
+        $conn = $em->getConnection()->getWrappedConnection();
+        $stmt = $conn->prepare($query);
+        
+        $stmt->bindValue(":scheduledRouteid",$scheduledRouteid);
+        
+        $stmt->execute();
+		$result =$stmt->fetchAll();
+        //$result = DBUtil::getResultsetFromStatement($stmt, \PDO::FETCH_NAMED);
+		
+		return $result; 
+		
+   }
+   /**********************************************INFORAMCION PARA EXPORTACION DE ACTIVIDADES******************/
      
 }

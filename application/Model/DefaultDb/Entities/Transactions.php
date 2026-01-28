@@ -57,7 +57,7 @@ class DefaultDb_Entities_Transactions
     }
 
     public function getTransactionType(){
-        return $this->$transactionType;
+        return $this->transactionType;
     }
 
     public function getStatusPoint(){

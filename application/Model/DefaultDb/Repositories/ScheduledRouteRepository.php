@@ -21,7 +21,8 @@ class DefaultDb_Repositories_ScheduledRouteRepository extends EntityRepository
                                 ,CONCAT('[',r.code,'] ',r.name) routeName
                                 ,v.name vehicleName
                                 ,CONCAT(u.first_name,' ',u.last_name) driverName
-                                ,sc.recurrent 
+                                ,sc.recurrent
+								,(select rpa.id from routepoint_activity rpa where scheduledRoute_id = sr.id limit 1) as activities
                 ";
         }
         

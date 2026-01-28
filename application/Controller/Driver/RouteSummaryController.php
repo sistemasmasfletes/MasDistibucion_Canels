@@ -602,7 +602,7 @@ class Driver_RouteSummaryController extends JController {
         }
     }
 
-    /*     * ********************PAQUETES NO ENCONTRADOS*************************************** */
+    /* **************************PASAJERO NO ENCONTRADO/NO SUBIO A LA UNIDAD*************************************** */
 
     public function packnofoundAction() {
         $params = $this->getRequest()->getPostJson();
@@ -668,7 +668,7 @@ class Driver_RouteSummaryController extends JController {
             $Order->setShippingDate(NULL);
             $Order->setShippingStatus(0);
             $Order->setPointSeller(NULL);
-            $Order->setComments('El paquete no estaba listo al momento de la recoleccion');
+            $Order->setComments('El pasajero no subio a la unidad');
             $em->persist($Order);
 
             $client->setCredito($client->getCredito() + $tcreditos); //Se devuelven los creditos referentes a los pagos hechos a la orden cancelada
@@ -688,10 +688,11 @@ class Driver_RouteSummaryController extends JController {
 
             $params = compact('id', 'userDelivery', 'userReceiving', 'status', 'userAbsence', 'statusReason', 'entityFrom', 'entityTo');
             $this->logAndResolveException($ex, $params);
+            echo json_encode(array('res' => FALSE, 'msg' => $ex->getMessage()));
         }
     }
 
-    /*     * ********************PAQUETES NO ENCONTRADOS*************************************** */
+    /*     * ********************PASAJERO NO ENCONTRADO/NO SUBIO A LA UNIDAD*************************************** */
 
     //FUNCIÓN DE FAVORITOS POR PUNTO
     public function getRouteSummaryFavoritesAction() {

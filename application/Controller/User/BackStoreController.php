@@ -2639,6 +2639,365 @@ class User_BackStoreController extends JController
 		}
 	}
 	
+	public function importActivitiesAction(){/////////////////////EXPORTACION DE ACTIVIDADES//////////////////////////////////////////////
+	
+		//error_reporting(E_ALL ^ E_WARNING);
+		$this->view->setUseTemplate(false);
+			
+		$em = $this->getEntityManager('DefaultDb');
+		$credentials = Model3_Auth::getCredentials();
+		$user = $em->find('DefaultDb_Entities_User', $credentials['id']);
+        
+		$param = $this->getRequest()->getPost();
+		$ScheduledRoute = $em->getRepository('DefaultDb_Entities_ScheduledRoute')->findOneBy(array('id' => $param['scheduletosend']));
+		
+		$fxml = $_FILES['xmlFile'];
+		$carga_xml = simplexml_load_file($fxml['tmp_name']);
+
+		$currentdate = new DateTime();
+		
+		//se genera un primer recorrido de las ordenes para calcular el costo total de todas las actividades y asegurarse de que el usuario tiene suficientes creditos antes de generar la copia de todas las actividades
+		$totalcred = 0;
+		foreach ($carga_xml->Pasajero as $psj){
+			$a = $psj->attributes();
+			$pagos = $em->getRepository('DefaultDb_Entities_Pagos')->findBy(array('orden' => $a["ORpasajero"]));
+			foreach($pagos as $p){
+				$totalcred = $totalcred + $p->getMontoCreditos();
+			}
+		}
+
+		//se verfifica que el usuario tenga suficientes creditos para copiar las actividades en al fecha seleccionada
+		/*if((float)$user->getCredito() < (float)$totalcred){
+			echo json_encode(array("message" => "No cuentas con créditos suficientes"));			
+			return false;
+		}*/
+		
+		$msg = "";
+
+		/*echo "1 ".$currentdate->format('Y-m-d H:i:s')."<br >";
+		echo "2 ".$currentdate->format('Y-m-d')."<br >";
+		echo "3 ".$currentdate->format('Y-m-d H:i:s')."<br >";
+		echo "4 ".$currentdate->format('Y-m-d')."<br >";
+		echo "5 ".$currentdate->format('Y-m-d H:i:s')."<br >";
+		echo "6 ".$ScheduledRoute->getScheduledDate()->format('Y-m-d H:i:s')."<br >";
+		return false;*/
+
+        $em->getConnection()->beginTransaction();
+        try{
+
+			//se recorre todos los elementos del xml para generar los registros de actividades copiadas para la fecha(scheduled_id) que se selecciono
+			foreach ($carga_xml->Pasajero as $psj){
+				//se generan los datos base orden de compra, transaccion, paquete a la orden, producto a la orden, pago de la orden y balance general relacionado a la orden y flete 
+				$p = $psj->attributes();			
+				
+				//obtenemos la orden base y generamos el registro de la nueva orden y la transaccion en base a esta
+				$order = $em->getRepository('DefaultDb_Entities_M3CommerceOrder')->findOneBy(array('id' => $p["ORpasajero"]));			
+				$newOrderCopy = new DefaultDb_Entities_M3CommerceOrder();				
+                $newOrderCopy->setBuyer($order->getBuyer());
+                $newOrderCopy->setSeller($order->getSeller());
+                $newOrderCopy->setSchedule($order->getSchedule());
+                $newOrderCopy->setCreationDate($currentdate);//se guarda la fecha actual
+                $newOrderCopy->setShippingDate($ScheduledRoute->getScheduledDate());//se guarda la fecha del registro schedule_route
+                $newOrderCopy->SetPaymentStatus(2);//valor inicial
+                $newOrderCopy->setShippingStatus(1);//valor inicial
+                $newOrderCopy->setComments($order->getComments());
+                $newOrderCopy->setWeek($order->getWeek());
+                $newOrderCopy->setMonday($order->getMonday());
+                $newOrderCopy->setTuesday($order->getTuesday());
+                $newOrderCopy->setWednesday($order->getWednesday());
+                $newOrderCopy->setThursday($order->getThursday());
+                $newOrderCopy->setFriday($order->getFriday());
+                $newOrderCopy->setSaturday($order->getSaturday());
+                $newOrderCopy->setSunday($order->getSunday());
+                $newOrderCopy->setRecurrent($order->getRecurrent());
+                $newOrderCopy->setOrderStatus($order->getOrderStatus());
+                $newOrderCopy->setPointBuyer($order->getPointBuyer());
+                $newOrderCopy->setPointSeller($order->getPointSeller());
+                $newOrderCopy->setOrderParent($order->getOrderParent());
+                $newOrderCopy->setContactR($order->getContactR());
+				$newOrderCopy->setContactS($order->getContactS());
+				$newOrderCopy->setContent($order->getContent());
+				$newOrderCopy->setProgramer($credentials['id']);                            
+	            //$newOrderCopy->setOrderParent(($order->getOrderParent() !== NULL )?$order->getOrderParent():$order);
+                $em->persist($newOrderCopy);
+			    $em->flush();
+				
+				
+				$transaction = $em->getRepository('DefaultDb_Entities_Transactions')->findOneBy(array('transactionId' => $order->getId()));			
+				$newTransactionCopy = new DefaultDb_Entities_Transactions();								
+				$newTransactionCopy->setTransactionId($newOrderCopy->getId());//este es el id de la orden copia que se acaba de crear
+				$newTransactionCopy->setStatus(1);//valor inicial
+				$newTransactionCopy->setTransactionType($transaction->getTransactionType());
+				$newTransactionCopy->setStatusPoint($transaction->getStatusPoint());				
+				$em->persist($newTransactionCopy);
+			    $em->flush();
+				
+				//generamos el registro de la nueva paquete a la orden y producto a la orden,
+				$packagetoorder = $em->getRepository('DefaultDb_Entities_PackageToOrder')->findOneBy(array('order' => $order));//se envia el objeto de la orden para consultar esto por la relacion establecida en la entidad
+				if(is_object($packagetoorder)){//se verifica que exista un registro para generar el copiado del registro
+					$newPackagetoOrderCopy = new DefaultDb_Entities_PackageToOrder();
+					$newPackagetoOrderCopy->setOrder($newOrderCopy);//se envia el objeto de la nueva orden copia creada(aqui se envia el objeto completo por la relacion establecida en la entidad)
+					$newPackagetoOrderCopy->setDateSend($ScheduledRoute->getScheduledDate());//se guarda la fecha del registro schedule_route
+					$newPackagetoOrderCopy->setInvoice($packagetoorder->getInvoice());
+					$newPackagetoOrderCopy->setNumPackage($packagetoorder->getNumPackage());
+					$newPackagetoOrderCopy->setPrice($packagetoorder->getPrice());
+					$newPackagetoOrderCopy->setTotalPrice($packagetoorder->getTotalPrice());
+					$newPackagetoOrderCopy->setPackagingGenerated($packagetoorder->getPackagingGenerated());
+					$newPackagetoOrderCopy->setNamePackage($packagetoorder->getNamePackage());
+					$newPackagetoOrderCopy->setWeight($packagetoorder->getWeight());
+					$newPackagetoOrderCopy->setWidth($packagetoorder->getWidth());
+					$newPackagetoOrderCopy->setHeight($packagetoorder->getHeight());
+					$newPackagetoOrderCopy->setDepth($packagetoorder->getDepth());
+					$newPackagetoOrderCopy->setPackage($packagetoorder->getPackage());
+					$newPackagetoOrderCopy->setPromotion($packagetoorder->getPromotion());
+					$em->persist($newPackagetoOrderCopy);    			
+					$em->flush();
+					
+				}
+				
+				$m3ptoorder = $em->getRepository('DefaultDb_Entities_M3CommerceProductToOrder')->findOneBy(array('order' => $order));//se envia el objeto de la orden para consultar esto por la relacion establecida en la entidad
+				$newM3PtoOrderCopy = new DefaultDb_Entities_M3CommerceProductToOrder();
+				$newM3PtoOrderCopy->setOrder($newOrderCopy);//se envia el objeto de la nueva orden copia creada(aqui se envia el objeto completo por la relacion establecida en la entidad)
+				$newM3PtoOrderCopy->setImages($m3ptoorder->getImages());
+				$newM3PtoOrderCopy->setProduct($m3ptoorder->getProduct());
+				$newM3PtoOrderCopy->setQuantity($m3ptoorder->getQuantity());
+				$newM3PtoOrderCopy->setPrice($m3ptoorder->getPrice());
+				$newM3PtoOrderCopy->setVariant($m3ptoorder->getVariant());
+				$em->persist($newM3PtoOrderCopy);    			
+			    $em->flush();
+				
+				
+				
+				//se generan los registros referentes a creditos en pagos y balance general con referencia al pago copia generado
+				$pagos = $em->getRepository('DefaultDb_Entities_Pagos')->findBy(array('orden' => $order->getId()));//aqui pueden existir varios registros de pagos referentes a la orden por lo que se buscan todos			
+				foreach($pagos as $pago){//se generan los registros copia de pagos por cada registro obtenido
+					$newPagoCopy = new DefaultDb_Entities_Pagos();
+					$newPagoCopy->setOrden($newOrderCopy->getId());//este es el id de la orden copia que se acaba de crear
+					$newPagoCopy->setFecha($currentdate);//se guarda la fecha actual
+					$newPagoCopy->setTimestamp($currentdate);//se guarda la fecha actual
+					$newPagoCopy->setUsuario($pago->getUsuario());
+					$newPagoCopy->setCliente($pago->getCliente());
+					$newPagoCopy->setMontoCompra($pago->getMontoCompra());
+					$newPagoCopy->setMontoCreditos($pago->getMontoCreditos());
+					$newPagoCopy->setEstatus(1);//valor inicial
+					$newPagoCopy->setCompraVenta($pago->getCompraVenta());
+					$newPagoCopy->setCompraCreditos($pago->getCompraCreditos());
+					$newPagoCopy->setPromocion($pago->getPromocion());
+					$newPagoCopy->setTipoConcepto($pago->getTipoConcepto());
+					$newPagoCopy->setTipoDebito($pago->getTipoDebito());
+					$newPagoCopy->setDescripcion($pago->getDescripcion());
+					$em->persist($newPagoCopy);
+					$em->flush();
+					
+					$balance = $em->getRepository('DefaultDb_Entities_BalanceGeneral')->findOneBy(array('pagos' => $pago));//se busca el registro de balance enlazado al registro de pago original(se envia el objeto para busqueda por que asi esta indicado en la entidad)								
+					if(is_object($balance)){//se verifica si existe registro de balance general enlazado al pago y de ser asi se genera el registro copia
+						$newBalanceCopy = new DefaultDb_Entities_BalanceGeneral();
+						$newBalanceCopy->setPagos($newPagoCopy);//se envia el objeto pago copia generado
+						$newBalanceCopy->setFecha($currentdate);//se guarda la fecha actual
+						$newBalanceCopy->setTimestamp($currentdate);//se guarda la fecha actual
+						$newBalanceCopy->setReferencia($balance->getReferencia());
+						$newBalanceCopy->setConcepto($balance->getConcepto());
+						$newBalanceCopy->setCliente($balance->getCliente());
+						$newBalanceCopy->setEstatus("1");//valor inicial
+						$newBalanceCopy->setMonto($balance->getMonto());
+						$newBalanceCopy->setCreditos($balance->getCreditos());
+						$newBalanceCopy->setIngresos($balance->getIngresos());
+						$newBalanceCopy->setEgresos($balance->getEgresos());
+						$newBalanceCopy->setBalance($balance->getBalance());
+						$newBalanceCopy->setTransferencia($balance->getTransferencia());
+						$newBalanceCopy->setTipoConcepto($balance->getTipoConcepto());					
+						$em->persist($newBalanceCopy);
+						$em->flush();
+						
+					}
+				}
+	
+				foreach ($psj->Actividad as $act){//recorremos las actividad relacionadas a la orden para generar los registros de secuencia de actividades y actividades en los puntos
+
+					$a = $act->attributes();		
+
+					$sequential = $em->getRepository('DefaultDb_Entities_SequentialActivities')->findOneBy(array('id' => $a["Idsecuencia"]));								
+
+					//se calcula la fecha y hora de la actividad
+					$sequentialShippinDate = $ScheduledRoute->getScheduledDate()->format('Y-m-d H:i:s');
+					$intervalo = $sequential->getShippingDate()->diff($sequential->getRouteDate());
+					$dias = $intervalo->days; // Días totales desde el inicio
+					$horas = $intervalo->h;   // Horas restantes después de los días
+					$minutos = $intervalo->i; // Minutos restantes después de las horas
+					// Calculamos el total de minutos
+					$total_minutos = ($dias * 24 * 60) + ($horas * 60) + $minutos;
+					// Convertimos la fecha a marca de tiempo y le sumamos los minutos
+					$nueva_marca_tiempo = strtotime("+".$total_minutos." minutes", strtotime($sequentialShippinDate));
+					// Formateamos la nueva marca de tiempo
+					$fecha_final = date('Y-m-d H:i:s', $nueva_marca_tiempo);
+					//echo $fecha_final."<br >"; // Salida: 2024-01-01 10:20:00
+
+					$dt = new DateTime($fecha_final);
+
+					$rpactivity = $em->getRepository('DefaultDb_Entities_RoutePointActivity')->findOneBy(array('id' => $a["IdActPoint"]));									
+					$newRpactivityCopy = new DefaultDb_Entities_RoutePointActivity();
+					$newRpactivityCopy->setTransaction($newTransactionCopy);//es el objeto de la transaccion que se acaba de crear
+					$newRpactivityCopy->setScheduledRoute($ScheduledRoute);//se envia el objeto de schedule route que se selecciono para copiar las actividades
+					$newRpactivityCopy->setDate($dt);//fecha y hora de la actividad
+					$newRpactivityCopy->setRoutePoint($rpactivity->getRoutePoint());
+					$newRpactivityCopy->setActivityType($rpactivity->getActivityType());
+					//$newRpactivityCopy->setHoraActual($rpactivity->getHoraActual());
+					//$newRpactivityCopy->setStatus($rpactivity->getStatus());
+					//$newRpactivityCopy->setScheduledLog($rpactivity->setScheduledLog());
+					//$newRpactivityCopy->setUserAbsence($rpactivity->getUserAbsence());
+					//$newRpactivityCopy->setEntityFrom($rpactivity->getEntityFrom());
+					//$newRpactivityCopy->setEntityTo($rpactivity->getEntityTo());
+					//$newRpactivityCopy->setStatusReason($rpactivity->setStatusReason());
+					//$newRpactivityCopy->setUserDelivery($rpactivity->getUserDelivery());
+					//$newRpactivityCopy->setUserReceiving($rpactivity->getUserReceiving());
+					$em->persist($newRpactivityCopy);    			
+					$em->flush();
+	
+					$newSequentialCopy = new DefaultDb_Entities_SequentialActivities();
+					$newSequentialCopy->setOrder($newOrderCopy);//este es objeto de la orden copia que se acaba de crear
+					$newSequentialCopy->setRouteDate($ScheduledRoute->getScheduledDate());//se guarda la fecha del registro schedule_route
+					$newSequentialCopy->setShippingDate($dt);//fecha y hora de la actividad
+					//$newSequentialCopy->setShippingDateAct($sequential->getShippingDateAct());
+					$newSequentialCopy->setRoutePoint($sequential->getRoutePoint());
+					$newSequentialCopy->setType($sequential->getType());
+    				$em->persist($newSequentialCopy);    			
+					$em->flush();
+					
+				}
+			}
+			
+            $em->getConnection()->commit();			
+			$msg = "Se generaron todos los registros";
+
+        }catch(Exception $ex){
+            $em->getConnection()->rollback();
+			$msg = "Hubo un error: ".$ex->getMessage();
+            throw $ex;
+        }			
+
+		echo json_encode(array("message" => $msg));
+	}
+	
+	public function exportActivitiesAction(){/////////////////////EXPORTACION DE ACTIVIDADES//////////////////////////////////////////////
+		
+		$this->view->setUseTemplate(false);
+			
+		$em = $this->getEntityManager('DefaultDb');
+		$credentials = Model3_Auth::getCredentials();
+		$user = $em->find('DefaultDb_Entities_User', $credentials['id']);
+		
+        $scheduledRouteid = $this->getRequest()->getParam('scheduledRouteid');
+		$infoActivities = $em->getRepository('DefaultDb_Entities_RoutePointActivity')->infoActivitiesExport($scheduledRouteid);
+		$infoScheduleRoute = $em->getRepository('DefaultDb_Entities_ScheduledRoute')->findOneBy(array('id' => $scheduledRouteid));
+
+		//agrupamos los registros de actividades en base a la orden(pasajero)
+		$agrupado = [];
+		foreach($infoActivities as $item) {
+			$clave = $item['order_id']; // La clave por la que agrupamos
+			if (!isset($agrupado[$clave])) {
+				$agrupado[$clave] = []; // Si no existe, la creamos
+			}
+			$agrupado[$clave][] = $item; // Añadimos el elemento al grupo
+		}
+
+		// 1. Crear el objeto DOMDocument y generar el XML (ejemplo simple)
+		$xml = new DOMDocument('1.0', 'UTF-8');
+		$xml->formatOutput = true;
+
+		// Nodo raíz
+		$root = $xml->createElement('ExportacionActividades');
+		$root = $xml->appendChild($root);
+
+		foreach($agrupado as $i){
+
+			$pasajero = $xml->createElement('Pasajero');
+			
+			$order = $em->getRepository('DefaultDb_Entities_M3CommerceOrder')->findOneBy(array('id' => $i[0]['order_id']));
+			$prodtoorder = $em->getRepository('DefaultDb_Entities_M3CommerceProductToOrder')->findOneBy(array('order' => $i[0]['order_id']));
+
+			$pasajero->setAttribute("ORpasajero", $order->getId());
+			$pasajero->setAttribute("Nombre",$prodtoorder->getProduct()->getName()." ".$prodtoorder->getProduct()->getLastName());
+			$pasajero->setAttribute("Buyer", $order->getBuyer()->getId());
+			$pasajero->setAttribute("Seller", $order->getSeller()->getId());
+			$pasajero->setAttribute("Schedule", $order->getSchedule()->getId());
+			$pasajero->setAttribute("Creation", $order->getCreationDate()->format('Y-m-d H:i:s'));
+			$pasajero->setAttribute("ShippingDate", $order->getShippingDate()->format('Y-m-d H:i:s'));
+			$pasajero->setAttribute("PaymentStatus", $order->getPaymentStatus());
+			$pasajero->setAttribute("ShippingStatus", $order->getShippingStatus());
+			//$pasajero->setAttribute("Comments", $order->getComments());
+			//$pasajero->setAttribute("Monday", $order->getMonday());
+			//$pasajero->setAttribute("Tuesday", $order->getTuesday());
+			//$pasajero->setAttribute("Wednesday", $order->getWednesday());
+			//$pasajero->setAttribute("Thursday", $order->getThursday());
+			//$pasajero->setAttribute("Friday", $order->getFriday());
+			//$pasajero->setAttribute("Saturday", $order->getSaturday());
+			//$pasajero->setAttribute("Sunday", $order->getSunday());
+			//$pasajero->setAttribute("Recurrent", $order->getRecurrent());
+			//$pasajero->setAttribute("Week", $order->getWeek());
+			$pasajero->setAttribute("OrderStatus", $order->getOrderStatus());
+			$pasajero->setAttribute("OrderParent", $order->getOrderParent());
+			$pasajero->setAttribute("PointBuyer", $order->getPointBuyer()->getId());
+			$pasajero->setAttribute("PointSeller", $order->getPointSeller()->getId());
+			$pasajero->setAttribute("Content", $order->getContent());
+			$pasajero->setAttribute("ContactR", $order->getContactR());
+			$pasajero->setAttribute("ContactS", $order->getContactS());
+			$pasajero->setAttribute("Programer", $order->getProgramer());
+			$pasajero->setAttribute("Exp", $order->getExp());
+
+			/*$order->getPackages()
+			$order->getImages()
+			$order->getPaymentStatusString()
+			$order->getShippingStatusString()
+			$order->getProducts()*/
+			
+			$pasajero = $root->appendChild($pasajero);
+
+			sort($i);//aseguramos el orden de las actividades
+			foreach($i as $e){//recorremos las actividades en los puntos
+				
+				$routePoint = $em->getRepository('DefaultDb_Entities_RoutePoint')->findOneBy(array('id' => $e['routePoint_id']));
+				$actype = ($e['type'] === "1") ? "Subida" : "Bajada";
+
+				$actividad = $xml->createElement('Actividad');
+				$actividad->setAttribute("Idsecuencia", $e['sacid']);
+				$actividad->setAttribute("IdActPoint", $e['rpaid']);				
+				$actividad->setAttribute("Idpunto", $routePoint->getPoint()->getId());
+				$actividad->setAttribute("Punto", $routePoint->getPoint()->getName());
+				$actividad->setAttribute("Actividad", $actype);
+				$actividad->setAttribute("Fecha", $e['shipping_date']);
+				
+				$pasajero->appendChild($actividad);
+			}
+		}
+	
+		/*
+		$cliente = $xml->createElement('Cliente');
+		$cliente->SetAttribute("nombre",mb_strtoupper("EMMANUEL",'utf-8'));
+		$cliente->SetAttribute("razonsocial",mb_strtoupper("AOLE",'utf-8'));
+		$cliente = $clientes->appendChild($cliente);
+
+		*/
+
+		// Obtener el contenido XML como string
+		$xml_string = $xml->saveXML();
+
+		// 2. Definir las cabeceras HTTP para forzar la descarga
+		//$filename = 'mi_archivo.xml';
+		$filename = str_replace(" ","_","Actividades_".$infoScheduleRoute->getSchedule()->getRoute()->getName()."_fecha_".$infoScheduleRoute->getScheduledDate()->format('Y-m-d H:i:s'));
+
+		header('Content-Type: application/xml');
+		header('Content-Disposition: attachment; filename="' . $filename . '"');
+		header('Content-Length: ' . strlen($xml_string)); // Indicar el tamaño del archivo
+		header('Connection: close');
+
+		// 3. Enviar el contenido XML al navegador
+		echo $xml_string;
+		
+
+		// Opcional: Terminar la ejecución del script para evitar salida adicional
+		exit;		
+	}
+	
 	public function addProductstoOrderAction(){
 		
 		$this->view->setUseTemplate(false);

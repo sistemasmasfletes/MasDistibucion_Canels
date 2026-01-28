@@ -1,5 +1,6 @@
 function ScheduledRouteSchedulesController($scope,$timeout,$state,$stateParams,ngTableParams,ModalService,ActivityReportDataService,UtilsService,CONFIG,schedules,$injector){
     
+	console.log("configuacion",CONFIG);
     $scope.isLoading=false;
     $scope.partials = CONFIG.PARTIALS;
     $scope.selScheduledDate = {};
@@ -36,6 +37,27 @@ function ScheduledRouteSchedulesController($scope,$timeout,$state,$stateParams,n
                 data[i].$selected=false;        
         }
         $scope.selScheduledDate = schedule;        
+    }
+
+    $scope.modalImportActivities = function(schedid) {
+		let inputsched = document.getElementById('scheduletosend');
+		inputsched.value = schedid;
+		let modal = document.getElementById('miModal');		
+		modal.showModal();
+    }
+	
+    $scope.modalImportActivitiesCerrar = function() {
+		let modal = document.getElementById('miModal');
+		let upxmlbutton = document.getElementById('upxmlbutton');
+		upxmlbutton.disabled = false; 
+		upxmlbutton.style.display = "inline-block";	
+		let uploadForm = document.getElementById('uploadForm');
+		uploadForm.reset();
+		modal.close();
+    }	
+
+    $scope.exportActivities = function(schedule){
+		console.log(schedule)
     }
 
     $scope.go = function(schedule){

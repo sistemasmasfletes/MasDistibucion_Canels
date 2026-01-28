@@ -19,6 +19,7 @@ function RouteSummaryEditPackageController($rootScope,$scope,$timeout,$state,$st
     RouteSummaryDataService.getCountPacks($stateParams)
     .then(function(response){
         var data=response.data;
+		console.log("datos: ",data);
         if(data.meta.totalRecords == 0){
             var modalOptions = {
                 actionButtonText: 'Aceptar',
@@ -162,6 +163,7 @@ function RouteSummaryEditPackageController($rootScope,$scope,$timeout,$state,$st
     };
     
     $scope.goCancel = function (pack) { //Cancelar el ruteo posterior y ajustar los creditos
+	
         if (pack)
             var $OrderId = pack.id;
         
@@ -180,7 +182,11 @@ function RouteSummaryEditPackageController($rootScope,$scope,$timeout,$state,$st
 	                };
             		ModalService.showModal({templateUrl: PARTIALPATH.modalInfo}, modalOptions2).then(function (result){});
             		//alert($scope.tableParams.data.toSource())
-            	}
+            	}else{
+					alert("Ocurrio un error al cancelar el registro");
+					console.log("error: ",response.data);
+					$scope.tableParams.reload();
+				}
             });
         });
         
